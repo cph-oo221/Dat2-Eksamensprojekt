@@ -1,0 +1,1 @@
+# Set rapporten i mappen rapport - NB: slet denne file "rapport.md"
