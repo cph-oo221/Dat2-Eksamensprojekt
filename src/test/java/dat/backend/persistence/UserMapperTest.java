@@ -20,7 +20,7 @@ class UserMapperTest
 
     private final static String USER = "root";
     private final static String PASSWORD = "oo123";
-    private final static String URL = "jdbc:mysql://localhost:3306/startcode_test?serverTimezone=CET&allowPublicKeyRetrieval=true&useSSL=false";
+    private final static String URL = "jdbc:mysql://localhost:3306/fog_test?serverTimezone=CET&allowPublicKeyRetrieval=true&useSSL=false";
 
     private static ConnectionPool connectionPool;
 
@@ -34,10 +34,10 @@ class UserMapperTest
             try (Statement stmt = testConnection.createStatement())
             {
                 // Create test database - if not exist
-                stmt.execute("CREATE DATABASE  IF NOT EXISTS startcode_test;");
+                stmt.execute("CREATE DATABASE  IF NOT EXISTS fog_test;");
 
                 // TODO: Create user table. Add your own tables here
-                stmt.execute("CREATE TABLE IF NOT EXISTS startcode_test.user LIKE startcode.user;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.user LIKE fog.user;");
             }
         }
         catch (SQLException throwables)
