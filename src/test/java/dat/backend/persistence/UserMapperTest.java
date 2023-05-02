@@ -1,5 +1,6 @@
 package dat.backend.persistence;
 
+import dat.backend.model.config.Env;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
@@ -16,18 +17,32 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserMapperTest
 {
-    // TODO: Change mysql login credentials if needed below
-
-    private final static String USER = "Fog";
-    private final static String PASSWORD = "Dat2";
-    private final static String URL = "jdbc:mysql://64.226.113.14:3306/Dat2-Eksamensopgave";
+    private static String USER;
+    private static String PASSWORD;
+    private static String TESTURL;
 
     private static ConnectionPool connectionPool;
 
     @BeforeAll
     public static void setUpClass()
     {
-        connectionPool = new ConnectionPool(USER, PASSWORD, URL);
+        String deployed = System.getenv("DEPLOYED");
+        if (deployed != null)
+        {
+            // Prod: hent variabler fra setenv.sh i Tomcats bin folder
+            USER = System.getenv("JDBC_USER");
+            PASSWORD = System.getenv("JDBC_PASSWORD");
+            TESTURL = System.getenv("JDBC_CONNECTION_STRING");
+        }
+
+        else
+        {
+            USER = Env.USER;
+            PASSWORD = Env.PASSWORD;
+            TESTURL = Env.TESTURL;
+        }
+
+        connectionPool = new ConnectionPool(USER, PASSWORD, TESTURL);
     }
 
    /* @BeforeEach
@@ -54,7 +69,7 @@ class UserMapperTest
             try (Statement stmt = testConnection.createStatement())
             {
                 // Create test database - if not exist
-                stmt.execute("CREATE DATABASE  IF NOT EXISTS fog_test;");
+                stmt.execute("CREATE DATABASE  IF NOT EXISTS fog_test1;");
 
                 if (testConnection != null)
                 {

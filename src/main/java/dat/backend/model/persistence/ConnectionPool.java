@@ -2,7 +2,7 @@ package dat.backend.model.persistence;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.config.Env;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,8 +11,6 @@ import java.util.logging.Logger;
 
 public class ConnectionPool
 {
-    // TODO: Change access credentials for MySql server as needed below:
-
     private HikariDataSource ds;
     private static String USER;
     private static String PASSWORD;
@@ -25,14 +23,21 @@ public class ConnectionPool
 
     public ConnectionPool(String USER, String PASSWORD, String URL)
     {
-        // Prod: hent variabler fra setenv.sh i Tomcats bin folder
-        USER = System.getenv("JDBC_USER");
-        PASSWORD = System.getenv("JDBC_PASSWORD");
-        URL = System.getenv("JDBC_CONNECTION_STRING");
-
-        if(USER == null || PASSWORD == null || URL == null)
+        String deployed = System.getenv("DEPLOYED");
+        if (deployed != null)
         {
-            Logger.getLogger("web").log(Level.SEVERE, "String USER: "+USER+", String PASSWORD: "+PASSWORD+", String URL: "+URL);
+            // Prod: hent variabler fra setenv.sh i Tomcats bin folder
+            USER = System.getenv("JDBC_USER");
+            PASSWORD = System.getenv("JDBC_PASSWORD");
+            URL = System.getenv("JDBC_CONNECTION_STRING");
+        }
+
+        else
+        {
+            // If run on development machine, get credentials from local Env class
+            USER = Env.USER;
+            PASSWORD = Env.PASSWORD;
+            URL = Env.URL;
         }
 
         Logger.getLogger("web").log(Level.INFO,
