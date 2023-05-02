@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserMapperTest
 {
-    // TODO: Change mysql login credentials if needed below
-
     private static String USER;
     private static String PASSWORD;
     private static String TESTURL;
