@@ -2,6 +2,7 @@ package dat.backend.model.persistence;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import dat.backend.model.config.Env;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -10,12 +11,10 @@ import java.util.logging.Logger;
 
 public class ConnectionPool
 {
-    // TODO: Change access credentials for MySql server as needed below:
-
     private HikariDataSource ds;
-    private static String USER = "root";
-    private static String PASSWORD = "oo123";
-    private static String URL = "jdbc:mysql://localhost:3306/fog";
+    private static String USER;
+    private static String PASSWORD;
+    private static String URL;
 
     public ConnectionPool()
     {
@@ -31,6 +30,14 @@ public class ConnectionPool
             USER = System.getenv("JDBC_USER");
             PASSWORD = System.getenv("JDBC_PASSWORD");
             URL = System.getenv("JDBC_CONNECTION_STRING");
+        }
+
+        else
+        {
+            // If run on development machine, get credentials from local Env class
+            USER = Env.USER;
+            PASSWORD = Env.PASSWORD;
+            URL = Env.URL;
         }
 
         Logger.getLogger("web").log(Level.INFO,

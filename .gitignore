@@ -217,3 +217,5 @@ $RECYCLE.BIN/
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
+
+/src/main/java/dat/backend/model/config/Env.java
