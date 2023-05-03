@@ -69,7 +69,7 @@ class UserMapperTest
             try (Statement stmt = testConnection.createStatement())
             {
                 // Create test database - if not exist
-                stmt.execute("CREATE DATABASE  IF NOT EXISTS fog_test1;");
+                stmt.execute("CREATE DATABASE  IF NOT EXISTS fog_test;");
 
                 if (testConnection != null)
                 {
