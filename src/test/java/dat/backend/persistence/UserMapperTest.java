@@ -39,9 +39,17 @@ class UserMapperTest
 
         else
         {
-            USER = Env.USER;
-            PASSWORD = Env.PASSWORD;
-            TESTURL = Env.TESTURL;
+            if (Env.class != null)
+            {
+                USER = Env.USER;
+                PASSWORD = Env.PASSWORD;
+                TESTURL = Env.TESTURL;
+            }
+
+            else
+            {
+                throw new RuntimeException("Env class needed, but not found!");
+            }
         }
 
         connectionPool = new ConnectionPool(USER, PASSWORD, TESTURL);
