@@ -35,9 +35,18 @@ public class ConnectionPool
         else
         {
             // If run on development machine, get credentials from local Env class
-            USER = Env.USER;
-            PASSWORD = Env.PASSWORD;
-            URL = Env.URL;
+            // TODO: Test if this does what we want!
+            if (Env.class != null)
+            {
+                USER = Env.USER;
+                PASSWORD = Env.PASSWORD;
+                URL = Env.URL;
+            }
+
+            else
+            {
+                throw new RuntimeException("Env class needed, but not found!");
+            }
         }
 
         Logger.getLogger("web").log(Level.INFO,
