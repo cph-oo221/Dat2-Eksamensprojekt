@@ -46,8 +46,7 @@ class UserMapper
         return user;
     }
 
-    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role)
-    {
+    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "trying to create new user...");
         User user = getUserByEmail(email);
 
@@ -81,7 +80,7 @@ class UserMapper
                         if(rs.next())
                         {
                             int idUser = rs.getInt("LAST_INSERT_ID()");
-                            user = new User(idUser, email, password, role, address, city, phoneNumber, zipCode);
+                            user = new User(idUser, email, password, role, address, city, phoneNumber);
                         }
                         else
                         {

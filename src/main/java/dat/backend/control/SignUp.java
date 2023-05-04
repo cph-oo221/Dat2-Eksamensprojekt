@@ -43,7 +43,6 @@ public class SignUp extends HttpServlet
         String password = request.getParameter("password");
         String address = request.getParameter("address");
         String city = request.getParameter("city");
-        int zipCode = Integer.parseInt(request.getParameter("zipCode"));
         int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
         String role = "user";
 
@@ -57,7 +56,7 @@ public class SignUp extends HttpServlet
 //        // TODO you this when the userMapper method create user is done
         try
         {
-            User user = Facade.createUser(email, password, address, city, zipCode, phoneNumber, role);
+            User user = Facade.createUser(email, password, address, city, phoneNumber, role);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
             request.getRequestDispatcher("WEB-INF/userPage.jsp").forward(request, response);
