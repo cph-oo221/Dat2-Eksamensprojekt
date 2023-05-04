@@ -32,7 +32,7 @@ class UserMapperTest
             // Prod: hent variabler fra setenv.sh i Tomcats bin folder
             USER = System.getenv("JDBC_USER");
             PASSWORD = System.getenv("JDBC_PASSWORD");
-            TESTURL = System.getenv("JDBC_CONNECTION_STRING");
+            TESTURL = System.getenv("JDBC_CONNECTION_TEST");
         }
 
         else
