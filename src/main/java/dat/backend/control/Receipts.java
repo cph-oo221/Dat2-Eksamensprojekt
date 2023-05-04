@@ -28,8 +28,8 @@ public class Receipts extends HttpServlet
     {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        ArrayList<Receipt> receipts = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
-        request.setAttribute("receipts", receipts);
+        ArrayList<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
+        request.setAttribute("receiptList", receiptList);
         request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request,response);
     }
 }
