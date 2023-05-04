@@ -8,13 +8,15 @@ public class Receipt
     private int idUser;
     private Timestamp timeOfOrder;
     private boolean isComplete;
+    private String comment;
 
-    public Receipt(int idReceipt, int idUser, Timestamp timeOfOrder, boolean isComplete)
+    public Receipt(int idReceipt, int idUser, Timestamp timeOfOrder, boolean isComplete, String comment)
     {
         this.idReceipt = idReceipt;
         this.idUser = idUser;
         this.timeOfOrder = timeOfOrder;
         this.isComplete = isComplete;
+        this.comment = comment;
     }
 
     //dummy
