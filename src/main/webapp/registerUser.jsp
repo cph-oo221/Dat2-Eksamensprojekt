@@ -51,12 +51,6 @@
                         <input type="text" id="city" name="city" style="width: 100%; height: 35px;"
                                placeholder="Angiv by navn"/>
 
-                        <br/>
-                        <br/>
-                            <%-- ZIP CODE --%>
-                        <label for="zipCode" class="fw-bold"> Post nummer</label><br/>
-                        <input type="number" id="zipCode" name="zipCode" style="width: 100%; height: 35px;"
-                               placeholder="Angiv postnummer"/>
 
                         <br/>
                         <br/>
