@@ -18,12 +18,12 @@
             <div class="card mt-2 p-1" style="position: center; margin-left: 25%; margin-right: 25%;">
                 <h1>SignUp</h1>
 
-                <img src="login-Icon.png" alt="login icon" width="125" height="125"
+                <img src="images/loginAndSignup/login-Icon.png" alt="login icon" width="125" height="125"
                      style="display: block; margin: auto;">
                 <hr>
 
                 <div class="mt-1">
-                    <form action="SignUp" method="post">
+                    <form action="signup" method="post">
 <%--                        <p style="color: red">Udfyld alle felter nedefor, for at oprette en bruger </p>--%>
                             <%-- Email --%>
                         <label for="email" class="fw-bold"> Email </label><br/>
@@ -32,7 +32,6 @@
 
                         <br/>
                         <br/>
-
                             <%-- PASSWORD --%>
                         <label for="password" class="fw-bold"> Password </label><br/>
                         <input type="password" id="password" name="password" style="width: 100%; height: 35px;"
@@ -40,7 +39,6 @@
 
                         <br/>
                         <br/>
-
                             <%-- ADDRESS --%>
                         <label for="address" class="fw-bold"> Adresse</label><br/>
                         <input type="text" id="address" name="address" style="width: 100%; height: 35px;"
@@ -86,5 +84,7 @@
                 </div>
             </div>
         </div>
+
+
     </jsp:body>
 </t:pagetemplate>
