@@ -52,7 +52,7 @@ class UserMapper
 
         // fixme dommy
 
-        
+
         System.out.println("email " + email + ", password " + password + ", address " + address +
                 ", city " + city + ", zip code " + zipCode + ", phone number " + phoneNumber + ", role " + role);
 
