@@ -49,6 +49,11 @@ public class Facade
         return UserMapper.createUser(email, password, address, city, phoneNumber, role);
     }
 
+    public static User getUserByEmail(String email) throws DatabaseException
+    {
+        return UserMapper.getUserByEmail(email);
+    }
+
     public static Receipt acceptReceipt(int idReceipt)
     {
         //dummy
