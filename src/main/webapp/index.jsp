@@ -9,12 +9,12 @@
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Welcome to the frontpage
+        Fog - Login
     </jsp:attribute>
 
     <jsp:body>
 
-        <div class="container mt-2">
+        <div class="container mt-3">
             <div class="card mt-2 p-1" style="position: center; margin-left: 25%; margin-right: 25%;">
                 <h1>Login</h1>
 
