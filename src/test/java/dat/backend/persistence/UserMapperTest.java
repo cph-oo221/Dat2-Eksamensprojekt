@@ -151,7 +151,6 @@ class UserMapperTest
         String city = "test city";
         int phone = 11223344;
 
-
         assertEquals(new User(iduser, email, password, role, address, city, phone), Facade.createUser("test@test.com", "test", "testvej 3", "test city", 11223344, "user"));
     }
 }
