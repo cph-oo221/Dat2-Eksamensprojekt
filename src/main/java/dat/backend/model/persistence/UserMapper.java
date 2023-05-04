@@ -16,7 +16,7 @@ class UserMapper
 
         User user = null;
 
-        String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+        String sql = "SELECT * FROM user WHERE e-mail = ? AND password = ?";
 
         try (Connection connection = ApplicationStart.getConnectionPool().getConnection())
         {
@@ -32,9 +32,8 @@ class UserMapper
                     String address = rs.getString("address");
                     String city = rs.getString("city");
                     int phone = rs.getInt("phone");
-                    int zip = rs.getInt("zip");
 
-                    user = new User(id, email, password, role, address, city, phone, zip);
+                    user = new User(id, email, password, role, address, city, phone);
                 } else
                 {
                     throw new DatabaseException("Wrong username or password");

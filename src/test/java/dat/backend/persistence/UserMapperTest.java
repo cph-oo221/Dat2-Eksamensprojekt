@@ -1,6 +1,7 @@
 package dat.backend.persistence;
 
 import dat.backend.model.config.Env;
+import dat.backend.model.entities.Receipt;
 import dat.backend.model.persistence.ConnectionPool;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -66,6 +67,8 @@ class UserMapperTest
     @Test
     void testConnection() throws SQLException
     {
+        Receipt r = new Receipt(1, 1, false);
+
         try (Connection testConnection = connectionPool.getConnection())
         {
             assertNotNull(testConnection);
@@ -88,4 +91,6 @@ class UserMapperTest
         }
 
     }
+
+
 }

@@ -20,7 +20,7 @@ public class Facade
     public static User login(String username, String password, ConnectionPool connectionPool) throws DatabaseException
     {
         //dummy
-        return new User(1, "test@test.com", "test", "user", "testvej", "testby", 12341234, 4130);
+        return new User(1, "test@test.com", "test", "user", "testvej", "testby", 12341234);
         /*
         try
         {
@@ -33,5 +33,10 @@ public class Facade
         return null;
 
          */
+    }
+
+    public static int createReceipt(int idUser, int width, int length, String comment) throws DatabaseException
+    {
+        return ReceiptMapper.createReceipt(idUser, width, length, comment);
     }
 }
