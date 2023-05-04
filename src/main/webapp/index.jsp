@@ -14,12 +14,6 @@
 
     <jsp:body>
 
-
-        <c:if test="${sessionScope.user != null}">
-            <p>You are logged in with the role of "${sessionScope.user.role}".</p>
-        </c:if>
-
-
         <div class="container mt-2">
             <div class="card mt-2 p-1" style="position: center; margin-left: 25%; margin-right: 25%;">
                 <h1>Login</h1>
@@ -45,8 +39,7 @@
                 </div>
             </div>
 
-
-                <%-- GRAY BOX WITH "AFBRUD" BTN AND BTN FOR CREATED NEW USER "OPRET NY BRUGER" --%>
+                <%-- GRAY BOX WITH CREATED NEW USER "OPRET NY BRUGER" --%>
             <div style="background-color: lightgray; height: 90px; margin-left: 25%; margin-right: 25%; display: flex; justify-content: space-between; align-items: center;">
                 <div style="margin-left: 5px;">
                     <form action="registerUser.jsp" method="post">
@@ -55,7 +48,5 @@
                 </div>
             </div>
         </div>
-
     </jsp:body>
-
 </t:pagetemplate>
