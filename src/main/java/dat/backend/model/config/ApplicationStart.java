@@ -48,6 +48,11 @@ public class ApplicationStart implements ServletContextListener
             return connectionPool;
     }
 
+    public static void setConnectionPool(ConnectionPool connectionPool)
+    {
+        ApplicationStart.connectionPool = connectionPool;
+    }
+
     @Override
     public void contextDestroyed(ServletContextEvent sce)
     {
