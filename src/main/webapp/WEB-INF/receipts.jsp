@@ -2,14 +2,15 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page errorPage="../error.jsp" isErrorPage="false" %>
+<%@ page import="dat.backend.model.entities.OrderState" %>
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-            Your Orders
+            Dine bestillinger
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Your Orders
+        Dine bestillinger
     </jsp:attribute>
 
     <jsp:body>
@@ -22,24 +23,58 @@
 
         <div class="mt-3">
             <strong>${sessionScope.msg}</strong>
-            <h3>Incomplete orders</h3>
+            <h3>Under behandling</h3>
             <table class="table table-dark table-striped">
                 <tr>
-                    <th>Order Number</th>
-                    <th>Time Of Order</th>
-                    <th>Actions</th>
+                    <th>Ordrenummer</th>
+                    <th>Tidspunkt</th>
+                    <th>Pris</th>
+                    <th>Handlinger</th>
                 </tr>
 
                 <c:forEach var="receipt" items="${requestScope.receiptList}">
-                    <c:if test="${receipt.complete == false}">
+                    <c:if test="${receipt.orderState == OrderState.OPEN}">
                         <tr>
                             <td>${receipt.idReceipt}</td>
                             <td>${receipt.timeOfOrder}</td>
                             <td>
-                                <form action="Orders" method="post">
+                                Fog behandler din ordre
+                            </td>
+                            <td>
+                                Fog behandler din ordre
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+
+            </table>
+        </div>
+
+        <div class="mt-3">
+            <strong>${sessionScope.msg}</strong>
+            <h3>Tilbud</h3>
+            <table class="table table-dark table-striped">
+                <tr>
+                    <th>Ordrenummer</th>
+                    <th>Tidspunkt</th>
+                    <th>Pris</th>
+                    <th>Handlinger</th>
+                </tr>
+
+                <c:forEach var="receipt" items="${requestScope.receiptList}">
+                    <c:if test="${receipt.orderState == OrderState.OFFER}">
+                        <tr>
+                            <td>${receipt.idReceipt}</td>
+                            <td>${receipt.timeOfOrder}</td>
+                            <td>${receipt.price}</td>
+                            <td>
+                                <form action="updatereceipt" method="post">
                                     <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
-                                    <input type="text" hidden name="complete" value="${receipt.complete}">
-                                    <input type="submit" class="btn btn-secondary" value="View order">
+                                    <input type="submit" class="btn btn-secondary" value="Accepter">
+                                </form>
+                                <form action="updatereceipt" method="post">
+                                    <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
+                                    <input type="submit" class="btn btn-secondary" value="Afvis">
                                 </form>
                             </td>
                         </tr>
@@ -50,24 +85,25 @@
         </div>
 
         <div class="mt-3">
-            <h3>Complete orders</h3>
+            <h3>Kvitteringer</h3>
             <table class="table table-dark table-striped">
                 <tr>
-                    <th>Order Number</th>
-                    <th>Time Of Order</th>
-                    <th>Actions</th>
+                    <th>Ordrenummer</th>
+                    <th>Tidspunkt</th>
+                    <th>Pris</th>
+                    <th>Handlinger</th>
                 </tr>
 
                 <c:forEach var="receipt" items="${requestScope.receiptList}">
-                    <c:if test="${receipt.complete == true}">
+                    <c:if test="${receipt.orderState == OrderState.COMPLETE}">
                         <tr>
                             <td>${receipt.idReceipt}</td>
                             <td>${receipt.timeOfOrder}</td>
+                            <td>${receipt.price}</td>
                             <td>
                                 <form action="Orders" method="post">
                                     <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
-                                    <input type="text" hidden name="complete" value="${receipt.complete}">
-                                    <input type="submit" class="btn btn-secondary" value="View order">
+                                    <input type="submit" class="btn btn-secondary" value="Se stykliste">
                                 </form>
                             </td>
                         </tr>

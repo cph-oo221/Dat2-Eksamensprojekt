@@ -1,5 +1,6 @@
 package dat.backend.model.persistence;
 
+import dat.backend.model.entities.OrderState;
 import dat.backend.model.entities.Receipt;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
@@ -12,8 +13,9 @@ public class Facade
     {
         //dummy
         ArrayList<Receipt> receiptsList = new ArrayList<>();
-        receiptsList.add(new Receipt(1, 1, false));
-        receiptsList.add(new Receipt(2, 1, true));
+        receiptsList.add(new Receipt(1, 1, OrderState.OPEN));
+        receiptsList.add(new Receipt(2, 1, OrderState.OFFER));
+        receiptsList.add(new Receipt(3, 1, OrderState.COMPLETE));
         return receiptsList;
     }
 
@@ -38,5 +40,16 @@ public class Facade
     public static int createReceipt(int idUser, int width, int length, String comment) throws DatabaseException
     {
         return ReceiptMapper.createReceipt(idUser, width, length, comment);
+    }
+
+    public static User createUser(String email, String password, String address, String city, int zipCode, int phoneNumber, String role)
+    {
+        return UserMapper.createUser(email, password, address, city, zipCode, phoneNumber, role);
+    }
+
+    public static Receipt acceptReceipt(int idReceipt)
+    {
+        //dummy
+        return new Receipt(2, 1, OrderState.COMPLETE);
     }
 }

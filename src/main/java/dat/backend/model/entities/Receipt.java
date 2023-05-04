@@ -4,27 +4,30 @@ import java.sql.Timestamp;
 
 public class Receipt
 {
-    private int idReceipt;
-    private int idUser;
+    private int width, length, idReceipt, idUser, price;
     private Timestamp timeOfOrder;
-    private boolean isComplete;
+    private OrderState orderstate;
     private String comment;
 
-    public Receipt(int idReceipt, int idUser, Timestamp timeOfOrder, boolean isComplete, String comment)
+
+    public Receipt(int idReceipt, int idUser, int width, int length, int price, Timestamp timeOfOrder, OrderState orderstate, String comment)
     {
         this.idReceipt = idReceipt;
         this.idUser = idUser;
+        this.price = price;
         this.timeOfOrder = timeOfOrder;
-        this.isComplete = isComplete;
+        this.orderstate = orderstate;
         this.comment = comment;
+        this.width = width;
+        this.length = length;
     }
 
     //dummy
-    public Receipt(int idReceipt, int idUser, boolean isComplete)
+    public Receipt(int idReceipt, int idUser, OrderState orderstate)
     {
         this.idReceipt = idReceipt;
         this.idUser = idUser;
-        this.isComplete = isComplete;
+        this.orderstate = orderstate;
     }
 
     public int getIdReceipt()
@@ -57,14 +60,13 @@ public class Receipt
         this.timeOfOrder = timeOfOrder;
     }
 
-    public boolean isComplete()
-    {
-        return isComplete;
-    }
+    public OrderState getOrderState() { return orderstate; }
 
-    public void setComplete(boolean complete)
+    public void setOrderState(OrderState orderstate) { this.orderstate = orderstate; }
+
+    public int getPrice()
     {
-        isComplete = complete;
+        return price;
     }
 
     @Override
@@ -74,7 +76,9 @@ public class Receipt
                 "idReceipt=" + idReceipt +
                 ", idUser=" + idUser +
                 ", timeOfOrder=" + timeOfOrder +
-                ", isComplete=" + isComplete +
+                ", orderState=" + orderstate +
                 '}';
     }
+
+
 }

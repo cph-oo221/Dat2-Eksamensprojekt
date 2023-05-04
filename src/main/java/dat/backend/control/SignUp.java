@@ -4,6 +4,7 @@ import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
+import dat.backend.model.persistence.Facade;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,10 +46,17 @@ public class SignUp extends HttpServlet
         int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
         String role = "user";
 
-        /*try
-        {
-            User user = Facade.createUser(email, password, address, city, zipCode, phoneNumber, role, connectionPool);
 
+        // TODO delete this when the userMapper method create user is done
+        User user = Facade.createUser(email, password, address, city, zipCode, phoneNumber, role);
+        session = request.getSession();
+        session.setAttribute("user", user); // adding user object to session scope
+        request.getRequestDispatcher("WEB-INF/userPage.jsp").forward(request, response);
+
+        // TODO you this when the userMapper method create user is done
+/*        try
+        {
+            User user = Facade.createUser(email, password, address, city, zipCode, phoneNumber, role);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
             request.getRequestDispatcher("WEB-INF/userPage.jsp").forward(request, response);
