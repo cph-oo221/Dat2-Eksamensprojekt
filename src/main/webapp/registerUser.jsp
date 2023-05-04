@@ -5,11 +5,11 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Welcome to the frontpage
+         Fog - Opret Ny Bruger
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Welcome to the frontpage
+        Fog - Opret Ny Bruger
     </jsp:attribute>
 
     <jsp:body>
@@ -84,7 +84,6 @@
                 </div>
             </div>
         </div>
-
 
     </jsp:body>
 </t:pagetemplate>
