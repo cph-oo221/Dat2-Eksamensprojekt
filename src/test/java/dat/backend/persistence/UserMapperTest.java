@@ -64,6 +64,7 @@ class UserMapperTest
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.user LIKE `Dat2-Eksamensopgave`.user;");
 
 
+
             } catch (SQLException throwables)
             {
                 throwables.printStackTrace();
@@ -79,6 +80,7 @@ class UserMapperTest
         {
             try (Statement stmt = testConnection.createStatement())
             {
+                stmt.execute("use fog_test;");
                 stmt.execute("delete from fog_test.user");
 
                 stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
@@ -143,16 +145,14 @@ class UserMapperTest
     @Test
     void createUser() throws SQLException, DatabaseException
     {
-        // TODO: Test say user already exists, but is not in database
-
         int iduser = 3;
-        String email = "test@test.com";
-        String password = "test";
+        String email = "test@124.com";
+        String password = "test124";
         String role = "user";
-        String address = "testvej 3";
-        String city = "test city";
-        int phone = 11223344;
+        String address = "testvej 124";
+        String city = "testing city";
+        int phone = 13233334;
 
-        assertEquals(new User(iduser, email, password, role, address, city, phone), Facade.createUser("test@test.com", "test", "testvej 3", "test city", 11223344, "user"));
+        assertEquals(new User(iduser, email, password, role, address, city, phone), Facade.createUser("test@124.com", "test124", "testvej 124", "testing city", 13233334, "user"));
     }
 }
