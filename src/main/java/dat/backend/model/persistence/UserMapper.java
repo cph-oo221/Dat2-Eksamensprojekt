@@ -16,7 +16,7 @@ class UserMapper
 
         User user = null;
 
-        String sql = "SELECT * FROM user WHERE e-mail = ? AND password = ?";
+        String sql = "SELECT * FROM user WHERE `e-mail` = ? AND password = ?";
 
         try (Connection connection = ApplicationStart.getConnectionPool().getConnection())
         {
@@ -46,17 +46,17 @@ class UserMapper
         return user;
     }
 
-    public static User createUser(String email, String password, String address, String city, int zipCode, int phoneNumber, String role)
+    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role)
     {
 
         // fixme dommy
 
 
         System.out.println("email " + email + ", password " + password + ", address " + address +
-                ", city " + city + ", zip code " + zipCode + ", phone number " + phoneNumber + ", role " + role);
+                ", city " + city + ", zip code " + ", phone number " + phoneNumber + ", role " + role);
 
 
-        return new User(3,email, password, role, address, city, phoneNumber, zipCode);
+        return new User(3,email, password, role, address, city, phoneNumber);
     }
 
     /*static User createUser(String username, String password, String role, ConnectionPool connectionPool) throws DatabaseException
