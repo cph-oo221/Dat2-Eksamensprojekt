@@ -13,12 +13,9 @@ public class Facade
     {
         //dummy
         ArrayList<Receipt> receiptsList = new ArrayList<>();
-        OrderState open = OrderState.OPEN;
-        OrderState offer = OrderState.OFFER;
-        OrderState complete = OrderState.COMPLETE;
-        receiptsList.add(new Receipt(1, 1, open));
-        receiptsList.add(new Receipt(2, 1, offer));
-        receiptsList.add(new Receipt(3, 1, complete));
+        receiptsList.add(new Receipt(1, 1, OrderState.OPEN));
+        receiptsList.add(new Receipt(2, 1, OrderState.OFFER));
+        receiptsList.add(new Receipt(3, 1, OrderState.COMPLETE));
         return receiptsList;
     }
 
@@ -43,5 +40,11 @@ public class Facade
     public static User createUser(String email, String password, String address, String city, int zipCode, int phoneNumber, String role)
     {
         return UserMapper.createUser(email, password, address, city, zipCode, phoneNumber, role);
+    }
+
+    public static Receipt acceptReceipt(int idReceipt)
+    {
+        //dummy
+        return new Receipt(2, 1, OrderState.COMPLETE);
     }
 }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 @WebServlet(name = "Receipts", value = "/receipts")
 public class Receipts extends HttpServlet
 {
+    static ArrayList<Receipt> receiptList;
     ConnectionPool connectionPool = ApplicationStart.getConnectionPool();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -28,7 +29,7 @@ public class Receipts extends HttpServlet
     {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        ArrayList<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
+        receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
         request.setAttribute("receiptList", receiptList);
         request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request,response);
     }
