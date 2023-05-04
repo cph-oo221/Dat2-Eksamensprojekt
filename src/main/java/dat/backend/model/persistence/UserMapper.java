@@ -9,25 +9,32 @@ import java.util.logging.Logger;
 
 class UserMapper
 {
-    static User login(String username, String password, ConnectionPool connectionPool) throws DatabaseException
+    static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
+
         Logger.getLogger("web").log(Level.INFO, "");
 
         User user = null;
 
-        String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+        String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
 
         try (Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
-                ps.setString(1, username);
+                ps.setString(1, email);
                 ps.setString(2, password);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next())
                 {
                     String role = rs.getString("role");
-                    user = new User(username, password, role);
+                    int id = rs.getInt("idUser");
+                    String address = rs.getString("address");
+                    String city = rs.getString("city");
+                    int phone = rs.getInt("phone");
+                    int zip = rs.getInt("zip");
+
+                    user = new User(id, email, password, role, address, city, phone, zip);
                 } else
                 {
                     throw new DatabaseException("Wrong username or password");
@@ -40,7 +47,7 @@ class UserMapper
         return user;
     }
 
-    static User createUser(String username, String password, String role, ConnectionPool connectionPool) throws DatabaseException
+    /*static User createUser(String username, String password, String role, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
         User user;
@@ -68,6 +75,8 @@ class UserMapper
         }
         return user;
     }
+
+     */
 
 
 }

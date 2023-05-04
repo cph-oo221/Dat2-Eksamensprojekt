@@ -4,25 +4,37 @@ import java.util.Objects;
 
 public class User
 {
-    private String username;
+    private int idUser;
+    private String email;
     private String password;
     private String role;
+    private String address;
+    private String city;
+    private int phone;
+    private int zip;
 
-    public User(String username, String password, String role)
+    public User(int idUser, String email, String password, String role,String address,String city,int phone,int zip)
     {
-        this.username = username;
+        this.idUser = idUser;
+        this.email = email;
         this.password = password;
         this.role = role;
+        this.address = address;
+        this.city = city;
+        this.phone = phone;
+        this.zip = zip;
     }
 
-    public String getUsername()
+    public int getIdUser() { return  idUser; }
+
+    public String getEmail()
     {
-        return username;
+        return email;
     }
 
-    public void setUsername(String username)
+    public void setEmail(String email)
     {
-        this.username = username;
+        this.email = email;
     }
 
     public String getPassword()
@@ -45,29 +57,72 @@ public class User
         this.role = role;
     }
 
+    public String getAddress()
+    {
+        return address;
+    }
+
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
+    public String getCity()
+    {
+        return city;
+    }
+
+    public void setCity(String city)
+    {
+        this.city = city;
+    }
+
+    public int getPhone()
+    {
+        return phone;
+    }
+
+    public void setPhone(int phone)
+    {
+        this.phone = phone;
+    }
+
+    public int getZip()
+    {
+        return zip;
+    }
+
+    public void setZip(int zip)
+    {
+        this.zip = zip;
+    }
+
     @Override
     public boolean equals(Object o)
     {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return getUsername().equals(user.getUsername()) && getPassword().equals(user.getPassword()) &&
-                getRole().equals(user.getRole());
+        return phone == user.phone && zip == user.zip && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(address, user.address) && Objects.equals(city, user.city);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(getUsername(), getPassword(), getRole());
+        return Objects.hash(email, password, role, address, city, phone, zip);
     }
 
     @Override
     public String toString()
     {
         return "User{" +
-                "brugerNavn='" + username + '\'' +
-                ", kodeord='" + password + '\'' +
-                ", rolle='" + role + '\'' +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", phone=" + phone +
+                ", zip=" + zip +
                 '}';
     }
 }
