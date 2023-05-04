@@ -49,7 +49,7 @@ class UserMapper
 
     public static User createUser(String email, String password, String address, String city, int zipCode, int phoneNumber, String role) throws DatabaseException
     {
-        Logger.getLogger("web").log(Level.INFO, "");
+        Logger.getLogger("web").log(Level.INFO, "trying to create new user...");
         User user = getUserByEmail(email);
 
         if (user != null)
@@ -57,7 +57,7 @@ class UserMapper
             throw new DatabaseException("Can't make a new user that already exists");
         }
 
-        String sql = "insert into user (`e-mail`, password, role, address, city, phone, `zip-code`) values (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into user (`e-mail`, password, role, address, city, phone) values (?, ?, ?, ?, ?, ?)";
 
         try(Connection connection = ApplicationStart.getConnectionPool().getConnection())
         {
@@ -68,8 +68,7 @@ class UserMapper
                 ps.setString(3, role);
                 ps.setString(4, address);
                 ps.setString(5, city);
-                ps.setInt(6, zipCode);
-                ps.setInt(7, phoneNumber);
+                ps.setInt(6, phoneNumber);
 
                 int rowsAffected = ps.executeUpdate();
 
@@ -83,18 +82,17 @@ class UserMapper
                         if(rs.next())
                         {
                             int idUser = rs.getInt("LAST_INSERT_ID()");
-
                             user = new User(idUser, email, password, role, address, city, phoneNumber, zipCode);
                         }
                         else
                         {
-                            throw new DatabaseException("No ID was found");
+                            throw new DatabaseException("No ID was found!");
                         }
                     }
                 }
                 else
                 {
-                    throw new DatabaseException("This user information could not be insert in to the database");
+                    throw new DatabaseException("This user " + email + ", could not be insert in to the database");
                 }
             }
         }
@@ -105,7 +103,6 @@ class UserMapper
         return user;
     }
 
-    
     private static User getUserByEmail(String email) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "checking if the user exists in the database");
         String sql = "SELECT * FROM user where `e-mail` = ?";
@@ -124,9 +121,8 @@ class UserMapper
                 String address = rs.getString("address");
                 String city = rs.getString("city");
                 int phone = rs.getInt("phone");
-                int zip = rs.getInt("zip-code");
 
-                return new User(idUser, email, password, role, address, city, phone, zip);
+                return new User(idUser, email, password, role, address, city, phone);
             }
         }
         catch (SQLException e)
