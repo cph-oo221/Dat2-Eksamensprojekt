@@ -17,7 +17,7 @@ public class Facade
         return receiptsList;
     }
 
-    public static User login(String username, String password, ConnectionPool connectionPool)
+    public static User login(String username, String password, ConnectionPool connectionPool) throws DatabaseException
     {
         //dummy
         return new User(1, "test@test.com", "test", "user", "testvej", "testby", 12341234, 4130);
@@ -31,7 +31,7 @@ public class Facade
             e.printStackTrace();
         }
         return null;
-        
+
          */
     }
 }

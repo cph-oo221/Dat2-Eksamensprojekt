@@ -1,5 +1,6 @@
 package dat.backend.control;
 
+import com.mysql.cj.Session;
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Receipt;
 import dat.backend.model.entities.User;
@@ -25,7 +26,8 @@ public class Receipts extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        User user = (User) request.getAttribute("user");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
         ArrayList<Receipt> receipts = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
         request.setAttribute("receipts", receipts);
         request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request,response);
