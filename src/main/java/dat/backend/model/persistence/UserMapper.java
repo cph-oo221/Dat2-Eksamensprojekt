@@ -1,5 +1,6 @@
 package dat.backend.model.persistence;
 
+import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 
@@ -9,16 +10,15 @@ import java.util.logging.Logger;
 
 class UserMapper
 {
-    static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
+    static User login(String email, String password) throws DatabaseException
     {
-
         Logger.getLogger("web").log(Level.INFO, "");
 
         User user = null;
 
         String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
 
-        try (Connection connection = connectionPool.getConnection())
+        try (Connection connection = ApplicationStart.getConnectionPool().getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
