@@ -143,6 +143,8 @@ class UserMapperTest
     @Test
     void createUser() throws SQLException, DatabaseException
     {
+        // TODO: Test say user already exists, but is not in database
+
         int iduser = 3;
         String email = "test@test.com";
         String password = "test";
