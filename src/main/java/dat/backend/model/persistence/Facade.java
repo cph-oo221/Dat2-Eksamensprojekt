@@ -4,6 +4,7 @@ import dat.backend.model.entities.Receipt;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Facade
@@ -35,7 +36,7 @@ public class Facade
          */
     }
 
-    public static User createUser(String email, String password, String address, String city, int zipCode, int phoneNumber, String role)
+    public static User createUser(String email, String password, String address, String city, int zipCode, int phoneNumber, String role) throws SQLException, DatabaseException
     {
         return UserMapper.createUser(email, password, address, city, zipCode, phoneNumber, role);
     }
