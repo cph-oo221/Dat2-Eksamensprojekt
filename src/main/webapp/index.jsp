@@ -14,16 +14,47 @@
 
     <jsp:body>
 
-        <p>Startcode for 2nd semester </p>
 
         <c:if test="${sessionScope.user != null}">
             <p>You are logged in with the role of "${sessionScope.user.role}".</p>
         </c:if>
 
-        <c:if test="${sessionScope.user == null}">
-            <p>You are not logged in yet. You can do it here: <a
-                    href="login.jsp">Login</a></p>
-        </c:if>
+
+        <div class="container mt-2">
+            <div class="card mt-2 p-1" style="position: center; margin-left: 25%; margin-right: 25%;">
+                <h1>Login</h1>
+
+                <img src="login-Icon.png" alt="login icon" width="125" height="125" style="display: block; margin: auto;">
+                <hr>
+
+                <div class="mt-1">
+                    <form action="login" method="post">
+                        <label for="email" class="fw-bold"> Username </label><br/>
+                        <input type="text" id="email" name="email" style="width: 100%; height: 35px;" placeholder="Angiv Email"/>
+
+                        <br/>
+                        <br/>
+                        <label for="password" class="fw-bold"> Password </label><br/>
+                        <input type="password" id="password" name="password" style="width: 100%; height: 35px;" placeholder="Angiv Password"/>
+
+                        <br/>
+                        <br/>
+                        <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;" value="Login"/>
+                        <br>
+                    </form>
+                </div>
+            </div>
+
+
+                <%-- GRAY BOX WITH "AFBRUD" BTN AND BTN FOR CREATED NEW USER "OPRET NY BRUGER" --%>
+            <div style="background-color: lightgray; height: 90px; margin-left: 25%; margin-right: 25%; display: flex; justify-content: space-between; align-items: center;">
+                <div style="margin-left: 5px;">
+                    <form action="registerUser.jsp" method="post">
+                        <input type="submit" class="btn btn-link" style="text-decoration: none;" value="opret ny bruger?">
+                    </form>
+                </div>
+            </div>
+        </div>
 
     </jsp:body>
 
