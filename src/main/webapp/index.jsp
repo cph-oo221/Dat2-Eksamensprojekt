@@ -5,7 +5,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Welcome to the frontpage
+        Fog - Login
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -23,6 +23,8 @@
 
                 <div class="mt-1">
                     <form action="login" method="post">
+                        <p>${requestScope.errormessage}</p>
+
                         <label for="email" class="fw-bold"> Username </label><br/>
                         <input type="text" id="email" name="email" style="width: 100%; height: 35px;" placeholder="Angiv Email"/>
 
