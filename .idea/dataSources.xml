@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="startcode@localhost" uuid="b8180c54-f952-4d3a-b0ac-548dae2cd079">
+    <data-source source="LOCAL" name="Fog" uuid="9b6270c0-1aed-4557-8aa7-c9fddebbd4ab">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/startcode</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="Fog@64.226.113.14" uuid="610beb8b-2cda-4e4b-80d9-bf1133003ee1">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://64.226.113.14:3306/Dat2-Eksamensopgave</jdbc-url>
+      <jdbc-url>jdbc:mysql://64.226.113.14/</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
