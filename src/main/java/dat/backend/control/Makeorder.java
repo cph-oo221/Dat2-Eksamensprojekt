@@ -21,6 +21,6 @@ public class Makeorder extends HttpServlet
         int length = Integer.parseInt(request.getParameter("length"));
         String comment = request.getParameter("comment");
 
-        request.getRequestDispatcher("WEB-INF/makeorder.jsp").forward(request,response);
+        request.getRequestDispatcher("WEB-INF/makeorder.jsp").forward(request, response);
     }
 }

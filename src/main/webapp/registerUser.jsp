@@ -24,7 +24,7 @@
 
                 <div class="mt-1">
                     <form action="signup" method="post">
-<%--                        <p style="color: red">Udfyld alle felter nedefor, for at oprette en bruger </p>--%>
+
                             <%-- Email --%>
                         <label for="email" class="fw-bold"> Email </label><br/>
                         <input type="text" id="email" name="email" style="width: 100%; height: 35px;"

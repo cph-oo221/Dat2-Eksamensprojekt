@@ -39,4 +39,9 @@ public class Facade
 
          */
     }
+
+    public static User createUser(String email, String password, String address, String city, int zipCode, int phoneNumber, String role)
+    {
+        return UserMapper.createUser(email, password, address, city, zipCode, phoneNumber, role);
+    }
 }
