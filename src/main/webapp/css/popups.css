@@ -1,0 +1,168 @@
+/* POPUPS */
+
+
+/* POPUPS LOGIN*/
+/*EMAIL*/
+.popupLoginEmail
+{
+    position: relative;
+    display: inline-block;
+}
+
+.popupLoginEmail:hover::before
+{
+    content: "Indsæt din email"; /* Popup content, the text at will be displayed in side the popup box */
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-120%); /* */
+    white-space: nowrap;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Show effect on the popup box*/
+    transition: left 0.5s ease-in-out;
+}
+
+/*PASSWORD*/
+.popupLoginPassword
+{
+    position: relative;
+    display: inline-block;
+}
+
+.popupLoginPassword:hover::before
+{
+    content: "Indsæt din adgangskode"; /* Popup content, the text at will be displayed in side the popup box */
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-120%); /* */
+    white-space: nowrap;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Show effect on the popup box*/
+    transition: left 0.5s ease-in-out;
+}
+/*=====================================================================================================================*/
+
+
+/*POPUP SIGNUP*/
+/*EMAIL*/
+.popupSignUpEmail
+{
+    position: relative;
+    display: inline-block;
+}
+
+.popupSignUpEmail:hover::before
+{
+    content: "Angiv en email, den må ikke inholde mellemrum";
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-120%);
+    white-space: nowrap;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    transition: left 0.5s ease-in-out;
+}
+
+/*PASSWORD*/
+.popupSignUpPassword
+{
+    position: relative;
+    display: inline-block;
+}
+
+.popupSignUpPassword:hover::before
+{
+    content: "Angiv en adgangskode, koden skal være længere end 5";
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-120%);
+    white-space: nowrap;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    transition: left 0.5s ease-in-out;
+}
+
+
+/*ADDRESS*/
+.popupSignUpAddress
+{
+    position: relative;
+    display: inline-block;
+}
+
+.popupSignUpAddress:hover::before
+{
+    content: "Angiv din adresse, fx. søvej 9a";
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-120%);
+    white-space: nowrap;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    transition: left 0.5s ease-in-out;
+}
+
+/*CITY*/
+.popupSignUpCity
+{
+    position: relative;
+    display: inline-block;
+}
+
+.popupSignUpCity:hover::before
+{
+    content: "Angiv din by, fx. lyngby";
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-120%);
+    white-space: nowrap;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    transition: left 0.5s ease-in-out;
+}
+
+/*PHONE NUMBER*/
+.popupSignUpPhoneNumber
+{
+    position: relative;
+    display: inline-block;
+}
+
+.popupSignUpPhoneNumber:hover::before
+{
+    content: "Angiv dit telefon nummer, fx. 22 33 44 55";
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-120%);
+    white-space: nowrap;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    transition: left 0.5s ease-in-out;
+}
