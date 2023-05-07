@@ -1,6 +1,5 @@
 /* POPUPS */
 
-
 /* POPUPS LOGIN*/
 /*EMAIL*/
 .popupLoginEmail
@@ -21,7 +20,7 @@
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Show effect on the popup box*/
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Show shadow effect on the popup box*/
     transition: left 0.5s ease-in-out;
 }
 
@@ -34,17 +33,17 @@
 
 .popupLoginPassword:hover::before
 {
-    content: "Indsæt din adgangskode"; /* Popup content, the text at will be displayed in side the popup box */
+    content: "Indsæt din adgangskode";
     position: absolute;
     top: 50%;
     left: 10%;
-    transform: translateY(-120%); /* */
+    transform: translateY(-120%);
     white-space: nowrap;
     padding: 5px;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Show effect on the popup box*/
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     transition: left 0.5s ease-in-out;
 }
 /*=====================================================================================================================*/
