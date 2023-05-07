@@ -26,28 +26,28 @@
                     <form action="signup" method="post">
 
                             <%-- Email --%>
-                        <label for="email" class="fw-bold"> Email </label><br/>
+                        <label for="email" class="fw-bold popupSignUpEmail"> Email </label><br/>
                         <input type="text" id="email" name="email" style="width: 100%; height: 35px;"
                                placeholder="Angiv Email"/>
 
                         <br/>
                         <br/>
                             <%-- PASSWORD --%>
-                        <label for="password" class="fw-bold"> Password </label><br/>
+                        <label for="password" class="fw-bold popupSignUpPassword"> Password </label><br/>
                         <input type="password" id="password" name="password" style="width: 100%; height: 35px;"
                                placeholder="Angiv Password"/>
 
                         <br/>
                         <br/>
                             <%-- ADDRESS --%>
-                        <label for="address" class="fw-bold"> Adresse</label><br/>
+                        <label for="address" class="fw-bold popupSignUpAddress"> Adresse</label><br/>
                         <input type="text" id="address" name="address" style="width: 100%; height: 35px;"
                                placeholder="Angiv vej navn"/>
 
                         <br/>
                         <br/>
                             <%-- CITY --%>
-                        <label for="city" class="fw-bold"> By</label><br/>
+                        <label for="city" class="fw-bold popupSignUpCity"> By</label><br/>
                         <input type="text" id="city" name="city" style="width: 100%; height: 35px;"
                                placeholder="Angiv by navn"/>
 
@@ -55,7 +55,7 @@
                         <br/>
                         <br/>
                             <%-- PHONE NUMBER --%>
-                        <label for="phoneNumber" class="fw-bold"> Telefon nummer</label><br/>
+                        <label for="phoneNumber" class="fw-bold popupSignUpPhoneNumber"> Telefon nummer</label><br/>
                         <input type="number" id="phoneNumber" name="phoneNumber" style="width: 100%; height: 35px;"
                                placeholder="Angiv telefon nummer"/>
 
