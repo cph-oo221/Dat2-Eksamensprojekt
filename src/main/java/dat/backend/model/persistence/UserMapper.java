@@ -49,6 +49,17 @@ class UserMapper
     public static User createUser(String email, String password, String address, String city, int phoneNumber, String role) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "trying to create new user...");
+
+        if(password.length() < 4)
+        {
+            throw new IllegalArgumentException("Your password has to be at least 5 characters");
+        }
+
+        if(email.contains(" "))
+        {
+            throw new IllegalArgumentException("Your email cant contain space");
+        }
+
         User user = getUserByEmail(email);
 
         if (user != null)
