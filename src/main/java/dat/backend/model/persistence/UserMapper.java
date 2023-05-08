@@ -50,7 +50,7 @@ class UserMapper
     {
         Logger.getLogger("web").log(Level.INFO, "trying to create new user...");
 
-        if(password.length() < 4)
+        if(password.length() <= 4)
         {
             throw new IllegalArgumentException("Your password has to be at least 5 characters");
         }
@@ -141,37 +141,4 @@ class UserMapper
         }
         return null;
     }
-
-    /*static User createUser(String username, String password, String role, ConnectionPool connectionPool) throws DatabaseException
-    {
-        Logger.getLogger("web").log(Level.INFO, "");
-        User user;
-        String sql = "insert into user (username, password, role) values (?,?,?)";
-        try (Connection connection = connectionPool.getConnection())
-        {
-            try (PreparedStatement ps = connection.prepareStatement(sql))
-            {
-                ps.setString(1, username);
-                ps.setString(2, password);
-                ps.setString(3, role);
-                int rowsAffected = ps.executeUpdate();
-                if (rowsAffected == 1)
-                {
-                    user = new User(username, password, role);
-                } else
-                {
-                    throw new DatabaseException("The user with username = " + username + " could not be inserted into the database");
-                }
-            }
-        }
-        catch (SQLException ex)
-        {
-            throw new DatabaseException(ex, "Could not insert username into database");
-        }
-        return user;
-    }
-
-     */
-
-
 }
