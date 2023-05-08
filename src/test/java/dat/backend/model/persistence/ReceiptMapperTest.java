@@ -3,6 +3,7 @@ package dat.backend.model.persistence;
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.config.Env;
 import dat.backend.model.entities.Receipt;
+import dat.backend.model.exceptions.DatabaseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -140,5 +142,16 @@ class ReceiptMapperTest
     @Test
     void deleteReceipt()
     {
+    }
+
+
+    @Test
+    void getAllReceipts() throws DatabaseException
+    {
+        List<Receipt> receiptList = Facade.getAllReceipts(connectionPool);
+
+        receiptList.forEach(System.out::println);
+
+        assertEquals(2, receiptList.size());
     }
 }
