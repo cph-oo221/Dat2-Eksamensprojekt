@@ -3,6 +3,7 @@ package dat.backend.model.persistence;
 import dat.backend.model.entities.OrderState;
 import dat.backend.model.entities.Receipt;
 import dat.backend.model.entities.User;
+import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.SQLException;
@@ -54,5 +55,16 @@ public class Facade
     public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool)
     {
         ReceiptMapper.deleteReceipt(idReceipt, connectionPool);
+    }
+
+    public static ArrayList<Wood> getRafters()
+    {
+        //Dummy
+        ArrayList<Wood> rafterList = new ArrayList<>();
+        rafterList.add(new Wood());
+        rafterList.add(new Wood());
+        rafterList.add(new Wood());
+        return rafterList;
+
     }
 }
