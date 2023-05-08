@@ -14,7 +14,13 @@
     </jsp:attribute>
     <jsp:body>
 
-        <div class="container">
+        <div class="mt-2">
+            <form action="receiptsadmin" method="get">
+                <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+            </form>
+        </div>
+
+        <div class="container mt-2">
             <div class="row">
                 <div class="col-sm-12">
                     <h1>Under behandling</h1>
@@ -27,8 +33,8 @@
                             <th scope="col">Dato</th>
                             <th scope="col">Totalpris</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Brede</th>
-                            <th scope="col">Længde</th>
+                            <th scope="col">Bredde</th>
+                            <th scope="col">længde</th>
                             <th scope="col">Kommentar</th>
                         </tr>
                         </thead>
@@ -133,6 +139,13 @@
                     </table>
                 </div>
             </div>
+        </div>
+
+
+        <div class="mt-2">
+            <form action="receiptsadmin" method="get">
+                <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+            </form>
         </div>
     </jsp:body>
 </t:pagetemplate>
