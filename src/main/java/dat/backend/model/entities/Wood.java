@@ -1,5 +1,7 @@
 package dat.backend.model.entities;
 
+import java.util.Objects;
+
 public class Wood
 {
     private int idWood;
@@ -61,5 +63,21 @@ public class Wood
     public String getVariant()
     {
         return variant;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Wood wood = (Wood) o;
+        return idWood == wood.idWood && length == wood.length && width == wood.width && height == wood.height &&
+                price == wood.price && name.equals(wood.name) && unit.equals(wood.unit) && variant.equals(wood.variant);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(idWood, length, width, height, name, unit, price, variant);
     }
 }
