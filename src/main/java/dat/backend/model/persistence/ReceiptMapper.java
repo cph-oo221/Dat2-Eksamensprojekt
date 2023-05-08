@@ -68,4 +68,24 @@ public class ReceiptMapper
             throwables.printStackTrace();
         }
     }
+
+    public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool)
+    {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        String sql = "DELETE FROM receipt WHERE idreceipt = ?";
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try(PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, idReceipt);
+                ps.executeUpdate();
+            }
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+    }
 }

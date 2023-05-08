@@ -54,5 +54,6 @@ public class Facade
 
     public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool)
     {
+        ReceiptMapper.deleteReceipt(idReceipt, connectionPool);
     }
 }
