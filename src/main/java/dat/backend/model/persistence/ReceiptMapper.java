@@ -10,10 +10,7 @@ import java.util.logging.Logger;
 
 public class ReceiptMapper
 {
-    static ConnectionPool connectionPool = ApplicationStart.getConnectionPool();
-
-
-    protected static ArrayList<Receipt> getReceiptsByIdUser(int idUser)
+    protected static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool)
     {
         Logger.getLogger("web").log(Level.INFO,"");
         Receipt receipt;
@@ -51,7 +48,7 @@ public class ReceiptMapper
         return null;
     }
 
-    protected static void acceptReceipt(int idReceipt)
+    protected static void acceptReceipt(int idReceipt, ConnectionPool connectionPool)
     {
         int idUser;
         Logger.getLogger("web").log(Level.INFO, "");

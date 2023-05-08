@@ -16,6 +16,7 @@ import java.util.ArrayList;
 @WebServlet(name = "updateReceipt", value = "/updatereceipt")
 public class UpdateReceipt extends HttpServlet
 {
+    ConnectionPool connectionPool = ApplicationStart.getConnectionPool();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -26,10 +27,10 @@ public class UpdateReceipt extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
-        Facade.acceptReceipt(idReceipt);
+        Facade.acceptReceipt(idReceipt, connectionPool);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        ArrayList<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser());
+        ArrayList<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
         request.setAttribute("receiptList", receiptList);
 
 
