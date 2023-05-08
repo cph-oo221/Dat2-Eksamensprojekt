@@ -48,7 +48,7 @@ class UserMapper
         return user;
     }
 
-    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role) throws DatabaseException
+    static User createUser(String email, String password, String address, String city, int phoneNumber, String role) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "trying to create new user...");
 
@@ -115,7 +115,7 @@ class UserMapper
         return user;
     }
 
-    public static User getUserByEmail(String email) throws DatabaseException {
+    static User getUserByEmail(String email) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "checking if the user exists in the database");
         String sql = "SELECT * FROM user where `e-mail` = ?";
 
