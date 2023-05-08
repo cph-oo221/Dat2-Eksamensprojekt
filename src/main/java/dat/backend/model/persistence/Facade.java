@@ -5,6 +5,7 @@ import dat.backend.model.entities.Receipt;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Facade
@@ -39,9 +40,20 @@ public class Facade
          */
     }
 
-    public static User createUser(String email, String password, String address, String city, int zipCode, int phoneNumber, String role)
+    public static int createReceipt(int idUser, int width, int length, String comment) throws DatabaseException
     {
-        return UserMapper.createUser(email, password, address, city, zipCode, phoneNumber, role);
+        return ReceiptMapper.createReceipt(idUser, width, length, comment);
+    }
+
+
+    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role) throws SQLException, DatabaseException
+    {
+        return UserMapper.createUser(email, password, address, city, phoneNumber, role);
+    }
+
+    public static User getUserByEmail(String email) throws DatabaseException
+    {
+        return UserMapper.getUserByEmail(email);
     }
 
     public static void acceptReceipt(int idReceipt, ConnectionPool connectionPool)

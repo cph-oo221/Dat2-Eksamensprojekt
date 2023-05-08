@@ -1,15 +1,17 @@
 /* CSS stylesheet  for application */
+@import "popups.css"; /* Import other css doc. */
 
-table {
+table
+{
     border-collapse: collapse;
     border: 1px solid silver;
-    padding:15px;
+    padding: 15px;
 }
 
-th, td {
+th, td
+{
     border: 1px solid silver;
-    padding:15px;
+    padding: 15px;
 }
-
 
 

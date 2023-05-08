@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "SignUp", value = "/signup")
 public class SignUp extends HttpServlet
@@ -42,29 +43,20 @@ public class SignUp extends HttpServlet
         String password = request.getParameter("password");
         String address = request.getParameter("address");
         String city = request.getParameter("city");
-        int zipCode = Integer.parseInt(request.getParameter("zipCode"));
         int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
         String role = "user";
 
-
-        // TODO delete this when the userMapper method create user is done
-        User user = Facade.createUser(email, password, address, city, zipCode, phoneNumber, role);
-        session = request.getSession();
-        session.setAttribute("user", user); // adding user object to session scope
-        request.getRequestDispatcher("WEB-INF/userPage.jsp").forward(request, response);
-
-        // TODO you this when the userMapper method create user is done
-/*        try
+        try
         {
-            User user = Facade.createUser(email, password, address, city, zipCode, phoneNumber, role);
+            User user = Facade.createUser(email, password, address, city, phoneNumber, role);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
             request.getRequestDispatcher("WEB-INF/userPage.jsp").forward(request, response);
         }
-        catch (DatabaseException e)
+        catch (DatabaseException | SQLException e)
         {
             request.setAttribute("errormessage", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
-        }*/
+        }
     }
 }

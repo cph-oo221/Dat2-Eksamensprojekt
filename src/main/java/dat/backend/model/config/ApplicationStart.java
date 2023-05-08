@@ -48,6 +48,12 @@ public class ApplicationStart implements ServletContextListener
             return connectionPool;
     }
 
+    // This method is used for testing purposes.
+    public static void setConnectionPool(ConnectionPool connectionPool)
+    {
+        ApplicationStart.connectionPool = connectionPool;
+    }
+
     @Override
     public void contextDestroyed(ServletContextEvent sce)
     {

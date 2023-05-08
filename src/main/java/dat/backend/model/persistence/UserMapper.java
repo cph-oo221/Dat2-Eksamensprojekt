@@ -16,7 +16,7 @@ class UserMapper
 
         User user = null;
 
-        String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+        String sql = "SELECT * FROM user WHERE `e-mail` = ? AND password = ?";
 
         try (Connection connection = ApplicationStart.getConnectionPool().getConnection())
         {
@@ -32,9 +32,8 @@ class UserMapper
                     String address = rs.getString("address");
                     String city = rs.getString("city");
                     int phone = rs.getInt("phone");
-                    int zip = rs.getInt("zip");
 
-                    user = new User(id, email, password, role, address, city, phone, zip);
+                    user = new User(id, email, password, role, address, city, phone);
                 } else
                 {
                     throw new DatabaseException("Wrong username or password");
@@ -47,49 +46,99 @@ class UserMapper
         return user;
     }
 
-    public static User createUser(String email, String password, String address, String city, int zipCode, int phoneNumber, String role)
+    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role) throws DatabaseException
     {
+        Logger.getLogger("web").log(Level.INFO, "trying to create new user...");
 
-        // fixme dommy
+        if(password.length() <= 4)
+        {
+            throw new IllegalArgumentException("Your password has to be at least 5 characters");
+        }
 
+        if(email.contains(" "))
+        {
+            throw new IllegalArgumentException("Your email cant contain space");
+        }
 
-        System.out.println("email " + email + ", password " + password + ", address " + address +
-                ", city " + city + ", zip code " + zipCode + ", phone number " + phoneNumber + ", role " + role);
+        User user = getUserByEmail(email);
 
+        if (user != null)
+        {
+            throw new DatabaseException("Can't make a new user that already exists");
+        }
 
-        return new User(3,email, password, role, address, city, phoneNumber, zipCode);
-    }
+        String sql = "insert into user (`e-mail`, password, role, address, city, phone) values (?, ?, ?, ?, ?, ?)";
 
-    /*static User createUser(String username, String password, String role, ConnectionPool connectionPool) throws DatabaseException
-    {
-        Logger.getLogger("web").log(Level.INFO, "");
-        User user;
-        String sql = "insert into user (username, password, role) values (?,?,?)";
-        try (Connection connection = connectionPool.getConnection())
+        try(Connection connection = ApplicationStart.getConnectionPool().getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
-                ps.setString(1, username);
+                ps.setString(1, email);
                 ps.setString(2, password);
                 ps.setString(3, role);
+                ps.setString(4, address);
+                ps.setString(5, city);
+                ps.setInt(6, phoneNumber);
+
                 int rowsAffected = ps.executeUpdate();
-                if (rowsAffected == 1)
+
+                if(rowsAffected == 1)
                 {
-                    user = new User(username, password, role);
-                } else
+                    ps.close();
+                    sql = "SELECT LAST_INSERT_ID()";
+                    try(PreparedStatement ps2 = connection.prepareStatement(sql))
+                    {
+                        ResultSet rs = ps2.executeQuery();
+                        if(rs.next())
+                        {
+                            int idUser = rs.getInt("LAST_INSERT_ID()");
+                            user = new User(idUser, email, password, role, address, city, phoneNumber);
+                        }
+                        else
+                        {
+                            throw new DatabaseException("No ID was found!");
+                        }
+                    }
+                }
+                else
                 {
-                    throw new DatabaseException("The user with username = " + username + " could not be inserted into the database");
+                    throw new DatabaseException("This user " + email + ", could not be insert in to the database");
                 }
             }
         }
-        catch (SQLException ex)
+        catch (SQLException e)
         {
-            throw new DatabaseException(ex, "Could not insert username into database");
+            throw new DatabaseException(e.getMessage());
         }
         return user;
     }
 
-     */
+    public static User getUserByEmail(String email) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "checking if the user exists in the database");
+        String sql = "SELECT * FROM user where `e-mail` = ?";
 
+        try(Connection connection = ApplicationStart.getConnectionPool().getConnection())
+        {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
 
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                int idUser = rs.getInt("iduser");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+                String address = rs.getString("address");
+                String city = rs.getString("city");
+                int phone = rs.getInt("phone");
+
+                return new User(idUser, email, password, role, address, city, phone);
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+        return null;
+    }
 }

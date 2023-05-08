@@ -11,9 +11,8 @@ public class User
     private String address;
     private String city;
     private int phone;
-    private int zip;
 
-    public User(int idUser, String email, String password, String role,String address,String city,int phone,int zip)
+    public User(int idUser, String email, String password, String role,String address,String city,int phone)
     {
         this.idUser = idUser;
         this.email = email;
@@ -22,7 +21,6 @@ public class User
         this.address = address;
         this.city = city;
         this.phone = phone;
-        this.zip = zip;
     }
 
     public int getIdUser() { return  idUser; }
@@ -87,29 +85,19 @@ public class User
         this.phone = phone;
     }
 
-    public int getZip()
-    {
-        return zip;
-    }
-
-    public void setZip(int zip)
-    {
-        this.zip = zip;
-    }
-
     @Override
     public boolean equals(Object o)
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return phone == user.phone && zip == user.zip && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(address, user.address) && Objects.equals(city, user.city);
+        return phone == user.phone && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(address, user.address) && Objects.equals(city, user.city);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(email, password, role, address, city, phone, zip);
+        return Objects.hash(email, password, role, address, city, phone);
     }
 
     @Override
@@ -122,7 +110,6 @@ public class User
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", phone=" + phone +
-                ", zip=" + zip +
                 '}';
     }
 }

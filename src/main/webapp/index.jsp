@@ -25,12 +25,12 @@
                     <form action="login" method="post">
                         <p>${requestScope.errormessage}</p>
 
-                        <label for="email" class="fw-bold"> Username </label><br/>
+                        <label for="email" class="fw-bold popupLoginEmail"> Email </label><br/>
                         <input type="text" id="email" name="email" style="width: 100%; height: 35px;" placeholder="Angiv Email"/>
 
                         <br/>
                         <br/>
-                        <label for="password" class="fw-bold"> Password </label><br/>
+                        <label for="password" class="fw-bold popupLoginPassword"> Password </label><br/>
                         <input type="password" id="password" name="password" style="width: 100%; height: 35px;" placeholder="Angiv Password"/>
 
                         <br/>
