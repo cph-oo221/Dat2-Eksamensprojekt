@@ -175,4 +175,9 @@ class UserMapperTest
         assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test @125.com", "123456", "testvej 126", "test city", 23456234, "user"));
     }
 
+    /*@Test
+    void invalidEmailLogin()
+    {
+        assertThrows(DatabaseException.class, () -> Facade.)
+    }*/
 }

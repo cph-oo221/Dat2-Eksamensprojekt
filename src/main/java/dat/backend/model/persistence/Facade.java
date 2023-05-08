@@ -20,22 +20,20 @@ public class Facade
         return receiptsList;
     }
 
-    public static User login(String username, String password, ConnectionPool connectionPool) throws DatabaseException
+    public static User login(String username, String password) throws DatabaseException
     {
         //dummy
-        return new User(1, "test@test.com", "test", "user", "testvej", "testby", 12341234);
-        /*
+        // return new User(1, "test@test.com", "test", "user", "testvej", "testby", 12341234);
         try
         {
-            return UserMapper.login(username, password, connectionPool);
+            return UserMapper.login(username, password);
         }
+        // FIXME: Errorhandling
         catch (DatabaseException e)
         {
             e.printStackTrace();
         }
         return null;
-
-         */
     }
 
     public static int createReceipt(int idUser, int width, int length, String comment) throws DatabaseException
