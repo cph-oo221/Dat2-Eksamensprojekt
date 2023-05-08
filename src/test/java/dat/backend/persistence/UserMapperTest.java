@@ -62,7 +62,12 @@ class UserMapperTest
                 stmt.execute("CREATE DATABASE IF NOT EXISTS fog_test;");
 
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.user LIKE `Dat2-Eksamensopgave`.user;");
-
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.receipt LIKE `Dat2-Eksamensopgave`.receipt;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.order LIKE `Dat2-Eksamensopgave`.order;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.ordermetal LIKE `Dat2-Eksamensopgave`.ordermetal;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.orderwood LIKE `Dat2-Eksamensopgave`.orderwood;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metalstuff LIKE `Dat2-Eksamensopgave`.metalstuff;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.wood LIKE `Dat2-Eksamensopgave`.wood;");
 
 
             } catch (SQLException throwables)
@@ -81,6 +86,12 @@ class UserMapperTest
             try (Statement stmt = testConnection.createStatement())
             {
                 stmt.execute("use fog_test;");
+                stmt.execute("delete from fog_test.receipt");
+                stmt.execute("delete from fog_test.order");
+                stmt.execute("delete from fog_test.ordermetal");
+                stmt.execute("delete from fog_test.orderwood");
+                stmt.execute("delete from fog_test.wood");
+                stmt.execute("delete from fog_test.metalstuff");
                 stmt.execute("delete from fog_test.user");
 
                 stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
@@ -153,6 +164,15 @@ class UserMapperTest
         String city = "testing city";
         int phone = 13233334;
 
-        assertEquals(new User(iduser, email, password, role, address, city, phone), Facade.createUser("test@124.com", "test124", "testvej 124", "testing city", 13233334, "user"));
+        assertEquals(new User(iduser, email, password, role, address, city, phone), Facade.createUser("test@124.com", "test124",
+                "testvej 124", "testing city", 13233334, "user"));
     }
+
+    @Test
+    void invalidCreateUser()
+    {
+        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test@125.com", "123", "testvej 126", "test city", 23456234, "user"));
+        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test @125.com", "123456", "testvej 126", "test city", 23456234, "user"));
+    }
+
 }
