@@ -20,9 +20,9 @@ public class Facade
         return receiptsList;
     }
 
-    public static User login(String username, String password) throws DatabaseException
+    public static User login(String email, String password) throws DatabaseException
     {
-        return UserMapper.login(username, password);
+        return UserMapper.login(email, password);
     }
 
     public static int createReceipt(int idUser, int width, int length, String comment) throws DatabaseException
