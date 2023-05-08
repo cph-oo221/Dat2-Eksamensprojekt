@@ -9,20 +9,22 @@ import java.util.ArrayList;
 
 public class Facade
 {
-    public static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool)
+    public static ArrayList<Receipt> getReceiptsByIdUser(int idUser)
     {
-        //dummy
+        /*dummy
         ArrayList<Receipt> receiptsList = new ArrayList<>();
         receiptsList.add(new Receipt(1, 1, OrderState.OPEN));
         receiptsList.add(new Receipt(2, 1, OrderState.OFFER));
         receiptsList.add(new Receipt(3, 1, OrderState.COMPLETE));
         return receiptsList;
+         */
+        return ReceiptMapper.getReceiptsByIdUser(idUser);
     }
 
     public static User login(String username, String password, ConnectionPool connectionPool) throws DatabaseException
     {
         //dummy
-        return new User(1, "test@test.com", "test", "user", "testvej", "testby", 12341234, 4130);
+        return new User(2, "test@test.com", "test", "user", "testvej", "testby", 12341234, 4130);
         /*
         try
         {
@@ -42,9 +44,15 @@ public class Facade
         return UserMapper.createUser(email, password, address, city, zipCode, phoneNumber, role);
     }
 
-    public static Receipt acceptReceipt(int idReceipt)
+    public static void acceptReceipt(int idReceipt)
     {
         //dummy
-        return new Receipt(2, 1, OrderState.COMPLETE);
+        //return new Receipt(2, 1, OrderState.COMPLETE);
+
+        ReceiptMapper.acceptReceipt(idReceipt);
+    }
+
+    public static void deleteReceipt(int idReceipt)
+    {
     }
 }

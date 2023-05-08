@@ -72,7 +72,7 @@
                                     <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
                                     <input type="submit" class="btn btn-secondary" value="Accepter">
                                 </form>
-                                <form action="updatereceipt" method="post">
+                                <form action="deletereceipt" method="post">
                                     <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
                                     <input type="submit" class="btn btn-secondary" value="Afvis">
                                 </form>

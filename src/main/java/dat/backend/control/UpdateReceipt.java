@@ -1,6 +1,5 @@
 package dat.backend.control;
 
-import com.mysql.cj.Session;
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Receipt;
 import dat.backend.model.entities.User;
@@ -11,13 +10,12 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(name = "Receipts", value = "/receipts")
-public class Receipts extends HttpServlet
+@WebServlet(name = "updateReceipt", value = "/updatereceipt")
+public class UpdateReceipt extends HttpServlet
 {
-    static ArrayList<Receipt> receiptList;
-    ConnectionPool connectionPool = ApplicationStart.getConnectionPool();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -27,10 +25,14 @@ public class Receipts extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
+        Facade.acceptReceipt(idReceipt);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        receiptList = Facade.getReceiptsByIdUser(user.getIdUser());
+        ArrayList<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser());
         request.setAttribute("receiptList", receiptList);
+
+
         request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request,response);
     }
 }
