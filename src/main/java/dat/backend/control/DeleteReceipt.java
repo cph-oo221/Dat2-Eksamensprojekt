@@ -15,7 +15,14 @@ import java.util.ArrayList;
 @WebServlet(name = "deletereceipt", value = "/deletereceipt")
 public class DeleteReceipt extends HttpServlet
 {
-    ConnectionPool connectionPool = ApplicationStart.getConnectionPool();
+    ConnectionPool connectionPool;
+
+    @Override
+    public void init() throws ServletException
+    {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {

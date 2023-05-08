@@ -48,9 +48,6 @@ class ReceiptMapperTest
 
         connectionPool = new ConnectionPool(USER, PASSWORD, TESTURL);
 
-        ApplicationStart.setConnectionPool(connectionPool);
-
-
         try (Connection testConnection = connectionPool.getConnection())
         {
             try (Statement stmt = testConnection.createStatement())
