@@ -12,13 +12,6 @@ public class Facade
 {
     public static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool)
     {
-        /*dummy
-        ArrayList<Receipt> receiptsList = new ArrayList<>();
-        receiptsList.add(new Receipt(1, 1, OrderState.OPEN));
-        receiptsList.add(new Receipt(2, 1, OrderState.OFFER));
-        receiptsList.add(new Receipt(3, 1, OrderState.COMPLETE));
-        return receiptsList;
-         */
         return ReceiptMapper.getReceiptsByIdUser(idUser, connectionPool);
     }
 
@@ -45,9 +38,6 @@ public class Facade
 
     public static void acceptReceipt(int idReceipt, ConnectionPool connectionPool)
     {
-        //dummy
-        //return new Receipt(2, 1, OrderState.COMPLETE);
-
         ReceiptMapper.acceptReceipt(idReceipt, connectionPool);
     }
 
