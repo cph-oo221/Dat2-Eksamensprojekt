@@ -36,11 +36,8 @@ public class Facade
         return UserMapper.getUserByEmail(email, connectionPool);
     }
 
-    public static Receipt acceptReceipt(int idReceipt, ConnectionPool connectionPool)
+    public static void acceptReceipt(int idReceipt, ConnectionPool connectionPool)
     {
-        //dummy
-        //return new Receipt(2, 1, OrderState.COMPLETE);
-
         ReceiptMapper.acceptReceipt(idReceipt, connectionPool);
     }
 
