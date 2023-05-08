@@ -22,18 +22,7 @@ public class Facade
 
     public static User login(String username, String password) throws DatabaseException
     {
-        //dummy
-        // return new User(1, "test@test.com", "test", "user", "testvej", "testby", 12341234);
-        try
-        {
-            return UserMapper.login(username, password);
-        }
-        // FIXME: Errorhandling
-        catch (DatabaseException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
+        return UserMapper.login(username, password);
     }
 
     public static int createReceipt(int idUser, int width, int length, String comment) throws DatabaseException
