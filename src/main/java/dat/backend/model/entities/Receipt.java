@@ -30,6 +30,26 @@ public class Receipt
         this.orderstate = orderstate;
     }
 
+    public int getWidth()
+    {
+        return width;
+    }
+
+    public void setWidth(int width)
+    {
+        this.width = width;
+    }
+
+    public int getLength()
+    {
+        return length;
+    }
+
+    public void setLength(int length)
+    {
+        this.length = length;
+    }
+
     public int getIdReceipt()
     {
         return idReceipt;
@@ -50,6 +70,16 @@ public class Receipt
         this.idUser = idUser;
     }
 
+    public int getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(int price)
+    {
+        this.price = price;
+    }
+
     public Timestamp getTimeOfOrder()
     {
         return timeOfOrder;
@@ -60,13 +90,24 @@ public class Receipt
         this.timeOfOrder = timeOfOrder;
     }
 
-    public OrderState getOrderState() { return orderstate; }
-
-    public void setOrderState(OrderState orderstate) { this.orderstate = orderstate; }
-
-    public int getPrice()
+    public OrderState getOrderstate()
     {
-        return price;
+        return orderstate;
+    }
+
+    public void setOrderstate(OrderState orderstate)
+    {
+        this.orderstate = orderstate;
+    }
+
+    public String getComment()
+    {
+        return comment;
+    }
+
+    public void setComment(String comment)
+    {
+        this.comment = comment;
     }
 
     @Override
@@ -79,6 +120,4 @@ public class Receipt
                 ", orderState=" + orderstate +
                 '}';
     }
-
-
 }
