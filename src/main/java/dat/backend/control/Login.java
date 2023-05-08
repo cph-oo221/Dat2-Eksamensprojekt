@@ -17,6 +17,13 @@ import java.io.IOException;
 @WebServlet(name = "login", urlPatterns = {"/login"} )
 public class Login extends HttpServlet
 {
+    private ConnectionPool connectionPool;
+
+    @Override
+    public void init() throws ServletException
+    {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
@@ -34,7 +41,7 @@ public class Login extends HttpServlet
 
         try
         {
-            User user = Facade.login(email, password);
+            User user = Facade.login(email, password, connectionPool);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
             request.getRequestDispatcher("WEB-INF/userPage.jsp").forward(request, response);

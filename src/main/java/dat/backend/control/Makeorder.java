@@ -1,7 +1,9 @@
 package dat.backend.control;
 
+import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
 
 import javax.servlet.*;
@@ -12,6 +14,14 @@ import java.io.IOException;
 @WebServlet(name = "Makeorder", value = "/makeorder")
 public class Makeorder extends HttpServlet
 {
+    private ConnectionPool connectionPool;
+
+    @Override
+    public void init() throws ServletException
+    {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -28,7 +38,7 @@ public class Makeorder extends HttpServlet
 
         try
         {
-            Facade.createReceipt(user.getIdUser(), width, length, comment);
+            Facade.createReceipt(user.getIdUser(), width, length, comment, connectionPool);
         }
 
         catch (DatabaseException e)

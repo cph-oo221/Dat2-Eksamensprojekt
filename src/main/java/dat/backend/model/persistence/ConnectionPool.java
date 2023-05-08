@@ -18,11 +18,6 @@ public class ConnectionPool
 
     public ConnectionPool()
     {
-        this(USER, PASSWORD, URL);
-    }
-
-    public ConnectionPool(String USER, String PASSWORD, String URL)
-    {
         String deployed = System.getenv("DEPLOYED");
         if (deployed != null)
         {
@@ -49,6 +44,22 @@ public class ConnectionPool
             }
         }
 
+        Logger.getLogger("web").log(Level.INFO,
+                String.format("Connection Pool created for: (%s, %s, %s)", USER, PASSWORD, URL));
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        config.setJdbcUrl(URL);
+        config.setUsername(USER);
+        config.setPassword(PASSWORD);
+        config.setMaximumPoolSize(5);
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        this.ds = new HikariDataSource(config);
+    }
+
+    public ConnectionPool(String USER, String PASSWORD, String URL)
+    {
         Logger.getLogger("web").log(Level.INFO,
                 String.format("Connection Pool created for: (%s, %s, %s)", USER, PASSWORD, URL));
         HikariConfig config = new HikariConfig();

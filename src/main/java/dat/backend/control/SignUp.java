@@ -48,7 +48,7 @@ public class SignUp extends HttpServlet
 
         try
         {
-            User user = Facade.createUser(email, password, address, city, phoneNumber, role);
+            User user = Facade.createUser(email, password, address, city, phoneNumber, role, connectionPool);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
             request.getRequestDispatcher("WEB-INF/userPage.jsp").forward(request, response);

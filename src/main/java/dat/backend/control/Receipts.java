@@ -17,7 +17,15 @@ import java.util.ArrayList;
 public class Receipts extends HttpServlet
 {
     static ArrayList<Receipt> receiptList;
-    ConnectionPool connectionPool = ApplicationStart.getConnectionPool();
+
+    private ConnectionPool connectionPool;
+
+    @Override
+    public void init() throws ServletException
+    {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
