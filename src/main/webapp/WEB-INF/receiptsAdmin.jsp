@@ -30,8 +30,9 @@
                         <tr>
                             <th scope="col">Ordre ID</th>
                             <th scope="col">Kunde ID</th>
-                            <th scope="col">Dato</th>
-                            <th scope="col">Totalpris</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Tidspunkt</th>
+                            <th scope="col">Pris</th>
                             <th scope="col">Status</th>
                             <th scope="col">Bredde</th>
                             <th scope="col">længde</th>
@@ -45,6 +46,13 @@
                                 <tr>
                                     <td>${receipts.idReceipt}</td>
                                     <td>${receipts.idUser}</td>
+                                    <td>
+                                        <c:forEach var="users" items="${requestScope.usersList}">
+                                            <c:if test="${users.idUser == receipts.idUser}">
+                                                ${users.email}
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
                                     <td>${receipts.timeOfOrder}</td>
                                     <td>${receipts.price}</td>
                                     <td>${receipts.orderstate}</td>
@@ -71,8 +79,9 @@
                         <tr>
                             <th scope="col">Ordre ID</th>
                             <th scope="col">Kunde ID</th>
-                            <th scope="col">Dato</th>
-                            <th scope="col">Totalpris</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Tidspunkt</th>
+                            <th scope="col">Pris</th>
                             <th scope="col">Status</th>
                             <th scope="col">Brede</th>
                             <th scope="col">Længde</th>
@@ -86,6 +95,13 @@
                                 <tr>
                                     <td>${receipts.idReceipt}</td>
                                     <td>${receipts.idUser}</td>
+                                    <td>
+                                        <c:forEach var="users" items="${requestScope.usersList}">
+                                            <c:if test="${users.idUser == receipts.idUser}">
+                                                ${users.email}
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
                                     <td>${receipts.timeOfOrder}</td>
                                     <td>${receipts.price}</td>
                                     <td>${receipts.orderstate}</td>
@@ -111,8 +127,9 @@
                         <tr>
                             <th scope="col">Ordre ID</th>
                             <th scope="col">Kunde ID</th>
-                            <th scope="col">Dato</th>
-                            <th scope="col">Totalpris</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Tidspunkt</th>
+                            <th scope="col">Pris</th>
                             <th scope="col">Status</th>
                             <th scope="col">Brede</th>
                             <th scope="col">Længde</th>
@@ -126,6 +143,13 @@
                                 <tr>
                                     <td>${receipts.idReceipt}</td>
                                     <td>${receipts.idUser}</td>
+                                    <td>
+                                        <c:forEach var="users" items="${requestScope.usersList}">
+                                            <c:if test="${users.idUser == receipts.idUser}">
+                                                ${users.email}
+                                            </c:if>
+                                        </c:forEach>
+                                    </td>
                                     <td>${receipts.timeOfOrder}</td>
                                     <td>${receipts.price}</td>
                                     <td>${receipts.orderstate}</td>
