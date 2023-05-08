@@ -34,12 +34,14 @@ class UserMapper
                     int phone = rs.getInt("phone");
 
                     user = new User(id, email, password, role, address, city, phone);
-                } else
+                }
+                else
                 {
                     throw new DatabaseException("Wrong username or password");
                 }
             }
-        } catch (SQLException ex)
+        }
+        catch (SQLException ex)
         {
             throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
         }
