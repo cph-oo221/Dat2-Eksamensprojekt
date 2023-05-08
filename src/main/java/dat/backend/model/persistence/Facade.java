@@ -47,7 +47,7 @@ public class Facade
     public static void acceptReceipt(int idReceipt, ConnectionPool connectionPool)
     {
         //dummy
-        //return new Receipt(2, 1, OrderState.COMPLETE);
+        //return new Receipt(2, 1, OrderState.COMPLETE);hf
 
         ReceiptMapper.acceptReceipt(idReceipt, connectionPool);
     }
