@@ -51,6 +51,11 @@ public class Facade
         ReceiptMapper.deleteReceipt(idReceipt, connectionPool);
     }
 
+    public static List<Receipt> getAllReceipts(ConnectionPool connectionPool) throws DatabaseException
+    {
+        return ReceiptMapper.getAllReceipts(connectionPool);
+    }
+
     // /RECEIPT ********************************************************************************************************
 
     public static List<Wood> getWoodByVariant(String variant, ConnectionPool connectionPool) throws DatabaseException
