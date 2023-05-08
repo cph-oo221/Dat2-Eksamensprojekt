@@ -2,6 +2,7 @@ package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Receipt;
+import dat.backend.model.entities.User;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
 
@@ -9,9 +10,10 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "updateReceipt", value = "/updatereceipt")
-public class updateReceipt extends HttpServlet
+public class UpdateReceipt extends HttpServlet
 {
     private ConnectionPool connectionPool;
 
@@ -31,16 +33,12 @@ public class updateReceipt extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
-        Receipt receipt = Facade.acceptReceipt(idReceipt, connectionPool);
-        for(Receipt r : Receipts.receiptList)
-        {
-            if(r.getIdReceipt() == idReceipt)
-            {
-                Receipts.receiptList.remove(r);
-            }
-        }
-        Receipts.receiptList.add(receipt);
-        request.setAttribute("receiptList", Receipts.receiptList);
+        Facade.acceptReceipt(idReceipt, connectionPool);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        ArrayList<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
+        request.setAttribute("receiptList", receiptList);
+
 
         request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request,response);
     }

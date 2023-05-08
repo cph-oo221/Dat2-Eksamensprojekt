@@ -14,12 +14,12 @@ public class Receipt
     {
         this.idReceipt = idReceipt;
         this.idUser = idUser;
+        this.width = width;
+        this.length = length;
         this.price = price;
         this.timeOfOrder = timeOfOrder;
         this.orderstate = orderstate;
         this.comment = comment;
-        this.width = width;
-        this.length = length;
     }
 
     //dummy
