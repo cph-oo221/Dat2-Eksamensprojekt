@@ -2,6 +2,7 @@ package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Receipt;
+import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
@@ -36,6 +37,10 @@ public class ReceiptsAdmin extends HttpServlet
         {
             List<Receipt> receiptsList = Facade.getAllReceipts(connectionPool);
             request.setAttribute("receiptsList", receiptsList);
+
+            List<User> usersList = Facade.getAllUsers(connectionPool);
+            request.setAttribute("usersList", usersList);
+
         }
         catch (DatabaseException e)
         {
