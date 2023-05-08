@@ -12,12 +12,7 @@ public class Facade
 {
     public static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool)
     {
-        //dummy
-        ArrayList<Receipt> receiptsList = new ArrayList<>();
-        receiptsList.add(new Receipt(1, 1, OrderState.OPEN));
-        receiptsList.add(new Receipt(2, 1, OrderState.OFFER));
-        receiptsList.add(new Receipt(3, 1, OrderState.COMPLETE));
-        return receiptsList;
+        return ReceiptMapper.getReceiptsByIdUser(idUser, connectionPool);
     }
 
     public static User login(String username, String password, ConnectionPool connectionPool) throws DatabaseException
@@ -44,6 +39,13 @@ public class Facade
     public static Receipt acceptReceipt(int idReceipt, ConnectionPool connectionPool)
     {
         //dummy
-        return new Receipt(2, 1, OrderState.COMPLETE);
+        //return new Receipt(2, 1, OrderState.COMPLETE);
+
+        ReceiptMapper.acceptReceipt(idReceipt, connectionPool);
+    }
+
+    public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool)
+    {
+        ReceiptMapper.deleteReceipt(idReceipt, connectionPool);
     }
 }
