@@ -1,6 +1,5 @@
 package dat.backend.model.persistence;
 
-import com.mysql.cj.protocol.Resultset;
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.exceptions.DatabaseException;
 
@@ -9,13 +8,13 @@ import java.sql.*;
 public class ReceiptMapper
 {
 
-    public static int createReceipt(int idUser, int width, int length, String comment) throws DatabaseException
+    public static int createReceipt(int idUser, int width, int length, String comment, ConnectionPool connectionPool) throws DatabaseException
     {
         // TODO: Create receipt entry in database, and return newly created receipt id
 
         String sql = "INSERT INTO receipt (idUser, width, length, comment) VALUES (?, ?, ?, ?);";
 
-        try (Connection connection = ApplicationStart.getConnectionPool().getConnection())
+        try (Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {

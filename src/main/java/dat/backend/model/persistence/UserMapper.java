@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 class UserMapper
 {
-    static User login(String email, String password) throws DatabaseException
+    static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -18,7 +18,7 @@ class UserMapper
 
         String sql = "SELECT * FROM user WHERE `e-mail` = ? AND password = ?";
 
-        try (Connection connection = ApplicationStart.getConnectionPool().getConnection())
+        try (Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
@@ -48,7 +48,7 @@ class UserMapper
         return user;
     }
 
-    static User createUser(String email, String password, String address, String city, int phoneNumber, String role) throws DatabaseException
+    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "trying to create new user...");
 
@@ -62,7 +62,7 @@ class UserMapper
             throw new IllegalArgumentException("Your email cant contain space");
         }
 
-        User user = getUserByEmail(email);
+        User user = getUserByEmail(email, connectionPool);
 
         if (user != null)
         {
@@ -71,7 +71,7 @@ class UserMapper
 
         String sql = "insert into user (`e-mail`, password, role, address, city, phone) values (?, ?, ?, ?, ?, ?)";
 
-        try(Connection connection = ApplicationStart.getConnectionPool().getConnection())
+        try(Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
@@ -115,11 +115,11 @@ class UserMapper
         return user;
     }
 
-    static User getUserByEmail(String email) throws DatabaseException {
+    public static User getUserByEmail(String email, ConnectionPool connectionPool) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "checking if the user exists in the database");
         String sql = "SELECT * FROM user where `e-mail` = ?";
 
-        try(Connection connection = ApplicationStart.getConnectionPool().getConnection())
+        try(Connection connection = connectionPool.getConnection())
         {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, email);
