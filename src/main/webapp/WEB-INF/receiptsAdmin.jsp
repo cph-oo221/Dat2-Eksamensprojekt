@@ -15,7 +15,7 @@
     <jsp:body>
 
         <div class="mt-2">
-            <form action="receiptsadmin" method="get">
+            <form action="redirectadminpanel" method="post">
                 <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
             </form>
         </div>
@@ -143,7 +143,7 @@
 
 
         <div class="mt-2">
-            <form action="receiptsadmin" method="get">
+            <form action="redirectadminpanel" method="post">
                 <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
             </form>
         </div>
