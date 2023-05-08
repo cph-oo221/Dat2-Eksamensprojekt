@@ -24,36 +24,23 @@ public class Facade
 
     public static User login(String username, String password, ConnectionPool connectionPool) throws DatabaseException
     {
-        //dummy
-        return new User(2, "test@test.com", "test", "user", "testvej", "testby", 12341234);
-        /*
-        try
-        {
-            return UserMapper.login(username, password, connectionPool);
-        }
-        catch (DatabaseException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
-
-         */
+        return UserMapper.login(username, password, connectionPool);
     }
 
-    public static int createReceipt(int idUser, int width, int length, String comment) throws DatabaseException
+    public static int createReceipt(int idUser, int width, int length, String comment, ConnectionPool connectionPool) throws DatabaseException
     {
-        return ReceiptMapper.createReceipt(idUser, width, length, comment);
+        return ReceiptMapper.createReceipt(idUser, width, length, comment, connectionPool);
     }
 
 
-    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role) throws SQLException, DatabaseException
+    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role, ConnectionPool connectionPool) throws SQLException, DatabaseException
     {
-        return UserMapper.createUser(email, password, address, city, phoneNumber, role);
+        return UserMapper.createUser(email, password, address, city, phoneNumber, role, connectionPool);
     }
 
-    public static User getUserByEmail(String email) throws DatabaseException
+    public static User getUserByEmail(String email, ConnectionPool connectionPool) throws DatabaseException
     {
-        return UserMapper.getUserByEmail(email);
+        return UserMapper.getUserByEmail(email, connectionPool);
     }
 
     public static void acceptReceipt(int idReceipt, ConnectionPool connectionPool)

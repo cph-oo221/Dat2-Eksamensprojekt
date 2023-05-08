@@ -43,15 +43,14 @@ class UserMapperTest
                 USER = Env.USER;
                 PASSWORD = Env.PASSWORD;
                 TESTURL = Env.TESTURL;
-            } else
+            }
+            else
             {
                 throw new RuntimeException("Env class needed, but not found!");
             }
         }
 
         connectionPool = new ConnectionPool(USER, PASSWORD, TESTURL);
-
-        ApplicationStart.setConnectionPool(connectionPool);
 
 
         try (Connection testConnection = connectionPool.getConnection())
@@ -98,7 +97,8 @@ class UserMapperTest
                 stmt.execute("ALTER TABLE fog_test.user AUTO_INCREMENT = 1");
                 stmt.execute("insert into fog_test.user VALUES " +
                         "(1, 'user@user.com','user','user', 'uservej 1', 'Vice city', 12345678)," +
-                        "(2, 'admin@admin.com','admin','admin', 'adminvej 2', 'San Andreas', 87654321)");
+                        "(2, 'admin@admin.com','admin','admin', 'adminvej 2', 'San Andreas', 87654321)," +
+                        "(3, 'test@124.com', 'test124', 'user', 'testvej 124', 'testing city', 13233334)");
                 stmt.execute("ALTER TABLE fog_test.user ENABLE KEYS");
             }
         } catch (SQLException throwables)
@@ -148,31 +148,65 @@ class UserMapperTest
         User user = new User(iduser, email, password, role, address, city, phone);
 
         System.out.println("Expected: " + user);
-        System.out.println("Actual: " + Facade.getUserByEmail("user@user.com"));
+        System.out.println("Actual: " + Facade.getUserByEmail("user@user.com", connectionPool));
 
-        assertEquals(user, Facade.getUserByEmail("user@user.com"));
+        assertEquals(user, Facade.getUserByEmail("user@user.com", connectionPool));
     }
 
     @Test
     void createUser() throws SQLException, DatabaseException
     {
         int iduser = 3;
-        String email = "test@124.com";
+        String email = "test@test34.com";
         String password = "test124";
         String role = "user";
         String address = "testvej 124";
         String city = "testing city";
         int phone = 13233334;
 
-        assertEquals(new User(iduser, email, password, role, address, city, phone), Facade.createUser("test@124.com", "test124",
-                "testvej 124", "testing city", 13233334, "user"));
+        assertEquals(new User(iduser, email, password, role, address, city, phone), Facade.createUser("test@test34.com", "test124",
+                "testvej 124", "testing city", 13233334, "user", connectionPool));
+    }
+
+    @Test
+    void succesfulLogin()
+    {
+        try
+        {
+            User expected = new User(3, "test@124.com", "test124", "user", "testvej 124",
+                    "testing city", 13233334);
+
+           /* User expected = new User(1, "user@user.com", "user", "user", "uservej 1" ,"Vice city", 12345678);*/
+
+            User actual = Facade.login("test@124.com", "test124", connectionPool);
+
+            assertEquals(expected, actual);
+        }
+
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
     @Test
     void invalidCreateUser()
     {
-        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test@125.com", "123", "testvej 126", "test city", 23456234, "user"));
-        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test @125.com", "123456", "testvej 126", "test city", 23456234, "user"));
+        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test@125.com", "123", "testvej 126", "test city", 23456234, "user", connectionPool));
+        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test @125.com", "123456", "testvej 126", "test city", 23456234, "user", connectionPool));
     }
+
+    @Test
+    void invalidEmailLogin()
+    {
+        assertThrows(DatabaseException.class, () -> Facade.login("usr@user.com", "user", connectionPool));
+    }
+
+    @Test
+    void invalidPassLogin()
+    {
+        assertThrows(DatabaseException.class, () -> Facade.login("user@user.com", "usr", connectionPool));
+    }
+
 
 }
