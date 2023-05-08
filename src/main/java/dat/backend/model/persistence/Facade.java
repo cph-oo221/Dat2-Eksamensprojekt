@@ -25,7 +25,7 @@ public class Facade
     public static User login(String username, String password, ConnectionPool connectionPool) throws DatabaseException
     {
         //dummy
-        return new User(2, "test@test.com", "test", "user", "testvej", "testby", 12341234, 4130);
+        return new User(2, "test@test.com", "test", "user", "testvej", "testby", 12341234);
         /*
         try
         {
