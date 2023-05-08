@@ -27,6 +27,11 @@ public class Facade
     {
         return UserMapper.getUserByEmail(email, connectionPool);
     }
+
+    public static List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException
+    {
+        return UserMapper.getAllUsers(connectionPool);
+    }
     // /USER ***********************************************************************************************************
 
     // RECEIPT *********************************************************************************************************
