@@ -4,6 +4,7 @@ import dat.backend.model.persistence.Facade;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class PartsListCalculator
 {
@@ -69,6 +70,20 @@ public class PartsListCalculator
             }
         }
         return result;
+    }
+
+    public ArrayList<Wood> getRafter(int width)
+    {
+        ArrayList<Wood> woods = Facade.getRafters();
+        woods.sort(new Comparator<Wood>()
+        {
+            @Override
+            public int compare(Wood s, Wood t1)
+            {
+                return t1.getLength() - s.getLength();
+            }
+        });
+
     }
 
 }
