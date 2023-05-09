@@ -200,7 +200,16 @@
                                     <td>${receipts.width}</td>
                                     <td>${receipts.length}</td>
                                     <td>${receipts.comment}</td>
-                                    <td class="text-center" style="color: green;"> <h3>Færdiggjort</h3> </td>
+                                    <td class="text-center" style="color: green;">
+                                        <h4>Færdiggjort</h4>
+
+                                        <div class="mt-2 text-center">
+                                            <form action="itemslist" method="post">
+
+                                                <input type="submit" class="btn btn-info fw-bold" value="Se stykliste"/>
+                                            </form>
+                                        </div>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </c:if>
