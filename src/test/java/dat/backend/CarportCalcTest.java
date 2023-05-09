@@ -54,7 +54,7 @@ public class CarportCalcTest
     void calcRemTest()
     {
         int width = 240;
-        int length = 600;
+        int length = 1200;
         int remAmount = 2;
 
         try
@@ -83,7 +83,7 @@ public class CarportCalcTest
 
 
             assertNotNull(rem);
-            assertEquals(4, remAmount);
+            assertEquals(8, remAmount);
             assertEquals(expected, rem);
 
         }
