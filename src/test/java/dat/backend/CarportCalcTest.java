@@ -2,6 +2,7 @@ package dat.backend;
 
 import dat.backend.model.config.Env;
 import dat.backend.model.entities.Wood;
+import dat.backend.model.entities.WoodOrderItem;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
@@ -155,5 +156,38 @@ public class CarportCalcTest
     private float getAmount(float length, int modifier)
     {
         return (length / 55) * modifier;
+    }
+
+    @Test
+    void roofingCalc()
+    {
+        int length = 250;
+        int width = 250;
+        double area = length*width;
+        // 250 * 250 = 62500 cm^2
+        // 1 plade er 100 * 100 = 10.000 cm^2
+        // 62500 / 10.000 = 6.25
+        List<Wood> roofing = null;
+        try
+        {
+            roofing = Facade.getWoodByVariant("Tag", connectionPool);
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+        Wood roof = roofing.get(0);
+        int amount= (int) Math.ceil(area/10000);
+        String desc = "Placeholder";
+        WoodOrderItem actual = new WoodOrderItem(amount, roof, desc);
+        int expectedId = 6;
+        int expectedAmount = 7;
+        assertEquals(expectedId , actual.getWood().getIdWood());
+        assertEquals(expectedAmount , actual.getAmount());
+
+
+        //6,100,100,1,Trapezplade 1x1m,stk,30,Tag
+
+
     }
 }

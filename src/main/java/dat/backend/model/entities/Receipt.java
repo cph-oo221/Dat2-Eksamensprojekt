@@ -6,7 +6,7 @@ public class Receipt
 {
     private int width, length, idReceipt, idUser, price;
     private Timestamp timeOfOrder;
-    private OrderState orderstate;
+    private OrderState orderState;
     private String comment;
 
 
@@ -18,7 +18,7 @@ public class Receipt
         this.length = length;
         this.price = price;
         this.timeOfOrder = timeOfOrder;
-        this.orderstate = orderstate;
+        this.orderState = orderstate;
         this.comment = comment;
     }
 
@@ -27,7 +27,7 @@ public class Receipt
     {
         this.idReceipt = idReceipt;
         this.idUser = idUser;
-        this.orderstate = orderstate;
+        this.orderState = orderstate;
     }
 
     public int getWidth()
@@ -90,14 +90,14 @@ public class Receipt
         this.timeOfOrder = timeOfOrder;
     }
 
-    public OrderState getOrderstate()
+    public OrderState getOrderState()
     {
-        return orderstate;
+        return orderState;
     }
 
-    public void setOrderstate(OrderState orderstate)
+    public void setOrderState(OrderState orderstate)
     {
-        this.orderstate = orderstate;
+        this.orderState = orderstate;
     }
 
     public String getComment()
@@ -117,7 +117,7 @@ public class Receipt
                 "idReceipt=" + idReceipt +
                 ", idUser=" + idUser +
                 ", timeOfOrder=" + timeOfOrder +
-                ", orderState=" + orderstate +
+                ", orderState=" + orderState +
                 '}';
     }
 }

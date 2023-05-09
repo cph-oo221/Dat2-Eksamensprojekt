@@ -1,9 +1,6 @@
 package dat.backend.model.persistence;
 
-import dat.backend.model.entities.OrderState;
-import dat.backend.model.entities.Receipt;
-import dat.backend.model.entities.User;
-import dat.backend.model.entities.Wood;
+import dat.backend.model.entities.*;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.SQLException;
@@ -68,4 +65,8 @@ public class Facade
         return WoodMapper.getWoodByVariant(variant, connectionPool);
     }
 
+    public static int createOrder(int receiptId, List<WoodOrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return OrderMapper.createOrder(receiptId, woodOrderItemList, connectionPool);
+    }
 }
