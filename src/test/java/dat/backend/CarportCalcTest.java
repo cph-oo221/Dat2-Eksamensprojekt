@@ -33,7 +33,8 @@ public class CarportCalcTest
             USER = System.getenv("JDBC_USER");
             PASSWORD = System.getenv("JDBC_PASSWORD");
             TESTURL = System.getenv("JDBC_CONNECTION_TEST");
-        } else
+        }
+        else
         {
             if (Env.class != null)
             {
@@ -77,7 +78,7 @@ public class CarportCalcTest
             {
                 length = length / 2;
                 rem = selectWood(woods, length);
-                remAmount += 2;
+                remAmount = remAmount * 2;
             }
 
 
@@ -121,7 +122,7 @@ public class CarportCalcTest
                 rafter = selectWood(woods, width);
             }
 
-            int amount = (int) Math.floor(getAmount(length, raftAmountModifier));
+            int amount = (int) Math.floor(getRafterAmount(length, raftAmountModifier));
 
             assertNotNull(rafter);
             assertEquals(13, amount);
@@ -153,7 +154,7 @@ public class CarportCalcTest
         return null;
     }
 
-    private float getAmount(float length, int modifier)
+    private float getRafterAmount(float length, int modifier)
     {
         return (length / 55) * modifier;
     }
