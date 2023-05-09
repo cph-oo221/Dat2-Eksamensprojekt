@@ -44,13 +44,14 @@ public class UpdateReceipt extends HttpServlet
         {
             try
             {
+                Facade.acceptReceipt(idReceipt, connectionPool);
                 List<Receipt> receiptsList = Facade.getAllReceipts(connectionPool);
                 request.setAttribute("receiptsList", receiptsList);
 
                 List<User> usersList = Facade.getAllUsers(connectionPool);
                 request.setAttribute("usersList", usersList);
 
-                Facade.acceptReceipt(idReceipt, connectionPool);
+
 
             }
             catch (DatabaseException e)
