@@ -68,6 +68,7 @@ public class Facade
 
     // /RECEIPT ********************************************************************************************************
 
+    // WOOD ************************************************************************************************************
     public static List<Wood> getWoodByVariant(String variant, ConnectionPool connectionPool) throws DatabaseException
     {
         return WoodMapper.getWoodByVariant(variant, connectionPool);
@@ -77,4 +78,11 @@ public class Facade
     {
         return WoodMapper.getAllWood(connectionPool);
     }
+
+    public static void deleteWood(int idWood, ConnectionPool connectionPool)
+    {
+        WoodMapper.deleteWood(idWood, connectionPool);
+    }
+
+    // /WOOD ***********************************************************************************************************
 }

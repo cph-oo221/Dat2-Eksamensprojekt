@@ -88,4 +88,33 @@ public class WoodMapper
             throw new DatabaseException(e.getMessage());
         }
     }
+
+    public static void deleteWood(int idWood, ConnectionPool connectionPool)
+    {
+        Logger.getLogger("web").log(Level.INFO, "");
+        // first delete all orderwood containing the wood
+
+        String sql = "DELETE FROM orderwood WHERE idWood = ?";
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try(PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, idWood);
+                ps.executeUpdate();
+                connection.close();
+
+                sql = "DELETE FROM wood WHERE idWood = ?";
+                try(PreparedStatement ps2 = connection.prepareStatement(sql))
+                {
+                    ps2.setInt(1, idWood);
+                    ps2.executeUpdate();
+                }
+            }
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+    }
 }
