@@ -45,13 +45,13 @@ public class DeleteReceipt extends HttpServlet
 
             try
             {
+                Facade.deleteReceipt(idReceipt, connectionPool);
                 List<Receipt> receiptsList = Facade.getAllReceipts(connectionPool);
                 request.setAttribute("receiptsList", receiptsList);
 
                 List<User> usersList = Facade.getAllUsers(connectionPool);
                 request.setAttribute("usersList", usersList);
 
-                Facade.deleteReceipt(idReceipt, connectionPool);
 
             }
             catch (DatabaseException e)
