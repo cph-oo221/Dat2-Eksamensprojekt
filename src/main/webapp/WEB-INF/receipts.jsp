@@ -33,7 +33,7 @@
                 </tr>
 
                 <c:forEach var="receipt" items="${requestScope.receiptList}">
-                    <c:if test="${receipt.orderState == OrderState.OPEN}">
+                    <c:if test="${receipt.orderstate == OrderState.OPEN}">
                         <tr>
                             <td>${receipt.idReceipt}</td>
                             <td>${receipt.timeOfOrder}</td>
