@@ -19,10 +19,9 @@
             </form>
         </div>
 
-        <div class="container">
+        <div class="container mt-4">
             <div class="row">
                 <div class="col-sm-12">
-
                     <table class="table table-dark table-striped">
                         <thead>
                         <tr>
@@ -34,21 +33,32 @@
                             <th scope="col">Enhed</th>
                             <th scope="col">Price</th>
                             <th scope="col">Variant</th>
+                            <th scope="col">Handling</th>
                         </tr>
                         </thead>
                         <c:forEach var="wood" items="${requestScope.woodList}">
-                        <tbody>
-                        <tr>
-                            <td>${wood.idWood}</td>
-                            <td>${wood.name}</td>
-                            <td>${wood.length}</td>
-                            <td>${wood.width} kr.</td>
-                            <td>${wood.height}</td>
-                            <td>${wood.unit}</td>
-                            <td>${wood.price}</td>
-                            <td>${wood.variant}</td>
-                        </tr>
-                        </tbody>
+                            <tbody>
+                            <tr>
+                                <td>${wood.idWood}</td>
+                                <td>${wood.name}</td>
+                                <td>${wood.length}</td>
+                                <td>${wood.width} kr.</td>
+                                <td>${wood.height}</td>
+                                <td>${wood.unit}</td>
+                                <td>${wood.price}</td>
+                                <td>${wood.variant}</td>
+                                <td class="text-center">
+                                        <%--TODO need action--%>
+                                    <form action="" method="post" onsubmit="return confirm('Denne handling medføre, at træet: '
+                                            + 'ID:' + ${wood.idWood} + ', Name: ' + ${wood.name} + '. bliver slette, er du sikker?')">
+
+                                        <input type="number" hidden name="idWood" value="${wood.idWood}">
+
+                                        <input type="submit" class="btn btn-danger fw-bold" value="Slet">
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
                         </c:forEach>
                     </table>
                 </div>
