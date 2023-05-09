@@ -63,13 +63,13 @@
                                     <td>${receipts.comment}</td>
                                     <td>
                                         <div class="mt-2 text-center">
-                                            <form action="" method="post">
+                                            <form action="itemslist" method="post">
 
-                                                <input type="number" hidden name="idReceipt" value="${receipts.idUser}"/>
+                                                <input type="number" hidden name="idUser" value="${receipts.idUser}"/>
                                                 <input type="number" hidden name="idReceipt" value="${receipts.idReceipt}"/>
-                                                <input type="number" hidden name="idReceipt" value="${receipts.price}"/>
-                                                <input type="number" hidden name="idReceipt" value="${receipts.width}"/>
-                                                <input type="number" hidden name="idReceipt" value="${receipts.length}"/>
+                                                <input type="number" hidden name="price" value="${receipts.price}"/>
+                                                <input type="number" hidden name="width" value="${receipts.width}"/>
+                                                <input type="number" hidden name="length" value="${receipts.length}"/>
 
                                                 <input type="submit" class="btn btn-info fw-bold" value="Se stykliste"/>
                                             </form>
