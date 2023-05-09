@@ -60,13 +60,16 @@
         <div class="ms-3 mt-2">
             <h3 style="color: green">Total pris 17000 kr.</h3>
 
-            <div class="mt-2">
-                <form action="" method="post">
+            <c:if test="${sessionScope.user.role.equals('admin')}">
+                <div class="mt-2">
+                    <%-- TODO needs an action to update price!!! --%>
+                    <form action="" method="post">
 
-                    <input type="number" id="pris" name="pris" style="height: 35px;"/>
-                    <input type="submit" class="btn btn-primary fw-bold mb-1" value="Sæt pris"/>
-                </form>
-            </div>
+                        <input type="number" id="pris" name="pris" style="height: 35px;"/>
+                        <input type="submit" class="btn btn-primary fw-bold mb-1" value="Sæt pris"/>
+                    </form>
+                </div>
+            </c:if>
         </div>
 
 
