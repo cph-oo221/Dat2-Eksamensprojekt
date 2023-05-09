@@ -43,7 +43,7 @@
                         </thead>
 
                         <c:forEach var="receipts" items="${requestScope.receiptsList}">
-                            <c:if test="${receipts.orderstate == OrderState.OPEN}">
+                            <c:if test="${receipts.orderState == OrderState.OPEN}">
                                 <tbody>
                                 <tr>
                                     <td>${receipts.idReceipt}</td>
@@ -57,7 +57,7 @@
                                     </td>
                                     <td>${receipts.timeOfOrder}</td>
                                     <td>${receipts.price} kr.</td>
-                                    <td>${receipts.orderstate}</td>
+                                    <td>${receipts.orderState}</td>
                                     <td>${receipts.width}</td>
                                     <td>${receipts.length}</td>
                                     <td>${receipts.comment}</td>
@@ -125,7 +125,7 @@
                         </thead>
 
                         <c:forEach var="receipts" items="${requestScope.receiptsList}">
-                            <c:if test="${receipts.orderstate == OrderState.OFFER}">
+                            <c:if test="${receipts.orderState == OrderState.OFFER}">
                                 <tbody>
                                 <tr>
                                     <td>${receipts.idReceipt}</td>
@@ -139,7 +139,7 @@
                                     </td>
                                     <td>${receipts.timeOfOrder}</td>
                                     <td>${receipts.price} kr.</td>
-                                    <td>${receipts.orderstate}</td>
+                                    <td>${receipts.orderState}</td>
                                     <td>${receipts.width}</td>
                                     <td>${receipts.length}</td>
                                     <td>${receipts.comment}</td>
@@ -182,7 +182,7 @@
                         </thead>
 
                         <c:forEach var="receipts" items="${requestScope.receiptsList}">
-                            <c:if test="${receipts.orderstate == OrderState.COMPLETE}">
+                            <c:if test="${receipts.orderState == OrderState.COMPLETE}">
                                 <tbody>
                                 <tr>
                                     <td>${receipts.idReceipt}</td>
@@ -196,7 +196,7 @@
                                     </td>
                                     <td>${receipts.timeOfOrder}</td>
                                     <td>${receipts.price} kr.</td>
-                                    <td>${receipts.orderstate}</td>
+                                    <td>${receipts.orderState}</td>
                                     <td>${receipts.width}</td>
                                     <td>${receipts.length}</td>
                                     <td>${receipts.comment}</td>
