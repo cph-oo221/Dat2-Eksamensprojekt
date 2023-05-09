@@ -5,6 +5,8 @@ import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -142,5 +144,38 @@ class UserMapper
             throw new DatabaseException(e.getMessage());
         }
         return null;
+    }
+
+    public static List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException
+    {
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sql = "SELECT * FROM user";
+
+        List<User> userList = new ArrayList<>();
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try(PreparedStatement pr = connection.prepareStatement(sql))
+            {
+                ResultSet rs = pr.executeQuery();
+                while(rs.next())
+                {
+                    int idUser = rs.getInt("idUser");
+                    String email = rs.getString("e-mail");
+                    String password = rs.getString("password");
+                    String role = rs.getString("role");
+                    String address = rs.getString("address");
+                    String city = rs.getString("city");
+                    int phone = rs.getInt("phone");
+
+                    userList.add(new User(idUser, email, password, role, address, city, phone));
+                }
+            }
+            return userList;
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 }

@@ -20,7 +20,7 @@
                     <h2>Varelager:</h2>
 
                     <form action="edititems" method="post">
-                        <input type="image" src="<c:url value="/images/AdminPanel/Varelager.png"/>" alt="Submit"/>
+                        <input type="image" src="<c:url value="/images/AdminPanel/Varelager_1.png"/>" alt="Submit"/>
                     </form>
                 </div>
 

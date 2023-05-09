@@ -13,10 +13,21 @@
     </jsp:attribute>
 
     <jsp:body>
+        <div class="mt-2">
+            <form action="redirectadminpanel" method="post">
+                <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+            </form>
+        </div>
 
 
 
 
+
+        <div class="mt-2">
+            <form action="redirectadminpanel" method="post">
+                <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+            </form>
+        </div>
 
     </jsp:body>
 </t:pagetemplate>
