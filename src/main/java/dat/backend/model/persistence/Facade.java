@@ -8,14 +8,11 @@ import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Facade
 {
-    public static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool)
-    {
-        return ReceiptMapper.getReceiptsByIdUser(idUser, connectionPool);
-    }
-
+    // USER ************************************************************************************************************
     public static User login(String username, String password, ConnectionPool connectionPool) throws DatabaseException
     {
         return UserMapper.login(username, password, connectionPool);
@@ -37,6 +34,24 @@ public class Facade
         return UserMapper.getUserByEmail(email, connectionPool);
     }
 
+    public static List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException
+    {
+        return UserMapper.getAllUsers(connectionPool);
+    }
+    // /USER ***********************************************************************************************************
+
+    // RECEIPT *********************************************************************************************************
+    public static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool)
+    {
+        return ReceiptMapper.getReceiptsByIdUser(idUser, connectionPool);
+    }
+
+    public static int createReceipt(int idUser, int width, int length, String comment, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return ReceiptMapper.createReceipt(idUser, width, length, comment, connectionPool);
+    }
+
+
     public static void acceptReceipt(int idReceipt, ConnectionPool connectionPool)
     {
         ReceiptMapper.acceptReceipt(idReceipt, connectionPool);
@@ -45,6 +60,18 @@ public class Facade
     public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool)
     {
         ReceiptMapper.deleteReceipt(idReceipt, connectionPool);
+    }
+
+    public static List<Receipt> getAllReceipts(ConnectionPool connectionPool) throws DatabaseException
+    {
+        return ReceiptMapper.getAllReceipts(connectionPool);
+    }
+
+    // /RECEIPT ********************************************************************************************************
+
+    public static List<Wood> getWoodByVariant(String variant, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return WoodMapper.getWoodByVariant(variant, connectionPool);
     }
 
     public static ArrayList<Wood> getRafters()
