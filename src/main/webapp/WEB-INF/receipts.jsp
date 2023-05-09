@@ -22,7 +22,7 @@
     </style>
 
         <div class="mt-3">
-          <%--  <strong>${sessionScope.msg}</strong>--%>
+            <strong>${sessionScope.msg}</strong>
             <h3>Under behandling</h3>
             <table class="table table-dark table-striped">
                 <tr>
