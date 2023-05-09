@@ -19,8 +19,41 @@
             </form>
         </div>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
 
-
+                    <table class="table table-dark table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Træ ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Længde</th>
+                            <th scope="col">Bredde</th>
+                            <th scope="col">Højde</th>
+                            <th scope="col">Enhed</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Variant</th>
+                        </tr>
+                        </thead>
+                        <c:forEach var="wood" items="${requestScope.woodList}">
+                        <tbody>
+                        <tr>
+                            <td>${wood.idWood}</td>
+                            <td>${wood.name}</td>
+                            <td>${wood.length}</td>
+                            <td>${wood.width} kr.</td>
+                            <td>${wood.height}</td>
+                            <td>${wood.unit}</td>
+                            <td>${wood.price}</td>
+                            <td>${wood.variant}</td>
+                        </tr>
+                        </tbody>
+                        </c:forEach>
+                    </table>
+                </div>
+            </div>
+        </div>
 
 
         <div class="mt-2">
