@@ -18,12 +18,6 @@ public class Facade
         return UserMapper.login(username, password, connectionPool);
     }
 
-    public static int createReceipt(int idUser, int width, int length, String comment, ConnectionPool connectionPool) throws DatabaseException
-    {
-        return ReceiptMapper.createReceipt(idUser, width, length, comment, connectionPool);
-    }
-
-
     public static User createUser(String email, String password, String address, String city, int phoneNumber, String role, ConnectionPool connectionPool) throws SQLException, DatabaseException
     {
         return UserMapper.createUser(email, password, address, city, phoneNumber, role, connectionPool);
@@ -74,14 +68,4 @@ public class Facade
         return WoodMapper.getWoodByVariant(variant, connectionPool);
     }
 
-    public static ArrayList<Wood> getRafters()
-    {
-        //Dummy
-        ArrayList<Wood> rafterList = new ArrayList<>();
-        rafterList.add(new Wood());
-        rafterList.add(new Wood());
-        rafterList.add(new Wood());
-        return rafterList;
-
-    }
 }

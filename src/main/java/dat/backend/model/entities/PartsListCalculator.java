@@ -1,13 +1,15 @@
 package dat.backend.model.entities;
 
+import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class PartsListCalculator
 {
+    ConnectionPool connectionPool = ApplicationStart.getConnectionPool();
     private static final int F = 50;
     private static final int M = 310;
 
@@ -19,62 +21,18 @@ public class PartsListCalculator
         return poles;
     }
 
-    public static ArrayList<Wood> rafterCalc(int length, int width)
+
+   public Object getRafters(int width)
     {
-        int poles = poleCalc(length, width);
-        double polesDistance = poles/(M-(2*F));
-        ArrayList<Wood> rafterList = Facade.getRafters();
-        Collections.sort(rafterList, Collections.reverseOrder());
-
-        ArrayList<Wood> firstResult = new ArrayList<>();
-        ArrayList<Wood> result = new ArrayList<>();
-
-        while(length > 0)
+        List<Wood> woods = new ArrayList<>();
+        try
         {
-            for (int i = 0; i < poles; i++)
-            {
-                while (polesDistance > 0)
-                {
-                    for (int j = 0; j < rafterList.size(); j++)
-                    {
-                        if (rafterList.get(j).length < polesDistance && j != 0)
-                        {
-                            firstResult.add(rafterList.get(j - 1));
-                            polesDistance -= rafterList.get(j + 1).length;
-                        }
-
-                    }
-                    if (polesDistance > 0)
-                    {
-                        firstResult.add(rafterList.get(rafterList.size()));
-                        polesDistance -= rafterList.get(rafterList.size()).length;
-                    }
-                }
-            }
+            woods = Facade.getWoodByVariant("Spær", connectionPool);
         }
-
-
-        while( length > 0)
+        catch (DatabaseException e)
         {
-            for(int i = 0; i < firstResult.size(); i++)
-            {
-                if(firstResult.get(i).width < length)
-                {
-                    result.add(firstResult.get(i));
-                    length -= firstResult.get(i).width;
-                }
-            }
-            if(length > 0)
-            {
-
-            }
+            e.printStackTrace();
         }
-        return result;
-    }
-
-    public ArrayList<Wood> getRafter(int width)
-    {
-        ArrayList<Wood> woods = Facade.getRafters();
         woods.sort(new Comparator<Wood>()
         {
             @Override
@@ -84,6 +42,41 @@ public class PartsListCalculator
             }
         });
 
+        int modifier = 1;
+        Wood rafter = null;
+        while(rafter == null)
+        {
+            rafter = selectWood(woods, width, modifier);
+            modifier++;
+        }
+        ArrayList<Wood> rafters = new ArrayList<>();
+
+        int amount = width/55;
+        int finalamount = amount*modifier;
+
+        Map woodAmount = new HashMap<Integer, Integer>();
+        woodAmount.put(rafter.getIdWood(), modifier);
+        return woodAmount;
     }
 
+     //Alternativ måde at finde amount
+
+
+    private Wood selectWood(List<Wood> woods, int width, int modifier)
+    {
+        Wood buffer = null;
+        for (Wood w: woods)
+        {
+            if (w.getLength() >= width/modifier)
+            {
+                buffer = w;
+            }
+
+            else
+            {
+                return buffer;
+            }
+        }
+        return null;
+    }
 }
