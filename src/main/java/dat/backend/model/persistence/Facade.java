@@ -51,6 +51,11 @@ public class Facade
         ReceiptMapper.acceptReceipt(idReceipt, connectionPool);
     }
 
+    public static void acceptReceiptAdmin(int idReceipt, ConnectionPool connectionPool)
+    {
+        ReceiptMapper.acceptReceiptAdmin(idReceipt, connectionPool);
+    }
+
     public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool)
     {
         ReceiptMapper.deleteReceipt(idReceipt, connectionPool);
@@ -67,5 +72,4 @@ public class Facade
     {
         return WoodMapper.getWoodByVariant(variant, connectionPool);
     }
-
 }

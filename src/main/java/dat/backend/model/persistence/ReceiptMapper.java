@@ -107,6 +107,26 @@ public class ReceiptMapper
         }
     }
 
+    protected static void acceptReceiptAdmin(int idReceipt, ConnectionPool connectionPool)
+    {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        String sql = "UPDATE receipt SET orderstate = 1 WHERE idReceipt = ?";
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try(PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, idReceipt);
+                ps.executeUpdate();
+            }
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+    }
+
     public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool)
     {
         Logger.getLogger("web").log(Level.INFO, "");

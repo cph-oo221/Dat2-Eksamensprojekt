@@ -50,7 +50,7 @@ public class UpdateReceipt extends HttpServlet
                 List<User> usersList = Facade.getAllUsers(connectionPool);
                 request.setAttribute("usersList", usersList);
 
-                Facade.acceptReceipt(idReceipt, connectionPool);
+                Facade.acceptReceiptAdmin(idReceipt, connectionPool);
 
             }
             catch (DatabaseException e)
