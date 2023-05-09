@@ -70,12 +70,12 @@ public class CarportCalcTest
                 }
             });
 
-            Wood rem = selectRem(woods, length);
+            Wood rem = selectWood(woods, length);
 
             while (rem == null)
             {
                 length = length / 2;
-                rem = selectRem(woods, length);
+                rem = selectWood(woods, length);
                 remAmount += 2;
             }
 
@@ -92,7 +92,49 @@ public class CarportCalcTest
         }
     }
 
-    private Wood selectRem(List<Wood> woods, int length)
+    @Test
+    void calcRafter()
+    {
+        int width = 240;
+        int length = 720;
+        try
+        {
+            List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
+
+            woods.sort(new Comparator<Wood>()
+            {
+                @Override
+                public int compare(Wood s, Wood t1)
+                {
+                    return t1.getLength() - s.getLength();
+                }
+            });
+
+            Wood rafter = selectWood(woods, width);
+            int raftAmountModifier = 1;
+
+            while (rafter == null)
+            {
+                width = width / 2;
+                raftAmountModifier = raftAmountModifier * 2;
+                rafter = selectWood(woods, width);
+            }
+
+            int amount = (int) Math.floor(getAmount(length, raftAmountModifier));
+
+            assertNotNull(rafter);
+            assertEquals(13, amount);
+        }
+
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+    }
+
+
+
+    private Wood selectWood(List<Wood> woods, int length)
     {
         Wood buffer = null;
         for (Wood w: woods)
@@ -108,5 +150,10 @@ public class CarportCalcTest
             }
         }
         return null;
+    }
+
+    private float getAmount(float length, int modifier)
+    {
+        return (length / 55) * modifier;
     }
 }
