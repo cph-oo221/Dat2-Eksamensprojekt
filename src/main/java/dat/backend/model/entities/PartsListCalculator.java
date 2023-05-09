@@ -3,6 +3,7 @@ package dat.backend.model.entities;
 import dat.backend.model.persistence.Facade;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PartsListCalculator
 {
@@ -17,13 +18,57 @@ public class PartsListCalculator
         return poles;
     }
 
-    public static int rafterCalc(int length, int width)
+    public static ArrayList<Wood> rafterCalc(int length, int width)
     {
-        int rafters = 0;
+        int poles = poleCalc(length, width);
+        double polesDistance = poles/(M-(2*F));
         ArrayList<Wood> rafterList = Facade.getRafters();
+        Collections.sort(rafterList, Collections.reverseOrder());
+
+        ArrayList<Wood> firstResult = new ArrayList<>();
+        ArrayList<Wood> result = new ArrayList<>();
+
+        while(length > 0)
+        {
+            for (int i = 0; i < poles; i++)
+            {
+                while (polesDistance > 0)
+                {
+                    for (int j = 0; j < rafterList.size(); j++)
+                    {
+                        if (rafterList.get(j).length < polesDistance && j != 0)
+                        {
+                            firstResult.add(rafterList.get(j - 1));
+                            polesDistance -= rafterList.get(j + 1).length;
+                        }
+
+                    }
+                    if (polesDistance > 0)
+                    {
+                        firstResult.add(rafterList.get(rafterList.size()));
+                        polesDistance -= rafterList.get(rafterList.size()).length;
+                    }
+                }
+            }
+        }
 
 
-        return rafters;
+        while( length > 0)
+        {
+            for(int i = 0; i < firstResult.size(); i++)
+            {
+                if(firstResult.get(i).width < length)
+                {
+                    result.add(firstResult.get(i));
+                    length -= firstResult.get(i).width;
+                }
+            }
+            if(length > 0)
+            {
+
+            }
+        }
+        return result;
     }
 
 }
