@@ -145,7 +145,7 @@
                                     <td>${receipts.comment}</td>
                                     <td>
                                         <div class="mt-2 text-center">
-                                            <form action="" method="post">
+                                            <form action="itemslist" method="post">
 
                                                 <input type="submit" class="btn btn-info fw-bold" value="Se stykliste"/>
                                             </form>
