@@ -72,4 +72,9 @@ public class Facade
     {
         return WoodMapper.getWoodByVariant(variant, connectionPool);
     }
+
+    public static List<Wood> getAllWood(ConnectionPool connectionPool) throws DatabaseException
+    {
+        return WoodMapper.getAllWood(connectionPool);
+    }
 }
