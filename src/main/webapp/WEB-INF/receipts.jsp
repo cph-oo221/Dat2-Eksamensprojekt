@@ -101,7 +101,7 @@
                             <td>${receipt.timeOfOrder}</td>
                             <td>${receipt.price}</td>
                             <td>
-                                <form action="Orders" method="post">
+                                <form action="itemslist" method="post">
                                     <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
                                     <input type="submit" class="btn btn-secondary" value="Se stykliste">
                                 </form>

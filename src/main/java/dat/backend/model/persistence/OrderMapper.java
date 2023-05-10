@@ -11,9 +11,9 @@ import java.util.List;
 
 public class OrderMapper
 {
-    public static int createOrder(int receiptId, List<WoodOrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
+    protected static int createOrder(int receiptId, List<WoodOrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "INSERT INTO orderwood (idreceipt, idwood, amount) VALUES (?, ?, ?);";
+        String sql = "INSERT INTO orderwood (idreceipt, idwood, amount, description) VALUES (?, ?, ?, ?);";
 
         try (Connection connection = connectionPool.getConnection())
         {
@@ -24,6 +24,7 @@ public class OrderMapper
                     ps.setInt(1, receiptId);
                     ps.setInt(2, w.getWood().getIdWood());
                     ps.setInt(3, w.getAmount());
+                    ps.setString(4, w.getDescription());
 
                     ps.executeUpdate();
                 }
@@ -45,4 +46,19 @@ public class OrderMapper
         }
         return 0; //Fejlhåndtering
     }
+
+   /* protected static List<WoodOrderItem> getWoodOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String sql = "SELECT * FROM orderwood WHERE idreceipt = ?;";
+
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try ()
+        }
+
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+    }*/
 }
