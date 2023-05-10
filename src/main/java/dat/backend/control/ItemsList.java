@@ -36,6 +36,15 @@ public class ItemsList extends HttpServlet
         try
         {
             List<WoodOrderItem> itemList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
+
+            int totalPrice = 0;
+
+            for (WoodOrderItem o:itemList)
+            {
+                totalPrice += o.wood.getPrice();
+            }
+
+            request.setAttribute("totalPrice", totalPrice);
             request.setAttribute("itemList", itemList);
             request.getRequestDispatcher("WEB-INF/itemsList.jsp").forward(request, response);
         }
