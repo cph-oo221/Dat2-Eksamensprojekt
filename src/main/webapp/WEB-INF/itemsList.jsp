@@ -65,9 +65,10 @@
             <c:if test="${sessionScope.user.role.equals('admin')}">
                 <div class="mt-2">
                     <%-- TODO needs an action to update price!!! --%>
-                    <form action="" method="post">
+                    <form action="updateprice" method="post">
 
                         <input type="number" id="pris" name="pris" style="height: 35px;"/>
+                        <input type="number" hidden name="idReceipt" value="${requestScope.idReceipt}"/>
                         <input type="submit" class="btn btn-primary fw-bold mb-1" value="Sæt pris"/>
                     </form>
                 </div>

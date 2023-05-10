@@ -104,4 +104,9 @@ public class Facade
     {
         return OrderMapper.getWoodOrderItemsByReceiptId(idReceipt, connectionPool);
     }
+
+    public static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool)
+    {
+        return ReceiptMapper.updateReceiptPrice(newPrice, idReceipt, connectionPool);
+    }
 }
