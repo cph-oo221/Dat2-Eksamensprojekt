@@ -10,11 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OrderMapper
 {
     protected static int createOrder(int receiptId, List<WoodOrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
     {
+        Logger.getLogger("web").log(Level.INFO,"Saving orderlist for receipt: " + receiptId);
+
         String sql = "INSERT INTO orderwood (idreceipt, idwood, amount, description) VALUES (?, ?, ?, ?);";
 
         try (Connection connection = connectionPool.getConnection())
@@ -51,6 +55,8 @@ public class OrderMapper
 
     protected static List<WoodOrderItem> getWoodOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
+        Logger.getLogger("web").log(Level.INFO,"Fetching items from receipt: " + idReceipt);
+
         String sql = "SELECT * FROM orderwood\n" +
                 "JOIN wood w on orderwood.idwood = w.idwood\n" +
                 "WHERE idreceipt = ?;";
