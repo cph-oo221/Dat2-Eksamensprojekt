@@ -10,7 +10,7 @@ public class Receipt
     private String comment;
 
 
-    public Receipt(int idReceipt, int idUser, int width, int length, int price, Timestamp timeOfOrder, OrderState orderstate, String comment)
+    public Receipt(int idReceipt, int idUser, Timestamp timeOfOrder, OrderState orderstate, int width, int length, int price, String comment)
     {
         this.idReceipt = idReceipt;
         this.idUser = idUser;

@@ -47,7 +47,7 @@ public class Wood
 
     public String getName()
     {
-        return name;
+        return name + " " + length + "x" + width + "x" + height;
     }
 
     public String getUnit()

@@ -66,6 +66,10 @@ public class Facade
         return ReceiptMapper.getAllReceipts(connectionPool);
     }
 
+    public static Receipt getReceiptById(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return ReceiptMapper.getReceiptById(idReceipt, connectionPool);
+    }
     // /RECEIPT ********************************************************************************************************
 
     // WOOD ************************************************************************************************************
@@ -103,5 +107,10 @@ public class Facade
     public static List<WoodOrderItem> getWoodOrderItemsByRecieptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         return OrderMapper.getWoodOrderItemsByReceiptId(idReceipt, connectionPool);
+    }
+
+    public static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool)
+    {
+        return ReceiptMapper.updateReceiptPrice(newPrice, idReceipt, connectionPool);
     }
 }
