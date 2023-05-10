@@ -53,14 +53,14 @@ public class CarportCalcTest
     @Test
     void calcRemTest()
     {
-        int width = 240;
-        int length = 1200;
+        double width = 240;
+        double length = 20000;
         int remAmount = 2;
 
         try
         {
             Wood expected = new Wood(1, 410, 55, 20, "Spærtræ 410x55x20", "stk", 200, "Rem");
-
+            //Wood expected = new Wood(2, 205, 55, 20, "Spærtræ 205x55x20", "stk", 100, "Rem");
             List<Wood> woods = Facade.getWoodByVariant("Rem", connectionPool);
 
             woods.sort(new Comparator<Wood>()
@@ -74,16 +74,32 @@ public class CarportCalcTest
 
             Wood rem = selectWood(woods, length);
 
-            while (rem == null)
-            {
-                length = length / 2;
-                rem = selectWood(woods, length);
-                remAmount = remAmount * 2;
-            }
+                if (rem == null)
+                {
+                    Wood buffer = null;
+                    double amountBuffer = 1000000;
+                    double wasteBuffer = 100000;
+
+                    for (Wood w : woods)
+                    {
+                        double amount= length / w.getLength();
+                        double waste = length % (w.getLength());
+                        waste = w.getLength() - waste;
+
+                        if (waste < wasteBuffer || amount <= amountBuffer)
+                        {
+                            amountBuffer = amount;
+                            wasteBuffer = waste;
+                            buffer = w;
+                        }
+                    }
+                    rem = buffer;
+                    remAmount = (int) Math.ceil(amountBuffer) * 2;
+                }
 
 
             assertNotNull(rem);
-            assertEquals(8, remAmount);
+            assertEquals(98, remAmount);
             assertEquals(expected, rem);
 
         }
@@ -136,7 +152,7 @@ public class CarportCalcTest
 
 
 
-    private Wood selectWood(List<Wood> woods, int length)
+    private Wood selectWood(List<Wood> woods, double length)
     {
         Wood buffer = null;
         for (Wood w: woods)
@@ -151,7 +167,7 @@ public class CarportCalcTest
                 return buffer;
             }
         }
-        return null;
+        return buffer;
     }
 
     private float getRafterAmount(float length, int modifier)

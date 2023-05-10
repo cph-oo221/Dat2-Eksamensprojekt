@@ -69,12 +69,10 @@ public class PartsListCalculator
         return new WoodOrderItem(amount, rafter, desc);
     }
 
-    public static WoodOrderItem remCalc(int length, int width) throws DatabaseException
+    public static WoodOrderItem remCalc(double length, double width) throws DatabaseException
     {
         String desc = "Remme! desc";
         int remAmount = 2;
-
-        Wood expected = new Wood(1, 410, 55, 20, "Spærtræ 410x55x20", "stk", 200, "Rem");
 
         List<Wood> woods = Facade.getWoodByVariant("Rem", connectionPool);
 
@@ -89,17 +87,32 @@ public class PartsListCalculator
 
         Wood rem = selectWood(woods, length);
 
-        while (rem == null)
+        if (rem == null)
         {
-            length = length / 2;
-            rem = selectWood(woods, length);
-            remAmount = remAmount * 2;
-        }
+            Wood buffer = null;
+            double amountBuffer = 1000000;
+            double wasteBuffer = 100000;
 
+            for (Wood w : woods)
+            {
+                double amount= length / w.getLength();
+                double waste = length % (w.getLength());
+                waste = w.getLength() - waste;
+
+                if (waste < wasteBuffer || amount <= amountBuffer)
+                {
+                    amountBuffer = amount;
+                    wasteBuffer = waste;
+                    buffer = w;
+                }
+            }
+            rem = buffer;
+            remAmount = (int) Math.ceil(amountBuffer) * 2;
+        }
         return new WoodOrderItem(remAmount, rem, desc);
     }
 
-    private static Wood selectWood(List<Wood> woods, int length)
+    private static Wood selectWood(List<Wood> woods, double length)
     {
         Wood buffer = null;
         for (Wood w: woods)
@@ -114,7 +127,7 @@ public class PartsListCalculator
                 return buffer;
             }
         }
-        return null;
+        return buffer;
     }
 
     private static float getRafterAmount(float length, int modifier)
@@ -124,6 +137,7 @@ public class PartsListCalculator
 
 
 
+    //TODO Old version, delete before launch
        /*public Object getRafters(int width)
     {
         List<Wood> woods = new ArrayList<>();
@@ -161,24 +175,6 @@ public class PartsListCalculator
         return woodAmount;
     } //Alternativ måde at finde amount
 
-
-    private Wood selectWood(List<Wood> woods, int width, int modifier)
-    {
-        Wood buffer = null;
-        for (Wood w: woods)
-        {
-            if (w.getLength() >= width/modifier)
-            {
-                buffer = w;
-            }
-
-            else
-            {
-                return buffer;
-            }
-        }
-        return null;
-    }
 
     */ //Alternativ måde at regne rafters
 }
