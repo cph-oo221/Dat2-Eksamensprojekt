@@ -33,7 +33,7 @@
                     <form action="" method="post">
 
 
-                        <input type="text" id="search" name="search" style="height: 35px;" placeholder="<a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Royyan Wijaya - Flaticon</a>Search..."/>
+                        <input type="text" id="search" name="search" style="height: 35px;" placeholder="Search..."/>
                         <input type="submit" class="btn btn-primary fw-bold mb-1" value="Søg"/>
                     </form>
                 </div>
