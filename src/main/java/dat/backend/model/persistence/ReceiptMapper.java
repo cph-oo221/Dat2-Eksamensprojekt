@@ -181,6 +181,29 @@ public class ReceiptMapper
         return receiptList;
     }
 
+    public static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool)
+    {
+        Logger.getLogger("web").log(Level.INFO, "Trying to update price on receipt");
+
+        String sql = "UPDATE receipt SET price = ? WHERE idreceipt = ?";
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try(PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, newPrice);
+                ps.setInt(2, idReceipt);
+
+                int rowsAffected = ps.executeUpdate();
+                return rowsAffected;
+            }
+        }
+        catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
     protected static Receipt getReceiptById(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "SELECT * FROM receipt WHERE idreceipt = ?;";
