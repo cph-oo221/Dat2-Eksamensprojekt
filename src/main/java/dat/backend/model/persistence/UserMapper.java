@@ -1,6 +1,4 @@
 package dat.backend.model.persistence;
-
-import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 
@@ -16,7 +14,7 @@ class UserMapper
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
-        User user = null;
+        User user;
 
         String sql = "SELECT * FROM user WHERE `e-mail` = ? AND password = ?";
 

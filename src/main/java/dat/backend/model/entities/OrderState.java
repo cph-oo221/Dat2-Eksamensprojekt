@@ -1,7 +1,5 @@
 package dat.backend.model.entities;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud;
-
 public enum OrderState
 {
     OPEN,
