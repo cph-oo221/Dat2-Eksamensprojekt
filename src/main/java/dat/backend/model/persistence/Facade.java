@@ -79,14 +79,24 @@ public class Facade
         return WoodMapper.getAllWood(connectionPool);
     }
 
-    public static void deleteWood(int idWood, ConnectionPool connectionPool)
+    public static void deleteWood(int idWood, ConnectionPool connectionPool) throws DatabaseException
     {
         WoodMapper.deleteWood(idWood, connectionPool);
+    }
+
+    public static void updateWoodPrice(int idWood, int price, ConnectionPool connectionPool) throws DatabaseException
+    {
+        WoodMapper.updateWoodPrice(idWood, price, connectionPool);
     }
 
     // /WOOD ***********************************************************************************************************
     public static int createOrder(int receiptId, List<WoodOrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
     {
         return OrderMapper.createOrder(receiptId, woodOrderItemList, connectionPool);
+    }
+
+    public static Wood getWoodById(int idWood, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return WoodMapper.getWoodById(idWood, connectionPool);
     }
 }
