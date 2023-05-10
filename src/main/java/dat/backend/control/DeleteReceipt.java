@@ -38,9 +38,7 @@ public class DeleteReceipt extends HttpServlet
         User user = (User) session.getAttribute("user");
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
 
-        int idUser = Integer.parseInt(request.getParameter("idUser"));
-
-        if(user.getIdUser() != idUser) // delete receipt from admin panel
+        if(user.getRole().equalsIgnoreCase("Admin")) // delete receipt from admin panel
         {
 
             try
