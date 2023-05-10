@@ -66,6 +66,10 @@ public class Facade
         return ReceiptMapper.getAllReceipts(connectionPool);
     }
 
+    public static Receipt getReceiptById(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return ReceiptMapper.getReceiptById(idReceipt, connectionPool);
+    }
     // /RECEIPT ********************************************************************************************************
 
     // WOOD ************************************************************************************************************

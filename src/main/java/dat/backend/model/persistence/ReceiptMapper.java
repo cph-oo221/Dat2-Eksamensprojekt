@@ -29,13 +29,13 @@ public class ReceiptMapper
                 {
                     int idReceipt = rs.getInt("idReceipt");
                     int price = rs.getInt("price");
-                    Timestamp timeOfOrder = rs.getTimestamp("timeOfOrder");
+                    Timestamp time = rs.getTimestamp("timeOfOrder");
                     int intOrder = rs.getInt("orderstate");
-                    OrderState orderState =  OrderState.intToOrder(intOrder);
+                    OrderState orderstate =  OrderState.intToOrder(intOrder);
                     String comment = rs.getString("comment");
                     int width = rs.getInt("width");
                     int length = rs.getInt("length");
-                    receipt = new Receipt(idReceipt, idUser, width, length, price, timeOfOrder, orderState, comment);
+                    receipt = new Receipt(idReceipt, idUser, time, orderstate, width, length, price, comment);
                     receiptList.add(receipt);
                 }
                 return receiptList;
@@ -166,11 +166,11 @@ public class ReceiptMapper
                     int width = rs.getInt("width");
                     int length = rs.getInt("length");
                     int price = rs.getInt("price");
-                    Timestamp timeOfOrder = rs.getTimestamp("timeOfOrder");
-                    OrderState orderState = OrderState.intToOrder(rs.getInt("orderstate"));
+                    Timestamp time = rs.getTimestamp("timeOfOrder");
+                    OrderState orderstate = OrderState.intToOrder(rs.getInt("orderstate"));
                     String comment = rs.getString("comment");
 
-                    receiptList.add(new Receipt(idReceipt, idUser, width, length, price, timeOfOrder, orderState, comment));
+                    receiptList.add(new Receipt(idReceipt, idUser, time, orderstate, width, length, price, comment));
                 }
             }
         }
@@ -202,5 +202,39 @@ public class ReceiptMapper
             throwables.printStackTrace();
         }
         return 0;
+    }
+
+    protected static Receipt getReceiptById(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String sql = "SELECT * FROM receipt WHERE idreceipt = ?;";
+
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, idReceipt);
+
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next())
+                {
+                    int idUser = rs.getInt("iduser");
+                    Timestamp time = rs.getTimestamp("timeoforder");
+                    OrderState orderstate = OrderState.intToOrder(rs.getInt("orderstate"));
+                    int width = rs.getInt("width");
+                    int length = rs.getInt("length");
+                    int price = rs.getInt("price");
+                    String comment = rs.getString("comment");
+
+                    return new Receipt(idReceipt, idUser, time, orderstate, width, length, price, comment);
+                }
+            }
+        }
+
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+        return null;
     }
 }
