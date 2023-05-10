@@ -1,6 +1,5 @@
 package dat.backend.control;
 
-import com.mysql.cj.Session;
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Receipt;
 import dat.backend.model.entities.User;

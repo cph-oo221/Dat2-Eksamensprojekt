@@ -40,7 +40,7 @@ public class Facade
         return ReceiptMapper.getReceiptsByIdUser(idUser, connectionPool);
     }
 
-    public static int createReceipt(int idUser, int width, int length, String comment, ConnectionPool connectionPool) throws DatabaseException
+    public static int createReceipt(int idUser, double width, double length, String comment, ConnectionPool connectionPool) throws DatabaseException
     {
         return ReceiptMapper.createReceipt(idUser, width, length, comment, connectionPool);
     }
