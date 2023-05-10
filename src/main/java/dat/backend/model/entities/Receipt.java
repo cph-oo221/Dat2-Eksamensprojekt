@@ -10,7 +10,7 @@ public class Receipt
     private String comment;
 
 
-    public Receipt(int idReceipt, int idUser, int width, int length, int price, Timestamp timeOfOrder, OrderState orderState, String comment)
+    public Receipt(int idReceipt, int idUser, int width, int length, int price, Timestamp timeOfOrder, OrderState orderstate, String comment)
     {
         this.idReceipt = idReceipt;
         this.idUser = idUser;
@@ -18,16 +18,16 @@ public class Receipt
         this.length = length;
         this.price = price;
         this.timeOfOrder = timeOfOrder;
-        this.orderState = orderState;
+        this.orderState = orderstate;
         this.comment = comment;
     }
 
     //dummy
-    public Receipt(int idReceipt, int idUser, OrderState orderState)
+    public Receipt(int idReceipt, int idUser, OrderState orderstate)
     {
         this.idReceipt = idReceipt;
         this.idUser = idUser;
-        this.orderState = orderState;
+        this.orderState = orderstate;
     }
 
     public int getWidth()
@@ -95,9 +95,9 @@ public class Receipt
         return orderState;
     }
 
-    public void setOrderState(OrderState orderState)
+    public void setOrderState(OrderState orderstate)
     {
-        this.orderState = orderState;
+        this.orderState = orderstate;
     }
 
     public String getComment()

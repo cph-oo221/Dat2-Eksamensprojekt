@@ -32,7 +32,7 @@
                     <th>Handlinger</th>
                 </tr>
 
-                <c:forEach var="receipt" items="${requestScope.receiptList}">
+               <c:forEach var="receipt" items="${requestScope.receiptList}">
                     <c:if test="${receipt.orderState == OrderState.OPEN}">
                         <tr>
                             <td>${receipt.idReceipt}</td>

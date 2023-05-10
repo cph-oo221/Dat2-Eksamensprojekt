@@ -85,4 +85,8 @@ public class Facade
     }
 
     // /WOOD ***********************************************************************************************************
+    public static int createOrder(int receiptId, List<WoodOrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return OrderMapper.createOrder(receiptId, woodOrderItemList, connectionPool);
+    }
 }
