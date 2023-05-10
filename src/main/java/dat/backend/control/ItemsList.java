@@ -1,6 +1,7 @@
 package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.entities.Receipt;
 import dat.backend.model.entities.WoodOrderItem;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
@@ -35,13 +36,22 @@ public class ItemsList extends HttpServlet
 
         try
         {
+            Receipt r = Facade.getReceiptById(idReceipt, connectionPool);
             List<WoodOrderItem> itemList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
 
             int totalPrice = 0;
 
-            for (WoodOrderItem o:itemList)
+            if (r.getPrice() != 0)
             {
-                totalPrice += o.wood.getPrice() * o.amount;
+                totalPrice = r.getPrice();
+            }
+
+            else
+            {
+                for (WoodOrderItem o : itemList)
+                {
+                    totalPrice += o.getWood().getPrice() * o.getAmount();
+                }
             }
 
             request.setAttribute("totalPrice", totalPrice);

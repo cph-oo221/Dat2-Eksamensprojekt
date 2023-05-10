@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class WoodOrderItem
 {
-    public int amount;
-    public Wood wood;
-    String description;
+    private int amount;
+    private Wood wood;
+    private String description;
 
     public WoodOrderItem(int amount, Wood wood, String description)
     {
