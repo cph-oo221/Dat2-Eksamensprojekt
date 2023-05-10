@@ -41,7 +41,7 @@ public class ItemsList extends HttpServlet
 
             for (WoodOrderItem o:itemList)
             {
-                totalPrice += o.wood.getPrice();
+                totalPrice += o.wood.getPrice() * o.amount;
             }
 
             request.setAttribute("totalPrice", totalPrice);
