@@ -40,6 +40,12 @@ public class ItemsList extends HttpServlet
             List<WoodOrderItem> itemList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
 
             int totalPrice = 0;
+            int netPrice = 0;
+
+            for (WoodOrderItem o : itemList)
+            {
+                netPrice += o.getWood().getPrice() * o.getAmount();
+            }
 
             if (r.getPrice() != 0)
             {
@@ -48,14 +54,13 @@ public class ItemsList extends HttpServlet
 
             else
             {
-                for (WoodOrderItem o : itemList)
-                {
-                    totalPrice += o.getWood().getPrice() * o.getAmount();
-                }
+                totalPrice = netPrice;
             }
+
 
             request.setAttribute("idReceipt", idReceipt);
             request.setAttribute("totalPrice", totalPrice);
+            request.setAttribute("netPrice", netPrice);
             request.setAttribute("itemList", itemList);
             request.getRequestDispatcher("WEB-INF/itemsList.jsp").forward(request, response);
         }
