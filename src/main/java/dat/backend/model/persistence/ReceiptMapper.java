@@ -1,7 +1,6 @@
 package dat.backend.model.persistence;
 import dat.backend.model.entities.OrderState;
 import dat.backend.model.entities.Receipt;
-import dat.backend.model.entities.WoodOrderItem;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.*;
@@ -50,7 +49,7 @@ public class ReceiptMapper
         return null;
     }
 
-    public static int createReceipt(int idUser, int width, int length, String comment, ConnectionPool connectionPool) throws DatabaseException
+    public static int createReceipt(int idUser, double width, double length, String comment, ConnectionPool connectionPool) throws DatabaseException
     {
         // TODO: Create receipt entry in database, and return newly created receipt id
 
@@ -61,8 +60,8 @@ public class ReceiptMapper
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
                 ps.setInt(1, idUser);
-                ps.setInt(2, width);
-                ps.setInt(3, length);
+                ps.setInt(2, (int) width);
+                ps.setInt(3, (int) length);
                 ps.setString(4, comment);
 
                 ps.executeUpdate();
@@ -89,7 +88,6 @@ public class ReceiptMapper
 
     protected static void acceptReceipt(int idReceipt, ConnectionPool connectionPool)
     {
-        int idUser;
         Logger.getLogger("web").log(Level.INFO, "");
 
         String sql = "UPDATE receipt SET orderstate = 2 WHERE idReceipt = ?";

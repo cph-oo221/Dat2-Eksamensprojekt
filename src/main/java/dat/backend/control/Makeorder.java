@@ -13,7 +13,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "Makeorder", value = "/makeorder")
@@ -36,19 +35,12 @@ public class Makeorder extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        int width = Integer.parseInt(request.getParameter("width"));
-        int length = Integer.parseInt(request.getParameter("length"));
+        double width = Double.parseDouble(request.getParameter("width"));
+        double length = Double.parseDouble(request.getParameter("length"));
         try
         {
-            WoodOrderItem rafters = PartsListCalculator.calcRafter(width, length);
-            WoodOrderItem roofing = PartsListCalculator.roofingCalc(length, width);
-            WoodOrderItem poles = PartsListCalculator.poleCalc(length, width);
-            WoodOrderItem rems = PartsListCalculator.remCalc(length, width);
-            List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
-            woodOrderItemList.add(rafters);
-            woodOrderItemList.add(roofing);
-            woodOrderItemList.add(poles);
-            woodOrderItemList.add(rems);
+
+            List<WoodOrderItem> woodOrderItemList = PartsListCalculator.finalCalc(length, width);
 
             String comment = request.getParameter("comment");
             User user = (User) request.getSession().getAttribute("user");
@@ -56,7 +48,6 @@ public class Makeorder extends HttpServlet
             int receiptId = Facade.createReceipt(user.getIdUser(), width, length, comment, connectionPool);
             int orderId = Facade.createOrder(receiptId, woodOrderItemList, connectionPool);
 
-            HttpSession session = request.getSession();
             List<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
             request.setAttribute("receiptList", receiptList);
             request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request, response);

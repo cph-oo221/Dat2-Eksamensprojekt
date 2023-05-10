@@ -15,7 +15,23 @@ public class PartsListCalculator
 
 
 
-    public static WoodOrderItem roofingCalc(int length, int width) throws DatabaseException
+
+    public static List<WoodOrderItem> finalCalc(double length, double width) throws DatabaseException
+    {
+        WoodOrderItem rafters = calcRafter(width, length);
+        WoodOrderItem roofing = roofingCalc(length, width);
+        WoodOrderItem poles = poleCalc(length, width);
+        WoodOrderItem rems = remCalc(length, width);
+        List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
+        woodOrderItemList.add(rafters);
+        woodOrderItemList.add(roofing);
+        woodOrderItemList.add(poles);
+        woodOrderItemList.add(rems);
+        return woodOrderItemList;
+    }
+
+
+    private static WoodOrderItem roofingCalc(double length, double width) throws DatabaseException
     {
         String desc = "Roofing etc.";
         double area = length*width;
@@ -29,7 +45,7 @@ public class PartsListCalculator
     }
 
 
-    public static WoodOrderItem poleCalc(int length, int width) throws DatabaseException
+    private static WoodOrderItem poleCalc(double length, double width) throws DatabaseException
     {
         String desc = "Poles! descdesc";
         int poles = 4;
@@ -40,7 +56,7 @@ public class PartsListCalculator
         return new WoodOrderItem(poles, pole, desc);
     }
 
-    public static WoodOrderItem calcRafter(int width, int length) throws DatabaseException
+    private static WoodOrderItem calcRafter(double width, double length) throws DatabaseException
     {
         String desc = "Spær! etc.";
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
@@ -69,7 +85,7 @@ public class PartsListCalculator
         return new WoodOrderItem(amount, rafter, desc);
     }
 
-    public static WoodOrderItem remCalc(double length, double width) throws DatabaseException
+    private static WoodOrderItem remCalc(double length, double width) throws DatabaseException
     {
         String desc = "Remme! desc";
         int remAmount = 2;
@@ -130,7 +146,7 @@ public class PartsListCalculator
         return buffer;
     }
 
-    private static float getRafterAmount(float length, int modifier)
+    private static double getRafterAmount(double length, int modifier)
     {
         return (length / 55) * modifier;
     }
