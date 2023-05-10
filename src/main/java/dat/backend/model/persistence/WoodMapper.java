@@ -89,12 +89,11 @@ public class WoodMapper
         }
     }
 
-    public static void deleteWood(int idWood, ConnectionPool connectionPool)
+    public static void deleteWood(int idWood, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
-        // first delete all orderwood containing the wood
 
-        String sql = "DELETE FROM orderwood WHERE idWood = ?";
+        String sql = "DELETE FROM wood WHERE idWood = ?";
 
         try(Connection connection = connectionPool.getConnection())
         {
@@ -102,19 +101,65 @@ public class WoodMapper
             {
                 ps.setInt(1, idWood);
                 ps.executeUpdate();
-                connection.close();
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+    }
 
-                sql = "DELETE FROM wood WHERE idWood = ?";
-                try(PreparedStatement ps2 = connection.prepareStatement(sql))
+    public static void updateWoodPrice(int idWood, int price, ConnectionPool connectionPool) throws DatabaseException
+    {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        String sql = "UPDATE wood SET price = ? WHERE idWood = ?";
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try(PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, price);
+                ps.setInt(2, idWood);
+                ps.executeUpdate();
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    public static Wood getWoodById(int idWood, ConnectionPool connectionPool) throws DatabaseException
+    {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        String sql = "SELECT * FROM wood WHERE idWood = ?";
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try(PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, idWood);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next())
                 {
-                    ps2.setInt(1, idWood);
-                    ps2.executeUpdate();
+                    int length = rs.getInt("length");
+                    int width = rs.getInt("width");
+                    int height = rs.getInt("height");
+                    String name = rs.getString("name");
+                    String unit = rs.getString("unit");
+                    int price = rs.getInt("price");
+                    String variant = rs.getString("variant");
+
+                    return new Wood(idWood, length, width, height, name, unit, price, variant);
                 }
             }
         }
-        catch (SQLException throwables)
+        catch (SQLException e)
         {
-            throwables.printStackTrace();
+            throw new DatabaseException(e.getMessage());
         }
+        return null;
     }
 }
