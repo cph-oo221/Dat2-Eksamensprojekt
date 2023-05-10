@@ -13,10 +13,39 @@
     </jsp:attribute>
 
     <jsp:body>
-        <div class="mt-2">
+        <div class="mt-4">
             <form action="redirectadminpanel" method="post">
                 <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
             </form>
+        </div>
+
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col text-center">
+                    <form action="" method="post">
+
+                        <input type="submit" class="btn btn-primary fw-bold" value="Sortere [aA-åÅ]">
+                    </form>
+                </div>
+
+
+                <div class="col text-center">
+                    <form action="" method="post">
+
+
+                        <input type="text" id="search" name="search" style="height: 35px;" placeholder="<a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Royyan Wijaya - Flaticon</a>Search..."/>
+                        <input type="submit" class="btn btn-primary fw-bold mb-1" value="Søg"/>
+                    </form>
+                </div>
+
+
+                <div class="col text-center">
+                    <form action="" method="post">
+
+                        <input type="submit" class="btn btn-primary fw-bold mb-1" value="Nulstil"/>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <div class="container mt-4">
@@ -49,8 +78,9 @@
                                 <td>${wood.variant}</td>
                                 <td class="text-center">
                                         <%--TODO need action--%>
-                                    <form action="" method="post" onsubmit="return confirm('Denne handling medføre, at træet: '
-                                            + 'ID:' + ${wood.idWood} + ', Name: ' + ${wood.name} + '. bliver slette, er du sikker?')">
+                                    <form action="" method="post"
+                                          onsubmit="return confirm('Denne handling medføre, at træet: '
+                                                  + 'ID:' + ${wood.idWood} + ', Name: ' + ${wood.name} + '. bliver slette, er du sikker?')">
 
                                         <input type="number" hidden name="idWood" value="${wood.idWood}">
 
