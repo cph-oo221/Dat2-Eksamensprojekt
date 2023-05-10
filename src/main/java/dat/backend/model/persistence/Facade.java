@@ -89,14 +89,14 @@ public class Facade
         WoodMapper.updateWoodPrice(idWood, price, connectionPool);
     }
 
-    // /WOOD ***********************************************************************************************************
-    public static int createOrder(int receiptId, List<WoodOrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
-    {
-        return OrderMapper.createOrder(receiptId, woodOrderItemList, connectionPool);
-    }
-
     public static Wood getWoodById(int idWood, ConnectionPool connectionPool) throws DatabaseException
     {
         return WoodMapper.getWoodById(idWood, connectionPool);
+    }
+    // /WOOD ***********************************************************************************************************
+
+    public static int createOrder(int receiptId, List<WoodOrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return OrderMapper.createOrder(receiptId, woodOrderItemList, connectionPool);
     }
 }
