@@ -205,7 +205,7 @@
 
                                         <div class="mt-2 text-center">
                                             <form action="itemslist" method="post">
-
+                                                <input type="number" hidden name="idReceipt" value=${receipts.idReceipt}>
                                                 <input type="submit" class="btn btn-info fw-bold" value="Se stykliste"/>
                                             </form>
                                         </div>
