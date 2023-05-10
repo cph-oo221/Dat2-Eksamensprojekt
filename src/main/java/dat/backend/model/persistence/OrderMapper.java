@@ -1,5 +1,6 @@
 package dat.backend.model.persistence;
 
+import dat.backend.model.entities.Wood;
 import dat.backend.model.entities.WoodOrderItem;
 import dat.backend.model.exceptions.DatabaseException;
 
@@ -7,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderMapper
@@ -47,18 +49,48 @@ public class OrderMapper
         return 0; //Fejlhåndtering
     }
 
-   /* protected static List<WoodOrderItem> getWoodOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    protected static List<WoodOrderItem> getWoodOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "SELECT * FROM orderwood WHERE idreceipt = ?;";
+        String sql = "SELECT * FROM orderwood\n" +
+                "JOIN wood w on orderwood.idwood = w.idwood\n" +
+                "WHERE idreceipt = ?;";
 
         try (Connection connection = connectionPool.getConnection())
         {
-            try ()
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, idReceipt);
+
+                ResultSet rs = ps.executeQuery();
+                List<WoodOrderItem> orderItems = new ArrayList<>();
+
+                while (rs.next())
+                {
+                    int idWood = rs.getInt("idwood");
+                    int length = rs.getInt("length");
+                    int width = rs.getInt("width");
+                    int height = rs.getInt("height");
+                    String name = rs.getString("name");
+                    String unit = rs.getString("unit");
+                    int price = rs.getInt("price");
+                    String variant = rs.getString("variant");
+
+                    Wood w = new Wood(idWood, length, width, height, name, unit, price, variant);
+
+                    int amount = rs.getInt("amount");
+                    String description = rs.getString("description");
+
+
+                    WoodOrderItem wo = new WoodOrderItem(amount, w, description);
+                    orderItems.add(wo);
+                }
+                return orderItems;
+            }
         }
 
         catch (SQLException e)
         {
             throw new DatabaseException(e.getMessage());
         }
-    }*/
+    }
 }

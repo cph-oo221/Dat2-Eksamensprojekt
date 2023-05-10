@@ -2,6 +2,7 @@ package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.WoodOrderItem;
+import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
 
@@ -32,8 +33,18 @@ public class ItemsList extends HttpServlet
     {
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
 
-       // List<WoodOrderItem> woodItems = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
+        try
+        {
+            List<WoodOrderItem> itemList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
+            request.setAttribute("itemList", itemList);
+            request.getRequestDispatcher("WEB-INF/itemsList.jsp").forward(request, response);
+        }
 
+        catch (DatabaseException e)
+        {
+            request.setAttribute("errormessage", e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
 
 
         request.getRequestDispatcher("WEB-INF/itemsList.jsp").forward(request, response);
