@@ -44,14 +44,16 @@
                             <th scope="col"></th>
                         </tr>
                         </thead>
+                        <c:forEach var="item" items="${requestScope.itemList}">
                         <tbody>
                         <tr>
-                            <td>wood</td>
-                            <td>5</td>
-                            <td>500</td>
-                            <td>Det er træ</td>
+                            <td>${item.name}</td>
+                            <td>${item.amount}</td>
+                            <td>${item.price}</td>
+                            <td>${item.description}</td>
                         </tr>
                         </tbody>
+                        </c:forEach>
                     </table>
                 </div>
             </div>
