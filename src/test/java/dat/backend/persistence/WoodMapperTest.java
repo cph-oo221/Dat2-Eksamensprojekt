@@ -116,4 +116,13 @@ public class WoodMapperTest
             fail(e.getMessage());
         }
     }
+
+
+    @Test
+    void updatePriceOfWood() throws DatabaseException
+    {
+        Facade.updateWoodPrice(1, 300, connectionPool);
+        assertEquals(300, Facade.getWoodById(1, connectionPool).getPrice());
+        System.out.println("Price: " + Facade.getWoodById(1, connectionPool).getPrice());
+    }
 }
