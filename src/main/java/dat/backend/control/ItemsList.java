@@ -1,12 +1,16 @@
 package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.entities.WoodOrderItem;
+import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
+import dat.backend.model.persistence.Facade;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "ItemsList", value = "/itemslist")
 public class ItemsList extends HttpServlet
@@ -28,9 +32,20 @@ public class ItemsList extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
-        int idUser = Integer.parseInt(request.getParameter("idReceipt"));
-        int width = Integer.parseInt(request.getParameter("width"));
-        int length = Integer.parseInt(request.getParameter("length"));
+
+        try
+        {
+            List<WoodOrderItem> itemList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
+            request.setAttribute("itemList", itemList);
+            request.getRequestDispatcher("WEB-INF/itemsList.jsp").forward(request, response);
+        }
+
+        catch (DatabaseException e)
+        {
+            request.setAttribute("errormessage", e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
+
 
         request.getRequestDispatcher("WEB-INF/itemsList.jsp").forward(request, response);
     }

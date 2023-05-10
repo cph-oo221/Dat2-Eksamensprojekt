@@ -44,7 +44,9 @@ public class Makeorder extends HttpServlet
             WoodOrderItem roofing = PartsListCalculator.roofingCalc(length, width);
             WoodOrderItem poles = PartsListCalculator.poleCalc(length, width);
             WoodOrderItem rems = PartsListCalculator.remCalc(length, width);
+
             List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
+
             woodOrderItemList.add(rafters);
             woodOrderItemList.add(roofing);
             woodOrderItemList.add(poles);
