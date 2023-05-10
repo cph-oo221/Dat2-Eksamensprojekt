@@ -26,7 +26,6 @@ public class AdminActionBar extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
     }
 
     @Override
@@ -37,22 +36,40 @@ public class AdminActionBar extends HttpServlet
 
         if (action == 1) // SORT
         {
-//            try
-//            {
-//                List<Wood> woodList = Facade.getAllWood(connectionPool);
-//                // sort by name
-//                request.setAttribute("woodList", woodList);
-//            }
-//            catch (DatabaseException e)
-//            {
-//                e.printStackTrace();
-//            }
+            int sortOption = Integer.parseInt(request.getParameter("sortOption")); // Can't be outside if or a numberFormatException will be thrown
+
+            if (sortOption == 1) // SORT WOOD ID
+            {
+                try
+                {
+                    List<Wood> woodList = Facade.getAllWood(connectionPool);
+                    Collections.sort(woodList, Comparator.comparing(Wood::getIdWood));
+                    request.setAttribute("woodList", woodList);
+                }
+                catch (DatabaseException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            if (sortOption == 2)// SORT NAME
+            {
+                try
+                {
+                    List<Wood> woodList = Facade.getAllWood(connectionPool);
+                    Collections.sort(woodList, Comparator.comparing(Wood::getName));
+                    request.setAttribute("woodList", woodList);
+                }
+                catch (DatabaseException e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
 
         if (action == 2) // SEARCH
         {
             String search = request.getParameter("search").toLowerCase();
-
             List<Wood> searchList = new ArrayList<>();
 
             try
@@ -63,7 +80,7 @@ public class AdminActionBar extends HttpServlet
                 {
                     String woodName = wood.getName().toLowerCase();
 
-                    if(woodName.contains(search))
+                    if (woodName.contains(search))
                     {
                         searchList.add(wood);
                     }
@@ -74,9 +91,7 @@ public class AdminActionBar extends HttpServlet
             {
                 e.printStackTrace();
             }
-            request.setAttribute("action", action);
         }
-
 
         if (action == 3) // RESET
         {
@@ -89,12 +104,6 @@ public class AdminActionBar extends HttpServlet
             {
                 e.printStackTrace();
             }
-
-            request.setAttribute("action", action);
-        }
-        if (action == 4) //
-        {
-
         }
 
         request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);

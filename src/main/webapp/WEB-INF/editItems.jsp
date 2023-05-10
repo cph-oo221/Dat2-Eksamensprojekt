@@ -19,16 +19,31 @@
             </form>
         </div>
 
-        <p>Action: ${requestScope.action}</p>
-
         <div class="container mt-3">
             <div class="row">
                 <div class="col text-center">
-                    <form action="adminactionbar" method="post">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> Sortere </button>
 
-                        <input type="number" hidden name="action" value="1">
-                        <input type="submit" class="btn btn-primary fw-bold" value="Sortere [aA-åÅ]">
-                    </form>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <form action="adminactionbar" method="post">
+                                    <input type="number" hidden name="action" value="1">
+                                    <input type="number" hidden name="sortOption" value="1">
+                                    <input type="submit" class="dropdown-item" value="Træ ID">
+                                </form>
+                            </li>
+
+                            <li>
+                                <form action="adminactionbar" method="post">
+                                    <input type="number" hidden name="action" value="1">
+                                    <input type="number" hidden name="sortOption" value="2">
+                                    <input type="submit" class="dropdown-item" value="Navn">
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
 
