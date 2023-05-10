@@ -43,10 +43,12 @@ public class Makeorder extends HttpServlet
             WoodOrderItem rafters = PartsListCalculator.calcRafter(width, length);
             WoodOrderItem roofing = PartsListCalculator.roofingCalc(length, width);
             WoodOrderItem poles = PartsListCalculator.poleCalc(length, width);
+            WoodOrderItem rems = PartsListCalculator.remCalc(length, width);
             List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
             woodOrderItemList.add(rafters);
             woodOrderItemList.add(roofing);
             woodOrderItemList.add(poles);
+            woodOrderItemList.add(rems);
 
             String comment = request.getParameter("comment");
             User user = (User) request.getSession().getAttribute("user");
