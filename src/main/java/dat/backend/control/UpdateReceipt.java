@@ -38,9 +38,8 @@ public class UpdateReceipt extends HttpServlet
         User user = (User) session.getAttribute("user");
 
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
-        int idUser = Integer.parseInt(request.getParameter("idUser"));
 
-        if(user.getIdUser() != idUser) // accept receipt from admin panel
+        if(user.getRole().equalsIgnoreCase("Admin")) // accept receipt from admin panel
         {
             try
             {
