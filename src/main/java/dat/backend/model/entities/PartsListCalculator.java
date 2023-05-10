@@ -33,7 +33,7 @@ public class PartsListCalculator
 
     private static WoodOrderItem roofingCalc(double length, double width) throws DatabaseException
     {
-        String desc = "Roofing etc.";
+        String desc = "Tagplader skrues fast i spær";
         double area = length*width;
         // 250 * 250 = 62500 cm^2
         // 1 plade er 100 * 100 = 10.000 cm^2
@@ -47,7 +47,7 @@ public class PartsListCalculator
 
     private static WoodOrderItem poleCalc(double length, double width) throws DatabaseException
     {
-        String desc = "Poles! descdesc";
+        String desc = "Stolper graves 90 cm ned i jord";
         int poles = 4;
         poles += Math.floor((((length - (CARPORT_HANG *2) ) / MAX_POLE_DIST) ) * 2);
         poles += Math.floor((((width - (CARPORT_HANG *2) ) / MAX_POLE_DIST) ) * 2);
@@ -58,7 +58,7 @@ public class PartsListCalculator
 
     private static WoodOrderItem calcRafter(double width, double length) throws DatabaseException
     {
-        String desc = "Spær! etc.";
+        String desc = "Spær placers på tværs af bygningen på tværs af remme med ca 55 cm mellemrum";
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
 
         woods.sort(new Comparator<Wood>()
@@ -87,7 +87,7 @@ public class PartsListCalculator
 
     private static WoodOrderItem remCalc(double length, double width) throws DatabaseException
     {
-        String desc = "Remme! desc";
+        String desc = "Remme boltes fast på stolper langs længden af kontruktionen";
         int remAmount = 2;
 
         List<Wood> woods = Facade.getWoodByVariant("Rem", connectionPool);
