@@ -47,9 +47,9 @@
                         <c:forEach var="item" items="${requestScope.itemList}">
                         <tbody>
                         <tr>
-                            <td>${item.name}</td>
+                            <td>${item.wood.name}</td>
                             <td>${item.amount}</td>
-                            <td>${item.price}</td>
+                            <td>${item.wood.price}</td>
                             <td>${item.description}</td>
                         </tr>
                         </tbody>
@@ -60,7 +60,7 @@
         </div>
 
         <div class="ms-3 mt-2">
-            <h3 style="color: green">Total pris 17000 kr.</h3>
+            <h3 style="color: green">Total pris ${requestScope.totalPrice} kr.</h3>
 
             <c:if test="${sessionScope.user.role.equals('admin')}">
                 <div class="mt-2">
