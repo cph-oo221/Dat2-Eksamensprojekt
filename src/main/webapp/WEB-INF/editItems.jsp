@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page errorPage="../error.jsp" isErrorPage="false" %>
@@ -19,20 +19,23 @@
             </form>
         </div>
 
+        <p>Action: ${requestScope.action}</p>
+
         <div class="container mt-3">
             <div class="row">
                 <div class="col text-center">
-                    <form action="" method="post">
+                    <form action="adminactionbar" method="post">
 
+                        <input type="number" hidden name="action" value="1">
                         <input type="submit" class="btn btn-primary fw-bold" value="Sortere [aA-åÅ]">
                     </form>
                 </div>
 
 
                 <div class="col text-center">
-                    <form action="" method="post">
+                    <form action="adminactionbar" method="post">
 
-
+                        <input type="number" hidden name="action" value="2">
                         <input type="text" id="search" name="search" style="height: 35px;" placeholder="Search..."/>
                         <input type="submit" class="btn btn-primary fw-bold mb-1" value="Søg"/>
                     </form>
@@ -40,8 +43,9 @@
 
 
                 <div class="col text-center">
-                    <form action="" method="post">
+                    <form action="adminactionbar" method="post">
 
+                        <input type="number" hidden name="action" value="3">
                         <input type="submit" class="btn btn-primary fw-bold mb-1" value="Nulstil"/>
                     </form>
                 </div>
