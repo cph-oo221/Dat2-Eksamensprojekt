@@ -14,7 +14,7 @@ public class PartsListCalculator
 
 
 
-    public static List<WoodOrderItem> finalCalc(double length, double width, int shedLength, boolean withRoof, boolean withShed, ConnectionPool connectionPool) throws DatabaseException
+    public static List<WoodOrderItem> finalCalc(double length, double width, int shedLength, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
     {
         List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
         WoodOrderItem rafters = calcRafter(width, length, connectionPool);
@@ -26,7 +26,7 @@ public class PartsListCalculator
             WoodOrderItem roofing = roofingCalc(length, width, connectionPool);
             woodOrderItemList.add(roofing);
         }
-        if (withShed)
+        if (shedLength > 0)
         {
             List<WoodOrderItem> shed = getShed(length, width, shedLength, connectionPool);
             woodOrderItemList.addAll(shed);
@@ -170,7 +170,7 @@ public class PartsListCalculator
         double amountL;
         double amountW;
         double rafterLengthAmountL = 1;
-        double rafterWidthAmountL = 1;
+        double rafterWidthAmountW = 1;
 
         List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
 
@@ -238,10 +238,10 @@ public class PartsListCalculator
                 }
             }
             rafterWidth = buffer;
-            rafterWidthAmountL = (int) Math.ceil(amountBuffer);
+            rafterWidthAmountW = (int) Math.ceil(amountBuffer);
         }
         double rafterWidthWidth = rafterWidth.getWidth();
-        amountW = (int) (rafterWidthAmountL * Math.ceil(210 / rafterWidthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
+        amountW = (int) (rafterWidthAmountW * Math.ceil(210 / rafterWidthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
         WoodOrderItem rafterWidthWOI = new WoodOrderItem((int) amountW, rafterWidth, "Spærtræ til beklædning af skur i bredden");
         woodOrderItemList.add(rafterWidthWOI);
 
