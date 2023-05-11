@@ -12,8 +12,8 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.*;
 
-@WebServlet(name = "AdminActionBar", value = "/adminactionbar")
-public class AdminActionBar extends HttpServlet
+@WebServlet(name = "AdminAction", value = "/adminaction")
+public class AdminAction extends HttpServlet
 {
     private ConnectionPool connectionPool;
 
@@ -106,6 +106,21 @@ public class AdminActionBar extends HttpServlet
             }
         }
 
+        if (action == 4)
+        {
+            int idWood = Integer.parseInt(request.getParameter("idWood"));
+
+            try
+            {
+                Facade.deleteWood(idWood, connectionPool);
+                List<Wood> woodList = Facade.getAllWood(connectionPool);
+                request.setAttribute("woodList", woodList);
+            }
+            catch (DatabaseException e)
+            {
+                e.printStackTrace();
+            }
+        }
         request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
     }
 }
