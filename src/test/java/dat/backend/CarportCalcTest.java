@@ -308,4 +308,19 @@ public class CarportCalcTest
 
 
     }
+
+    @Test
+     void poleCalcTest()
+    {
+        try
+        {
+            WoodOrderItem item = PartsListCalculator.poleCalc(1450, 1450, connectionPool);
+
+            assertEquals(12, item.getAmount());
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+    }
 }
