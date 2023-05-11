@@ -38,10 +38,11 @@ public class Makeorder extends HttpServlet
     {
         double width = Double.parseDouble(request.getParameter("width"));
         double length = Double.parseDouble(request.getParameter("length"));
+        boolean withRoof = Boolean.parseBoolean(request.getParameter("withRoof"));
         try
         {
 
-            List<WoodOrderItem> woodOrderItemList = PartsListCalculator.finalCalc(length, width, connectionPool);
+            List<WoodOrderItem> woodOrderItemList = PartsListCalculator.finalCalc(length, width, withRoof, connectionPool);
 
             String comment = request.getParameter("comment");
             User user = (User) request.getSession().getAttribute("user");
