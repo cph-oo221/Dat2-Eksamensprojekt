@@ -2,6 +2,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page errorPage="../error.jsp" isErrorPage="false" %>
+<%@ page import="dat.backend.model.entities.OrderState" %>
 
 <t:pagetemplate>
     <jsp:attribute name="header">
@@ -22,7 +23,7 @@
                         <tr>
                             <th scope="col">Vare</th>
                             <th scope="col">Antal</th>
-                            <th scope="col">Prise</th>
+                            <th scope="col">Pris stk</th>
                             <th scope="col">Beskrivelse</th>
                         </tr>
                         </thead>
@@ -45,14 +46,14 @@
                         </tr>
                         </thead>
                         <c:forEach var="item" items="${requestScope.itemList}">
-                        <tbody>
-                        <tr>
-                            <td>${item.wood.name}</td>
-                            <td>${item.amount}</td>
-                            <td>${item.wood.price}</td>
-                            <td>${item.description}</td>
-                        </tr>
-                        </tbody>
+                            <tbody>
+                            <tr>
+                                <td>${item.wood.name}</td>
+                                <td>${item.amount}</td>
+                                <td>${item.wood.price}</td>
+                                <td>${item.description}</td>
+                            </tr>
+                            </tbody>
                         </c:forEach>
                     </table>
                 </div>
@@ -60,12 +61,16 @@
         </div>
 
         <div class="ms-3 mt-2">
-            <h3 style="color: green">Netto pris ${requestScope.netPrice} kr.</h3>
-            <h3 style="color: green">Fog's pris ${requestScope.totalPrice} kr.</h3>
 
             <c:if test="${sessionScope.user.role.equals('admin')}">
+                <h3 style="color: green">Materiale pris ${requestScope.netPrice} kr.</h3>
+            </c:if>
+
+            <h3 style="color: green">Fog's pris ${requestScope.totalPrice} kr.</h3>
+
+            <c:if test="${sessionScope.user.role.equals('admin') && requestScope.orderState == OrderState.OPEN}">
                 <div class="mt-2">
-                    <%-- TODO needs an action to update price!!! --%>
+                        <%-- TODO needs an action to update price!!! --%>
                     <form action="updateprice" method="post">
 
                         <input type="number" id="pris" name="pris" style="height: 35px;"/>
