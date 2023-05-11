@@ -9,29 +9,33 @@ import java.util.*;
 
 public class PartsListCalculator
 {
-    public static ConnectionPool connectionPool = ApplicationStart.getConnectionPool();
     private static final int CARPORT_HANG = 50;
     private static final int MAX_POLE_DIST = 310;
 
 
 
 
-    public static List<WoodOrderItem> finalCalc(double length, double width) throws DatabaseException
+    public static List<WoodOrderItem> finalCalc(double length, double width, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
     {
-        WoodOrderItem rafters = calcRafter(width, length);
-        WoodOrderItem roofing = roofingCalc(length, width);
-        WoodOrderItem poles = poleCalc(length, width);
-        WoodOrderItem rems = remCalc(length, width);
         List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
+        WoodOrderItem rafters = calcRafter(width, length, connectionPool);
+        WoodOrderItem poles = poleCalc(length, width, connectionPool);
+        WoodOrderItem rems = remCalc(length, width, connectionPool);
+
+        if (withRoof)
+        {
+            WoodOrderItem roofing = roofingCalc(length, width, connectionPool);
+            woodOrderItemList.add(roofing);
+        }
+
         woodOrderItemList.add(rafters);
-        woodOrderItemList.add(roofing);
         woodOrderItemList.add(poles);
         woodOrderItemList.add(rems);
         return woodOrderItemList;
     }
 
 
-    private static WoodOrderItem roofingCalc(double length, double width) throws DatabaseException
+    private static WoodOrderItem roofingCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Tagplader skrues fast i spær";
         double area = length*width;
@@ -45,18 +49,27 @@ public class PartsListCalculator
     }
 
 
-    private static WoodOrderItem poleCalc(double length, double width) throws DatabaseException
+    public static WoodOrderItem poleCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Stolper graves 90 cm ned i jord";
         int poles = 4;
-        poles += Math.floor((((length - (CARPORT_HANG *2) ) / MAX_POLE_DIST) ) * 2);
-        poles += Math.floor((((width - (CARPORT_HANG *2) ) / MAX_POLE_DIST) ) * 2);
+
+        double lenPoles = ((length - CARPORT_HANG *2) / MAX_POLE_DIST) + 1;
+        double widthPoles = ((width - CARPORT_HANG *2) / MAX_POLE_DIST) + 1;
+
+        double extraLen = Math.ceil(lenPoles - 2) * 2;
+        double extraWidth = Math.ceil(widthPoles - 2) * 2;
+
+        poles += extraLen;
+        poles += extraWidth;
+
+
         List<Wood> poleList = Facade.getWoodByVariant("Stolpe", connectionPool);
         Wood pole = poleList.get(0);
         return new WoodOrderItem(poles, pole, desc);
     }
 
-    private static WoodOrderItem calcRafter(double width, double length) throws DatabaseException
+    private static WoodOrderItem calcRafter(double width, double length, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Spær placers på tværs af bygningen på tværs af remme med ca 55 cm mellemrum";
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
@@ -85,7 +98,7 @@ public class PartsListCalculator
         return new WoodOrderItem(amount, rafter, desc);
     }
 
-    private static WoodOrderItem remCalc(double length, double width) throws DatabaseException
+    private static WoodOrderItem remCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Remme boltes fast på stolper langs længden af kontruktionen";
         int remAmount = 2;

@@ -61,11 +61,11 @@
                         </select>
                     </label>
                     <br><br>
-                    <label for="roof">Carport tag:
+                    <label for="withRoof">Carport tag:
                         <br>
-                        <select name="roof" id="roof">
-                            <option value="no">Uden tagplader</option>
-                            <option value="yes">Trapeztag</option>
+                        <select name="withRoof" id="withRoof">
+                            <option value="false">Uden tagplader</option>
+                            <option value="true">Trapeztag</option>
                         </select>
                     </label>
                     <br><br>

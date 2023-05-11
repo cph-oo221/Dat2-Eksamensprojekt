@@ -60,7 +60,8 @@
         </div>
 
         <div class="ms-3 mt-2">
-            <h3 style="color: green">Total pris ${requestScope.totalPrice} kr.</h3>
+            <h3 style="color: green">Netto pris ${requestScope.netPrice} kr.</h3>
+            <h3 style="color: green">Fog's pris ${requestScope.totalPrice} kr.</h3>
 
             <c:if test="${sessionScope.user.role.equals('admin')}">
                 <div class="mt-2">

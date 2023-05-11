@@ -69,11 +69,11 @@
                 </div>
             </div>
 
-                <%-- GRAY BOX WITH "AFBRUD" BTN  --%>
+                <%-- GRAY BOX WITH "AFBRYD" BTN  --%>
             <div style="background-color: lightgray; height: 90px; margin-left: 25%; margin-right: 25%; display: flex; justify-content: space-between; align-items: center;">
                 <div style="margin-left: 5px;">
                     <form action="index.jsp" method="post">
-                        <input type="submit" class="btn btn-danger fw-bold" value="Afbrud">
+                        <input type="submit" class="btn btn-danger fw-bold" value="Afbryd">
                     </form>
                 </div>
             </div>
