@@ -49,7 +49,6 @@
                 <div class="navbar-nav">
 
                     <c:if test="${sessionScope.user.role.equals('user')}">
-<%--                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/redirectadminpanel">UserPage</a>--%>
                         <form action="redirectadminpanel" method="post">
                             <input type="submit" class="nav-item nav-link btn btn-link" value="UserPage"/>
                         </form>
@@ -57,7 +56,6 @@
 
 
                     <c:if test="${sessionScope.user.role.equals('admin') }">
-<%--                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/redirectadminpanel">AdminPanel</a>--%>
                         <form action="redirectadminpanel" method="post">
                             <input type="submit" class="nav-item nav-link btn btn-link" value="AdminPanel"/>
                         </form>
