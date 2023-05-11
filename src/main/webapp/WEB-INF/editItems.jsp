@@ -19,6 +19,16 @@
             </form>
         </div>
 
+        <div class="text-center">
+            <h3 style="color: green;">
+                ${requestScope.newWood.name}
+            </h3>
+
+            <h3 style="color: red">
+                ${requestScope.msgError}
+            </h3>
+        </div>
+
         <div class="container mt-3">
             <div class="row">
                 <div class="col text-center">
@@ -123,7 +133,7 @@
                         <h1 class="text-center">Tilføje nyt træ</h1>
                         <hr>
                         <div class="mt-1">
-                            <form action="yo" method="post">
+                            <form action="adminaction" method="post">
 
                                 <label for="name" class="fw-bold"> Navn </label><br/>
                                 <input type="text" id="name" name="name" style="width: 100%; height: 35px;"
@@ -171,6 +181,7 @@
 
                                 <br/>
                                 <br/>
+                                <input type="number" hidden name="action" value="5">
                                 <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
                                        value="Tilføje"/>
                                 <br>
@@ -184,7 +195,8 @@
                         <h1 class="text-center">Ændre pris på træ</h1>
                         <hr>
                         <div class="mt-1">
-                            <form action="yo" method="post">
+                            <form action="adminaction" method="post">
+
                                 <label for="idWood" class="fw-bold"> Træ ID </label><br/>
                                 <input type="number" id="idWood" name="idWood" style="width: 100%; height: 35px;"
                                        placeholder="Angiv Træ ID"/>
@@ -197,6 +209,7 @@
 
                                 <br/>
                                 <br/>
+                                <input type="number" hidden name="action" value="6">
                                 <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
                                        value="Ændre pris"/>
                                 <br>
