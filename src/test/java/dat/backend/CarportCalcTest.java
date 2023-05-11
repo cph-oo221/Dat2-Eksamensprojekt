@@ -1,6 +1,7 @@
 package dat.backend;
 
 import dat.backend.model.config.Env;
+import dat.backend.model.entities.PartsListCalculator;
 import dat.backend.model.entities.Wood;
 import dat.backend.model.entities.WoodOrderItem;
 import dat.backend.model.exceptions.DatabaseException;
@@ -206,5 +207,20 @@ public class CarportCalcTest
         //6,100,100,1,Trapezplade 1x1m,stk,30,Tag
 
 
+    }
+
+    @Test
+     void poleCalcTest()
+    {
+        try
+        {
+            WoodOrderItem item = PartsListCalculator.poleCalc(1450, 1450, connectionPool);
+
+            assertEquals(12, item.getAmount());
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
     }
 }
