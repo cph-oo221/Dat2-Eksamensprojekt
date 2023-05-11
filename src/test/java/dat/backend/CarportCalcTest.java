@@ -140,6 +140,9 @@ public class CarportCalcTest
             //1 * (210/55) = 3.82 = 4
 
             amount = amountL + amountW;
+            int poles;
+            if(shedWidth > 310) { poles = 3; }
+            else{ poles = 4; }
             assertNotNull(rafterLength);
             assertNotNull(rafterWidth);
             assertEquals(24, amount);
