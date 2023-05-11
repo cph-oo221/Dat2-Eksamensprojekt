@@ -326,4 +326,21 @@ public class CarportCalcTest
             fail(e.getMessage());
         }
     }
+
+    @Test
+    void sternCalcTest()
+    {
+        try
+        {
+            List<WoodOrderItem> list = PartsListCalculator.sternCalc(240, 240, connectionPool);
+
+            assertEquals(2, list.size());
+
+            // TODO: WRITE TEST FOR THIS HERE BOY
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+    }
 }

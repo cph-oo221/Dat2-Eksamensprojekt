@@ -20,6 +20,7 @@ public class PartsListCalculator
         WoodOrderItem rafters = calcRafter(width, length, connectionPool);
         WoodOrderItem poles = poleCalc(length, width, connectionPool);
         WoodOrderItem rems = remCalc(length, width, connectionPool);
+        List<WoodOrderItem> sterns = sternCalc(length, width, connectionPool);
 
         if (withRoof)
         {
@@ -35,7 +36,42 @@ public class PartsListCalculator
         woodOrderItemList.add(rafters);
         woodOrderItemList.add(poles);
         woodOrderItemList.add(rems);
+        woodOrderItemList.addAll(sterns);
+
         return woodOrderItemList;
+    }
+
+    public static List<WoodOrderItem> sternCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String desc = "Sternbrædt placeres uden på tagkonstruktionen";
+        List<Wood> sterns = Facade.getWoodByVariant("Stern", connectionPool);
+         int lenSternAmount = 1;
+         int widthSternAmount = 1;
+
+        Wood lenStern = selectWood(sterns, length);
+
+        while (lenStern == null)
+        {
+            length = length / 2;
+            lenSternAmount = lenSternAmount * 2;
+            lenStern = selectWood(sterns, length);
+        }
+
+        Wood widthStern = selectWood(sterns, width);
+
+        while (widthStern == null)
+        {
+            width = width / 2;
+            widthSternAmount = widthSternAmount * 2;
+            widthStern = selectWood(sterns, width);
+        }
+
+        List<WoodOrderItem> orderItems = new ArrayList<>();
+
+        orderItems.add(new WoodOrderItem(lenSternAmount, lenStern, desc));
+        orderItems.add(new WoodOrderItem(widthSternAmount, widthStern, desc));
+
+        return orderItems;
     }
 
 
