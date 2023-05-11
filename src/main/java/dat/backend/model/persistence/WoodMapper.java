@@ -1,5 +1,6 @@
 package dat.backend.model.persistence;
 
+import dat.backend.model.entities.User;
 import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 
@@ -160,5 +161,64 @@ public class WoodMapper
             throw new DatabaseException(e.getMessage());
         }
         return null;
+    }
+
+    public static Wood createWood(int length, int width, int height, String name, String unit, int price, String variant, ConnectionPool connectionPool) throws DatabaseException
+    {
+        Logger.getLogger("web").log(Level.INFO, "Trying to create new product wood: " + name);
+
+
+        if(length <= 0 || width <= 0 || height <= 0 || name.isEmpty() || unit.isEmpty() || price <= 0 || variant.isEmpty())
+        {
+            throw new DatabaseException("One or more parameters are empty or null!");
+        }
+
+
+        String sql = "insert into wood (length, width, height, name, unit, price, variant) values (?, ?, ?, ?, ?, ?, ?)";
+        Wood wood;
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, length);
+                ps.setInt(2, width);
+                ps.setInt(3, height);
+                ps.setString(4, name);
+                ps.setString(5, unit);
+                ps.setInt(6, price);
+                ps.setString(7, variant);
+
+                int rowsAffected = ps.executeUpdate();
+
+                if(rowsAffected == 1)
+                {
+                    ps.close();
+                    sql = "SELECT LAST_INSERT_ID()";
+                    try(PreparedStatement ps2 = connection.prepareStatement(sql))
+                    {
+                        ResultSet rs = ps2.executeQuery();
+                        if(rs.next())
+                        {
+                            int idWood = rs.getInt("LAST_INSERT_ID()");
+                            wood = new Wood(idWood, length, width, height, name, unit, price, variant);
+                        }
+                        else
+                        {
+                            throw new DatabaseException("No ID was found!");
+                        }
+                    }
+                }
+                else
+                {
+                    throw new DatabaseException("This wood: " + name + ", could not be insert in to the database");
+                }
+            }
+        }
+        catch (SQLException | DatabaseException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+        return wood;
     }
 }
