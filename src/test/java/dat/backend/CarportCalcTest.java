@@ -1,6 +1,7 @@
 package dat.backend;
 
 import dat.backend.model.config.Env;
+import dat.backend.model.entities.PartsListCalculator;
 import dat.backend.model.entities.Wood;
 import dat.backend.model.entities.WoodOrderItem;
 import dat.backend.model.exceptions.DatabaseException;
@@ -48,6 +49,106 @@ public class CarportCalcTest
         }
 
         connectionPool = new ConnectionPool(USER, PASSWORD, TESTURL);
+    }
+
+
+
+    @Test
+    void skurTest()
+    {
+        double width = 500;
+        double length = 500;
+
+        double shedWidth = 420;
+        double shedLength = 420;
+
+        double amount = 0;
+        double amountL = 0;
+        double amountW = 0;
+        double rafterLengthAmountL = 1;
+        double rafterWidthAmountL = 1;
+
+        try
+        {
+            List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
+
+            woods.sort(new Comparator<Wood>()
+            {
+                @Override
+                public int compare(Wood s, Wood t1)
+                {
+                    return t1.getLength() - s.getLength();
+                }
+            });
+
+            Wood rafterLength = selectWood(woods , shedLength);
+
+            if (rafterLength == null)
+            {
+                Wood buffer = null;
+                double amountBuffer = 1000000;
+                double wasteBuffer = 100000;
+
+                for (Wood w : woods)
+                {
+                    amountL = shedLength / w.getLength();
+                    double waste = shedLength % (w.getLength());
+                    waste = w.getLength() - waste;
+
+                    if (waste < wasteBuffer || amountL <= amountBuffer)
+                    {
+                        amountBuffer = amountL;
+                        wasteBuffer = waste;
+                        buffer = w;
+                    }
+                }
+                rafterLength = buffer;
+                rafterLengthAmountL = (int) Math.ceil(amountBuffer); //1
+            }
+
+            double rafterLengthWidth = rafterLength.getWidth();
+            amountL = (int) (rafterLengthAmountL * Math.ceil(210 / rafterLengthWidth)); // 210 = Pole height - the buried 90.
+            //1 * (210/55) = 3.82 = 4
+
+
+            Wood rafterWidth = selectWood(woods , shedWidth);
+
+            if (rafterWidth == null)
+            {
+                Wood buffer = null;
+                double amountBuffer = 1000000;
+                double wasteBuffer = 100000;
+
+                for (Wood w : woods)
+                {
+                    amountW = shedWidth / w.getLength();
+                    double waste = shedWidth % (w.getLength());
+                    waste = w.getLength() - waste;
+
+                    if (waste < wasteBuffer || amountW <= amountBuffer)
+                    {
+                        amountBuffer = amountW;
+                        wasteBuffer = waste;
+                        buffer = w;
+                    }
+                }
+                rafterWidth = buffer;
+                rafterWidthAmountL = (int) Math.ceil(amountBuffer);
+            }
+            double rafterWidthWidth = rafterWidth.getWidth();
+            amountW = (int) (rafterWidthAmountL * Math.ceil(210 / rafterWidthWidth)); // 210 = Pole height - the buried 90.
+            //1 * (210/55) = 3.82 = 4
+
+            amount = amountL + amountW;
+            assertNotNull(rafterLength);
+            assertNotNull(rafterWidth);
+            assertEquals(24, amount);
+
+        }
+        catch (DatabaseException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Test
