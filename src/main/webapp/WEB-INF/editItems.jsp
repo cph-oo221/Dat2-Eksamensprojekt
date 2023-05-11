@@ -101,10 +101,10 @@
                                 <td>${wood.idWood}</td>
                                 <td>${wood.name}</td>
                                 <td>${wood.length}</td>
-                                <td>${wood.width} kr.</td>
+                                <td>${wood.width}</td>
                                 <td>${wood.height}</td>
                                 <td>${wood.unit}</td>
-                                <td>${wood.price}</td>
+                                <td>${wood.price} kr.</td>
                                 <td>${wood.variant}</td>
                                 <td class="text-center">
                                         <%--TODO need action--%>
