@@ -39,8 +39,7 @@
                            width="80px;" class="img-fluid" alt="Submit"/>
                 </form>
             </c:if>
-
-
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -54,13 +53,11 @@
                         </form>
                     </c:if>
 
-
                     <c:if test="${sessionScope.user.role.equals('admin') }">
                         <form action="redirectadminpanel" method="post">
                             <input type="submit" class="nav-item nav-link btn btn-link" value="AdminPanel"/>
                         </form>
                     </c:if>
-
 
                     <c:if test="${sessionScope.user == null }">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/login.jsp">Login</a>
