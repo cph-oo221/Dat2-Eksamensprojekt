@@ -20,18 +20,50 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="index.jsp">
-                <img src="${pageContext.request.contextPath}/images/cphbusiness.png" width="400px;" class="img-fluid"/>
-            </a>
+            <c:if test="${sessionScope.user == null }">
+                <a class="navbar-brand" href="index.jsp">
+                    <img src="${pageContext.request.contextPath}/images/Pagetemplate/FogLogo.png" width="80px;" class="img-fluid"/>
+                </a>
+            </c:if>
+
+            <c:if test="${sessionScope.user.role.equals('admin')}">
+                <form action="redirectadminpanel" method="post">
+                    <input type="image" class="navbar-brand" src="${pageContext.request.contextPath}/images/Pagetemplate/FogLogo.png"
+                           width="80px;" class="img-fluid" alt="Submit"/>
+                </form>
+            </c:if>
+
+            <c:if test="${sessionScope.user.role.equals('user')}">
+                <form action="redirectadminpanel" method="post">
+                    <input type="image" class="navbar-brand" src="${pageContext.request.contextPath}/images/Pagetemplate/FogLogo.png"
+                           width="80px;" class="img-fluid" alt="Submit"/>
+                </form>
+            </c:if>
+
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 1</a>
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 2</a>
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 3</a>
+
+                    <c:if test="${sessionScope.user.role.equals('user')}">
+<%--                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/redirectadminpanel">UserPage</a>--%>
+                        <form action="redirectadminpanel" method="post">
+                            <input type="submit" class="nav-item nav-link btn btn-link" value="UserPage"/>
+                        </form>
+                    </c:if>
+
+
+                    <c:if test="${sessionScope.user.role.equals('admin') }">
+<%--                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/redirectadminpanel">AdminPanel</a>--%>
+                        <form action="redirectadminpanel" method="post">
+                            <input type="submit" class="nav-item nav-link btn btn-link" value="AdminPanel"/>
+                        </form>
+                    </c:if>
+
+
                     <c:if test="${sessionScope.user == null }">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/login.jsp">Login</a>
                     </c:if>
@@ -53,17 +85,17 @@
 <div class="container mt-3">
     <hr/>
     <div class="row mt-4">
-        <div class="col">
-            Nørgaardsvej 30<br/>
+        <div class="col text-center">
+            Firskovvej 20<br/>
             2800 Lyngby
         </div>
-        <div class="col">
+        <div class="col text-center">
             <jsp:invoke fragment="footer"/><br/>
-            <p>&copy; 2022 Cphbusiness</p>
+            <p>&copy; 2023 Johannes Fog A/S</p>
         </div>
-        <div class="col">
-            Datamatikeruddannelsen<br/>
-            2. semester efterår 2022
+        <div class="col text-center">
+            Kontakt information:<br/>
+            fog@gmail.com
         </div>
     </div>
 
