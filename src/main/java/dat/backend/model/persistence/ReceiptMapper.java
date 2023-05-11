@@ -126,7 +126,7 @@ public class ReceiptMapper
         }
     }
 
-    public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool)
+    public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -142,7 +142,7 @@ public class ReceiptMapper
         }
         catch (SQLException throwables)
         {
-            throwables.printStackTrace();
+            throw new DatabaseException(throwables.getMessage());
         }
     }
 

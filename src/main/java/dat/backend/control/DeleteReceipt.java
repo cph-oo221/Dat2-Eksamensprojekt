@@ -54,18 +54,29 @@ public class DeleteReceipt extends HttpServlet
             }
             catch (DatabaseException e)
             {
-                e.printStackTrace();
+                request.setAttribute("errormessage", e.getMessage());
+                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
 
             request.getRequestDispatcher("WEB-INF/receiptsAdmin.jsp").forward(request,response);
         }
         else
         {
-            Facade.deleteReceipt(idReceipt, connectionPool);
-            ArrayList<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
-            request.setAttribute("receiptList", receiptList);
+            try
+            {
 
-            request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request,response);
+                Facade.deleteOrderByReceiptId(idReceipt, connectionPool);
+                Facade.deleteReceipt(idReceipt, connectionPool);
+                ArrayList<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
+                request.setAttribute("receiptList", receiptList);
+
+                request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request, response);
+            }
+            catch (DatabaseException e)
+            {
+                request.setAttribute("errormessage", e.getMessage());
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
         }
     }
 }

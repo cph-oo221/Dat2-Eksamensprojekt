@@ -99,4 +99,24 @@ public class OrderMapper
             throw new DatabaseException(e.getMessage());
         }
     }
+
+    protected static void deleteWoodOrderByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String sql = "DELETE FROM orderwood WHERE idreceipt = ?;";
+
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, idReceipt);
+
+                ps.executeUpdate();
+            }
+        }
+
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+    }
 }

@@ -65,9 +65,7 @@
             <c:if test="${sessionScope.user.role.equals('admin')}">
                 <h3 style="color: green">Materiale pris ${requestScope.netPrice} kr.</h3>
             </c:if>
-
             <h3 style="color: green">Fog's pris ${requestScope.totalPrice} kr.</h3>
-
             <c:if test="${sessionScope.user.role.equals('admin') && requestScope.orderState == OrderState.OPEN}">
                 <div class="mt-2">
                         <%-- TODO needs an action to update price!!! --%>
