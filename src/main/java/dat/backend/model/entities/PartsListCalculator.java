@@ -45,25 +45,57 @@ public class PartsListCalculator
     {
         String desc = "Sternbrædt placeres uden på tagkonstruktionen";
         List<Wood> sterns = Facade.getWoodByVariant("Stern", connectionPool);
-         int lenSternAmount = 1;
-         int widthSternAmount = 1;
+         int lenSternAmount = 2;
+         int widthSternAmount = 2;
 
         Wood lenStern = selectWood(sterns, length);
 
-        while (lenStern == null)
+        if (lenStern == null)
         {
-            length = length / 2;
-            lenSternAmount = lenSternAmount * 2;
-            lenStern = selectWood(sterns, length);
+            Wood buffer = null;
+            double amountBuffer = 1000000;
+            double wasteBuffer = 100000;
+
+            for (Wood w : sterns)
+            {
+                double amount = length / w.getLength();
+                double waste = length % (w.getLength());
+                waste = w.getLength() - waste;
+
+                if (waste < wasteBuffer || amount <= amountBuffer)
+                {
+                    amountBuffer = amount;
+                    wasteBuffer = waste;
+                    buffer = w;
+                }
+            }
+            lenStern = buffer;
+            lenSternAmount = (int) Math.ceil(amountBuffer) * 2;
         }
 
         Wood widthStern = selectWood(sterns, width);
 
-        while (widthStern == null)
+        if (widthStern == null)
         {
-            width = width / 2;
-            widthSternAmount = widthSternAmount * 2;
-            widthStern = selectWood(sterns, width);
+            Wood buffer = null;
+            double amountBuffer = 1000000;
+            double wasteBuffer = 100000;
+
+            for (Wood w : sterns)
+            {
+                double amount = length / w.getLength();
+                double waste = length % (w.getLength());
+                waste = w.getLength() - waste;
+
+                if (waste < wasteBuffer || amount <= amountBuffer)
+                {
+                    amountBuffer = amount;
+                    wasteBuffer = waste;
+                    buffer = w;
+                }
+            }
+            widthStern = buffer;
+            widthSternAmount = (int) Math.ceil(amountBuffer) * 2;
         }
 
         List<WoodOrderItem> orderItems = new ArrayList<>();
@@ -164,7 +196,7 @@ public class PartsListCalculator
 
             for (Wood w : woods)
             {
-                double amount= length / w.getLength();
+                double amount = length / w.getLength();
                 double waste = length % (w.getLength());
                 waste = w.getLength() - waste;
 
