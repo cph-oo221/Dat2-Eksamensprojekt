@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page errorPage="../error.jsp" isErrorPage="false" %>
@@ -22,17 +22,35 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col text-center">
-                    <form action="" method="post">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> Sortere </button>
 
-                        <input type="submit" class="btn btn-primary fw-bold" value="Sortere [aA-åÅ]">
-                    </form>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <form action="adminaction" method="post">
+                                    <input type="number" hidden name="action" value="1">
+                                    <input type="number" hidden name="sortOption" value="1">
+                                    <input type="submit" class="dropdown-item" value="Træ ID">
+                                </form>
+                            </li>
+
+                            <li>
+                                <form action="adminaction" method="post">
+                                    <input type="number" hidden name="action" value="1">
+                                    <input type="number" hidden name="sortOption" value="2">
+                                    <input type="submit" class="dropdown-item" value="Navn">
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
 
                 <div class="col text-center">
-                    <form action="" method="post">
+                    <form action="adminaction" method="post">
 
-
+                        <input type="number" hidden name="action" value="2">
                         <input type="text" id="search" name="search" style="height: 35px;" placeholder="Search..."/>
                         <input type="submit" class="btn btn-primary fw-bold mb-1" value="Søg"/>
                     </form>
@@ -40,8 +58,9 @@
 
 
                 <div class="col text-center">
-                    <form action="" method="post">
+                    <form action="adminaction" method="post">
 
+                        <input type="number" hidden name="action" value="3">
                         <input type="submit" class="btn btn-primary fw-bold mb-1" value="Nulstil"/>
                     </form>
                 </div>
@@ -78,12 +97,12 @@
                                 <td>${wood.variant}</td>
                                 <td class="text-center">
                                         <%--TODO need action--%>
-                                    <form action="" method="post"
+                                    <form action="adminaction" method="post"
                                           onsubmit="return confirm('Denne handling medføre, at træet: '
                                                   + 'ID:' + ${wood.idWood} + ', Name: ' + ${wood.name} + '. bliver slette, er du sikker?')">
 
+                                        <input type="number" hidden name="action" value="4">
                                         <input type="number" hidden name="idWood" value="${wood.idWood}">
-
                                         <input type="submit" class="btn btn-danger fw-bold" value="Slet">
                                     </form>
                                 </td>

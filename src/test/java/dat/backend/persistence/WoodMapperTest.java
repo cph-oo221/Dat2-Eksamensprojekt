@@ -14,8 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WoodMapperTest
 {
@@ -125,4 +124,16 @@ public class WoodMapperTest
         assertEquals(300, Facade.getWoodById(1, connectionPool).getPrice());
         System.out.println("Price: " + Facade.getWoodById(1, connectionPool).getPrice());
     }
+
+
+    @Test
+    void deleteWood() throws DatabaseException
+    {
+        int idWood = 5;
+        int expected = 4;
+
+        Facade.deleteWood(idWood, connectionPool);
+        assertEquals(expected, Facade.getAllWood(connectionPool).size());
+    }
+
 }
