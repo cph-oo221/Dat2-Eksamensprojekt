@@ -97,6 +97,12 @@ public class Facade
     {
         return WoodMapper.getWoodById(idWood, connectionPool);
     }
+
+    public static Wood createWood(int length, int width, int height, String name, String unit, int price, String variant, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return WoodMapper.createWood(length, width, height, name, unit, price, variant, connectionPool);
+    }
+
     // /WOOD ***********************************************************************************************************
 
     public static int createOrder(int receiptId, List<WoodOrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException

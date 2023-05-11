@@ -87,11 +87,11 @@ public class WoodMapperTest
                 stmt.execute("ALTER TABLE fog_test.wood DISABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.wood AUTO_INCREMENT = 1");
                 stmt.execute("insert into fog_test.wood VALUES " +
-                        "(1, 410, 55, 20, 'Spærtræ 410x55x20', 'stk', 200, 'Rem')," +
-                        "(2, 205, 55, 20, 'Spærtræ 205x55x20', 'stk', 100, 'Rem')," +
-                        "(3, 300, 97, 97, 'Stolpe 300x97x97', 'stk', 100, 'Stolpe')," +
-                        "(4, 410, 55, 20, 'Spærtræ 410x55x20', 'stk', 200, 'Spær')," +
-                        "(5, 205, 55, 20, 'Spærtræ 205x55x20', 'stk', 100, 'Spær')");
+                        "(1, 410, 55, 20, 'Spærtræ', 'stk', 200, 'Rem')," +
+                        "(2, 205, 55, 20, 'Spærtræ', 'stk', 100, 'Rem')," +
+                        "(3, 300, 97, 97, 'Stolpe', 'stk', 100, 'Stolpe')," +
+                        "(4, 410, 55, 20, 'Spærtræ', 'stk', 200, 'Spær')," +
+                        "(5, 205, 55, 20, 'Spærtræ', 'stk', 100, 'Spær')");
                 stmt.execute("ALTER TABLE fog_test.wood ENABLE KEYS");
             }
         } catch (SQLException throwables)
@@ -134,6 +134,51 @@ public class WoodMapperTest
 
         Facade.deleteWood(idWood, connectionPool);
         assertEquals(expected, Facade.getAllWood(connectionPool).size());
+    }
+
+    @Test
+    void createWood() throws DatabaseException
+    {
+        Wood expected = new Wood(6, 160, 54, 23, "Spærtræ", "stk", 120, "Rem");
+
+        Wood actual = Facade.createWood(160, 54, 23, "Spærtræ", "stk", 120, "Rem", connectionPool);
+
+        System.out.println(expected);
+        System.out.println(actual);
+
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void createWoodInvaildInputs() throws DatabaseException
+    {
+
+        // Length is less than zero
+        assertThrows(DatabaseException.class, () -> Facade.createWood(-12, 54, 54,
+                "Spærtræ", "stk", 120, "Rem", connectionPool));
+        // Width is less than zero
+        assertThrows(DatabaseException.class, () -> Facade.createWood(120, -10, 54,
+                "Spærtræ", "stk", 120, "Rem", connectionPool));
+        // Height is less than zero
+        assertThrows(DatabaseException.class, () -> Facade.createWood(120, 54, -12,
+                "Spærtræ", "stk", 120, "Rem", connectionPool));
+
+        // price is less than zero
+        assertThrows(DatabaseException.class, () -> Facade.createWood(120, 54, 54,
+                "Spærtræ", "stk", -100, "Rem", connectionPool));
+
+        // Name is empty
+        assertThrows(DatabaseException.class, () -> Facade.createWood(120, 54, 54,
+                "", "stk", 100, "Rem", connectionPool));
+
+        // Unit is empty
+        assertThrows(DatabaseException.class, () -> Facade.createWood(120, 54, 54,
+                "Spærtræ", "", 100, "Rem", connectionPool));
+
+        // Variant is empty
+        assertThrows(DatabaseException.class, () -> Facade.createWood(120, 54, 54,
+                "Spærtræ", "stk", 100, "", connectionPool));
     }
 
 }

@@ -80,4 +80,19 @@ public class Wood
     {
         return Objects.hash(idWood, length, width, height, name, unit, price, variant);
     }
+
+    @Override
+    public String toString()
+    {
+        return "Wood{" +
+                "idWood=" + idWood +
+                ", length=" + length +
+                ", width=" + width +
+                ", height=" + height +
+                ", name='" + name + '\'' +
+                ", unit='" + unit + '\'' +
+                ", price=" + price +
+                ", variant='" + variant + '\'' +
+                '}';
+    }
 }
