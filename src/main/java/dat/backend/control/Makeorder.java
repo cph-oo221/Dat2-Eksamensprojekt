@@ -41,7 +41,7 @@ public class Makeorder extends HttpServlet
         try
         {
 
-            List<WoodOrderItem> woodOrderItemList = PartsListCalculator.finalCalc(length, width);
+            List<WoodOrderItem> woodOrderItemList = PartsListCalculator.finalCalc(length, width, connectionPool);
 
             String comment = request.getParameter("comment");
             User user = (User) request.getSession().getAttribute("user");
