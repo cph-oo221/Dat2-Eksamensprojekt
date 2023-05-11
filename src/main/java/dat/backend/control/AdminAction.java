@@ -106,13 +106,85 @@ public class AdminAction extends HttpServlet
             }
         }
 
-        if (action == 4)
+        if (action == 4) // DELETE Wood
         {
             int idWood = Integer.parseInt(request.getParameter("idWood"));
 
             try
             {
                 Facade.deleteWood(idWood, connectionPool);
+                List<Wood> woodList = Facade.getAllWood(connectionPool);
+                request.setAttribute("woodList", woodList);
+            }
+            catch (DatabaseException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        if(action == 5) // ADD NEW WOOD
+        {
+            int length = Integer.parseInt(request.getParameter("length"));
+            int width = Integer.parseInt(request.getParameter("width"));
+            int height = Integer.parseInt(request.getParameter("height"));
+            int price = Integer.parseInt(request.getParameter("price"));
+            String name = request.getParameter("name");
+            String unit = request.getParameter("unit");
+            String variant = request.getParameter("variant");
+
+            if(length <= 0 || width <= 0 || height <= 0 || name.isEmpty() || unit.isEmpty() || price <= 0 || variant.isEmpty())
+            {
+                String msgError = "En eller flere parametre er tomme eller nul i Tilføje nyt træ";
+                request.setAttribute("msgError", msgError);
+                try
+                {
+                    List<Wood> woodList = Facade.getAllWood(connectionPool);
+                    request.setAttribute("woodList", woodList);
+                }
+                catch (DatabaseException e)
+                {
+                    e.printStackTrace();
+                }
+                request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
+            }
+
+            try
+            {
+                Wood newWood = Facade.createWood(length, width, height, name, unit, price, variant, connectionPool);
+                request.setAttribute("newWood", newWood);
+                List<Wood> woodList = Facade.getAllWood(connectionPool);
+                request.setAttribute("woodList", woodList);
+            }
+            catch (DatabaseException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        if(action == 6) // CHANGE PRICE ON WOOD
+        {
+            int idWood = Integer.parseInt(request.getParameter("idWood"));
+            int newPrice = Integer.parseInt(request.getParameter("newPrice"));
+
+            if(idWood <= 0 || newPrice <= 0)
+            {
+                String msgError = "En eller flere parametre er tomme eller nul i Ændre Pris!";
+                try
+                {
+                    List<Wood> woodList = Facade.getAllWood(connectionPool);
+                    request.setAttribute("woodList", woodList);
+                }
+                catch (DatabaseException e)
+                {
+                    e.printStackTrace();
+                }
+                request.setAttribute("msgError", msgError);
+                request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
+            }
+
+            try
+            {
+                Facade.updateWoodPrice(idWood, newPrice, connectionPool);
                 List<Wood> woodList = Facade.getAllWood(connectionPool);
                 request.setAttribute("woodList", woodList);
             }
