@@ -19,12 +19,23 @@
             </form>
         </div>
 
+        <div class="text-center">
+            <h3 style="color: green;">
+                ${requestScope.newWood.name}
+            </h3>
+
+            <h3 style="color: red">
+                ${requestScope.msgError}
+            </h3>
+        </div>
+
         <div class="container mt-3">
             <div class="row">
                 <div class="col text-center">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button"
-                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> Sortere </button>
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> Sortere
+                        </button>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li>
@@ -115,7 +126,101 @@
         </div>
 
 
-        <div class="mt-2">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col">
+                    <div class="card mt-2 p-1">
+                        <h1 class="text-center">Tilføje nyt træ</h1>
+                        <hr>
+                        <div class="mt-1">
+                            <form action="adminaction" method="post">
+
+                                <label for="name" class="fw-bold"> Navn </label><br/>
+                                <input type="text" id="name" name="name" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Navn"/>
+
+
+                                <br/>
+                                <br/>
+                                <label for="length" class="fw-bold"> Længde </label><br/>
+                                <input type="number" id="length" name="length" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Længde"/>
+
+                                <br/>
+                                <br/>
+                                <label for="width" class="fw-bold"> bredde </label><br/>
+                                <input type="number" id="width" name="width" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Bredde"/>
+
+                                <br/>
+                                <br/>
+                                <label for="height" class="fw-bold"> Højde </label><br/>
+                                <input type="number" id="height" name="height" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Højde"/>
+
+
+                                <br/>
+                                <br/>
+                                <label for="unit" class="fw-bold"> Enhed </label><br/>
+                                <input type="text" id="unit" name="unit" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv enhed"/>
+
+
+                                <br/>
+                                <br/>
+                                <label for="variant" class="fw-bold"> Variant </label><br/>
+                                <input type="text" id="variant" name="variant" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Variant"/>
+
+
+                                <br/>
+                                <br/>
+                                <label for="price" class="fw-bold"> Pris </label><br/>
+                                <input type="number" id="price" name="price" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Pris"/>
+
+                                <br/>
+                                <br/>
+                                <input type="number" hidden name="action" value="5">
+                                <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
+                                       value="Tilføje"/>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card mt-2 p-1">
+                        <h1 class="text-center">Ændre pris på træ</h1>
+                        <hr>
+                        <div class="mt-1">
+                            <form action="adminaction" method="post">
+
+                                <label for="idWood" class="fw-bold"> Træ ID </label><br/>
+                                <input type="number" id="idWood" name="idWood" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Træ ID"/>
+
+                                <br/>
+                                <br/>
+                                <label for="newPrice" class="fw-bold"> Ny pris </label><br/>
+                                <input type="number" id="newPrice" name="newPrice" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv ny pris"/>
+
+                                <br/>
+                                <br/>
+                                <input type="number" hidden name="action" value="6">
+                                <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
+                                       value="Ændre pris"/>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
             <form action="redirectadminpanel" method="post">
                 <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
             </form>
