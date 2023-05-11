@@ -62,6 +62,7 @@ public class ItemsList extends HttpServlet
             request.setAttribute("totalPrice", totalPrice);
             request.setAttribute("netPrice", netPrice);
             request.setAttribute("itemList", itemList);
+            request.setAttribute("orderState", r.getOrderState());
             request.getRequestDispatcher("WEB-INF/itemsList.jsp").forward(request, response);
         }
 

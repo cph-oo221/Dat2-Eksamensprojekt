@@ -1,6 +1,5 @@
 package dat.backend.model.entities;
 
-import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
@@ -15,7 +14,7 @@ public class PartsListCalculator
 
 
 
-    public static List<WoodOrderItem> finalCalc(double length, double width, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
+    public static List<WoodOrderItem> finalCalc(double length, double width, int shedLength, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
     {
         List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
         WoodOrderItem rafters = calcRafter(width, length, connectionPool);
@@ -26,6 +25,11 @@ public class PartsListCalculator
         {
             WoodOrderItem roofing = roofingCalc(length, width, connectionPool);
             woodOrderItemList.add(roofing);
+        }
+        if (shedLength > 0)
+        {
+            List<WoodOrderItem> shed = getShed(length, width, shedLength, connectionPool);
+            woodOrderItemList.addAll(shed);
         }
 
         woodOrderItemList.add(rafters);
@@ -157,6 +161,102 @@ public class PartsListCalculator
             }
         }
         return buffer;
+    }
+
+    private static List<WoodOrderItem> getShed(double length, double width, double shedLength, ConnectionPool connectionPool) throws DatabaseException
+    {
+
+        double shedWidth = width / 2;
+        double amountL;
+        double amountW;
+        double rafterLengthAmountL = 1;
+        double rafterWidthAmountW = 1;
+
+        List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
+
+        List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
+
+        woods.sort(new Comparator<Wood>()
+        {
+            @Override
+            public int compare(Wood s, Wood t1)
+            {
+                return t1.getLength() - s.getLength();
+            }
+        });
+
+        Wood rafterLength = selectWood(woods, shedLength);
+
+        if (rafterLength == null)
+        {
+            Wood buffer = null;
+            double amountBuffer = 1000000;
+            double wasteBuffer = 100000;
+
+            for (Wood w : woods)
+            {
+                amountL = shedLength / w.getLength();
+                double waste = shedLength % (w.getLength());
+                waste = w.getLength() - waste;
+
+                if (waste < wasteBuffer || amountL <= amountBuffer)
+                {
+                    amountBuffer = amountL;
+                    wasteBuffer = waste;
+                    buffer = w;
+                }
+            }
+            rafterLength = buffer;
+            rafterLengthAmountL = (int) Math.ceil(amountBuffer); //1
+        }
+
+        double rafterLengthWidth = rafterLength.getWidth();
+        amountL = (int) (rafterLengthAmountL * Math.ceil(210 / rafterLengthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
+        WoodOrderItem rafterLengthWOI = new WoodOrderItem((int) amountL, rafterLength, "Spærtræ til beklædning af skur i længden");
+        woodOrderItemList.add(rafterLengthWOI);
+
+
+        Wood rafterWidth = selectWood(woods, shedWidth);
+
+        if (rafterWidth == null)
+        {
+            Wood buffer = null;
+            double amountBuffer = 1000000;
+            double wasteBuffer = 100000;
+
+            for (Wood w : woods)
+            {
+                amountW = shedWidth / w.getLength();
+                double waste = shedWidth % (w.getLength());
+                waste = w.getLength() - waste;
+
+                if (waste < wasteBuffer || amountW <= amountBuffer)
+                {
+                    amountBuffer = amountW;
+                    wasteBuffer = waste;
+                    buffer = w;
+                }
+            }
+            rafterWidth = buffer;
+            rafterWidthAmountW = (int) Math.ceil(amountBuffer);
+        }
+        double rafterWidthWidth = rafterWidth.getWidth();
+        amountW = (int) (rafterWidthAmountW * Math.ceil(210 / rafterWidthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
+        WoodOrderItem rafterWidthWOI = new WoodOrderItem((int) amountW, rafterWidth, "Spærtræ til beklædning af skur i bredden");
+        woodOrderItemList.add(rafterWidthWOI);
+
+        int poles;
+        if (shedWidth > 310)
+        {
+            poles = 3;
+        } else
+        {
+            poles = 4;
+        }
+        List<Wood> poleWoodList = Facade.getWoodByVariant("Stolpe", connectionPool);
+        WoodOrderItem polesShed = new WoodOrderItem(poles, poleWoodList.get(0), "Stolper til skur");
+        woodOrderItemList.add(polesShed);
+        return woodOrderItemList;
     }
 
     private static double getRafterAmount(double length, int modifier)

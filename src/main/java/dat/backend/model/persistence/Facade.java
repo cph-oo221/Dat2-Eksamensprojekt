@@ -56,7 +56,7 @@ public class Facade
         ReceiptMapper.acceptReceiptAdmin(idReceipt, connectionPool);
     }
 
-    public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool)
+    public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         ReceiptMapper.deleteReceipt(idReceipt, connectionPool);
     }
@@ -118,5 +118,10 @@ public class Facade
     public static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool)
     {
         return ReceiptMapper.updateReceiptPrice(newPrice, idReceipt, connectionPool);
+    }
+
+    public static void deleteOrderByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    {
+        OrderMapper.deleteWoodOrderByReceiptId(idReceipt, connectionPool);
     }
 }

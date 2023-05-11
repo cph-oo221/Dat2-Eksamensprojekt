@@ -68,6 +68,15 @@
                             <option value="true">Trapeztag</option>
                         </select>
                     </label>
+                    <label for="shedLength">Skur:
+                        <br>
+                        <select name="shedLength" id="shedLength">
+                            <option value="0">Intet skur</option>
+                            <option value="100">100 cm</option>
+                            <option value="200">200 cm</option>
+                            <option value="300">300 cm</option>
+                        </select>
+                    </label>
                     <br><br>
                     <label for="comment">Bemærkninger eller særlige ønsker:
                         <br>
