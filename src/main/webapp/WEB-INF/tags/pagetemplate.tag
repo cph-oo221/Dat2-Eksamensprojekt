@@ -50,13 +50,13 @@
 
                     <c:if test="${sessionScope.user.role.equals('user')}">
                         <form action="redirectadminpanel" method="post">
-                            <input type="submit" class="nav-item nav-link btn btn-link" value="UserPage"/>
+                            <input type="submit" class="nav-item nav-link btn btn-link" value="Bruger Side"/>
                         </form>
                     </c:if>
 
                     <c:if test="${sessionScope.user.role.equals('admin') }">
                         <form action="redirectadminpanel" method="post">
-                            <input type="submit" class="nav-item nav-link btn btn-link" value="AdminPanel"/>
+                            <input type="submit" class="nav-item nav-link btn btn-link" value="Admin Panel"/>
                         </form>
                     </c:if>
 
