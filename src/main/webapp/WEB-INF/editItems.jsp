@@ -28,7 +28,7 @@
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li>
-                                <form action="adminactionbar" method="post">
+                                <form action="adminaction" method="post">
                                     <input type="number" hidden name="action" value="1">
                                     <input type="number" hidden name="sortOption" value="1">
                                     <input type="submit" class="dropdown-item" value="Træ ID">
@@ -36,7 +36,7 @@
                             </li>
 
                             <li>
-                                <form action="adminactionbar" method="post">
+                                <form action="adminaction" method="post">
                                     <input type="number" hidden name="action" value="1">
                                     <input type="number" hidden name="sortOption" value="2">
                                     <input type="submit" class="dropdown-item" value="Navn">
@@ -48,7 +48,7 @@
 
 
                 <div class="col text-center">
-                    <form action="adminactionbar" method="post">
+                    <form action="adminaction" method="post">
 
                         <input type="number" hidden name="action" value="2">
                         <input type="text" id="search" name="search" style="height: 35px;" placeholder="Search..."/>
@@ -58,7 +58,7 @@
 
 
                 <div class="col text-center">
-                    <form action="adminactionbar" method="post">
+                    <form action="adminaction" method="post">
 
                         <input type="number" hidden name="action" value="3">
                         <input type="submit" class="btn btn-primary fw-bold mb-1" value="Nulstil"/>
@@ -97,12 +97,12 @@
                                 <td>${wood.variant}</td>
                                 <td class="text-center">
                                         <%--TODO need action--%>
-                                    <form action="" method="post"
+                                    <form action="adminaction" method="post"
                                           onsubmit="return confirm('Denne handling medføre, at træet: '
                                                   + 'ID:' + ${wood.idWood} + ', Name: ' + ${wood.name} + '. bliver slette, er du sikker?')">
 
+                                        <input type="number" hidden name="action" value="4">
                                         <input type="number" hidden name="idWood" value="${wood.idWood}">
-
                                         <input type="submit" class="btn btn-danger fw-bold" value="Slet">
                                     </form>
                                 </td>
