@@ -14,7 +14,7 @@ public class PartsListCalculator
 
 
 
-    public static List<WoodOrderItem> finalCalc(double length, double width, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
+    public static List<WoodOrderItem> finalCalc(double length, double width, int shedLength, boolean withRoof, boolean withShed, ConnectionPool connectionPool) throws DatabaseException
     {
         List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
         WoodOrderItem rafters = calcRafter(width, length, connectionPool);
@@ -25,6 +25,11 @@ public class PartsListCalculator
         {
             WoodOrderItem roofing = roofingCalc(length, width, connectionPool);
             woodOrderItemList.add(roofing);
+        }
+        if (withShed)
+        {
+            List<WoodOrderItem> shed = getShed(length, width, shedLength, connectionPool);
+            woodOrderItemList.addAll(shed);
         }
 
         woodOrderItemList.add(rafters);
