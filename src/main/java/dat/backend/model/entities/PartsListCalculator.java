@@ -12,14 +12,13 @@ public class PartsListCalculator
     private static final int MAX_POLE_DIST = 310;
 
 
-
-
     public static List<WoodOrderItem> finalCalc(double length, double width, int shedLength, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
     {
         List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
         WoodOrderItem rafters = calcRafter(width, length, connectionPool);
         WoodOrderItem poles = poleCalc(length, width, connectionPool);
         WoodOrderItem rems = remCalc(length, connectionPool);
+        List<WoodOrderItem> sterns = sternCalc(length, width, connectionPool);
 
         if (withRoof)
         {
@@ -35,9 +34,84 @@ public class PartsListCalculator
         woodOrderItemList.add(rafters);
         woodOrderItemList.add(poles);
         woodOrderItemList.add(rems);
+        woodOrderItemList.addAll(sterns);
+
         return woodOrderItemList;
     }
 
+    public static List<WoodOrderItem> sternCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String desc = "Sternbrædt placeres uden på tagkonstruktionen";
+        List<Wood> sterns = Facade.getWoodByVariant("Stern", connectionPool);
+         int lenSternAmount = 2;
+         int widthSternAmount = 2;
+
+        sterns.sort(new Comparator<Wood>()
+        {
+            @Override
+            public int compare(Wood s, Wood t1)
+            {
+                return t1.getLength() - s.getLength();
+            }
+        });
+
+        Wood lenStern = selectWood(sterns, length);
+
+        if (lenStern == null)
+        {
+            Wood buffer = null;
+            double amountBuffer = 1000000;
+            double wasteBuffer = 100000;
+
+            for (Wood w : sterns)
+            {
+                double amount = length / w.getLength();
+                double waste = length % (w.getLength());
+                waste = w.getLength() - waste;
+
+                if (waste < wasteBuffer || amount <= amountBuffer)
+                {
+                    amountBuffer = amount;
+                    wasteBuffer = waste;
+                    buffer = w;
+                }
+            }
+            lenStern = buffer;
+            lenSternAmount = (int) Math.ceil(amountBuffer) * 2;
+        }
+
+        Wood widthStern = selectWood(sterns, width);
+
+        if (widthStern == null)
+        {
+            Wood buffer = null;
+            double amountBuffer = 1000000;
+            double wasteBuffer = 100000;
+
+            for (Wood w : sterns)
+            {
+                double amount = width / w.getLength();
+                double waste = width % w.getLength();
+                waste = w.getLength() - waste;
+
+                if (waste < wasteBuffer || amount <= amountBuffer)
+                {
+                    amountBuffer = amount;
+                    wasteBuffer = waste;
+                    buffer = w;
+                }
+            }
+            widthStern = buffer;
+            widthSternAmount = (int) Math.ceil(amountBuffer) * 2;
+        }
+
+        List<WoodOrderItem> orderItems = new ArrayList<>();
+
+        orderItems.add(new WoodOrderItem(lenSternAmount, lenStern, desc));
+        orderItems.add(new WoodOrderItem(widthSternAmount, widthStern, desc));
+
+        return orderItems;
+    }
 
     private static WoodOrderItem roofingCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
@@ -51,7 +125,6 @@ public class PartsListCalculator
         int amount = (int) Math.ceil(area/10000);
         return new WoodOrderItem(amount, roof, desc);
     }
-
 
     public static WoodOrderItem poleCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
@@ -128,7 +201,7 @@ public class PartsListCalculator
 
             for (Wood w : woods)
             {
-                double amount= length / w.getLength();
+                double amount = length / w.getLength();
                 double waste = length % (w.getLength());
                 waste = w.getLength() - waste;
 
@@ -143,24 +216,6 @@ public class PartsListCalculator
             remAmount = (int) Math.ceil(amountBuffer) * 2;
         }
         return new WoodOrderItem(remAmount, rem, desc);
-    }
-
-    private static Wood selectWood(List<Wood> woods, double length)
-    {
-        Wood buffer = null;
-        for (Wood w: woods)
-        {
-            if (w.getLength() >= length)
-            {
-                buffer = w;
-            }
-
-            else
-            {
-                return buffer;
-            }
-        }
-        return buffer;
     }
 
     private static List<WoodOrderItem> getShed(double width, double shedLength, ConnectionPool connectionPool) throws DatabaseException
@@ -249,10 +304,12 @@ public class PartsListCalculator
         if (shedWidth > 310)
         {
             poles = 3;
-        } else
+        }
+        else
         {
             poles = 4;
         }
+
         List<Wood> poleWoodList = Facade.getWoodByVariant("Stolpe", connectionPool);
         WoodOrderItem polesShed = new WoodOrderItem(poles, poleWoodList.get(0), "Stolper til skur");
         woodOrderItemList.add(polesShed);
@@ -264,7 +321,23 @@ public class PartsListCalculator
         return (length / 55) * modifier;
     }
 
+    private static Wood selectWood(List<Wood> woods, double length)
+    {
+        Wood buffer = null;
+        for (Wood w: woods)
+        {
+            if (w.getLength() >= length)
+            {
+                buffer = w;
+            }
 
+            else
+            {
+                return buffer;
+            }
+        }
+        return buffer;
+    }
 
     //TODO Old version, delete before launch
        /*public Object getRafters(int width)

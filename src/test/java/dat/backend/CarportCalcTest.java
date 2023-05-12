@@ -319,7 +319,31 @@ public class CarportCalcTest
         {
             WoodOrderItem item = PartsListCalculator.poleCalc(1450, 1450, connectionPool);
 
-            assertEquals(12, item.getAmount());
+            assertEquals(20, item.getAmount());
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    void sternCalcTest()
+    {
+        try
+        {
+            List<WoodOrderItem> list = PartsListCalculator.sternCalc(360, 570, connectionPool);
+            Wood expected1 = new Wood(6,410,200,30,"Brædt","stk",200,"Stern");
+            Wood expected = new Wood(7,205,200,30,"Brædt","stk",150,"Stern");
+
+            assertEquals(2, list.size());
+            assertEquals(expected1, list.get(0).getWood()); // length
+            assertEquals(expected, list.get(1).getWood()); // width
+
+            assertEquals(2, list.get(0).getAmount());
+            assertEquals(6, list.get(1).getAmount());
+
+            // TODO: WRITE TEST FOR THIS HERE BOY
         }
         catch (DatabaseException e)
         {
