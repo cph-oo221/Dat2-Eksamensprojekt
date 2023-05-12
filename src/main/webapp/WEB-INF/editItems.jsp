@@ -219,7 +219,7 @@
                                 <br/>
                                 <label for="unit" class="fw-bold"> Enhed </label><br/>
                                 <input type="text" id="unit" name="unit" style="width: 100%; height: 35px;"
-                                       placeholder="Angiv enhed"/>
+                                       placeholder="Angiv Enhed"/>
 
 
                                 <br/>
@@ -272,7 +272,83 @@
                             </form>
                         </div>
                     </div>
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <div class="card mt-2 p-1">
+                        <h1 class="text-center">Ændre pris på metal</h1>
+                        <hr>
+                        <div class="mt-1">
+                            <form action="adminaction" method="post">
+
+                                <label for="idMetal" class="fw-bold"> Metal ID </label><br/>
+                                <input type="number" id="idMetal" name="idMetal" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Træ ID"/>
+
+                                <br/>
+                                <br/>
+                                <label for="newPriceMetal" class="fw-bold"> Ny pris </label><br/>
+                                <input type="number" id="newPriceMetal" name="newPriceMetal" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv ny pris"/>
+
+                                <br/>
+                                <br/>
+                                <%--TODO need value--%>
+                                <input type="number" hidden name="action" value="">
+                                <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
+                                       value="Ændre pris"/>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+
+
+                <div class="col">
+                    <div class="card mt-2 p-1">
+                        <h1 class="text-center">Tilføje nyt metal</h1>
+                        <hr>
+                        <div class="mt-1">
+                            <form action="adminaction" method="post">
+
+                                <label for="metalName" class="fw-bold"> Navn </label><br/>
+                                <input type="text" id="metalName" name="metalName" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Navn"/>
+
+                                <br/>
+                                <br/>
+                                <label for="metalPrice" class="fw-bold"> Price </label><br/>
+                                <input type="number" id="metalPrice" name="metalPrice" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Price"/>
+
+                                <br/>
+                                <br/>
+                                <label for="metalUnit" class="fw-bold"> Enhed </label><br/>
+                                <input type="text" id="metalUnit" name="metalUnit" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Enhed"/>
+
+                                <br/>
+                                <br/>
+                                <label for="metalVariant" class="fw-bold"> Variant </label><br/>
+                                <input type="text" id="metalVariant" name="metalVariant" style="width: 100%; height: 35px;"
+                                       placeholder="Angiv Variant"/>
+
+
+                                <br/>
+                                <br/>
+                                <%--TODO need value--%>
+                                <input type="number" hidden name="action" value="">
+                                <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
+                                       value="Tilføje"/>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
