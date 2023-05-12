@@ -218,24 +218,6 @@ public class PartsListCalculator
         return new WoodOrderItem(remAmount, rem, desc);
     }
 
-    private static Wood selectWood(List<Wood> woods, double length)
-    {
-        Wood buffer = null;
-        for (Wood w: woods)
-        {
-            if (w.getLength() >= length)
-            {
-                buffer = w;
-            }
-
-            else
-            {
-                return buffer;
-            }
-        }
-        return buffer;
-    }
-
     private static List<WoodOrderItem> getShed(double width, double shedLength, ConnectionPool connectionPool) throws DatabaseException
     {
 
@@ -339,7 +321,23 @@ public class PartsListCalculator
         return (length / 55) * modifier;
     }
 
+    private static Wood selectWood(List<Wood> woods, double length)
+    {
+        Wood buffer = null;
+        for (Wood w: woods)
+        {
+            if (w.getLength() >= length)
+            {
+                buffer = w;
+            }
 
+            else
+            {
+                return buffer;
+            }
+        }
+        return buffer;
+    }
 
     //TODO Old version, delete before launch
        /*public Object getRafters(int width)
