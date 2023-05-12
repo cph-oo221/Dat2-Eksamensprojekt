@@ -12,8 +12,6 @@ public class PartsListCalculator
     private static final int MAX_POLE_DIST = 310;
 
 
-
-
     public static List<WoodOrderItem> finalCalc(double length, double width, int shedLength, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
     {
         List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
@@ -115,7 +113,6 @@ public class PartsListCalculator
         return orderItems;
     }
 
-
     private static WoodOrderItem roofingCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Tagplader skrues fast i spær";
@@ -128,7 +125,6 @@ public class PartsListCalculator
         int amount = (int) Math.ceil(area/10000);
         return new WoodOrderItem(amount, roof, desc);
     }
-
 
     public static WoodOrderItem poleCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
