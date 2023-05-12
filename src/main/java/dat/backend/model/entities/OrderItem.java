@@ -2,18 +2,8 @@ package dat.backend.model.entities;
 
 public abstract class OrderItem
 {
-    private int idReceipt, amount;
+    private int amount;
     private String desc;
-
-    public int getIdReceipt()
-    {
-        return idReceipt;
-    }
-
-    public void setIdReceipt(int idReceipt)
-    {
-        this.idReceipt = idReceipt;
-    }
 
     public int getAmount()
     {

@@ -1,6 +1,6 @@
 package dat.backend.model.persistence;
 
-import dat.backend.control.MetalOrderItem;
+import dat.backend.model.entities.MetalOrderItem;
 import dat.backend.model.entities.Receipt;
 import dat.backend.model.entities.User;
 import dat.backend.model.entities.Wood;
@@ -128,7 +128,6 @@ public class Facade
 
     public static List<MetalOrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool)
     {
-        List<MetalOrderItem> metalList = new ArrayList<>();
-        return metalList;
+        return MetalMapper.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
     }
 }

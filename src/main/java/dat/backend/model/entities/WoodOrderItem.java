@@ -6,13 +6,13 @@ public class WoodOrderItem extends OrderItem
 {
     private int amount;
     private Wood wood;
-    private String description;
+    private String desc;
 
-    public WoodOrderItem(int amount, Wood wood, String description)
+    public WoodOrderItem(int amount, Wood wood, String desc)
     {
         this.amount = amount;
         this.wood = wood;
-        this.description = description;
+        this.desc = desc;
     }
 
     public int getAmount()
@@ -27,7 +27,7 @@ public class WoodOrderItem extends OrderItem
 
     public String getDescription()
     {
-        return description;
+        return desc;
     }
 
     @Override
@@ -36,12 +36,12 @@ public class WoodOrderItem extends OrderItem
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WoodOrderItem that = (WoodOrderItem) o;
-        return amount == that.amount && Objects.equals(wood, that.wood) && Objects.equals(description, that.description);
+        return amount == that.amount && Objects.equals(wood, that.wood) && Objects.equals(desc, that.desc);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(amount, wood, description);
+        return Objects.hash(amount, wood, desc);
     }
 }
