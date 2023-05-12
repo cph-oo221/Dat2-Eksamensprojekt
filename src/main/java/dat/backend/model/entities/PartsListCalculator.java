@@ -46,6 +46,7 @@ public class PartsListCalculator
          int lenSternAmount = 2;
          int widthSternAmount = 2;
 
+         // TODO: TEST AND REMOVE
        /* sterns.sort(new Comparator<Wood>()
         {
             @Override
@@ -80,6 +81,7 @@ public class PartsListCalculator
 
             WoodOrderItem lenSternItem = getOptimalItem(sterns, length, desc, 2, 2);
 
+            // TODO: TEST AND REMOVE
         /*Wood widthStern = selectWood(sterns, width);
 
         if (widthStern == null)
@@ -184,6 +186,7 @@ public class PartsListCalculator
 
         List<Wood> woods = Facade.getWoodByVariant("Rem", connectionPool);
 
+        // TODO: TEST AND REMOVE
         /*woods.sort(new Comparator<Wood>()
         {
             @Override
