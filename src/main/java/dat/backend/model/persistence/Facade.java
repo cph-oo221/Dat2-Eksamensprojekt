@@ -131,4 +131,9 @@ public class Facade
     {
         return MetalMapper.getAllMetal(connectionPool);
     }
+
+    public static void updateMetalPrice(int idMetal, int price, ConnectionPool connectionPool) throws DatabaseException
+    {
+        MetalMapper.updateMetalPrice(idMetal, price, connectionPool);
+    }
 }

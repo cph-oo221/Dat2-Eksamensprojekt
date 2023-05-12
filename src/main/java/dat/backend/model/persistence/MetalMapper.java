@@ -89,4 +89,25 @@ public class MetalMapper
             throw new DatabaseException(e.getMessage());
         }
     }
+
+    public static void updateMetalPrice(int idMetal, int price, ConnectionPool connectionPool) throws DatabaseException
+    {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        String sql = "UPDATE metalstuff SET price = ? WHERE idmetalstuff = ?";
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try(PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, price);
+                ps.setInt(2, idMetal);
+                ps.executeUpdate();
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+    }
 }
