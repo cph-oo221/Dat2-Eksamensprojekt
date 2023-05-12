@@ -30,6 +30,11 @@ public class WoodOrderItem
         return description;
     }
 
+    public void setAmount(int amount)
+    {
+        this.amount = amount;
+    }
+
     @Override
     public boolean equals(Object o)
     {

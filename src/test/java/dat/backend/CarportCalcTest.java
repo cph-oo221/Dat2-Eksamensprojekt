@@ -155,6 +155,29 @@ public class CarportCalcTest
     }
 
     @Test
+    void skurMethodTest()
+    {
+        int shedLength = 100;
+        double width = 240;
+
+        try
+        {
+            List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
+
+            List<WoodOrderItem> itemList = PartsListCalculator.getShed(width, shedLength, connectionPool);
+
+            assertEquals(3, itemList.size());
+            assertEquals(8, itemList.get(0).getAmount());
+            assertEquals(8, itemList.get(1).getAmount());
+        }
+
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     void calcRemTest()
     {
         double width = 240;
@@ -163,7 +186,7 @@ public class CarportCalcTest
 
         try
         {
-            Wood expected = new Wood(1, 410, 55, 20, "Spærtræ 410x55x20", "stk", 200, "Rem");
+            Wood expected = new Wood(1, 410, 55, 20, "Spærtræ", "stk", 200, "Rem");
             //Wood expected = new Wood(2, 205, 55, 20, "Spærtræ 205x55x20", "stk", 100, "Rem");
             List<Wood> woods = Facade.getWoodByVariant("Rem", connectionPool);
 
@@ -301,7 +324,7 @@ public class CarportCalcTest
         int amount= (int) Math.ceil(area/10000);
         String desc = "Placeholder";
         WoodOrderItem actual = new WoodOrderItem(amount, roof, desc);
-        int expectedId = 6;
+        int expectedId = 8;
         int expectedAmount = 7;
         assertEquals(expectedId , actual.getWood().getIdWood());
         assertEquals(expectedAmount , actual.getAmount());
@@ -342,8 +365,6 @@ public class CarportCalcTest
 
             assertEquals(2, list.get(0).getAmount());
             assertEquals(6, list.get(1).getAmount());
-
-            // TODO: WRITE TEST FOR THIS HERE BOY
         }
         catch (DatabaseException e)
         {

@@ -46,7 +46,7 @@ public class PartsListCalculator
          int lenSternAmount = 2;
          int widthSternAmount = 2;
 
-        sterns.sort(new Comparator<Wood>()
+       /* sterns.sort(new Comparator<Wood>()
         {
             @Override
             public int compare(Wood s, Wood t1)
@@ -76,11 +76,11 @@ public class PartsListCalculator
                     buffer = w;
                 }
             }
-            lenStern = buffer;
-            lenSternAmount = (int) Math.ceil(amountBuffer) * 2;
-        }
+            lenStern = buffer;*/
 
-        Wood widthStern = selectWood(sterns, width);
+            WoodOrderItem lenSternItem = getOptimalItem(sterns, length, desc, 2, 2);
+
+        /*Wood widthStern = selectWood(sterns, width);
 
         if (widthStern == null)
         {
@@ -103,12 +103,14 @@ public class PartsListCalculator
             }
             widthStern = buffer;
             widthSternAmount = (int) Math.ceil(amountBuffer) * 2;
-        }
+        }*/
+
+        WoodOrderItem widthSternItem = getOptimalItem(sterns, width, desc, 2, 2);
 
         List<WoodOrderItem> orderItems = new ArrayList<>();
 
-        orderItems.add(new WoodOrderItem(lenSternAmount, lenStern, desc));
-        orderItems.add(new WoodOrderItem(widthSternAmount, widthStern, desc));
+        orderItems.add(lenSternItem/*new WoodOrderItem(lenSternAmount, lenStern, desc)*/);
+        orderItems.add(widthSternItem/*new WoodOrderItem(widthSternAmount, widthStern, desc)*/);
 
         return orderItems;
     }
@@ -182,7 +184,7 @@ public class PartsListCalculator
 
         List<Wood> woods = Facade.getWoodByVariant("Rem", connectionPool);
 
-        woods.sort(new Comparator<Wood>()
+        /*woods.sort(new Comparator<Wood>()
         {
             @Override
             public int compare(Wood s, Wood t1)
@@ -214,14 +216,17 @@ public class PartsListCalculator
             }
             rem = buffer;
             remAmount = (int) Math.ceil(amountBuffer) * 2;
-        }
-        return new WoodOrderItem(remAmount, rem, desc);
+        }*/
+
+        WoodOrderItem remItem = getOptimalItem(woods, length, desc, 2, 2);
+        return remItem;
+
+       // return new WoodOrderItem(remAmount, rem, desc);
     }
 
-    private static List<WoodOrderItem> getShed(double width, double shedLength, ConnectionPool connectionPool) throws DatabaseException
+    public static List<WoodOrderItem> getShed(double width, double shedLength, ConnectionPool connectionPool) throws DatabaseException
     {
-
-        double shedWidth = width / 2;
+        double shedWidth = (width - CARPORT_HANG * 2) / 2 ;
         double amountL;
         double amountW;
         double rafterLengthAmountL = 1;
@@ -231,7 +236,8 @@ public class PartsListCalculator
 
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
 
-        woods.sort(new Comparator<Wood>()
+        // TODO: TEST AND REMOVE OLD METHOD
+       /* woods.sort(new Comparator<Wood>()
         {
             @Override
             public int compare(Wood s, Wood t1)
@@ -263,15 +269,19 @@ public class PartsListCalculator
             }
             rafterLength = buffer;
             rafterLengthAmountL = (int) Math.ceil(amountBuffer); //1
-        }
+        }*/
+
+        WoodOrderItem lenBuffer = getOptimalItem(woods, shedLength, "", 1, 2);
+        Wood rafterLength = lenBuffer.getWood();
+        rafterLengthAmountL = lenBuffer.getAmount();
 
         double rafterLengthWidth = rafterLength.getWidth();
         amountL = (int) (rafterLengthAmountL * Math.ceil(210 / rafterLengthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
         WoodOrderItem rafterLengthWOI = new WoodOrderItem((int) amountL, rafterLength, "Spærtræ til beklædning af skur i længden");
         woodOrderItemList.add(rafterLengthWOI);
 
-
-        Wood rafterWidth = selectWood(woods, shedWidth);
+        // TODO: TEST AND REMOVE
+        /*Wood rafterWidth = selectWood(woods, shedWidth);
 
         if (rafterWidth == null)
         {
@@ -294,7 +304,12 @@ public class PartsListCalculator
             }
             rafterWidth = buffer;
             rafterWidthAmountW = (int) Math.ceil(amountBuffer);
-        }
+        }*/
+
+        WoodOrderItem widthBuffer = getOptimalItem(woods, shedLength, "", 1, 2);
+        Wood rafterWidth = widthBuffer.getWood();
+        rafterWidthAmountW = widthBuffer.getAmount();
+
         double rafterWidthWidth = rafterWidth.getWidth();
         amountW = (int) (rafterWidthAmountW * Math.ceil(210 / rafterWidthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
         WoodOrderItem rafterWidthWOI = new WoodOrderItem((int) amountW, rafterWidth, "Spærtræ til beklædning af skur i bredden");
@@ -337,6 +352,46 @@ public class PartsListCalculator
             }
         }
         return buffer;
+    }
+
+    private static WoodOrderItem getOptimalItem(List<Wood> woods, double dist, String desc, int initialAmount, int multiplier)
+    {
+        woods.sort(new Comparator<Wood>()
+        {
+            @Override
+            public int compare(Wood s, Wood t1)
+            {
+                return t1.getLength() - s.getLength();
+            }
+        });
+
+        Wood selection = selectWood(woods, dist);
+        int selectionAmount = initialAmount;
+
+        if (selection == null)
+        {
+            Wood buffer = null;
+            double amountBuffer = 1000000;
+            double wasteBuffer = 100000;
+
+
+            for (Wood w : woods)
+            {
+                double amount = dist / w.getLength();
+                double waste = dist % w.getLength();
+                waste = w.getLength() - waste;
+
+                if (waste < wasteBuffer || amount <= amountBuffer)
+                {
+                    amountBuffer = amount;
+                    wasteBuffer = waste;
+                    buffer = w;
+                }
+            }
+            selection = buffer;
+            selectionAmount = (int) Math.ceil(amountBuffer);
+        }
+            return new WoodOrderItem(selectionAmount * multiplier, selection, desc);
     }
 
     //TODO Old version, delete before launch
