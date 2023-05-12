@@ -10,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ItemsList", value = "/itemslist")
@@ -37,10 +38,10 @@ public class ItemsList extends HttpServlet
         {
             Receipt r = Facade.getReceiptById(idReceipt, connectionPool);
             List<WoodOrderItem> itemList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
-            List<MetalOrderItem> metalList = Facade.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
-            List<OrderItem> orderItemList = null;
-            orderItemList.addAll(itemList);
-            orderItemList.addAll(metalList);
+//            List<MetalOrderItem> metalList = Facade.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
+//            List<OrderItem> orderItemList = new ArrayList<>();
+//            orderItemList.addAll(itemList);
+//            orderItemList.addAll(metalList);
 
             int totalPrice = 0;
             int netPrice = 0;
