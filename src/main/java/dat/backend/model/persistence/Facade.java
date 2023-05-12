@@ -122,7 +122,7 @@ public class Facade
         OrderMapper.deleteWoodOrderByReceiptId(idReceipt, connectionPool);
     }
 
-    public static List<MetalOrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool)
+    public static List<MetalOrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         return MetalMapper.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
     }
