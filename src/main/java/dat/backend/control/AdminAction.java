@@ -258,4 +258,42 @@ public class AdminAction extends HttpServlet
             e.printStackTrace();
         }
     }
+
+    // ACTION 7. CHANGE PRICE ON METAL
+    private void actionChangePriceOfMetal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        int idMetal = Integer.parseInt(request.getParameter("idMetal"));
+        int newPrice = Integer.parseInt(request.getParameter("newPriceMetal"));
+
+        if(idMetal <= 0 || newPrice <= 0)
+        {
+            String msgError = "En eller flere parametre er tomme eller nul i Ændre Pris!";
+            try
+            {
+                List<Wood> woodList = Facade.getAllWood(connectionPool);
+                request.setAttribute("woodList", woodList);
+                List<Metal> metalList = Facade.getAllMetal(connectionPool);
+                request.setAttribute("metalList", metalList);
+            }
+            catch (DatabaseException e)
+            {
+                e.printStackTrace();
+            }
+            request.setAttribute("msgError", msgError);
+            request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
+        }
+
+        try
+        {
+            Facade.updateMetalPrice(idMetal, newPrice, connectionPool);
+            List<Metal> metalList = Facade.getAllMetal(connectionPool);
+            request.setAttribute("metalList", metalList);
+            List<Wood> woodList = Facade.getAllWood(connectionPool);
+            request.setAttribute("woodList", woodList);
+        }
+        catch (DatabaseException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

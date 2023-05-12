@@ -297,7 +297,7 @@
                                 <br/>
                                 <br/>
                                 <%--TODO need value--%>
-                                <input type="number" hidden name="action" value="">
+                                <input type="number" hidden name="action" value="7">
                                 <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
                                        value="Ændre pris"/>
                                 <br>
@@ -340,7 +340,7 @@
                                 <br/>
                                 <br/>
                                 <%--TODO need value--%>
-                                <input type="number" hidden name="action" value="">
+                                <input type="number" hidden name="action" value="8">
                                 <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
                                        value="Tilføje"/>
                                 <br>
