@@ -2,7 +2,7 @@ package dat.backend.model.entities;
 
 import java.util.Objects;
 
-public class WoodOrderItem
+public class WoodOrderItem extends OrderItem
 {
     private int amount;
     private Wood wood;
