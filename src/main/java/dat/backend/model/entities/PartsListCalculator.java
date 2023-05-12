@@ -48,6 +48,15 @@ public class PartsListCalculator
          int lenSternAmount = 2;
          int widthSternAmount = 2;
 
+        sterns.sort(new Comparator<Wood>()
+        {
+            @Override
+            public int compare(Wood s, Wood t1)
+            {
+                return t1.getLength() - s.getLength();
+            }
+        });
+
         Wood lenStern = selectWood(sterns, length);
 
         if (lenStern == null)
@@ -83,8 +92,8 @@ public class PartsListCalculator
 
             for (Wood w : sterns)
             {
-                double amount = length / w.getLength();
-                double waste = length % (w.getLength());
+                double amount = width / w.getLength();
+                double waste = width % w.getLength();
                 waste = w.getLength() - waste;
 
                 if (waste < wasteBuffer || amount <= amountBuffer)
@@ -317,10 +326,12 @@ public class PartsListCalculator
         if (shedWidth > 310)
         {
             poles = 3;
-        } else
+        }
+        else
         {
             poles = 4;
         }
+
         List<Wood> poleWoodList = Facade.getWoodByVariant("Stolpe", connectionPool);
         WoodOrderItem polesShed = new WoodOrderItem(poles, poleWoodList.get(0), "Stolper til skur");
         woodOrderItemList.add(polesShed);
@@ -331,7 +342,6 @@ public class PartsListCalculator
     {
         return (length / 55) * modifier;
     }
-
 
 
     //TODO Old version, delete before launch

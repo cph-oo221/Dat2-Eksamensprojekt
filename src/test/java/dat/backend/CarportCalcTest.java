@@ -332,15 +332,17 @@ public class CarportCalcTest
     {
         try
         {
-            List<WoodOrderItem> list = PartsListCalculator.sternCalc(930, 240, connectionPool);
-            Wood expected = new Wood(7,205,200,30,"Brædt","stk",150,"Stern");
+            List<WoodOrderItem> list = PartsListCalculator.sternCalc(360, 570, connectionPool);
             Wood expected1 = new Wood(6,410,200,30,"Brædt","stk",200,"Stern");
+            Wood expected = new Wood(7,205,200,30,"Brædt","stk",150,"Stern");
 
             assertEquals(2, list.size());
-            assertEquals(expected, list.get(0).getWood());
-            assertEquals(expected1, list.get(1).getWood());
+            assertEquals(expected1, list.get(0).getWood()); // length
+            assertEquals(expected, list.get(1).getWood()); // width
 
-            assertEquals(10, list.get(0).getAmount());
+            assertEquals(2, list.get(0).getAmount());
+            assertEquals(6, list.get(1).getAmount());
+
             // TODO: WRITE TEST FOR THIS HERE BOY
         }
         catch (DatabaseException e)

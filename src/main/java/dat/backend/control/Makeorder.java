@@ -43,7 +43,6 @@ public class Makeorder extends HttpServlet
         boolean withShed = Boolean.parseBoolean(request.getParameter("withShed"));
         try
         {
-
             List<WoodOrderItem> woodOrderItemList = PartsListCalculator.finalCalc(length, width, shedLength, withRoof, connectionPool);
 
             String comment = request.getParameter("comment");
