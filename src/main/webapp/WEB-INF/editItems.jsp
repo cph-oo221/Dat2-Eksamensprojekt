@@ -21,11 +21,11 @@
 
         <div class="text-center">
             <h3 style="color: green;">
-                ${requestScope.newWood.name}
+                    ${requestScope.newWood.name}
             </h3>
 
             <h3 style="color: red">
-                ${requestScope.msgError}
+                    ${requestScope.msgError}
             </h3>
         </div>
 
@@ -79,6 +79,13 @@
         </div>
 
         <div class="container mt-4">
+
+            <div class="mb-2">
+                <h3>
+                    Træ:
+                </h3>
+            </div>
+
             <div class="row">
                 <div class="col-sm-12">
                     <table class="table table-dark table-striped">
@@ -114,6 +121,55 @@
 
                                         <input type="number" hidden name="action" value="4">
                                         <input type="number" hidden name="idWood" value="${wood.idWood}">
+                                        <input type="submit" class="btn btn-danger fw-bold" value="Slet">
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </c:forEach>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container mt-4">
+
+            <div class="mb-2">
+                <h3>
+                    Metal:
+                </h3>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Metal ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Enhed</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Variant</th>
+                            <th scope="col">Handling</th>
+                        </tr>
+                        </thead>
+                        <c:forEach var="metal" items="${requestScope.metalList}">
+                            <tbody>
+                            <tr>
+                                <td>${metal.idMetal}</td>
+                                <td>${metal.name}</td>
+                                <td>${metal.unit}</td>
+                                <td>${metal.price}</td>
+                                <td>${metal.variant}</td>
+                                <td class="text-center">
+                                    <form action="adminaction" method="post"
+                                          onsubmit="return confirm('Denne handling medføre, at træet: '
+                                                  + 'ID:' + ${metal.idMetal} + ', Name: ' + ${metal.name} + '. bliver slette, er du sikker?')">
+                                            <%--  TODO need a delete in facde vvv change value under or make a option like in sort  --%>
+                                            <%--                                        <input type="number" hidden name="action" value="4">--%>
+                                            <%--                                        <input type="number" hidden name="idMetal" value="${metal.idMetal}">--%>
                                         <input type="submit" class="btn btn-danger fw-bold" value="Slet">
                                     </form>
                                 </td>

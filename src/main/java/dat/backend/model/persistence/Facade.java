@@ -1,9 +1,6 @@
 package dat.backend.model.persistence;
 
-import dat.backend.model.entities.Receipt;
-import dat.backend.model.entities.User;
-import dat.backend.model.entities.Wood;
-import dat.backend.model.entities.WoodOrderItem;
+import dat.backend.model.entities.*;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.SQLException;
@@ -123,5 +120,15 @@ public class Facade
     public static void deleteOrderByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         OrderMapper.deleteWoodOrderByReceiptId(idReceipt, connectionPool);
+    }
+
+    public static List<MetalOrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return MetalMapper.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
+    }
+
+    public static List<Metal> getAllMetal(ConnectionPool connectionPool) throws DatabaseException
+    {
+        return MetalMapper.getAllMetal(connectionPool);
     }
 }

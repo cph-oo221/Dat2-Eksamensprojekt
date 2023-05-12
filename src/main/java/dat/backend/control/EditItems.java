@@ -1,6 +1,7 @@
 package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.entities.Metal;
 import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
@@ -36,7 +37,9 @@ public class EditItems extends HttpServlet
         try
         {
             List<Wood> woodList = Facade.getAllWood(connectionPool);
+            List<Metal> metalList = Facade.getAllMetal(connectionPool);
             request.setAttribute("woodList", woodList);
+            request.setAttribute("metalList", metalList);
         }
         catch (DatabaseException e)
         {

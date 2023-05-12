@@ -1,6 +1,7 @@
 package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.entities.Metal;
 import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
@@ -44,6 +45,8 @@ public class AdminAction extends HttpServlet
                 {
                     List<Wood> woodList = Facade.getAllWood(connectionPool);
                     Collections.sort(woodList, Comparator.comparing(Wood::getIdWood));
+                    List<Metal> metalList = Facade.getAllMetal(connectionPool);
+                    request.setAttribute("metalList", metalList);
                     request.setAttribute("woodList", woodList);
                 }
                 catch (DatabaseException e)
@@ -57,8 +60,11 @@ public class AdminAction extends HttpServlet
                 try
                 {
                     List<Wood> woodList = Facade.getAllWood(connectionPool);
+                    List<Metal> metalList = Facade.getAllMetal(connectionPool);
                     Collections.sort(woodList, Comparator.comparing(Wood::getName));
+                    Collections.sort(metalList, Comparator.comparing(Metal::getName));
                     request.setAttribute("woodList", woodList);
+                    request.setAttribute("metalList", metalList);
                 }
                 catch (DatabaseException e)
                 {
@@ -70,7 +76,8 @@ public class AdminAction extends HttpServlet
         if (action == 2) // SEARCH
         {
             String search = request.getParameter("search").toLowerCase();
-            List<Wood> searchList = new ArrayList<>();
+            List<Wood> searchListWood = new ArrayList<>();
+            List<Metal> searchListMetal = new ArrayList<>();
 
             try
             {
@@ -82,10 +89,23 @@ public class AdminAction extends HttpServlet
 
                     if (woodName.contains(search))
                     {
-                        searchList.add(wood);
+                        searchListWood.add(wood);
                     }
                 }
-                request.setAttribute("woodList", searchList);
+
+                List<Metal> metalList = Facade.getAllMetal(connectionPool);
+
+                for(Metal metal : metalList)
+                {
+                    String metalName = metal.getName().toLowerCase();
+                    if (metalName.contains(search))
+                    {
+                        searchListMetal.add(metal);
+                    }
+                }
+
+                request.setAttribute("metalList", metalList);
+                request.setAttribute("woodList", searchListWood);
             }
             catch (DatabaseException e)
             {
@@ -98,7 +118,9 @@ public class AdminAction extends HttpServlet
             try
             {
                 List<Wood> woodList = Facade.getAllWood(connectionPool);
+                List<Metal> metalList = Facade.getAllMetal(connectionPool);
                 request.setAttribute("woodList", woodList);
+                request.setAttribute("metalList", metalList);
             }
             catch (DatabaseException e)
             {
@@ -114,7 +136,9 @@ public class AdminAction extends HttpServlet
             {
                 Facade.deleteWood(idWood, connectionPool);
                 List<Wood> woodList = Facade.getAllWood(connectionPool);
+                List<Metal> metalList = Facade.getAllMetal(connectionPool);
                 request.setAttribute("woodList", woodList);
+                request.setAttribute("metalList", metalList);
             }
             catch (DatabaseException e)
             {
@@ -140,6 +164,8 @@ public class AdminAction extends HttpServlet
                 {
                     List<Wood> woodList = Facade.getAllWood(connectionPool);
                     request.setAttribute("woodList", woodList);
+                    List<Metal> metalList = Facade.getAllMetal(connectionPool);
+                    request.setAttribute("metalList", metalList);
                 }
                 catch (DatabaseException e)
                 {
@@ -154,6 +180,8 @@ public class AdminAction extends HttpServlet
                 request.setAttribute("newWood", newWood);
                 List<Wood> woodList = Facade.getAllWood(connectionPool);
                 request.setAttribute("woodList", woodList);
+                List<Metal> metalList = Facade.getAllMetal(connectionPool);
+                request.setAttribute("metalList", metalList);
             }
             catch (DatabaseException e)
             {
@@ -173,6 +201,8 @@ public class AdminAction extends HttpServlet
                 {
                     List<Wood> woodList = Facade.getAllWood(connectionPool);
                     request.setAttribute("woodList", woodList);
+                    List<Metal> metalList = Facade.getAllMetal(connectionPool);
+                    request.setAttribute("metalList", metalList);
                 }
                 catch (DatabaseException e)
                 {
@@ -187,6 +217,8 @@ public class AdminAction extends HttpServlet
                 Facade.updateWoodPrice(idWood, newPrice, connectionPool);
                 List<Wood> woodList = Facade.getAllWood(connectionPool);
                 request.setAttribute("woodList", woodList);
+                List<Metal> metalList = Facade.getAllMetal(connectionPool);
+                request.setAttribute("metalList", metalList);
             }
             catch (DatabaseException e)
             {
