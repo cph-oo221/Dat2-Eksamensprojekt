@@ -30,13 +30,13 @@ public class AdminAction extends HttpServlet
         request.setCharacterEncoding("UTF-8"); // NB: Important if action is search or else danish letters will not be found.
         int action = Integer.parseInt(request.getParameter("action"));
 
-        if (action == 1) actionSort(request, response); // SOR
+        if (action == 1) actionSort(request, response); // SORT
         if (action == 2) actionSearch(request, response); // SEARCH
         if (action == 3) actionReset(request, response); // RESET
         if (action == 4) actionDeleteWood(request, response); // DELETE Wood
         if (action == 5) actionAddNewWood(request, response); // ADD NEW WOOD
-        if (action == 6) actionChangePriceOfWood(request, response); // CHANGE PRICE ON WOOD
-        if (action == 7) actionChangePriceOfMetal(request, response); // DELETE METAL
+        if (action == 6) actionChangePriceOfWood(request, response); // CHANGE PRICE FOR WOOD
+        if (action == 7) actionChangePriceOfMetal(request, response); // CHANGE PRICE FOR METAL
 
         request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
     }
