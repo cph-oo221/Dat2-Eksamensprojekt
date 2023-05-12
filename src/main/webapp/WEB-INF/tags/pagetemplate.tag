@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><jsp:invoke fragment="header"/></title>
+    <link rel="icon" href="<%=request.getContextPath()%>/images/Pagetemplate/FogLogo.png">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -20,18 +21,45 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="index.jsp">
-                <img src="${pageContext.request.contextPath}/images/cphbusiness.png" width="400px;" class="img-fluid"/>
-            </a>
+            <c:if test="${sessionScope.user == null }">
+                <a class="navbar-brand" href="index.jsp">
+                    <img src="${pageContext.request.contextPath}/images/Pagetemplate/FogLogo.png" width="80px;" class="img-fluid"/>
+                </a>
+            </c:if>
+
+            <c:if test="${sessionScope.user.role.equals('admin')}">
+                <form action="redirectadminpanel" method="post">
+                    <input type="image" class="navbar-brand" src="${pageContext.request.contextPath}/images/Pagetemplate/FogLogo.png"
+                           width="80px;" class="img-fluid" alt="Submit"/>
+                </form>
+            </c:if>
+
+            <c:if test="${sessionScope.user.role.equals('user')}">
+                <form action="redirectadminpanel" method="post">
+                    <input type="image" class="navbar-brand" src="${pageContext.request.contextPath}/images/Pagetemplate/FogLogo.png"
+                           width="80px;" class="img-fluid" alt="Submit"/>
+                </form>
+            </c:if>
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 1</a>
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 2</a>
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 3</a>
+
+                    <c:if test="${sessionScope.user.role.equals('user')}">
+                        <form action="redirectadminpanel" method="post">
+                            <input type="submit" class="nav-item nav-link btn btn-link" value="Bruger Side"/>
+                        </form>
+                    </c:if>
+
+                    <c:if test="${sessionScope.user.role.equals('admin') }">
+                        <form action="redirectadminpanel" method="post">
+                            <input type="submit" class="nav-item nav-link btn btn-link" value="Admin Panel"/>
+                        </form>
+                    </c:if>
+
                     <c:if test="${sessionScope.user == null }">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/login.jsp">Login</a>
                     </c:if>
@@ -53,28 +81,24 @@
 <div class="container mt-3">
     <hr/>
     <div class="row mt-4">
-        <div class="col">
-            Nørgaardsvej 30<br/>
+        <div class="col text-center">
+            Firskovvej 20<br/>
             2800 Lyngby
         </div>
-        <div class="col">
+        <div class="col text-center">
             <jsp:invoke fragment="footer"/><br/>
-            <p>&copy; 2022 Cphbusiness</p>
+            <p>&copy; 2023 Johannes Fog A/S</p>
         </div>
-        <div class="col">
-            Datamatikeruddannelsen<br/>
-            2. semester efterår 2022
+        <div class="col text-center">
+            Kontakt information:<br/>
+            fog@gmail.com
         </div>
     </div>
-
-</div>
-
 </div>
 
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-
 </body>
 </html>

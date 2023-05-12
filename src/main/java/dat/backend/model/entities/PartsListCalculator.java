@@ -19,7 +19,7 @@ public class PartsListCalculator
         List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
         WoodOrderItem rafters = calcRafter(width, length, connectionPool);
         WoodOrderItem poles = poleCalc(length, width, connectionPool);
-        WoodOrderItem rems = remCalc(length, width, connectionPool);
+        WoodOrderItem rems = remCalc(length, connectionPool);
         List<WoodOrderItem> sterns = sternCalc(length, width, connectionPool);
 
         if (withRoof)
@@ -29,7 +29,7 @@ public class PartsListCalculator
         }
         if (shedLength > 0)
         {
-            List<WoodOrderItem> shed = getShed(length, width, shedLength, connectionPool);
+            List<WoodOrderItem> shed = getShed(width, shedLength, connectionPool);
             woodOrderItemList.addAll(shed);
         }
 
@@ -179,7 +179,7 @@ public class PartsListCalculator
         return new WoodOrderItem(amount, rafter, desc);
     }
 
-    private static WoodOrderItem remCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    private static WoodOrderItem remCalc(double length, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Remme boltes fast på stolper langs længden af kontruktionen";
         int remAmount = 2;
@@ -240,7 +240,7 @@ public class PartsListCalculator
         return buffer;
     }
 
-    private static List<WoodOrderItem> getShed(double length, double width, double shedLength, ConnectionPool connectionPool) throws DatabaseException
+    private static List<WoodOrderItem> getShed(double width, double shedLength, ConnectionPool connectionPool) throws DatabaseException
     {
 
         double shedWidth = width / 2;
@@ -342,6 +342,7 @@ public class PartsListCalculator
     {
         return (length / 55) * modifier;
     }
+
 
 
     //TODO Old version, delete before launch
