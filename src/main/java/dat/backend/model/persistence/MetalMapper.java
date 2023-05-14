@@ -1,10 +1,7 @@
 package dat.backend.model.persistence;
 
-import com.sun.swing.internal.plaf.metal.resources.metal;
 import dat.backend.model.entities.Metal;
 import dat.backend.model.entities.MetalOrderItem;
-import dat.backend.model.entities.Wood;
-import dat.backend.model.entities.WoodOrderItem;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.Connection;
