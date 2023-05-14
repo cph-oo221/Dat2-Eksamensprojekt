@@ -21,7 +21,7 @@
 
         <div class="text-center">
             <h3 style="color: green;">
-                    ${requestScope.newWood.name}
+                    ${requestScope.product.name}
             </h3>
 
             <h3 style="color: red">
@@ -114,12 +114,12 @@
                                 <td>${wood.price} kr.</td>
                                 <td>${wood.variant}</td>
                                 <td class="text-center">
-                                        <%--TODO need action--%>
                                     <form action="adminaction" method="post"
                                           onsubmit="return confirm('Denne handling medføre, at træet: '
                                                   + 'ID:' + ${wood.idWood} + ', Name: ' + ${wood.name} + '. bliver slette, er du sikker?')">
 
                                         <input type="number" hidden name="action" value="4">
+                                        <input type="number" hidden name="deleteOption" value="1">
                                         <input type="number" hidden name="idWood" value="${wood.idWood}">
                                         <input type="submit" class="btn btn-danger fw-bold" value="Slet">
                                     </form>
@@ -167,9 +167,10 @@
                                     <form action="adminaction" method="post"
                                           onsubmit="return confirm('Denne handling medføre, at træet: '
                                                   + 'ID:' + ${metal.idMetal} + ', Name: ' + ${metal.name} + '. bliver slette, er du sikker?')">
-                                            <%--  TODO need a delete in facde vvv change value under or make a option like in sort  --%>
-                                            <%--                                        <input type="number" hidden name="action" value="4">--%>
-                                            <%--                                        <input type="number" hidden name="idMetal" value="${metal.idMetal}">--%>
+
+                                        <input type="number" hidden name="action" value="4">
+                                        <input type="number" hidden name="deleteOption" value="2">
+                                        <input type="number" hidden name="idMetal" value="${metal.idMetal}">
                                         <input type="submit" class="btn btn-danger fw-bold" value="Slet">
                                     </form>
                                 </td>
@@ -291,7 +292,8 @@
                                 <br/>
                                 <br/>
                                 <label for="newPriceMetal" class="fw-bold"> Ny pris </label><br/>
-                                <input type="number" id="newPriceMetal" name="newPriceMetal" style="width: 100%; height: 35px;"
+                                <input type="number" id="newPriceMetal" name="newPriceMetal"
+                                       style="width: 100%; height: 35px;"
                                        placeholder="Angiv ny pris"/>
 
                                 <br/>
@@ -320,7 +322,8 @@
                                 <br/>
                                 <br/>
                                 <label for="metalPrice" class="fw-bold"> Price </label><br/>
-                                <input type="number" id="metalPrice" name="metalPrice" style="width: 100%; height: 35px;"
+                                <input type="number" id="metalPrice" name="metalPrice"
+                                       style="width: 100%; height: 35px;"
                                        placeholder="Angiv Price"/>
 
                                 <br/>
@@ -332,7 +335,8 @@
                                 <br/>
                                 <br/>
                                 <label for="metalVariant" class="fw-bold"> Variant </label><br/>
-                                <input type="text" id="metalVariant" name="metalVariant" style="width: 100%; height: 35px;"
+                                <input type="text" id="metalVariant" name="metalVariant"
+                                       style="width: 100%; height: 35px;"
                                        placeholder="Angiv Variant"/>
 
 
