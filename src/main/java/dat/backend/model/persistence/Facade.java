@@ -122,6 +122,8 @@ public class Facade
         OrderMapper.deleteWoodOrderByReceiptId(idReceipt, connectionPool);
     }
 
+
+    // METAL ***********************************************************************************************************
     public static List<MetalOrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         return MetalMapper.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
@@ -135,5 +137,15 @@ public class Facade
     public static void updateMetalPrice(int idMetal, int price, ConnectionPool connectionPool) throws DatabaseException
     {
         MetalMapper.updateMetalPrice(idMetal, price, connectionPool);
+    }
+
+    public static void deleteMetal(int idMetal, ConnectionPool connectionPool) throws DatabaseException
+    {
+        MetalMapper.deleteMetal(idMetal, connectionPool);
+    }
+
+    public static Metal createMetal(String name, int price, String unit, String variant, ConnectionPool connectionPool)
+    {
+        return MetalMapper.createMetal(name, price, unit, variant, connectionPool);
     }
 }

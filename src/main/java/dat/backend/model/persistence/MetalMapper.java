@@ -110,4 +110,31 @@ public class MetalMapper
             throw new DatabaseException(e.getMessage());
         }
     }
+
+    public static void deleteMetal(int idMetal, ConnectionPool connectionPool) throws DatabaseException
+    {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        String sql = "DELETE FROM metalstuff WHERE idmetalstuff = ?";
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try(PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, idMetal);
+                ps.executeUpdate();
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    public static Metal createMetal(String name, int price, String unit, String variant, ConnectionPool connectionPool)
+    {
+        Logger.getLogger("web").log(Level.INFO, "Trying to create new metal and insert it to the database...");
+
+        return null;
+    }
 }
