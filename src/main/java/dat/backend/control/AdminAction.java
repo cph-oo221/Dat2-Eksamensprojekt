@@ -35,10 +35,8 @@ public class AdminAction extends HttpServlet
         if (action == 3) actionReset(request, response); // RESET
         if (action == 4) actionDelete(request, response); // DELETE WOOD OR METAL
         if (action == 5) actionAddNewWood(request, response); // ADD NEW WOOD
-
         if (action == 6) actionChangePriceOfWood(request, response); // CHANGE PRICE FOR WOOD
         if (action == 7) actionChangePriceOfMetal(request, response); // CHANGE PRICE FOR METAL
-
         if (action == 8) actionAddNewMetal(request, response); // ADD NEW METAL
 
         request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
