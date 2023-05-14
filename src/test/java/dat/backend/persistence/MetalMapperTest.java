@@ -1,7 +1,10 @@
 package dat.backend.persistence;
 
 import dat.backend.model.config.Env;
+import dat.backend.model.entities.Metal;
+import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
+import dat.backend.model.persistence.Facade;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -83,18 +86,20 @@ class MetalMapperTest
             try (Statement stmt = testConnection.createStatement())
             {
                 stmt.execute("use fog_test;");
+                stmt.execute("delete from fog_test.receipt");
                 stmt.execute("delete from fog_test.order");
-//                stmt.execute("delete from fog_test.ordermetal");
-
-//                stmt.execute("ALTER TABLE fog_test.ordermetal DISABLE KEYS");
-                stmt.execute("ALTER TABLE fog_test.metalstuff DISABLE KEYS");
-//                stmt.execute("ALTER TABLE fog_test.ordermetal AUTO_INCREMENT = 1");
-                stmt.execute("ALTER TABLE fog_test.metalstuff AUTO_INCREMENT = 1");
-
-                stmt.execute("INSERT INTO fog_test.metalstuff (idmetalstuff, name, price, unit, variant) VALUE (1, '4,5x60 mm. skruer 200 stk.', 10, 'Pakke', 'Skruer');");
+                stmt.execute("delete from fog_test.ordermetal");
+                stmt.execute("delete from fog_test.orderwood");
+                stmt.execute("delete from fog_test.wood");
+                stmt.execute("delete from fog_test.metalstuff");
+                stmt.execute("delete from fog_test.user");
 
 
-//                stmt.execute("ALTER TABLE fog_test.ordermetal ENABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.user AUTO_INCREMENT = 1");
+                stmt.execute("INSERT INTO fog_test.metalstuff (idmetalstuff, name, price, unit, variant) VALUES " +
+                        "(1, '4,5x60 mm. skruer 200 stk.', 10, 'Pakke', 'Skruer');" +
+                        "(2, '5,6x80 mm. skruer 400 stk.', 60, 'Pakke', 'Skruer')");
                 stmt.execute("ALTER TABLE fog_test.metalstuff ENABLE KEYS");
             }
         } catch (SQLException throwables)
@@ -104,18 +109,46 @@ class MetalMapperTest
         }
     }
 
-    @AfterEach
-    void tearDown()
+
+    @Test
+    void getAllMetal() throws DatabaseException
     {
+        assertEquals(2, Facade.getAllMetal(connectionPool).size());
     }
 
     @Test
-    void getMetalOrderItemsByReceiptId()
+    void updateMetalPrice() throws DatabaseException
     {
+        int expected = 80;
+        int idMetal = 1;
+        Facade.updateMetalPrice(idMetal, 80, connectionPool);
+        assertEquals(expected, Facade.getAllMetal(connectionPool).get(0).getPrice());
     }
 
     @Test
-    void getAllMetal()
+    void deleteMetal() throws DatabaseException
     {
+        int expected = 1;
+        Facade.deleteMetal(2, connectionPool);
+        assertEquals(expected, Facade.getAllMetal(connectionPool).size());
+    }
+
+    @Test
+    void createMetal() throws DatabaseException
+    {
+        int idMetal = 3;
+        String name = "2,4x60 mm. skruer 400 stk.";
+        int price = 100;
+        String unit = "Pakke";
+        String variant = "Skruer";
+
+        Metal expectedMetal = new Metal(idMetal, name, price, unit, variant);
+
+        int expectedSize = 3;
+
+        Metal actual = Facade.createMetal("2,4x60 mm. skruer 400 stk.", 100, "Pakke", "Skruer", connectionPool);
+
+        assertEquals(expectedMetal, actual);
+        assertEquals(3, Facade.getAllMetal(connectionPool).size());
     }
 }
