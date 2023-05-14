@@ -1,5 +1,6 @@
 package dat.backend.model.persistence;
 
+import com.sun.swing.internal.plaf.metal.resources.metal;
 import dat.backend.model.entities.Metal;
 import dat.backend.model.entities.MetalOrderItem;
 import dat.backend.model.entities.Wood;
@@ -131,10 +132,57 @@ public class MetalMapper
         }
     }
 
-    public static Metal createMetal(String name, int price, String unit, String variant, ConnectionPool connectionPool)
+    public static Metal createMetal(String name, int price, String unit, String variant, ConnectionPool connectionPool) throws DatabaseException
     {
-        Logger.getLogger("web").log(Level.INFO, "Trying to create new metal and insert it to the database...");
+        Logger.getLogger("web").log(Level.INFO, "Trying to create new metal: " + name + " and insert it to the database...");
 
-        return null;
+        if(price <= 0 || name.isEmpty() || unit.isEmpty() || variant.isEmpty())
+        {
+            throw new DatabaseException("One or more parameters are empty or null!");
+        }
+
+        String sql = "INSERT INTO metalstuff (name, price, unit, variant) VALUES (?, ?, ?, ?)";
+        Metal metal;
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setString(1, name);
+                ps.setInt(2, price);
+                ps.setString(3, unit);
+                ps.setString(4, variant);
+
+                int rowsAffected = ps.executeUpdate();
+
+                if (rowsAffected == 1)
+                {
+                    ps.close();
+                    sql = "SELECT LAST_INSERT_ID()";
+                    try(PreparedStatement ps2 = connection.prepareStatement(sql))
+                    {
+                        ResultSet rs = ps2.executeQuery();
+                        if(rs.next())
+                        {
+                            int idMetal = rs.getInt("LAST_INSERT_ID()");
+                            metal = new Metal(idMetal, name, price, unit, variant);
+                        }
+                        else
+                        {
+                            throw new DatabaseException("No ID was found!");
+                        }
+                    }
+                }
+                else
+                {
+                    throw new DatabaseException("This metal: " + name + ", could not be insert in to the database");
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+        return metal;
     }
 }

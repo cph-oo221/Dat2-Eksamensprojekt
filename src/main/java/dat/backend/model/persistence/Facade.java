@@ -144,7 +144,7 @@ public class Facade
         MetalMapper.deleteMetal(idMetal, connectionPool);
     }
 
-    public static Metal createMetal(String name, int price, String unit, String variant, ConnectionPool connectionPool)
+    public static Metal createMetal(String name, int price, String unit, String variant, ConnectionPool connectionPool) throws DatabaseException
     {
         return MetalMapper.createMetal(name, price, unit, variant, connectionPool);
     }
