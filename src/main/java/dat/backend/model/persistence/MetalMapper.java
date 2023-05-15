@@ -182,4 +182,35 @@ public class MetalMapper
         }
         return metal;
     }
+
+    public static Metal getMetalById(int idMetal, ConnectionPool connectionPool) throws DatabaseException
+    {
+        Logger.getLogger("web").log(Level.INFO, "Trying to get metal by id: " + idMetal);
+
+        String sql = "SELECT * FROM metal WHERE idmetal = ?";
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try(PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, idMetal);
+                ResultSet rs = ps.executeQuery();
+
+                if(rs.next())
+                {
+                    String name = rs.getString("name");
+                    int price = rs.getInt("price");
+                    String unit = rs.getString("unit");
+                    String variant = rs.getString("variant");
+
+                    return new Metal(idMetal, name, price, unit, variant);
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+        return null;
+    }
 }
