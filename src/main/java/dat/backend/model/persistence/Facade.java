@@ -102,12 +102,12 @@ public class Facade
 
     // /WOOD ***********************************************************************************************************
 
-    public static int createOrder(int receiptId, List<WoodOrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
+    public static int createOrder(int receiptId, List<OrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
     {
         return OrderMapper.createOrder(receiptId, woodOrderItemList, connectionPool);
     }
 
-    public static List<WoodOrderItem> getWoodOrderItemsByRecieptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> getWoodOrderItemsByRecieptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         return OrderMapper.getWoodOrderItemsByReceiptId(idReceipt, connectionPool);
     }

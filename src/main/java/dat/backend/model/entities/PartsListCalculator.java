@@ -12,34 +12,34 @@ public class PartsListCalculator
     private static final int MAX_POLE_DIST = 310;
 
 
-    public static List<WoodOrderItem> finalCalc(double length, double width, int shedLength, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> materialCalc(double length, double width, int shedLength, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
     {
-        List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
-        WoodOrderItem rafters = calcRafter(width, length, connectionPool);
-        WoodOrderItem poles = poleCalc(length, width, connectionPool);
-        WoodOrderItem rems = remCalc(length, connectionPool);
-        List<WoodOrderItem> sterns = sternCalc(length, width, connectionPool);
+        List<OrderItem> orderItemList = new ArrayList<>();
+        OrderItem rafters = calcRafter(width, length, connectionPool);
+        OrderItem poles = poleCalc(length, width, connectionPool);
+        OrderItem rems = remCalc(length, connectionPool);
+        List<OrderItem> sterns = sternCalc(length, width, connectionPool);
 
         if (withRoof)
         {
-            WoodOrderItem roofing = roofingCalc(length, width, connectionPool);
-            woodOrderItemList.add(roofing);
+            OrderItem roofing = roofingCalc(length, width, connectionPool);
+            orderItemList.add(roofing);
         }
         if (shedLength > 0)
         {
-            List<WoodOrderItem> shed = getShed(width, shedLength, connectionPool);
-            woodOrderItemList.addAll(shed);
+            List<OrderItem> shed = getShed(width, shedLength, connectionPool);
+            orderItemList.addAll(shed);
         }
 
-        woodOrderItemList.add(rafters);
-        woodOrderItemList.add(poles);
-        woodOrderItemList.add(rems);
-        woodOrderItemList.addAll(sterns);
+        orderItemList.add(rafters);
+        orderItemList.add(poles);
+        orderItemList.add(rems);
+        orderItemList.addAll(sterns);
 
-        return woodOrderItemList;
+        return orderItemList;
     }
 
-    public static List<WoodOrderItem> sternCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> sternCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Sternbrædt placeres uden på tagkonstruktionen";
         List<Wood> sterns = Facade.getWoodByVariant("Stern", connectionPool);
@@ -79,7 +79,7 @@ public class PartsListCalculator
             }
             lenStern = buffer;*/
 
-            WoodOrderItem lenSternItem = getOptimalItem(sterns, length, desc, 2, 2);
+            OrderItem lenSternItem = getOptimalItem(sterns, length, desc, 2, 2);
 
             // TODO: TEST AND REMOVE
         /*Wood widthStern = selectWood(sterns, width);
@@ -107,9 +107,9 @@ public class PartsListCalculator
             widthSternAmount = (int) Math.ceil(amountBuffer) * 2;
         }*/
 
-        WoodOrderItem widthSternItem = getOptimalItem(sterns, width, desc, 2, 2);
+        OrderItem widthSternItem = getOptimalItem(sterns, width, desc, 2, 2);
 
-        List<WoodOrderItem> orderItems = new ArrayList<>();
+        List<OrderItem> orderItems = new ArrayList<>();
 
         orderItems.add(lenSternItem/*new WoodOrderItem(lenSternAmount, lenStern, desc)*/);
         orderItems.add(widthSternItem/*new WoodOrderItem(widthSternAmount, widthStern, desc)*/);
@@ -117,7 +117,7 @@ public class PartsListCalculator
         return orderItems;
     }
 
-    private static WoodOrderItem roofingCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    private static OrderItem roofingCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Tagplader skrues fast i spær";
         double area = length*width;
@@ -130,7 +130,7 @@ public class PartsListCalculator
         return new WoodOrderItem(amount, roof, desc);
     }
 
-    public static WoodOrderItem poleCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    public static OrderItem poleCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Stolper graves 90 cm ned i jord";
         int poles = 4;
@@ -150,7 +150,7 @@ public class PartsListCalculator
         return new WoodOrderItem(poles, pole, desc);
     }
 
-    private static WoodOrderItem calcRafter(double width, double length, ConnectionPool connectionPool) throws DatabaseException
+    private static OrderItem calcRafter(double width, double length, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Spær placers på tværs af bygningen på tværs af remme med ca 55 cm mellemrum";
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
@@ -227,7 +227,7 @@ public class PartsListCalculator
        // return new WoodOrderItem(remAmount, rem, desc);
     }
 
-    public static List<WoodOrderItem> getShed(double width, double shedLength, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> getShed(double width, double shedLength, ConnectionPool connectionPool) throws DatabaseException
     {
         double shedWidth = (width - CARPORT_HANG * 2) / 2 ;
         double amountL;
@@ -235,7 +235,7 @@ public class PartsListCalculator
         double rafterLengthAmountL = 1;
         double rafterWidthAmountW = 1;
 
-        List<WoodOrderItem> woodOrderItemList = new ArrayList<>();
+        List<OrderItem> woodOrderItemList = new ArrayList<>();
 
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
 

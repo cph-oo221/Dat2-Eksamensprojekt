@@ -37,7 +37,7 @@ public class ItemsList extends HttpServlet
         try
         {
             Receipt r = Facade.getReceiptById(idReceipt, connectionPool);
-            List<WoodOrderItem> itemList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
+            List<OrderItem> itemList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
 //            List<MetalOrderItem> metalList = Facade.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
 //            List<OrderItem> orderItemList = new ArrayList<>();
 //            orderItemList.addAll(itemList);
@@ -46,9 +46,9 @@ public class ItemsList extends HttpServlet
             int totalPrice = 0;
             int netPrice = 0;
 
-            for (WoodOrderItem o : itemList)
+            for (OrderItem o : itemList)
             {
-                netPrice += o.getWood().getPrice() * o.getAmount();
+                netPrice += o.getMaterial().getPrice() * o.getAmount();
             }
 
             if (r.getPrice() != 0)

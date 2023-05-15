@@ -4,15 +4,13 @@ import java.util.Objects;
 
 public class WoodOrderItem extends OrderItem
 {
-    private int amount;
     private Wood wood;
-    private String desc;
 
     public WoodOrderItem(int amount, Wood wood, String desc)
     {
-        this.amount = amount;
+        super.amount = amount;
         this.wood = wood;
-        this.desc = desc;
+        super.desc = desc;
     }
 
     public int getAmount()
@@ -32,7 +30,13 @@ public class WoodOrderItem extends OrderItem
 
     public void setAmount(int amount)
     {
-        this.amount = amount;
+        super.amount = amount;
+    }
+
+    @Override
+    public Material getMaterial()
+    {
+        return wood;
     }
 
     @Override

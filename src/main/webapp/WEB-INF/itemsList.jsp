@@ -15,49 +15,82 @@
 
     <jsp:body>
         <div class="container mt-4">
-            <div class="row">
-                <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
 
-                    <table class="table table-dark table-striped">
-                        <thead>
+                <table class="table table-dark table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Vare</th>
+                        <th scope="col">Antal</th>
+                        <th scope="col">Pris stk</th>
+                        <th scope="col">Beskrivelse</th>
+                    </tr>
+                    </thead>
+
+                    <thead>
+                    <tr style="color: white;" class="table">
+                        <th scope="col">x</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+
+                    <thead>
+                    <tr>
+                        <th scope="col">Træ & Tagplader</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <c:forEach var="item" items="${requestScope.itemList}">
+                        <tbody>
                         <tr>
-                            <th scope="col">Vare</th>
-                            <th scope="col">Antal</th>
-                            <th scope="col">Pris stk</th>
-                            <th scope="col">Beskrivelse</th>
+                            <td>${item.material.name}</td>
+                            <td>${item.amount}</td>
+                            <td>${item.material.price}</td>
+                            <td>${item.desc}</td>
                         </tr>
-                        </thead>
-
-                        <thead>
-                        <tr style="color: white;" class="table">
-                            <th scope="col">x</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-
-                        <thead>
-                        <tr>
-                            <th scope="col">Træ & Tagplader</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <c:forEach var="item" items="${requestScope.itemList}">
-                            <tbody>
-                            <tr>
-                                <td>${item.wood.name}</td>
-                                <td>${item.amount}</td>
-                                <td>${item.wood.price}</td>
-                                <td>${item.description}</td>
-                            </tr>
-                            </tbody>
-                        </c:forEach>
-                    </table>
-                </div>
+                        </tbody>
+                    </c:forEach>
+                </table>
             </div>
+        </div>
+        <br>
+        <div class="row">
+        <div class="col-sm-12">
+
+            <table class="table table-dark table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Vare</th>
+                    <th scope="col">Antal</th>
+                    <th scope="col">Pris stk</th>
+                    <th scope="col">Beskrivelse</th>
+                </tr>
+                </thead>
+                <thead>
+                <tr>
+                    <th scope="col">Skruer & metal</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <c:forEach var="item" items="${requestScope.metalList}">
+                    <tbody>
+                    <tr>
+                        <td>${item.metal.name}</td>
+                        <td>${item.amount}</td>
+                        <td>${item.metal.price}</td>
+                        <td>${item.description}</td>
+                    </tr>
+                    </tbody>
+                </c:forEach>
+            </table>
+
         </div>
 
         <div class="ms-3 mt-2">

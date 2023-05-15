@@ -1,5 +1,6 @@
 package dat.backend.model.persistence;
 
+import dat.backend.model.entities.OrderItem;
 import dat.backend.model.entities.Wood;
 import dat.backend.model.entities.WoodOrderItem;
 import dat.backend.model.exceptions.DatabaseException;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
 
 public class OrderMapper
 {
-    protected static int createOrder(int receiptId, List<WoodOrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
+    protected static int createOrder(int receiptId, List<OrderItem> orderItemList, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO,"Saving orderlist for receipt: " + receiptId);
 
@@ -23,14 +24,14 @@ public class OrderMapper
 
         try (Connection connection = connectionPool.getConnection())
         {
-            for (WoodOrderItem w : woodOrderItemList)
+            for (OrderItem w : orderItemList)
             {
                 try (PreparedStatement ps = connection.prepareStatement(sql))
                 {
                     ps.setInt(1, receiptId);
-                    ps.setInt(2, w.getWood().getIdWood());
+                    ps.setInt(2, w.getMaterial().getId());
                     ps.setInt(3, w.getAmount());
-                    ps.setString(4, w.getDescription());
+                    ps.setString(4, w.getDesc());
 
                     ps.executeUpdate();
                 }
@@ -53,7 +54,7 @@ public class OrderMapper
         return 0; //Fejlhåndtering
     }
 
-    protected static List<WoodOrderItem> getWoodOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    protected static List<OrderItem> getWoodOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO,"Fetching items from receipt: " + idReceipt);
 
@@ -68,7 +69,7 @@ public class OrderMapper
                 ps.setInt(1, idReceipt);
 
                 ResultSet rs = ps.executeQuery();
-                List<WoodOrderItem> orderItems = new ArrayList<>();
+                List<OrderItem> orderItems = new ArrayList<>();
 
                 while (rs.next())
                 {

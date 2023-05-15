@@ -6,9 +6,7 @@ import java.util.Objects;
 
 public class MetalOrderItem extends OrderItem
 {
-    int amount;
     Metal metal;
-    String desc;
 
     @Override
     public String toString()
@@ -44,7 +42,7 @@ public class MetalOrderItem extends OrderItem
     @Override
     public void setAmount(int amount)
     {
-        this.amount = amount;
+        super.amount = amount;
     }
 
     public Metal getMetal()
@@ -66,13 +64,19 @@ public class MetalOrderItem extends OrderItem
     @Override
     public void setDesc(String desc)
     {
-        this.desc = desc;
+        super.desc = desc;
+    }
+
+    @Override
+    public Material getMaterial()
+    {
+        return metal;
     }
 
     public MetalOrderItem(int amount, Metal metal, String desc)
     {
-        this.amount = amount;
+        super.amount = amount;
         this.metal = metal;
-        this.desc = desc;
+        super.desc = desc;
     }
 }
