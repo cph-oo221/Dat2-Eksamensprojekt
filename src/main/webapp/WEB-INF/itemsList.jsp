@@ -47,7 +47,7 @@
                         <th scope="col"></th>
                     </tr>
                     </thead>
-                    <c:forEach var="item" items="${requestScope.itemList}">
+                    <c:forEach var="item" items="${requestScope.woodList}">
                             <tbody>
                             <tr>
                                 <td>${item.material.name}</td>
@@ -75,13 +75,13 @@
                 </thead>
                 <thead>
                 <tr>
-                    <th scope="col">Skruer & metal</th>
+                    <th scope="col">Skruer & Beslag</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
-                <c:forEach var="item" items="${requestScope.itemList}">
+                <c:forEach var="item" items="${requestScope.metalList}">
                     <%--<c:if test="${item.material.isInstance(Metal)}">--%>
                         <tbody>
                         <tr>
