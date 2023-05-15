@@ -12,6 +12,32 @@ public class Metal extends Material
         super.variant = variant;
     }
 
+    public int getIdMetal()
+    {
+        return id;
+    }
+    public String getName()
+    {
+        return name;
+    }
+
+    public int getPrice()
+    {
+        return price;
+    }
+
+    public String getUnit()
+    {
+        return unit;
+    }
+
+    public String getVariant()
+    {
+        return variant;
+    }
+
+
+
     @Override
     public String toString()
     {
