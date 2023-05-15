@@ -65,7 +65,7 @@ class MetalMapperTest
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.order LIKE `Dat2-Eksamensopgave`.order;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.ordermetal LIKE `Dat2-Eksamensopgave`.ordermetal;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.orderwood LIKE `Dat2-Eksamensopgave`.orderwood;");
-                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metalstuff LIKE `Dat2-Eksamensopgave`.metalstuff;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metal LIKE `Dat2-Eksamensopgave`.metal;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.wood LIKE `Dat2-Eksamensopgave`.wood;");
 
 
@@ -86,23 +86,19 @@ class MetalMapperTest
             try (Statement stmt = testConnection.createStatement())
             {
                 stmt.execute("use fog_test;");
-                stmt.execute("delete from fog_test.receipt");
-                stmt.execute("delete from fog_test.order");
-                stmt.execute("delete from fog_test.ordermetal");
-                stmt.execute("delete from fog_test.orderwood");
-                stmt.execute("delete from fog_test.wood");
-                stmt.execute("delete from fog_test.metalstuff");
-                stmt.execute("delete from fog_test.user");
+
+                stmt.execute("delete from fog_test.metal");
 
 
-                stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
-                stmt.execute("ALTER TABLE fog_test.user AUTO_INCREMENT = 1");
-                stmt.execute("INSERT INTO fog_test.metalstuff (idmetalstuff, name, price, unit, variant) VALUES " +
-                        "(1, '4,5x60 mm. skruer 200 stk.', 10, 'Pakke', 'Skruer');" +
+                stmt.execute("ALTER TABLE fog_test.metal DISABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.metal AUTO_INCREMENT = 1");
+                stmt.execute("INSERT INTO fog_test.metal (idmetal, name, price, unit, variant) VALUES " +
+                        "(1, '4,5x60 mm. skruer 200 stk.', 10, 'Pakke', 'Skruer')," +
                         "(2, '5,6x80 mm. skruer 400 stk.', 60, 'Pakke', 'Skruer')");
-                stmt.execute("ALTER TABLE fog_test.metalstuff ENABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.metal ENABLE KEYS");
             }
-        } catch (SQLException throwables)
+        }
+        catch (SQLException throwables)
         {
             System.out.println(throwables.getMessage());
             fail("Database connection failed");
