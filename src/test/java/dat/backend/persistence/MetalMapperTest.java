@@ -147,4 +147,21 @@ class MetalMapperTest
         assertEquals(expectedMetal, actual);
         assertEquals(3, Facade.getAllMetal(connectionPool).size());
     }
+
+    @Test
+    void getMetalById() throws DatabaseException
+    {
+        int idMetal = 1;
+        String name = "4,5x60 mm. skruer 200 stk.";
+        int price = 10;
+        String unit = "Pakke";
+        String variant = "Skruer";
+
+        Metal expected = new Metal(idMetal, name, price, unit, variant);
+
+        Facade.getMetalById(1, connectionPool);
+
+        assertEquals(expected, Facade.getMetalById(1, connectionPool));
+        assertTrue(Facade.getMetalById(5, connectionPool) == null);
+    }
 }
