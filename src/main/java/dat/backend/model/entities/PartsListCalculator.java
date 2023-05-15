@@ -309,7 +309,7 @@ public class PartsListCalculator
             rafterWidthAmountW = (int) Math.ceil(amountBuffer);
         }*/
 
-        WoodOrderItem widthBuffer = getOptimalItem(woods, shedLength, "", 1, 2);
+        WoodOrderItem widthBuffer = getOptimalItem(woods, shedWidth, "", 1, 2);
         Wood rafterWidth = widthBuffer.getWood();
         rafterWidthAmountW = widthBuffer.getAmount();
 
