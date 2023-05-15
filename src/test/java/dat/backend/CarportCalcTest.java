@@ -8,9 +8,12 @@ import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Comparator;
 import java.util.List;
 
@@ -51,10 +54,59 @@ public class CarportCalcTest
         connectionPool = new ConnectionPool(USER, PASSWORD, TESTURL);
     }
 
+    @BeforeEach
+    void setUp()
+    {
+        try (Connection testConnection = connectionPool.getConnection())
+        {
+            try (Statement stmt = testConnection.createStatement())
+            {
+                stmt.execute("use fog_test;");
+                stmt.execute("delete from fog_test.receipt");
+                stmt.execute("delete from fog_test.order");
+                stmt.execute("delete from fog_test.ordermetal");
+                stmt.execute("delete from fog_test.orderwood");
+                stmt.execute("delete from fog_test.wood");
+                stmt.execute("delete from fog_test.metal");
+                stmt.execute("delete from fog_test.user");
+
+
+                stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.user AUTO_INCREMENT = 1");
+                stmt.execute("INSERT INTO fog_test.metal (idmetal, name, price, unit, variant) VALUES " +
+                        "(1, '4,5x60 mm. skruer 200 stk.', 10, 'Pakke', 'Skruer')," +
+                        "(2, '5,6x80 mm. skruer 400 stk.', 60, 'Pakke', 'Skruer');");
+                stmt.execute("ALTER TABLE fog_test.metal ENABLE KEYS");
+
+
+                stmt.execute("ALTER TABLE fog_test.wood DISABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.wood AUTO_INCREMENT = 1");
+                stmt.execute("insert into fog_test.wood VALUES " +
+                        "(1, 410, 55, 20, 'Spærtræ', 'stk', 200, 'Rem')," +
+                        "(2, 205, 55, 20, 'Spærtræ', 'stk', 100, 'Rem')," +
+                        "(3, 300, 97, 97, 'Stolpe', 'stk', 100, 'Stolpe')," +
+                        "(4, 410, 55, 20, 'Spærtræ', 'stk', 200, 'Spær')," +
+                        "(5, 205, 55, 20, 'Spærtræ', 'stk', 100, 'Spær')," +
+                        "(6, 100, 100, 1, 'Trapezplade', 'stk', 30, 'Tag')," +
+                        "(8, 205, 200, 30, 'Brædt', 'stk', 150, 'Stern')," +
+                        "(9, 410, 200, 30, 'Brædt', 'stk', 200, 'Stern')");
+
+                stmt.execute("ALTER TABLE fog_test.wood ENABLE KEYS");
+
+
+
+            }
+        } catch (SQLException throwables)
+        {
+            System.out.println(throwables.getMessage());
+            fail("Database connection failed");
+        }
+    }
+
 
 
     @Test
-    void skurTest()
+    void shedTest()
     {
         double width = 500;
         double length = 500;
@@ -155,7 +207,7 @@ public class CarportCalcTest
     }
 
     @Test
-    void skurMethodTest()
+    void shedMethodTest()
     {
         int shedLength = 100;
         double width = 240;
@@ -324,7 +376,7 @@ public class CarportCalcTest
         int amount= (int) Math.ceil(area/10000);
         String desc = "Placeholder";
         WoodOrderItem actual = new WoodOrderItem(amount, roof, desc);
-        int expectedId = 8;
+        int expectedId = 6;
         int expectedAmount = 7;
         assertEquals(expectedId , actual.getWood().getIdWood());
         assertEquals(expectedAmount , actual.getAmount());
@@ -356,14 +408,14 @@ public class CarportCalcTest
         try
         {
             List<WoodOrderItem> list = PartsListCalculator.sternCalc(360, 570, connectionPool);
-            Wood expected1 = new Wood(6,410,200,30,"Brædt","stk",200,"Stern");
-            Wood expected = new Wood(7,205,200,30,"Brædt","stk",150,"Stern");
+            Wood expected1 = new Wood(9,410,200,30,"Brædt","stk",200,"Stern");
+            Wood expected = new Wood(8,205,200,30,"Brædt","stk",150,"Stern");
 
             assertEquals(2, list.size());
             assertEquals(expected1, list.get(0).getWood()); // length
             assertEquals(expected, list.get(1).getWood()); // width
 
-            assertEquals(2, list.get(0).getAmount());
+            assertEquals(4, list.get(0).getAmount());
             assertEquals(6, list.get(1).getAmount());
         }
         catch (DatabaseException e)
