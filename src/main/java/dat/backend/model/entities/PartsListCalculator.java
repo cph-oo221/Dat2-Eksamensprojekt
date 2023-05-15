@@ -127,7 +127,7 @@ public class PartsListCalculator
         List<Wood> roofing = Facade.getWoodByVariant("Tag", connectionPool);
         Wood roof = roofing.get(0);
         int amount = (int) Math.ceil(area/10000);
-        return new WoodOrderItem(amount, roof, desc);
+        return new OrderItem(amount, roof, desc);
     }
 
     public static OrderItem poleCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
@@ -147,7 +147,7 @@ public class PartsListCalculator
 
         List<Wood> poleList = Facade.getWoodByVariant("Stolpe", connectionPool);
         Wood pole = poleList.get(0);
-        return new WoodOrderItem(poles, pole, desc);
+        return new OrderItem(poles, pole, desc);
     }
 
     private static OrderItem calcRafter(double width, double length, ConnectionPool connectionPool) throws DatabaseException
@@ -176,10 +176,10 @@ public class PartsListCalculator
 
         int amount = (int) Math.floor(getRafterAmount(length, raftAmountModifier));
 
-        return new WoodOrderItem(amount, rafter, desc);
+        return new OrderItem(amount, rafter, desc);
     }
 
-    private static WoodOrderItem remCalc(double length, ConnectionPool connectionPool) throws DatabaseException
+    private static OrderItem remCalc(double length, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Remme boltes fast på stolper langs længden af kontruktionen";
         int remAmount = 2;
@@ -221,7 +221,7 @@ public class PartsListCalculator
             remAmount = (int) Math.ceil(amountBuffer) * 2;
         }*/
 
-        WoodOrderItem remItem = getOptimalItem(woods, length, desc, 2, 2);
+        OrderItem remItem = getOptimalItem(woods, length, desc, 2, 2);
         return remItem;
 
        // return new WoodOrderItem(remAmount, rem, desc);
@@ -274,13 +274,13 @@ public class PartsListCalculator
             rafterLengthAmountL = (int) Math.ceil(amountBuffer); //1
         }*/
 
-        WoodOrderItem lenBuffer = getOptimalItem(woods, shedLength, "", 1, 2);
-        Wood rafterLength = lenBuffer.getWood();
+        OrderItem lenBuffer = getOptimalItem(woods, shedLength, "", 1, 2);
+        Wood rafterLength = (Wood) lenBuffer.getMaterial();
         rafterLengthAmountL = lenBuffer.getAmount();
 
         double rafterLengthWidth = rafterLength.getWidth();
         amountL = (int) (rafterLengthAmountL * Math.ceil(210 / rafterLengthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
-        WoodOrderItem rafterLengthWOI = new WoodOrderItem((int) amountL, rafterLength, "Spærtræ til beklædning af skur i længden");
+        OrderItem rafterLengthWOI = new OrderItem((int) amountL, rafterLength, "Spærtræ til beklædning af skur i længden");
         woodOrderItemList.add(rafterLengthWOI);
 
         // TODO: TEST AND REMOVE
@@ -309,13 +309,13 @@ public class PartsListCalculator
             rafterWidthAmountW = (int) Math.ceil(amountBuffer);
         }*/
 
-        WoodOrderItem widthBuffer = getOptimalItem(woods, shedWidth, "", 1, 2);
-        Wood rafterWidth = widthBuffer.getWood();
+        OrderItem widthBuffer = getOptimalItem(woods, shedWidth, "", 1, 2);
+        Wood rafterWidth = (Wood) widthBuffer.getMaterial();
         rafterWidthAmountW = widthBuffer.getAmount();
 
         double rafterWidthWidth = rafterWidth.getWidth();
         amountW = (int) (rafterWidthAmountW * Math.ceil(210 / rafterWidthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
-        WoodOrderItem rafterWidthWOI = new WoodOrderItem((int) amountW, rafterWidth, "Spærtræ til beklædning af skur i bredden");
+        OrderItem rafterWidthWOI = new OrderItem((int) amountW, rafterWidth, "Spærtræ til beklædning af skur i bredden");
         woodOrderItemList.add(rafterWidthWOI);
 
         int poles;
@@ -329,7 +329,7 @@ public class PartsListCalculator
         }
 
         List<Wood> poleWoodList = Facade.getWoodByVariant("Stolpe", connectionPool);
-        WoodOrderItem polesShed = new WoodOrderItem(poles, poleWoodList.get(0), "Stolper til skur");
+        OrderItem polesShed = new OrderItem(poles, poleWoodList.get(0), "Stolper til skur");
         woodOrderItemList.add(polesShed);
         return woodOrderItemList;
     }
@@ -357,7 +357,7 @@ public class PartsListCalculator
         return buffer;
     }
 
-    private static WoodOrderItem getOptimalItem(List<Wood> woods, double dist, String desc, int initialAmount, int multiplier)
+    private static OrderItem getOptimalItem(List<Wood> woods, double dist, String desc, int initialAmount, int multiplier)
     {
         woods.sort(new Comparator<Wood>()
         {
@@ -394,7 +394,7 @@ public class PartsListCalculator
             selection = buffer;
             selectionAmount = (int) Math.ceil(amountBuffer);
         }
-            return new WoodOrderItem(selectionAmount * multiplier, selection, desc);
+            return new OrderItem(selectionAmount * multiplier, selection, desc);
     }
 
     //TODO Old version, delete before launch

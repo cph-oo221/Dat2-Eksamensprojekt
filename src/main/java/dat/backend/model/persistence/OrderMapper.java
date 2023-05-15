@@ -2,7 +2,6 @@ package dat.backend.model.persistence;
 
 import dat.backend.model.entities.OrderItem;
 import dat.backend.model.entities.Wood;
-import dat.backend.model.entities.WoodOrderItem;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.Connection;
@@ -88,7 +87,7 @@ public class OrderMapper
                     String description = rs.getString("description");
 
 
-                    WoodOrderItem wo = new WoodOrderItem(amount, w, description);
+                    OrderItem wo = new OrderItem(amount, w, description);
                     orderItems.add(wo);
                 }
                 return orderItems;
