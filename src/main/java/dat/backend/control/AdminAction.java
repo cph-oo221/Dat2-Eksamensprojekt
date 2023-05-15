@@ -37,6 +37,7 @@ public class AdminAction extends HttpServlet
         if (action == 5) actionAddNewWood(request, response); // ADD NEW WOOD
         if (action == 6) actionChangePriceOfWood(request, response); // CHANGE PRICE FOR WOOD
         if (action == 7) actionChangePriceOfMetal(request, response); // CHANGE PRICE FOR METAL
+
         if (action == 8) actionAddNewMetal(request, response); // ADD NEW METAL
 
         request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
@@ -254,6 +255,22 @@ public class AdminAction extends HttpServlet
         int idWood = Integer.parseInt(request.getParameter("idWood"));
         int newPrice = Integer.parseInt(request.getParameter("newPrice"));
 
+        try
+        {
+            if(Facade.getWoodById(idWood, connectionPool) == null)
+            {
+                getMetalAndWoodList(request, response);
+                String msgError =  "Wood ID: " + idWood + " findes ikke på varelaget!";
+                request.setAttribute("msgError", msgError);
+                request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
+            }
+        }
+        catch (DatabaseException e)
+        {
+            e.printStackTrace();
+        }
+
+
         if(idWood <= 0 || newPrice <= 0)
         {
             String msgError = "En eller flere parametre er tomme eller nul i Ændre Pris!";
@@ -285,6 +302,21 @@ public class AdminAction extends HttpServlet
     {
         int idMetal = Integer.parseInt(request.getParameter("idMetal"));
         int newPrice = Integer.parseInt(request.getParameter("newPriceMetal"));
+
+        try
+        {
+            if(Facade.getMetalById(idMetal, connectionPool) == null)
+            {
+                getMetalAndWoodList(request, response);
+                String msgError = "Metal ID:  " + idMetal + " findes ikke på varelaget!";
+                request.setAttribute("msgError", msgError);
+                request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
+            }
+        }
+        catch (DatabaseException e)
+        {
+            e.printStackTrace();
+        }
 
         if(idMetal <= 0 || newPrice <= 0)
         {
