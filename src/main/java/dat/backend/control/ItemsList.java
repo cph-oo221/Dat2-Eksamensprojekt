@@ -37,7 +37,9 @@ public class ItemsList extends HttpServlet
         try
         {
             Receipt r = Facade.getReceiptById(idReceipt, connectionPool);
-            List<OrderItem> itemList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
+            List<OrderItem> woodList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
+            List<OrderItem> metalList = Facade.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
+
 //            List<MetalOrderItem> metalList = Facade.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
 //            List<OrderItem> orderItemList = new ArrayList<>();
 //            orderItemList.addAll(itemList);
@@ -46,10 +48,16 @@ public class ItemsList extends HttpServlet
             int totalPrice = 0;
             int netPrice = 0;
 
-            for (OrderItem o : itemList)
+            for (OrderItem o : woodList)
             {
                 netPrice += o.getMaterial().getPrice() * o.getAmount();
             }
+
+            for (OrderItem o : metalList)
+            {
+                netPrice += o.getMaterial().getPrice() * o.getAmount();
+            }
+
 
             if (r.getPrice() != 0)
             {
@@ -65,7 +73,8 @@ public class ItemsList extends HttpServlet
             request.setAttribute("idReceipt", idReceipt);
             request.setAttribute("totalPrice", totalPrice);
             request.setAttribute("netPrice", netPrice);
-            request.setAttribute("itemList", itemList);
+            request.setAttribute("woodList", woodList);
+            request.setAttribute("metalList", metalList);
             request.setAttribute("orderState", r.getOrderState());
             request.getRequestDispatcher("WEB-INF/itemsList.jsp").forward(request, response);
         }

@@ -1,6 +1,8 @@
 package dat.backend.control;
 
+import com.google.protobuf.Internal;
 import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.entities.Material;
 import dat.backend.model.entities.Metal;
 import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
@@ -11,6 +13,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "EditItems", value = "/edititems")
@@ -38,6 +41,7 @@ public class EditItems extends HttpServlet
         {
             List<Wood> woodList = Facade.getAllWood(connectionPool);
             List<Metal> metalList = Facade.getAllMetal(connectionPool);
+
             request.setAttribute("woodList", woodList);
             request.setAttribute("metalList", metalList);
         }

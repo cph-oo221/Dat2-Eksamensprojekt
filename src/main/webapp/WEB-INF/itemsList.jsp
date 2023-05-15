@@ -3,6 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page errorPage="../error.jsp" isErrorPage="false" %>
 <%@ page import="dat.backend.model.entities.OrderState" %>
+<%@ page import="dat.backend.model.entities.Wood" %>
+<%@ page import="dat.backend.model.entities.Metal" %>
 
 <t:pagetemplate>
     <jsp:attribute name="header">
@@ -46,14 +48,14 @@
                     </tr>
                     </thead>
                     <c:forEach var="item" items="${requestScope.itemList}">
-                        <tbody>
-                        <tr>
-                            <td>${item.material.name}</td>
-                            <td>${item.amount}</td>
-                            <td>${item.material.price}</td>
-                            <td>${item.desc}</td>
-                        </tr>
-                        </tbody>
+                            <tbody>
+                            <tr>
+                                <td>${item.material.name}</td>
+                                <td>${item.amount}</td>
+                                <td>${item.material.price}</td>
+                                <td>${item.desc}</td>
+                            </tr>
+                            </tbody>
                     </c:forEach>
                 </table>
             </div>
@@ -79,15 +81,17 @@
                     <th scope="col"></th>
                 </tr>
                 </thead>
-                <c:forEach var="item" items="${requestScope.metalList}">
-                    <tbody>
-                    <tr>
-                        <td>${item.metal.name}</td>
-                        <td>${item.amount}</td>
-                        <td>${item.metal.price}</td>
-                        <td>${item.description}</td>
-                    </tr>
-                    </tbody>
+                <c:forEach var="item" items="${requestScope.itemList}">
+                    <%--<c:if test="${item.material.isInstance(Metal)}">--%>
+                        <tbody>
+                        <tr>
+                            <td>${item.material.name}</td>
+                            <td>${item.amount}</td>
+                            <td>${item.material.price}</td>
+                            <td>${item.desc}</td>
+                        </tr>
+                        </tbody>
+                    <%--</c:if>--%>
                 </c:forEach>
             </table>
 

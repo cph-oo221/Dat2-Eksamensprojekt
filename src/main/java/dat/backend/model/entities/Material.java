@@ -57,4 +57,6 @@ public abstract class Material
     {
         this.variant = variant;
     }
+
+    public abstract boolean isInstance(Object o);
 }

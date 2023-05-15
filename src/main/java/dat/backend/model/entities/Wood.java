@@ -90,4 +90,10 @@ public class Wood extends Material
                 ", variant='" + variant + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean isInstance(Object o)
+    {
+        return o instanceof Wood;
+    }
 }

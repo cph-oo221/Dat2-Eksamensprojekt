@@ -4,7 +4,6 @@ import dat.backend.model.config.Env;
 import dat.backend.model.entities.OrderItem;
 import dat.backend.model.entities.PartsListCalculator;
 import dat.backend.model.entities.Wood;
-import dat.backend.model.entities.WoodOrderItem;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
@@ -378,10 +377,10 @@ public class CarportCalcTest
         Wood roof = roofing.get(0);
         int amount= (int) Math.ceil(area/10000);
         String desc = "Placeholder";
-        WoodOrderItem actual = new WoodOrderItem(amount, roof, desc);
+        OrderItem actual = new OrderItem(amount, roof, desc);
         int expectedId = 6;
         int expectedAmount = 7;
-        assertEquals(expectedId , actual.getWood().getIdWood());
+        assertEquals(expectedId , actual.getMaterial().getId());
         assertEquals(expectedAmount , actual.getAmount());
 
 

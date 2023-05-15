@@ -1,7 +1,7 @@
 package dat.backend.model.persistence;
 
 import dat.backend.model.entities.Metal;
-import dat.backend.model.entities.MetalOrderItem;
+import dat.backend.model.entities.OrderItem;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.Connection;
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class MetalMapper
 {
-    public static List<MetalOrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO,"Fetching items from receipt: " + idReceipt);
 
@@ -30,7 +30,7 @@ public class MetalMapper
                 ps.setInt(1, idReceipt);
 
                 ResultSet rs = ps.executeQuery();
-                List<MetalOrderItem> orderItems = new ArrayList<>();
+                List<OrderItem> orderItems = new ArrayList<>();
 
                 while (rs.next())
                 {
@@ -45,7 +45,7 @@ public class MetalMapper
                     int amount = rs.getInt("amount");
                     String description = rs.getString("description");
 
-                    MetalOrderItem metalOrderItem = new MetalOrderItem(amount, metal, description);
+                    OrderItem metalOrderItem = new OrderItem(amount, metal, description);
                     orderItems.add(metalOrderItem);
                 }
                 return orderItems;

@@ -124,7 +124,7 @@ public class Facade
 
 
     // METAL ***********************************************************************************************************
-    public static List<MetalOrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         return MetalMapper.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
     }

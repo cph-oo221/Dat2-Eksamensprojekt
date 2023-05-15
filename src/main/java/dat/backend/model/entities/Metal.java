@@ -17,4 +17,10 @@ public class Metal extends Material
     {
         return "Metal{" + "idMetal=" + id + ", name=" + name + ", price=" + price + ", unit=" + unit + ", variant=" + variant + '}';
     }
+
+    @Override
+    public boolean isInstance(Object o)
+    {
+        return o instanceof Metal;
+    }
 }
