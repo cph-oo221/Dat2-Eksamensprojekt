@@ -1,10 +1,7 @@
 package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
-import dat.backend.model.entities.PartsListCalculator;
-import dat.backend.model.entities.Receipt;
-import dat.backend.model.entities.User;
-import dat.backend.model.entities.WoodOrderItem;
+import dat.backend.model.entities.*;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
@@ -13,7 +10,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "Makeorder", value = "/makeorder")
@@ -43,13 +39,13 @@ public class Makeorder extends HttpServlet
         boolean withShed = Boolean.parseBoolean(request.getParameter("withShed"));
         try
         {
-            List<WoodOrderItem> woodOrderItemList = PartsListCalculator.finalCalc(length, width, shedLength, withRoof, connectionPool);
+            List<OrderItem> orderItemList = PartsListCalculator.materialCalc(length, width, shedLength, withRoof, connectionPool);
 
             String comment = request.getParameter("comment");
             User user = (User) request.getSession().getAttribute("user");
 
             int receiptId = Facade.createReceipt(user.getIdUser(), width, length, comment, connectionPool);
-            int orderId = Facade.createOrder(receiptId, woodOrderItemList, connectionPool);
+            int orderId = Facade.createOrder(receiptId, orderItemList, connectionPool);
 
             List<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
             request.setAttribute("receiptList", receiptList);

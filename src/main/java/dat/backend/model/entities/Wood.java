@@ -2,32 +2,27 @@ package dat.backend.model.entities;
 
 import java.util.Objects;
 
-public class Wood
+public class Wood extends Material
 {
-    private int idWood;
     private int length;
     private int width;
     private int height;
-    private String name;
-    private String unit;
-    private int price;
-    private String variant;
 
     public Wood(int idWood, int length, int width, int height, String name, String unit, int price, String variant)
     {
-        this.idWood = idWood;
+        super.id = idWood;
         this.length = length;
         this.width = width;
         this.height = height;
-        this.name = name;
-        this.unit = unit;
-        this.price = price;
-        this.variant = variant;
+        super.name = name;
+        super.unit = unit;
+        super.price = price;
+        super.variant = variant;
     }
 
     public int getIdWood()
     {
-        return idWood;
+        return id;
     }
 
     public int getLength()
@@ -71,21 +66,21 @@ public class Wood
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Wood wood = (Wood) o;
-        return idWood == wood.idWood && length == wood.length && width == wood.width && height == wood.height &&
+        return id == wood.id && length == wood.length && width == wood.width && height == wood.height &&
                 price == wood.price && name.equals(wood.name) && unit.equals(wood.unit) && variant.equals(wood.variant);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(idWood, length, width, height, name, unit, price, variant);
+        return Objects.hash(id, length, width, height, name, unit, price, variant);
     }
 
     @Override
     public String toString()
     {
         return "Wood{" +
-                "idWood=" + idWood +
+                "idWood=" + id +
                 ", length=" + length +
                 ", width=" + width +
                 ", height=" + height +
@@ -94,5 +89,11 @@ public class Wood
                 ", price=" + price +
                 ", variant='" + variant + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean isInstance(Object o)
+    {
+        return o instanceof Wood;
     }
 }

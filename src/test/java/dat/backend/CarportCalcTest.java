@@ -1,9 +1,9 @@
 package dat.backend;
 
 import dat.backend.model.config.Env;
+import dat.backend.model.entities.OrderItem;
 import dat.backend.model.entities.PartsListCalculator;
 import dat.backend.model.entities.Wood;
-import dat.backend.model.entities.WoodOrderItem;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
@@ -216,7 +216,7 @@ public class CarportCalcTest
         {
             List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
 
-            List<WoodOrderItem> itemList = PartsListCalculator.getShed(width, shedLength, connectionPool);
+            List<OrderItem> itemList = PartsListCalculator.getShed(width, shedLength, connectionPool);
 
             assertEquals(3, itemList.size());
 
@@ -377,10 +377,10 @@ public class CarportCalcTest
         Wood roof = roofing.get(0);
         int amount= (int) Math.ceil(area/10000);
         String desc = "Placeholder";
-        WoodOrderItem actual = new WoodOrderItem(amount, roof, desc);
+        OrderItem actual = new OrderItem(amount, roof, desc);
         int expectedId = 6;
         int expectedAmount = 7;
-        assertEquals(expectedId , actual.getWood().getIdWood());
+        assertEquals(expectedId , actual.getMaterial().getId());
         assertEquals(expectedAmount , actual.getAmount());
 
 
@@ -394,7 +394,7 @@ public class CarportCalcTest
     {
         try
         {
-            WoodOrderItem item = PartsListCalculator.poleCalc(1450, 1450, connectionPool);
+            OrderItem item = PartsListCalculator.poleCalc(1450, 1450, connectionPool);
 
             assertEquals(20, item.getAmount());
         }
@@ -409,13 +409,13 @@ public class CarportCalcTest
     {
         try
         {
-            List<WoodOrderItem> list = PartsListCalculator.sternCalc(360, 570, connectionPool);
+            List<OrderItem> list = PartsListCalculator.sternCalc(360, 570, connectionPool);
             Wood expected1 = new Wood(9,410,200,30,"Brædt","stk",200,"Stern");
             Wood expected = new Wood(8,205,200,30,"Brædt","stk",150,"Stern");
 
             assertEquals(2, list.size());
-            assertEquals(expected1, list.get(0).getWood()); // length
-            assertEquals(expected, list.get(1).getWood()); // width
+            assertEquals(expected1, list.get(0).getMaterial()); // length
+            assertEquals(expected, list.get(1).getMaterial()); // width
 
             assertEquals(4, list.get(0).getAmount());
             assertEquals(6, list.get(1).getAmount());

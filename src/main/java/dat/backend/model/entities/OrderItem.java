@@ -1,9 +1,17 @@
 package dat.backend.model.entities;
 
-public abstract class OrderItem
+public class OrderItem
 {
-    private int amount;
-    private String desc;
+    public OrderItem(int amount, Material item, String desc)
+    {
+        this.amount = amount;
+        this.item = item;
+        this.desc = desc;
+    }
+
+    protected int amount;
+    protected String desc;
+    protected Material item;
 
     public int getAmount()
     {
@@ -23,5 +31,10 @@ public abstract class OrderItem
     public void setDesc(String desc)
     {
         this.desc = desc;
+    }
+
+    public Material getMaterial()
+    {
+        return item;
     }
 }
