@@ -209,8 +209,8 @@ public class CarportCalcTest
     @Test
     void shedMethodTest()
     {
-        int shedLength = 100;
-        double width = 240;
+        int shedLength = 300;
+        double width = 600;
 
         try
         {
@@ -219,8 +219,10 @@ public class CarportCalcTest
             List<WoodOrderItem> itemList = PartsListCalculator.getShed(width, shedLength, connectionPool);
 
             assertEquals(3, itemList.size());
+
             assertEquals(8, itemList.get(0).getAmount());
             assertEquals(8, itemList.get(1).getAmount());
+            assertEquals(3, itemList.get(2).getAmount());
         }
 
         catch (DatabaseException e)
