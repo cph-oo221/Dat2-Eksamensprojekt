@@ -20,7 +20,7 @@ public class MetalMapper
         Logger.getLogger("web").log(Level.INFO,"Fetching items from receipt: " + idReceipt);
 
         String sql = "SELECT * FROM ordermetal\n" +
-                "JOIN metalstuff m on ordermetal.idmetalstuff = m.idmetalstuff\n" +
+                "JOIN metal m on ordermetal.idmetal = m.idmetal\n" +
                 "WHERE idreceipt = ?;";
 
         try (Connection connection = connectionPool.getConnection())
@@ -34,7 +34,7 @@ public class MetalMapper
 
                 while (rs.next())
                 {
-                    int idMetal = rs.getInt("idmetalstuff");
+                    int idMetal = rs.getInt("idmetal");
                     String name = rs.getString("name");
                     int price = rs.getInt("price");
                     String unit = rs.getString("unit");
@@ -60,7 +60,7 @@ public class MetalMapper
     public static List<Metal> getAllMetal(ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
-        String sql = "SELECT * FROM metalstuff";
+        String sql = "SELECT * FROM metal";
 
         List<Metal> metalList = new ArrayList<>();
 
@@ -71,7 +71,7 @@ public class MetalMapper
                 ResultSet rs = pr.executeQuery();
                 while(rs.next())
                 {
-                    int idMetal = rs.getInt("idmetalstuff");
+                    int idMetal = rs.getInt("idmetal");
                     String name = rs.getString("name");
                     int price = rs.getInt("price");
                     String unit = rs.getString("unit");
@@ -92,7 +92,7 @@ public class MetalMapper
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
-        String sql = "UPDATE metalstuff SET price = ? WHERE idmetalstuff = ?";
+        String sql = "UPDATE metal SET price = ? WHERE idmetal = ?";
 
         try(Connection connection = connectionPool.getConnection())
         {
@@ -113,7 +113,7 @@ public class MetalMapper
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
-        String sql = "DELETE FROM metalstuff WHERE idmetalstuff = ?";
+        String sql = "DELETE FROM metal WHERE idmetal = ?";
 
         try(Connection connection = connectionPool.getConnection())
         {
@@ -138,7 +138,7 @@ public class MetalMapper
             throw new DatabaseException("One or more parameters are empty or null!");
         }
 
-        String sql = "INSERT INTO metalstuff (name, price, unit, variant) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO metal (name, price, unit, variant) VALUES (?, ?, ?, ?)";
         Metal metal;
 
         try(Connection connection = connectionPool.getConnection())
@@ -181,5 +181,36 @@ public class MetalMapper
             throw new DatabaseException(e.getMessage());
         }
         return metal;
+    }
+
+    public static Metal getMetalById(int idMetal, ConnectionPool connectionPool) throws DatabaseException
+    {
+        Logger.getLogger("web").log(Level.INFO, "Trying to get metal by id: " + idMetal);
+
+        String sql = "SELECT * FROM metal WHERE idmetal = ?";
+
+        try(Connection connection = connectionPool.getConnection())
+        {
+            try(PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, idMetal);
+                ResultSet rs = ps.executeQuery();
+
+                if(rs.next())
+                {
+                    String name = rs.getString("name");
+                    int price = rs.getInt("price");
+                    String unit = rs.getString("unit");
+                    String variant = rs.getString("variant");
+
+                    return new Metal(idMetal, name, price, unit, variant);
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+        return null;
     }
 }

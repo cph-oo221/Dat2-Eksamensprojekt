@@ -148,4 +148,9 @@ public class Facade
     {
         return MetalMapper.createMetal(name, price, unit, variant, connectionPool);
     }
+
+    public static Metal getMetalById(int idMetal, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return MetalMapper.getMetalById(idMetal, connectionPool);
+    }
 }
