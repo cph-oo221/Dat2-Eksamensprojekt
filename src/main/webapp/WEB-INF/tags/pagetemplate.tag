@@ -35,7 +35,7 @@
             </c:if>
 
             <c:if test="${sessionScope.user.role.equals('user')}">
-                <form action="redirectadminpanel" method="post">
+                <form action="userpage" method="post">
                     <input type="image" class="navbar-brand" src="${pageContext.request.contextPath}/images/Pagetemplate/FogLogo.png"
                            width="80px;" class="img-fluid" alt="Submit"/>
                 </form>
