@@ -1,4 +1,4 @@
-package dat.backend.control;
+package dat.backend.control.userSpecific;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
