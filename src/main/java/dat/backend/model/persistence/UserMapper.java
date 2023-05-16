@@ -51,19 +51,19 @@ class UserMapper
 
         if(password.length() <= 4)
         {
-            throw new IllegalArgumentException("Your password has to be at least 5 characters");
+            throw new IllegalArgumentException("Kodeord skal være mindst 5 tegn");
         }
 
         if(email.contains(" "))
         {
-            throw new IllegalArgumentException("Your email cant contain space");
+            throw new IllegalArgumentException("Email adressen må ikke indeholde mellemrum");
         }
 
         User user = getUserByEmail(email, connectionPool);
 
         if (user != null)
         {
-            throw new DatabaseException("Can't make a new user that already exists");
+            throw new IllegalArgumentException("Der eksisterer allerede en bruger med den indtastede email adresse");
         }
 
         String sql = "insert into user (`e-mail`, password, role, address, city, phone) values (?, ?, ?, ?, ?, ?)";
