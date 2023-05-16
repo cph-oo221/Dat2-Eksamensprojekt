@@ -13,6 +13,11 @@
     margin: auto;
 }
 
+.inputBoxSizeHeight
+{
+    height: 35px;
+}
+
 .inputBoxSize
 {
     width: 100%;
