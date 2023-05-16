@@ -20,7 +20,7 @@ public class PartsListCalculator
         // TODO: TEST MY METALCALC
         List<OrderItem> rafters = calcRafter(width, length, connectionPool);
 
-        OrderItem poles = poleCalc(length, width, connectionPool);
+        List<OrderItem> poles = poleCalc(length, width, connectionPool);
         OrderItem rems = remCalc(length, connectionPool);
         List<OrderItem> sterns = sternCalc(length, width, connectionPool);
 
@@ -36,7 +36,7 @@ public class PartsListCalculator
         }
 
         orderItemList.addAll(rafters);
-        orderItemList.add(poles);
+        orderItemList.addAll(poles);
         orderItemList.add(rems);
         orderItemList.addAll(sterns);
 
@@ -134,10 +134,10 @@ public class PartsListCalculator
         return new OrderItem(amount, roof, desc);
     }
 
-    public static OrderItem poleCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> poleCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Stolper graves 90 cm ned i jord";
-        int poles = 4;
+        int amount = 4;
 
         double lenPoles = ((length - CARPORT_HANG *2) / MAX_POLE_DIST) + 1;
         double widthPoles = ((width - CARPORT_HANG *2) / MAX_POLE_DIST) + 1;
@@ -145,13 +145,21 @@ public class PartsListCalculator
         double extraLen = Math.ceil(lenPoles - 2) * 2;
         double extraWidth = Math.ceil(widthPoles - 2) * 2;
 
-        poles += extraLen;
-        poles += extraWidth;
+        amount += extraLen;
+        amount += extraWidth;
 
 
         List<Wood> poleList = Facade.getWoodByVariant("Stolpe", connectionPool);
         Wood pole = poleList.get(0);
-        return new OrderItem(poles, pole, desc);
+
+        OrderItem poleOrder = new OrderItem(amount, pole, desc);
+        OrderItem poleMetal = MetalCalculator.getPoleMetal(amount, connectionPool);
+
+        List<OrderItem> output = new ArrayList<>();
+        output.add(poleOrder);
+        output.add(poleMetal);
+
+        return output;
     }
 
     public static List<OrderItem> calcRafter(double width, double length, ConnectionPool connectionPool) throws DatabaseException
@@ -229,10 +237,7 @@ public class PartsListCalculator
             remAmount = (int) Math.ceil(amountBuffer) * 2;
         }*/
 
-        OrderItem remItem = getOptimalItem(woods, length, desc, 2, 2);
-        return remItem;
-
-       // return new WoodOrderItem(remAmount, rem, desc);
+        return getOptimalItem(woods, length, desc, 2, 2);
     }
 
     public static List<OrderItem> getShed(double width, double shedLength, ConnectionPool connectionPool) throws DatabaseException

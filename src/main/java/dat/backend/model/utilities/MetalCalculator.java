@@ -29,7 +29,7 @@ public class MetalCalculator
         {
             for (Material m: screws)
             {
-                if (m.getName().contains("100mm"));
+                if (m.getName().contains("100mm"))
                 {
                     screw = m;
                 }
@@ -40,7 +40,7 @@ public class MetalCalculator
         {
             for (Material m: screws)
             {
-                if (m.getName().contains("50mm"));
+                if (m.getName().contains("50mm"))
                 {
                     screw = m;
                 }
@@ -60,5 +60,12 @@ public class MetalCalculator
         output.add(screwOrder);
 
         return output;
+    }
+
+    public static OrderItem getPoleMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
+    {
+        List<Metal> bolts = Facade.getMetalByVariant("Bræddebolt", connectionPool);
+
+        return new OrderItem(amount * 2, bolts.get(0), "Remme sadles ned i stolper, og fastgøre med bræddebolte");
     }
 }
