@@ -14,6 +14,8 @@
 
     <jsp:body>
 
+        <%-- TODO - DONT THINK WE USE THIS (welcome.jsp) MAYBE JUST DELETE IT ?¿?¿  --%>
+
         <p>You should be logged in now</p>
 
         <c:if test="${sessionScope.user != null}">
