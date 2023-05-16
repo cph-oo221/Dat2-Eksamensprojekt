@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -454,5 +455,73 @@ public class CarportCalcTest
         {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    void roofingMetalTest() throws DatabaseException
+    {
+        List<Wood> roofing = Facade.getWoodByVariant("Tag", connectionPool);
+
+        OrderItem roofingOrderItem = new OrderItem(10 , roofing.get(0), "test");
+
+        Metal expectedScrew = new Metal(3,"50mm skruer 200 stk.", 5, "Pakke", "Skrue");
+
+        OrderItem expected = new OrderItem(roofingOrderItem.getAmount()*12, expectedScrew, "Skruer til tagplader");
+
+        // 12 skruer pr m^2
+        List<Metal> screws = Facade.getMetalByVariant("Skrue" , connectionPool);
+
+        Metal screw = null;
+
+        for(Metal m : screws)
+        {
+            if(m.getName().contains("50mm"))
+            {
+                screw = m;
+            }
+        }
+
+        int screwAmount = roofingOrderItem.getAmount() * 12;
+        OrderItem actual = new OrderItem(screwAmount , screw , "Skruer til tagplader");
+
+        assertEquals(expected.getAmount(), actual.getAmount());
+        assertEquals(expected.getMaterial(), actual.getMaterial());
+
+    }
+
+    @Test
+    void sternMetalTest() throws DatabaseException
+    {
+        Metal expectedScrew = new Metal(1,"100mm skruer 200 stk.", 10, "Pakke", "Skrue");
+        OrderItem expectedScrewItem = new OrderItem(16, expectedScrew, "test");
+
+        double length = 250;
+        double width = 250;
+        List<OrderItem> raftersWMetal = PartsListCalculator.calcRafter(length, width, connectionPool);
+
+        OrderItem rafters = null;
+        for(OrderItem o : raftersWMetal)
+        {
+            if(o.getMaterial() instanceof Wood)
+            {
+                rafters = o;
+            }
+        }
+        List<Metal> screws = Facade.getMetalByVariant("Skrue", connectionPool);
+        Metal actualScrew = null;
+        for(Metal m : screws)
+        {
+            if (m.getName().contains("100mm"))
+            {
+                actualScrew = m;
+            }
+        }
+
+        //4 skruer pr. rafter
+        int actualAmount = rafters.getAmount()*4;
+
+        assertEquals(actualAmount , expectedScrewItem.getAmount());
+        assertEquals(actualScrew , expectedScrew);
+
     }
 }

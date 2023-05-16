@@ -1,9 +1,9 @@
 package dat.backend.model.utilities;
 
-import ch.qos.logback.core.db.dialect.MsSQLDialect;
 import dat.backend.model.entities.Material;
 import dat.backend.model.entities.Metal;
 import dat.backend.model.entities.OrderItem;
+import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
@@ -60,6 +60,48 @@ public class MetalCalculator
         output.add(screwOrder);
 
         return output;
+    }
+
+    public static List<OrderItem> getRoofingMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
+    {
+        // 12 skruer pr m^2
+        List<OrderItem> output = new ArrayList<>();
+
+        List<Metal> screws = Facade.getMetalByVariant("Skrue" , connectionPool);
+
+        Metal screw = null;
+
+        for(Metal m : screws)
+        {
+            if(m.getName().contains("50mm"))
+            {
+                screw = m;
+            }
+        }
+
+        int screwAmount = amount * 12;
+        OrderItem screwOrder = new OrderItem(screwAmount , screw , "Skruer til tagplader");
+
+        output.add(screwOrder);
+
+        return output;
+    }
+
+    public static OrderItem getSternMetal(OrderItem rafters , ConnectionPool connectionPool) throws DatabaseException
+    {
+        List<Metal> screws = Facade.getMetalByVariant("Skrue",connectionPool);
+        Metal screw = null;
+        for(Metal m : screws)
+        {
+            if(m.getName().contains("100mm"))
+            {
+                screw = m;
+            }
+        }
+        //4 skruer pr. rafter
+        int amount = rafters.getAmount() * 4;
+
+        return new OrderItem(amount, screw, "skruer til montering af stern");
     }
 
     public static OrderItem getPoleMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
