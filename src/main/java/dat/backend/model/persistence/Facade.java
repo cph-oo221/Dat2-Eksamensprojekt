@@ -67,6 +67,11 @@ public class Facade
     {
         return ReceiptMapper.getReceiptById(idReceipt, connectionPool);
     }
+
+    public static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool)
+    {
+        return ReceiptMapper.updateReceiptPrice(newPrice, idReceipt, connectionPool);
+    }
     // /RECEIPT ********************************************************************************************************
 
     // WOOD ************************************************************************************************************
@@ -102,6 +107,7 @@ public class Facade
 
     // /WOOD ***********************************************************************************************************
 
+    // ORDER ***********************************************************************************************************
     public static int createOrder(int receiptId, List<OrderItem> woodOrderItemList, ConnectionPool connectionPool) throws DatabaseException
     {
         return OrderMapper.createOrder(receiptId, woodOrderItemList, connectionPool);
@@ -112,18 +118,15 @@ public class Facade
         return OrderMapper.getWoodOrderItemsByReceiptId(idReceipt, connectionPool);
     }
 
-    public static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool)
-    {
-        return ReceiptMapper.updateReceiptPrice(newPrice, idReceipt, connectionPool);
-    }
-
     public static void deleteOrderByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         OrderMapper.deleteWoodOrderByReceiptId(idReceipt, connectionPool);
     }
-
+    // /ORDER **********************************************************************************************************
 
     // METAL ***********************************************************************************************************
+
+   // FIXME: Wrong mapper
     public static List<OrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         return MetalMapper.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
