@@ -193,53 +193,53 @@
                             <form action="adminaction" method="post">
 
                                 <label for="name" class="fw-bold"> Navn </label><br/>
-                                <input type="text" id="name" name="name" style="width: 100%; height: 35px;"
+                                <input type="text" id="name" name="name" class="inputBoxSize"
                                        placeholder="Angiv Navn"/>
 
 
                                 <br/>
                                 <br/>
                                 <label for="length" class="fw-bold"> Længde </label><br/>
-                                <input type="number" id="length" name="length" style="width: 100%; height: 35px;"
+                                <input type="number" id="length" name="length" class="inputBoxSize"
                                        placeholder="Angiv Længde"/>
 
                                 <br/>
                                 <br/>
                                 <label for="width" class="fw-bold"> bredde </label><br/>
-                                <input type="number" id="width" name="width" style="width: 100%; height: 35px;"
+                                <input type="number" id="width" name="width" class="inputBoxSize"
                                        placeholder="Angiv Bredde"/>
 
                                 <br/>
                                 <br/>
                                 <label for="height" class="fw-bold"> Højde </label><br/>
-                                <input type="number" id="height" name="height" style="width: 100%; height: 35px;"
+                                <input type="number" id="height" name="height" class="inputBoxSize"
                                        placeholder="Angiv Højde"/>
 
 
                                 <br/>
                                 <br/>
                                 <label for="unit" class="fw-bold"> Enhed </label><br/>
-                                <input type="text" id="unit" name="unit" style="width: 100%; height: 35px;"
+                                <input type="text" id="unit" name="unit" class="inputBoxSize"
                                        placeholder="Angiv Enhed"/>
 
 
                                 <br/>
                                 <br/>
                                 <label for="variant" class="fw-bold"> Variant </label><br/>
-                                <input type="text" id="variant" name="variant" style="width: 100%; height: 35px;"
+                                <input type="text" id="variant" name="variant" class="inputBoxSize"
                                        placeholder="Angiv Variant"/>
 
 
                                 <br/>
                                 <br/>
                                 <label for="price" class="fw-bold"> Pris </label><br/>
-                                <input type="number" id="price" name="price" style="width: 100%; height: 35px;"
+                                <input type="number" id="price" name="price" class="inputBoxSize"
                                        placeholder="Angiv Pris"/>
 
                                 <br/>
                                 <br/>
                                 <input type="number" hidden name="action" value="5">
-                                <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
+                                <input type="submit" class="btn btn-primary fw-bold submitBtnSize"
                                        value="Tilføje"/>
                                 <br>
                             </form>
@@ -255,19 +255,19 @@
                             <form action="adminaction" method="post">
 
                                 <label for="idWood" class="fw-bold"> Træ ID </label><br/>
-                                <input type="number" id="idWood" name="idWood" style="width: 100%; height: 35px;"
+                                <input type="number" id="idWood" name="idWood" class="inputBoxSize"
                                        placeholder="Angiv Træ ID"/>
 
                                 <br/>
                                 <br/>
                                 <label for="newPrice" class="fw-bold"> Ny pris </label><br/>
-                                <input type="number" id="newPrice" name="newPrice" style="width: 100%; height: 35px;"
+                                <input type="number" id="newPrice" name="newPrice" class="inputBoxSize"
                                        placeholder="Angiv ny pris"/>
 
                                 <br/>
                                 <br/>
                                 <input type="number" hidden name="action" value="6">
-                                <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
+                                <input type="submit" class="btn btn-primary fw-bold submitBtnSize"
                                        value="Ændre pris"/>
                                 <br>
                             </form>
@@ -286,20 +286,20 @@
                             <form action="adminaction" method="post">
 
                                 <label for="idMetal" class="fw-bold"> Metal ID </label><br/>
-                                <input type="number" id="idMetal" name="idMetal" style="width: 100%; height: 35px;"
+                                <input type="number" id="idMetal" name="idMetal" class="inputBoxSize"
                                        placeholder="Angiv Træ ID"/>
 
                                 <br/>
                                 <br/>
                                 <label for="newPriceMetal" class="fw-bold"> Ny pris </label><br/>
                                 <input type="number" id="newPriceMetal" name="newPriceMetal"
-                                       style="width: 100%; height: 35px;"
+                                       class="inputBoxSize"
                                        placeholder="Angiv ny pris"/>
 
                                 <br/>
                                 <br/>
                                 <input type="number" hidden name="action" value="7">
-                                <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
+                                <input type="submit" class="btn btn-primary fw-bold submitBtnSize"
                                        value="Ændre pris"/>
                                 <br>
                             </form>
@@ -316,34 +316,34 @@
                             <form action="adminaction" method="post">
 
                                 <label for="metalName" class="fw-bold"> Navn </label><br/>
-                                <input type="text" id="metalName" name="metalName" style="width: 100%; height: 35px;"
+                                <input type="text" id="metalName" name="metalName" class="inputBoxSize"
                                        placeholder="Angiv Navn"/>
 
                                 <br/>
                                 <br/>
                                 <label for="metalPrice" class="fw-bold"> Price </label><br/>
                                 <input type="number" id="metalPrice" name="metalPrice"
-                                       style="width: 100%; height: 35px;"
+                                       class="inputBoxSize"
                                        placeholder="Angiv Price"/>
 
                                 <br/>
                                 <br/>
                                 <label for="metalUnit" class="fw-bold"> Enhed </label><br/>
-                                <input type="text" id="metalUnit" name="metalUnit" style="width: 100%; height: 35px;"
+                                <input type="text" id="metalUnit" name="metalUnit" class="inputBoxSize"
                                        placeholder="Angiv Enhed"/>
 
                                 <br/>
                                 <br/>
                                 <label for="metalVariant" class="fw-bold"> Variant </label><br/>
                                 <input type="text" id="metalVariant" name="metalVariant"
-                                       style="width: 100%; height: 35px;"
+                                       class="inputBoxSize"
                                        placeholder="Angiv Variant"/>
 
 
                                 <br/>
                                 <br/>
                                 <input type="number" hidden name="action" value="8">
-                                <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
+                                <input type="submit" class="btn btn-primary fw-bold submitBtnSize"
                                        value="Tilføje"/>
                                 <br>
                             </form>

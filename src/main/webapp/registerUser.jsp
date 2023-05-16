@@ -15,11 +15,10 @@
     <jsp:body>
 
         <div class="container mt-3">
-            <div class="card mt-2 p-1" style="position: center; margin-left: 25%; margin-right: 25%;">
+            <div class="card mt-2 p-1 cardPos">
                 <h1>SignUp</h1>
 
-                <img src="images/loginAndSignup/login-Icon.png" alt="login icon" width="125" height="125"
-                     style="display: block; margin: auto;">
+                <img src="images/loginAndSignup/login-Icon.png" alt="login icon" class="imgDisplay">
                 <hr>
                     <div class="text-center">
                         <p>${errorMSG}</p>
@@ -29,51 +28,45 @@
 
                             <%-- Email --%>
                         <label for="email" class="fw-bold popupSignUpEmail"> Email </label><br/>
-                        <input type="text" id="email" name="email" style="width: 100%; height: 35px;"
-                               placeholder="Angiv Email"/>
+                        <input type="text" id="email" name="email" class="inputBoxSize" placeholder="Angiv Email"/>
 
                         <br/>
                         <br/>
                             <%-- PASSWORD --%>
                         <label for="password" class="fw-bold popupSignUpPassword"> Password </label><br/>
-                        <input type="password" id="password" name="password" style="width: 100%; height: 35px;"
-                               placeholder="Angiv Password"/>
+                        <input type="password" id="password" name="password" class="inputBoxSize" placeholder="Angiv Password"/>
 
                         <br/>
                         <br/>
                             <%-- ADDRESS --%>
                         <label for="address" class="fw-bold popupSignUpAddress"> Adresse</label><br/>
-                        <input type="text" id="address" name="address" style="width: 100%; height: 35px;"
-                               placeholder="Angiv vej navn"/>
+                        <input type="text" id="address" name="address" class="inputBoxSize" placeholder="Angiv vej navn"/>
 
                         <br/>
                         <br/>
                             <%-- CITY --%>
                         <label for="city" class="fw-bold popupSignUpCity"> By</label><br/>
-                        <input type="text" id="city" name="city" style="width: 100%; height: 35px;"
-                               placeholder="Angiv by navn"/>
+                        <input type="text" id="city" name="city" class="inputBoxSize" placeholder="Angiv by navn"/>
 
 
                         <br/>
                         <br/>
                             <%-- PHONE NUMBER --%>
                         <label for="phoneNumber" class="fw-bold popupSignUpPhoneNumber"> Telefon nummer</label><br/>
-                        <input type="number" id="phoneNumber" name="phoneNumber" style="width: 100%; height: 35px;"
-                               placeholder="Angiv telefon nummer"/>
+                        <input type="number" id="phoneNumber" name="phoneNumber" class="inputBoxSize" placeholder="Angiv telefon nummer"/>
 
                         <br/>
                         <br/>
                             <%-- SIGNUP BTN (SUBMITS ) --%>
-                        <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;"
-                               value="SignUp"/>
+                        <input type="submit" class="btn btn-primary fw-bold submitBtnSize" value="SignUp"/>
                         <br>
                     </form>
                 </div>
             </div>
 
                 <%-- GRAY BOX WITH "AFBRYD" BTN  --%>
-            <div style="background-color: lightgray; height: 90px; margin-left: 25%; margin-right: 25%; display: flex; justify-content: space-between; align-items: center;">
-                <div style="margin-left: 5px;">
+            <div class="greyBox">
+                <div class="greyBoxSpacing">
                     <form action="index.jsp" method="post">
                         <input type="submit" class="btn btn-danger fw-bold" value="Afbryd">
                     </form>

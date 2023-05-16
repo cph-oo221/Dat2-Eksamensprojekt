@@ -18,7 +18,7 @@
             <div class="card mt-2 p-1 cardPos">
                 <h1>Login</h1>
 
-                <img src="images/loginAndSignup/login-Icon.png" alt="login icon" width="125" height="125" style="display: block; margin: auto;">
+                <img src="images/loginAndSignup/login-Icon.png" alt="login icon" class="imgDisplay">
                 <hr>
                 <div class="text-center">
                     <p> ${requestScope.errorMSG}</p>
@@ -29,26 +29,26 @@
                         <p>${requestScope.errormessage}</p>
 
                         <label for="email" class="fw-bold popupLoginEmail"> Email </label><br/>
-                        <input type="text" id="email" name="email" style="width: 100%; height: 35px;" placeholder="Angiv Email"/>
+                        <input type="text" id="email" name="email" class="inputBoxSize" placeholder="Angiv Email"/>
 
                         <br/>
                         <br/>
                         <label for="password" class="fw-bold popupLoginPassword"> Password </label><br/>
-                        <input type="password" id="password" name="password" style="width: 100%; height: 35px;" placeholder="Angiv Password"/>
+                        <input type="password" id="password" name="password" class="inputBoxSize" placeholder="Angiv Password"/>
 
                         <br/>
                         <br/>
-                        <input type="submit" class="btn btn-primary fw-bold" style="width: 100%; color: white;" value="Login"/>
+                        <input type="submit" class="btn btn-primary fw-bold submitBtnSize" value="Login"/>
                         <br>
                     </form>
                 </div>
             </div>
 
                 <%-- GRAY BOX WITH CREATED NEW USER "OPRET NY BRUGER" --%>
-            <div style="background-color: lightgray; height: 90px; margin-left: 25%; margin-right: 25%; display: flex; justify-content: space-between; align-items: center;">
-                <div style="margin-left: 5px;">
+            <div class="greyBox">
+                <div class="greyBoxSpacing">
                     <form action="registerUser.jsp" method="post">
-                        <input type="submit" class="btn btn-link" style="text-decoration: none;" value="opret ny bruger?">
+                        <input type="submit" class="btn btn-link noLineUnderBtn" value="opret ny bruger?">
                     </form>
                 </div>
             </div>
