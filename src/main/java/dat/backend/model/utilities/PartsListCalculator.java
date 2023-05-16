@@ -17,7 +17,9 @@ public class PartsListCalculator
     public static List<OrderItem> materialCalc(double length, double width, int shedLength, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
     {
         List<OrderItem> orderItemList = new ArrayList<>();
+        // TODO: TEST MY METALCALC
         List<OrderItem> rafters = calcRafter(width, length, connectionPool);
+
         OrderItem poles = poleCalc(length, width, connectionPool);
         OrderItem rems = remCalc(length, connectionPool);
         List<OrderItem> sterns = sternCalc(length, width, connectionPool);
@@ -33,7 +35,7 @@ public class PartsListCalculator
             orderItemList.addAll(shed);
         }
 
-        orderItemList.add(rafters);
+        orderItemList.addAll(rafters);
         orderItemList.add(poles);
         orderItemList.add(rems);
         orderItemList.addAll(sterns);
@@ -152,10 +154,11 @@ public class PartsListCalculator
         return new OrderItem(poles, pole, desc);
     }
 
-    private static List<OrderItem> calcRafter(double width, double length, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> calcRafter(double width, double length, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Spær placers på tværs af bygningen på tværs af remme med ca 55 cm mellemrum";
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
+        List<OrderItem> output = new ArrayList<>();
 
         woods.sort(new Comparator<Wood>()
         {
@@ -178,9 +181,10 @@ public class PartsListCalculator
 
         int amount = (int) Math.floor(getRafterAmount(length, raftAmountModifier));
 
-        List<OrderItem> metal = MetalCalculator.getRafterItems(amount, rafter.getWidth());
+        output.add(new OrderItem(amount, rafter, desc));
+        output.addAll(MetalCalculator.getRafterMetal(amount, rafter.getHeight(), connectionPool));
 
-       // return new OrderItem(amount, rafter, desc);
+       return output;
     }
 
     private static OrderItem remCalc(double length, ConnectionPool connectionPool) throws DatabaseException

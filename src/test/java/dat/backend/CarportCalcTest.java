@@ -2,6 +2,7 @@ package dat.backend;
 
 import dat.backend.model.config.Env;
 import dat.backend.model.entities.OrderItem;
+import dat.backend.model.utilities.MetalCalculator;
 import dat.backend.model.utilities.PartsListCalculator;
 import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
@@ -63,7 +64,6 @@ public class CarportCalcTest
             {
                 stmt.execute("use fog_test;");
                 stmt.execute("delete from fog_test.receipt");
-                stmt.execute("delete from fog_test.order");
                 stmt.execute("delete from fog_test.ordermetal");
                 stmt.execute("delete from fog_test.orderwood");
                 stmt.execute("delete from fog_test.wood");
@@ -74,8 +74,16 @@ public class CarportCalcTest
                 stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.user AUTO_INCREMENT = 1");
                 stmt.execute("INSERT INTO fog_test.metal (idmetal, name, price, unit, variant) VALUES " +
-                        "(1, '4,5x60 mm. skruer 200 stk.', 10, 'Pakke', 'Skruer')," +
-                        "(2, '5,6x80 mm. skruer 400 stk.', 60, 'Pakke', 'Skruer');");
+                                "(1, '100mm skruer 200 stk.',10, 'Pakke', 'Skrue')," +
+                        "(3, '50mm skruer 200 stk.', 5 , 'Pakke', 'Skrue')," +
+                        "(4,'Hulbånd' , 20 , 'Rulle', 'Hulbånd')," +
+                        "(5, 'Bræddebolt', 500 , 'Stk', 'Bræddebolt')," +
+                        "(6, 'Firkantskiver' , 20 , 'Stk', 'Firkantskiver')," +
+                        "(7, 'Stalddørsgreb' ,1337 , 'Sæt', 'Lås')," +
+                        "(8, 'T hængsel' , 80085 , 'Stk', 'Hængsel')," +
+                        "(9, 'Vinkelbeslag' , 123 , 'Stk', 'Vinkelbeslag')," +
+                        "(10, 'Universalbeslag højre' ,15 , 'Stk' , 'Beslag Højre')," +
+                        "(11, 'Universalbeslag venstre' , 15 , 'Stk', 'Beslag Venstre');");
                 stmt.execute("ALTER TABLE fog_test.metal ENABLE KEYS");
 
 
@@ -416,6 +424,22 @@ public class CarportCalcTest
             assertEquals(4, list.get(0).getAmount());
             assertEquals(6, list.get(1).getAmount());
         }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    void sternMetalTest()
+    {
+        try
+        {
+            List<OrderItem> list = MetalCalculator.getRafterMetal(10, 50, connectionPool);
+
+            assertEquals(3, list.size());
+        }
+
         catch (DatabaseException e)
         {
             fail(e.getMessage());

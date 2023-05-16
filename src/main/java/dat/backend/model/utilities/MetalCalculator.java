@@ -4,6 +4,8 @@ import ch.qos.logback.core.db.dialect.MsSQLDialect;
 import dat.backend.model.entities.Material;
 import dat.backend.model.entities.Metal;
 import dat.backend.model.entities.OrderItem;
+import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
 
 import java.util.ArrayList;
@@ -12,14 +14,14 @@ import java.util.List;
 public class MetalCalculator
 {
 
-    public static List<OrderItem> getRafterItems(int amount, int height)
+    public static List<OrderItem> getRafterMetal(int amount, int height, ConnectionPool connectionPool) throws DatabaseException
     {
         // 4 beslag pr spær, og 9 skruer pr beslag
 
         List<OrderItem> output = new ArrayList<>();
-        List<Material> screws = Facade.getMetalByVariant("Skruer");
-        List<Material> rfitting = Facade.getMetalByVariant("Beslag Højre");
-        List<Material> lfitting = Facade.getMetalByVariant("Beslag Venstre");
+        List<Metal> screws = Facade.getMetalByVariant("Skrue", connectionPool);
+        List<Metal> rfitting = Facade.getMetalByVariant("Beslag Højre", connectionPool);
+        List<Metal> lfitting = Facade.getMetalByVariant("Beslag Venstre", connectionPool);
 
         Material screw = null;
 
