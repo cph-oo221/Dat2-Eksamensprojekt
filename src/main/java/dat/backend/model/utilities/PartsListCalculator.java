@@ -1,5 +1,7 @@
-package dat.backend.model.entities;
+package dat.backend.model.utilities;
 
+import dat.backend.model.entities.OrderItem;
+import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
@@ -15,7 +17,7 @@ public class PartsListCalculator
     public static List<OrderItem> materialCalc(double length, double width, int shedLength, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
     {
         List<OrderItem> orderItemList = new ArrayList<>();
-        OrderItem rafters = calcRafter(width, length, connectionPool);
+        List<OrderItem> rafters = calcRafter(width, length, connectionPool);
         OrderItem poles = poleCalc(length, width, connectionPool);
         OrderItem rems = remCalc(length, connectionPool);
         List<OrderItem> sterns = sternCalc(length, width, connectionPool);
@@ -150,7 +152,7 @@ public class PartsListCalculator
         return new OrderItem(poles, pole, desc);
     }
 
-    private static OrderItem calcRafter(double width, double length, ConnectionPool connectionPool) throws DatabaseException
+    private static List<OrderItem> calcRafter(double width, double length, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Spær placers på tværs af bygningen på tværs af remme med ca 55 cm mellemrum";
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
@@ -176,7 +178,9 @@ public class PartsListCalculator
 
         int amount = (int) Math.floor(getRafterAmount(length, raftAmountModifier));
 
-        return new OrderItem(amount, rafter, desc);
+        List<OrderItem> metal = MetalCalculator.getRafterItems(amount, rafter.getWidth());
+
+       // return new OrderItem(amount, rafter, desc);
     }
 
     private static OrderItem remCalc(double length, ConnectionPool connectionPool) throws DatabaseException
@@ -239,7 +243,7 @@ public class PartsListCalculator
 
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
 
-        // TODO: TEST AND REMOVE OLD METHOD
+        // TODO: TEST AND REMOVE
        /* woods.sort(new Comparator<Wood>()
         {
             @Override
