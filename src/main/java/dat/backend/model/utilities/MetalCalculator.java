@@ -103,4 +103,25 @@ public class MetalCalculator
 
         return new OrderItem(amount, screw, "skruer til montering af stern");
     }
+
+    public static OrderItem getWire(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    {
+        List<Metal> wires = Facade.getMetalByVariant("hulbånd", connectionPool);
+
+        int amount = 0;
+        Metal wire = wires.get(0);
+
+        double hypotenuseSquared = (length*length) + (width*width);
+        double hypotenuse = Math.sqrt(hypotenuseSquared);
+        double bothHypotenuse = hypotenuse*2;
+
+        while(bothHypotenuse > 0)
+        {
+            amount++;
+            bothHypotenuse -= 1000;
+        }
+
+        OrderItem wireOI = new OrderItem(amount, wire, "Hulbånd monteres diagonalt under taget");
+        return wireOI;
+    }
 }
