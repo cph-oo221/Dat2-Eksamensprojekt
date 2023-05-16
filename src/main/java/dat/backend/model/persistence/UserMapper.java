@@ -34,10 +34,7 @@ class UserMapper
                     int phone = rs.getInt("phone");
 
                     user = new User(id, email, password, role, address, city, phone);
-                }
-                else
-                {
-                    throw new DatabaseException("Wrong username or password");
+                    return user;
                 }
             }
         }
@@ -45,7 +42,7 @@ class UserMapper
         {
             throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
         }
-        return user;
+        return null;
     }
 
     public static User createUser(String email, String password, String address, String city, int phoneNumber, String role, ConnectionPool connectionPool) throws DatabaseException

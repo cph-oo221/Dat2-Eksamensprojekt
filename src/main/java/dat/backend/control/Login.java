@@ -41,6 +41,13 @@ public class Login extends HttpServlet
 
         try
         {
+            if(Facade.login(email, password, connectionPool) == null)
+            {
+                String errorMSG = "Din email eller kode er forkert!";
+                request.setAttribute("errorMSG", errorMSG);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+
             User user = Facade.login(email, password, connectionPool);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
