@@ -23,6 +23,7 @@ public class PartsListCalculator
         List<OrderItem> poles = poleCalc(length, width, connectionPool);
         OrderItem rems = remCalc(length, connectionPool);
         List<OrderItem> sterns = sternCalc(length, width, connectionPool);
+        OrderItem wires = MetalCalculator.getWire(length, width, connectionPool);
 
         if (withRoof)
         {
@@ -35,6 +36,7 @@ public class PartsListCalculator
             orderItemList.addAll(shed);
         }
 
+        orderItemList.add(wires);
         orderItemList.addAll(rafters);
         orderItemList.addAll(poles);
         orderItemList.add(rems);
