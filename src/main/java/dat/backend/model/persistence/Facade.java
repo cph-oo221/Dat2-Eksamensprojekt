@@ -153,4 +153,9 @@ public class Facade
     {
         return MetalMapper.getMetalById(idMetal, connectionPool);
     }
+
+    public static List<Metal> getMetalByVariant(String variant, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return MetalMapper.getMetalByVariant(variant, connectionPool);
+    }
 }

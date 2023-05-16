@@ -217,7 +217,7 @@ public class MetalMapper
 
 
 
-    protected static List<Metal> getWoodByVariant(String variant, ConnectionPool connectionPool) throws DatabaseException
+    protected static List<Metal> getMetalByVariant(String variant, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "SELECT * FROM metal WHERE variant = ?";
 
