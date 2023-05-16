@@ -3,10 +3,10 @@ package dat.backend;
 import dat.backend.model.config.Env;
 import dat.backend.model.entities.Material;
 import dat.backend.model.entities.Metal;
-import dat.backend.model.entities.Wood;
 import dat.backend.model.entities.OrderItem;
 import dat.backend.model.utilities.MetalCalculator;
 import dat.backend.model.utilities.PartsListCalculator;
+import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
@@ -401,9 +401,11 @@ public class CarportCalcTest
     {
         try
         {
-            OrderItem item = PartsListCalculator.poleCalc(1450, 1450, connectionPool);
+            List<OrderItem> items = PartsListCalculator.poleCalc(1450, 1450, connectionPool);
 
-            assertEquals(20, item.getAmount());
+            assertEquals(20, items.get(0).getAmount());
+
+            assertEquals(40, items.get(1).getAmount());
         }
         catch (DatabaseException e)
         {
@@ -438,9 +440,15 @@ public class CarportCalcTest
     {
         try
         {
-            List<OrderItem> list = MetalCalculator.getRafterMetal(10, 50, connectionPool);
+            List<OrderItem> list = MetalCalculator.getRafterMetal(10, 60, connectionPool);
+            Material expected = new Metal(1, "100mm skruer 200 stk.", 10, "Pakke", "Skrue");
 
             assertEquals(3, list.size());
+            assertEquals(20, list.get(0).getAmount());
+            assertEquals(20, list.get(1).getAmount());
+            assertEquals(360, list.get(2).getAmount());
+
+            assertEquals(expected, list.get(2).getMaterial());
         }
 
         catch (DatabaseException e)

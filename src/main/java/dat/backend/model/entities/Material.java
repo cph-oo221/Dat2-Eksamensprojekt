@@ -76,4 +76,19 @@ public abstract class Material
     }
 
     public abstract boolean isInstance(Object o);
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Material material = (Material) o;
+        return id == material.id && price == material.price && name.equals(material.name) && unit.equals(material.unit) && variant.equals(material.variant);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id, name, price, unit, variant);
+    }
 }

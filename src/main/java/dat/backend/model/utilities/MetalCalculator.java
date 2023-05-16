@@ -104,6 +104,13 @@ public class MetalCalculator
         return new OrderItem(amount, screw, "skruer til montering af stern");
     }
 
+    public static OrderItem getPoleMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
+    {
+        List<Metal> bolts = Facade.getMetalByVariant("Bræddebolt", connectionPool);
+
+        return new OrderItem(amount * 2, bolts.get(0), "Remme sadles ned i stolper, og fastgøre med bræddebolte");
+    }
+
     public static OrderItem getWire(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         List<Metal> wires = Facade.getMetalByVariant("hulbånd", connectionPool);
