@@ -82,7 +82,7 @@
                 </tr>
                 </thead>
                 <c:forEach var="item" items="${requestScope.metalList}">
-                    <%--<c:if test="${item.material.isInstance(Metal)}">--%>
+                    <c:if test="${item.material.class.name.equals('Metal.class')}">
                         <tbody>
                         <tr>
                             <td>${item.material.name}</td>
@@ -91,7 +91,7 @@
                             <td>${item.desc}</td>
                         </tr>
                         </tbody>
-                    <%--</c:if>--%>
+                    </c:if>
                 </c:forEach>
             </table>
 

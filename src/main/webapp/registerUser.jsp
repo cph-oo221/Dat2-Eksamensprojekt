@@ -21,7 +21,9 @@
                 <img src="images/loginAndSignup/login-Icon.png" alt="login icon" width="125" height="125"
                      style="display: block; margin: auto;">
                 <hr>
-
+                    <div class="text-center">
+                        <p>${errorMSG}</p>
+                    </div>
                 <div class="mt-1">
                     <form action="signup" method="post">
 

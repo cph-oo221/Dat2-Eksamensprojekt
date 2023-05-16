@@ -58,5 +58,11 @@ public class SignUp extends HttpServlet
             request.setAttribute("errormessage", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
+
+        catch (IllegalArgumentException e)
+        {
+            request.setAttribute("errorMSG", e.getMessage());
+            request.getRequestDispatcher("registerUser.jsp").forward(request, response);
+        }
     }
 }
