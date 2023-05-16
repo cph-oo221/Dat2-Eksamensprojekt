@@ -15,7 +15,7 @@ public class Facade
         return UserMapper.login(username, password, connectionPool);
     }
 
-    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role, ConnectionPool connectionPool) throws SQLException, DatabaseException
+    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role, ConnectionPool connectionPool) throws SQLException, DatabaseException, IllegalArgumentException
     {
         return UserMapper.createUser(email, password, address, city, phoneNumber, role, connectionPool);
     }
