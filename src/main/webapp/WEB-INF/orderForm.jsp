@@ -13,7 +13,6 @@
     </jsp:attribute>
 
     <jsp:body>
-        <%--TODO: create makeorder servlet--%>
         <div class="container mt-4">
             <div class="card mt-2 p-1" style="position: center; margin-left: 25%; margin-right: 25%;">
                 <form action="makeorder" method="post">

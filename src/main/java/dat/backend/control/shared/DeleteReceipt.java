@@ -1,4 +1,4 @@
-package dat.backend.control;
+package dat.backend.control.shared;
 
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Receipt;

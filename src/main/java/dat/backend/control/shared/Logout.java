@@ -1,4 +1,4 @@
-package dat.backend.control;
+package dat.backend.control.shared;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
