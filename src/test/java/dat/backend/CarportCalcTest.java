@@ -1,8 +1,11 @@
 package dat.backend;
 
 import dat.backend.model.config.Env;
+import dat.backend.model.entities.Material;
+import dat.backend.model.entities.Metal;
 import dat.backend.model.entities.OrderItem;
-import dat.backend.model.entities.PartsListCalculator;
+import dat.backend.model.utilities.MetalCalculator;
+import dat.backend.model.utilities.PartsListCalculator;
 import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
@@ -14,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -63,7 +67,6 @@ public class CarportCalcTest
             {
                 stmt.execute("use fog_test;");
                 stmt.execute("delete from fog_test.receipt");
-                stmt.execute("delete from fog_test.order");
                 stmt.execute("delete from fog_test.ordermetal");
                 stmt.execute("delete from fog_test.orderwood");
                 stmt.execute("delete from fog_test.wood");
@@ -74,8 +77,16 @@ public class CarportCalcTest
                 stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.user AUTO_INCREMENT = 1");
                 stmt.execute("INSERT INTO fog_test.metal (idmetal, name, price, unit, variant) VALUES " +
-                        "(1, '4,5x60 mm. skruer 200 stk.', 10, 'Pakke', 'Skruer')," +
-                        "(2, '5,6x80 mm. skruer 400 stk.', 60, 'Pakke', 'Skruer');");
+                                "(1, '100mm skruer 200 stk.',10, 'Pakke', 'Skrue')," +
+                        "(3, '50mm skruer 200 stk.', 5 , 'Pakke', 'Skrue')," +
+                        "(4,'Hulbånd' , 20 , 'Rulle', 'Hulbånd')," +
+                        "(5, 'Bræddebolt', 500 , 'Stk', 'Bræddebolt')," +
+                        "(6, 'Firkantskiver' , 20 , 'Stk', 'Firkantskiver')," +
+                        "(7, 'Stalddørsgreb' ,1337 , 'Sæt', 'Lås')," +
+                        "(8, 'T hængsel' , 80085 , 'Stk', 'Hængsel')," +
+                        "(9, 'Vinkelbeslag' , 123 , 'Stk', 'Vinkelbeslag')," +
+                        "(10, 'Universalbeslag højre' ,15 , 'Stk' , 'Beslag Højre')," +
+                        "(11, 'Universalbeslag venstre' , 15 , 'Stk', 'Beslag Venstre');");
                 stmt.execute("ALTER TABLE fog_test.metal ENABLE KEYS");
 
 
@@ -390,9 +401,11 @@ public class CarportCalcTest
     {
         try
         {
-            OrderItem item = PartsListCalculator.poleCalc(1450, 1450, connectionPool);
+            List<OrderItem> items = PartsListCalculator.poleCalc(1450, 1450, connectionPool);
 
-            assertEquals(20, item.getAmount());
+            assertEquals(20, items.get(0).getAmount());
+
+            assertEquals(40, items.get(1).getAmount());
         }
         catch (DatabaseException e)
         {
@@ -420,5 +433,95 @@ public class CarportCalcTest
         {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    void rafterMetalTest()
+    {
+        try
+        {
+            List<OrderItem> list = MetalCalculator.getRafterMetal(10, 60, connectionPool);
+            Material expected = new Metal(1, "100mm skruer 200 stk.", 10, "Pakke", "Skrue");
+
+            assertEquals(3, list.size());
+            assertEquals(20, list.get(0).getAmount());
+            assertEquals(20, list.get(1).getAmount());
+            assertEquals(360, list.get(2).getAmount());
+
+            assertEquals(expected, list.get(2).getMaterial());
+        }
+
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    void roofingMetalTest() throws DatabaseException
+    {
+        List<Wood> roofing = Facade.getWoodByVariant("Tag", connectionPool);
+
+        OrderItem roofingOrderItem = new OrderItem(10 , roofing.get(0), "test");
+
+        Metal expectedScrew = new Metal(3,"50mm skruer 200 stk.", 5, "Pakke", "Skrue");
+
+        OrderItem expected = new OrderItem(roofingOrderItem.getAmount()*12, expectedScrew, "Skruer til tagplader");
+
+        // 12 skruer pr m^2
+        List<Metal> screws = Facade.getMetalByVariant("Skrue" , connectionPool);
+
+        Metal screw = null;
+
+        for(Metal m : screws)
+        {
+            if(m.getName().contains("50mm"))
+            {
+                screw = m;
+            }
+        }
+
+        int screwAmount = roofingOrderItem.getAmount() * 12;
+        OrderItem actual = new OrderItem(screwAmount , screw , "Skruer til tagplader");
+
+        assertEquals(expected.getAmount(), actual.getAmount());
+        assertEquals(expected.getMaterial(), actual.getMaterial());
+
+    }
+
+    @Test
+    void sternMetalTest() throws DatabaseException
+    {
+        Metal expectedScrew = new Metal(1,"100mm skruer 200 stk.", 10, "Pakke", "Skrue");
+        OrderItem expectedScrewItem = new OrderItem(16, expectedScrew, "test");
+
+        double length = 250;
+        double width = 250;
+        List<OrderItem> raftersWMetal = PartsListCalculator.calcRafter(length, width, connectionPool);
+
+        OrderItem rafters = null;
+        for(OrderItem o : raftersWMetal)
+        {
+            if(o.getMaterial() instanceof Wood)
+            {
+                rafters = o;
+            }
+        }
+        List<Metal> screws = Facade.getMetalByVariant("Skrue", connectionPool);
+        Metal actualScrew = null;
+        for(Metal m : screws)
+        {
+            if (m.getName().contains("100mm"))
+            {
+                actualScrew = m;
+            }
+        }
+
+        //4 skruer pr. rafter
+        int actualAmount = rafters.getAmount()*4;
+
+        assertEquals(actualAmount , expectedScrewItem.getAmount());
+        assertEquals(actualScrew , expectedScrew);
+
     }
 }

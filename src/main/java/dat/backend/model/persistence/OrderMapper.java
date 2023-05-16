@@ -17,23 +17,32 @@ public class OrderMapper
 {
     protected static int createOrder(int receiptId, List<OrderItem> orderItemList, ConnectionPool connectionPool) throws DatabaseException
     {
-        Logger.getLogger("web").log(Level.INFO,"Saving orderlist for receipt: " + receiptId);
+        Logger.getLogger("web").log(Level.INFO, "Saving orderlist for receipt: " + receiptId);
 
-        String sql = "INSERT INTO orderwood (idreceipt, idwood, amount, description) VALUES (?, ?, ?, ?);";
+        String sqlw = "INSERT INTO orderwood (idreceipt, idwood, amount, description) VALUES (?, ?, ?, ?);";
+        String sqlm = "INSERT INTO ordermetal (idreceipt, idmetal, amount, description) VALUES (?, ?, ?, ?);";
 
         try (Connection connection = connectionPool.getConnection())
         {
-            for (OrderItem w : orderItemList)
+            for (OrderItem i : orderItemList)
             {
-                try (PreparedStatement ps = connection.prepareStatement(sql))
-                {
-                    ps.setInt(1, receiptId);
-                    ps.setInt(2, w.getMaterial().getId());
-                    ps.setInt(3, w.getAmount());
-                    ps.setString(4, w.getDesc());
+                PreparedStatement ps;
 
-                    ps.executeUpdate();
+                if (i.getMaterial() instanceof Wood)
+                {
+                    ps = connection.prepareStatement(sqlw);
                 }
+                else
+                {
+                    ps = connection.prepareStatement(sqlm);
+                }
+
+                ps.setInt(1, receiptId);
+                ps.setInt(2, i.getMaterial().getId());
+                ps.setInt(3, i.getAmount());
+                ps.setString(4, i.getDesc());
+
+                ps.executeUpdate();
             }
 
             try (PreparedStatement ps = connection.prepareStatement("SELECT LAST_INSERT_ID();"))
@@ -45,8 +54,7 @@ public class OrderMapper
                     return rs.getInt(1);
                 }
             }
-        }
-        catch (SQLException throwables)
+        } catch (SQLException throwables)
         {
             throw new DatabaseException(throwables.getMessage());
         }
@@ -55,7 +63,7 @@ public class OrderMapper
 
     protected static List<OrderItem> getWoodOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
-        Logger.getLogger("web").log(Level.INFO,"Fetching items from receipt: " + idReceipt);
+        Logger.getLogger("web").log(Level.INFO, "Fetching items from receipt: " + idReceipt);
 
         String sql = "SELECT * FROM orderwood\n" +
                 "JOIN wood w on orderwood.idwood = w.idwood\n" +
@@ -92,9 +100,7 @@ public class OrderMapper
                 }
                 return orderItems;
             }
-        }
-
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             throw new DatabaseException(e.getMessage());
         }
@@ -112,9 +118,7 @@ public class OrderMapper
 
                 ps.executeUpdate();
             }
-        }
-
-        catch (SQLException e)
+        } catch (SQLException e)
         {
             throw new DatabaseException(e.getMessage());
         }

@@ -5,6 +5,7 @@ import dat.backend.model.entities.*;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
+import dat.backend.model.utilities.PartsListCalculator;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
