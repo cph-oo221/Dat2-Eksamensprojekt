@@ -1,17 +1,13 @@
 /* CSS stylesheet  for application */
 @import "popups.css"; /* Import other css doc. */
+@import "wrapper.css";
 
-table
+h1
 {
-    border-collapse: collapse;
-    border: 1px solid silver;
-    padding: 15px;
+    color: darkblue;
 }
 
-th, td
+h2, h3, h4, h4
 {
-    border: 1px solid silver;
-    padding: 15px;
+    color: blue;
 }
-
-

@@ -15,13 +15,13 @@
     <jsp:body>
 
         <div class="container mt-3">
-            <div class="card mt-2 p-1" style="position: center; margin-left: 25%; margin-right: 25%;">
+            <div class="card mt-2 p-1 cardPos">
                 <h1>Login</h1>
 
                 <img src="images/loginAndSignup/login-Icon.png" alt="login icon" width="125" height="125" style="display: block; margin: auto;">
                 <hr>
                 <div class="text-center">
-                    <gfp> ${requestScope.errorMSG}</gfp>
+                    <p> ${requestScope.errorMSG}</p>
                 </div>
 
                 <div class="mt-1">
