@@ -103,8 +103,6 @@ public class CarportCalcTest
         }
     }
 
-
-
     @Test
     void shedTest()
     {
@@ -330,8 +328,6 @@ public class CarportCalcTest
             fail(e.getMessage());
         }
     }
-
-
 
     private Wood selectWood(List<Wood> woods, double length)
     {
