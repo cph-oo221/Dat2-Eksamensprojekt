@@ -2,6 +2,7 @@ package dat.backend.model.persistence;
 
 import dat.backend.model.entities.Metal;
 import dat.backend.model.entities.OrderItem;
+import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.Connection;
@@ -212,5 +213,44 @@ public class MetalMapper
             throw new DatabaseException(e.getMessage());
         }
         return null;
+    }
+
+
+
+    protected static List<Metal> getWoodByVariant(String variant, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String sql = "SELECT * FROM metal WHERE variant = ?";
+
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setString(1, variant);
+
+                ResultSet rs = ps.executeQuery();
+                List<Metal> metalList = new ArrayList<>();
+
+                while (rs.next())
+                {
+                    int idMetal = rs.getInt("idmetal");
+                    String name = rs.getString("name");
+                    int price = rs.getInt("price");
+                    String unit = rs.getString("unit");
+
+                    metalList.add(new Metal(idMetal, name, price, unit, variant));
+                }
+
+                if (metalList.size() < 1)
+                {
+                    throw new DatabaseException("Nothing found for specified wood variant!");
+                }
+                return metalList;
+            }
+        }
+
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 }
