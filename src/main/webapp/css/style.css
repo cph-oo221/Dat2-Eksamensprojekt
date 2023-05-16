@@ -18,3 +18,24 @@ h2, h3, h4
 {
     color: green;
 }
+
+.errorMSG
+{
+    color: red;
+}
+
+.nav-item
+{
+    font-weight: 900;
+    color: white !important;
+}
+
+.colorTextFog
+{
+    color: #013d7a;
+}
+
+.backgroundColorFog
+{
+    background-color: #013d7a;
+}
