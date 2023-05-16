@@ -20,13 +20,13 @@
 
                 <img src="images/loginAndSignup/login-Icon.png" alt="login icon" class="imgDisplay">
                 <hr>
-                <div class="text-center">
+                <div class="text-center errorMSG">
                     <p> ${requestScope.errorMSG}</p>
                 </div>
 
                 <div class="mt-1">
                     <form action="login" method="post">
-                        <p>${requestScope.errormessage}</p>
+                        <p class="errorMSG">${requestScope.errormessage}</p>
 
                         <label for="email" class="fw-bold popupLoginEmail"> Email </label><br/>
                         <input type="text" id="email" name="email" class="inputBoxSize" placeholder="Angiv Email"/>
