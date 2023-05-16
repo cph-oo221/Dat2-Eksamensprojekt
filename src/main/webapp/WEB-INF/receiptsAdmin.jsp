@@ -200,8 +200,8 @@
                                     <td>${receipts.width}</td>
                                     <td>${receipts.length}</td>
                                     <td>${receipts.comment}</td>
-                                    <td class="text-center" style="color: green;">
-                                        <h4>Færdiggjort</h4>
+                                    <td class="text-center">
+                                        <h4 style="color: green;">Færdiggjort</h4>
 
                                         <div class="mt-2 text-center">
                                             <form action="itemslist" method="post">

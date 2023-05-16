@@ -62,7 +62,7 @@
                     <form action="adminaction" method="post">
 
                         <input type="number" hidden name="action" value="2">
-                        <input type="text" id="search" name="search" style="height: 35px;" placeholder="Search..."/>
+                        <input type="text" id="search" name="search" class="inputBoxSizeHeight" placeholder="Search..."/>
                         <input type="submit" class="btn btn-primary fw-bold mb-1" value="Søg"/>
                     </form>
                 </div>
