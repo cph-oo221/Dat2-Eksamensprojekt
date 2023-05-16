@@ -20,8 +20,8 @@
 
                 <img src="images/loginAndSignup/login-Icon.png" alt="login icon" class="imgDisplay">
                 <hr>
-                    <div class="text-center">
-                        <p>${errorMSG}</p>
+                    <div class="text-center errorMSG">
+                        <p>${requestScope.errorMSG}</p>
                     </div>
                 <div class="mt-1">
                     <form action="signup" method="post">

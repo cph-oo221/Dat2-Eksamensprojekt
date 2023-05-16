@@ -20,7 +20,7 @@
         </div>
 
         <div class="text-center">
-            <h3 style="color: green;">
+            <h3 class="colorGreen">
                     ${requestScope.product.name}
             </h3>
 
