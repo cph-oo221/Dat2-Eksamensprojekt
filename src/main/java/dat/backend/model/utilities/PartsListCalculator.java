@@ -131,6 +131,9 @@ public class PartsListCalculator
         List<Wood> roofing = Facade.getWoodByVariant("Tag", connectionPool);
         Wood roof = roofing.get(0);
         int amount = (int) Math.ceil(area/10000);
+
+        MetalCalculator.getRoofingMetal(amount , connectionPool);
+
         return new OrderItem(amount, roof, desc);
     }
 

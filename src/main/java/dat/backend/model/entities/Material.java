@@ -1,5 +1,7 @@
 package dat.backend.model.entities;
 
+import java.util.Objects;
+
 public abstract class Material
 {
     protected int id;
@@ -16,6 +18,21 @@ public abstract class Material
     public void setId(int id)
     {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Material material = (Material) o;
+        return id == material.id && price == material.price && name.equals(material.name) && unit.equals(material.unit) && variant.equals(material.variant);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id, name, price, unit, variant);
     }
 
     public String getName()
