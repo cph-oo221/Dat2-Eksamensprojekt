@@ -26,8 +26,8 @@ public class PartsListCalculator
 
         if (withRoof)
         {
-            OrderItem roofing = roofingCalc(length, width, connectionPool);
-            orderItemList.add(roofing);
+            List<OrderItem> roofing = roofingCalc(length, width, connectionPool);
+            orderItemList.addAll(roofing);
         }
         if (shedLength > 0)
         {
@@ -121,7 +121,7 @@ public class PartsListCalculator
         return orderItems;
     }
 
-    private static OrderItem roofingCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    private static List<OrderItem> roofingCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Tagplader skrues fast i spær";
         double area = length*width;
@@ -131,10 +131,14 @@ public class PartsListCalculator
         List<Wood> roofing = Facade.getWoodByVariant("Tag", connectionPool);
         Wood roof = roofing.get(0);
         int amount = (int) Math.ceil(area/10000);
+        OrderItem roofOI = new OrderItem(amount, roof, desc);
+        List<OrderItem> orderItemMetal = MetalCalculator.getRoofingMetal(amount , connectionPool);
+        List<OrderItem> output = new ArrayList<>();
 
-        MetalCalculator.getRoofingMetal(amount , connectionPool);
+        output.addAll(orderItemMetal);
+        output.add(roofOI);
 
-        return new OrderItem(amount, roof, desc);
+        return output;
     }
 
     public static OrderItem poleCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
@@ -184,7 +188,10 @@ public class PartsListCalculator
 
         int amount = (int) Math.floor(getRafterAmount(length, raftAmountModifier));
 
-        output.add(new OrderItem(amount, rafter, desc));
+        OrderItem rafters = new OrderItem(amount, rafter, desc);
+        output.add(rafters);
+        OrderItem sternMetal = MetalCalculator.getSternMetal(rafters, connectionPool);
+        output.add(sternMetal);
         output.addAll(MetalCalculator.getRafterMetal(amount, rafter.getHeight(), connectionPool));
 
        return output;

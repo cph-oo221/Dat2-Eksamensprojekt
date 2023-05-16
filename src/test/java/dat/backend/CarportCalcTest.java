@@ -1,11 +1,12 @@
 package dat.backend;
 
 import dat.backend.model.config.Env;
+import dat.backend.model.entities.Material;
 import dat.backend.model.entities.Metal;
+import dat.backend.model.entities.Wood;
 import dat.backend.model.entities.OrderItem;
 import dat.backend.model.utilities.MetalCalculator;
 import dat.backend.model.utilities.PartsListCalculator;
-import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
@@ -433,7 +434,7 @@ public class CarportCalcTest
     }
 
     @Test
-    void sternMetalTest()
+    void rafterMetalTest()
     {
         try
         {
@@ -477,6 +478,42 @@ public class CarportCalcTest
 
         assertEquals(expected.getAmount(), actual.getAmount());
         assertEquals(expected.getMaterial(), actual.getMaterial());
+
+    }
+
+    @Test
+    void sternMetalTest() throws DatabaseException
+    {
+        Metal expectedScrew = new Metal(1,"100mm skruer 200 stk.", 10, "Pakke", "Skrue");
+        OrderItem expectedScrewItem = new OrderItem(16, expectedScrew, "test");
+
+        double length = 250;
+        double width = 250;
+        List<OrderItem> raftersWMetal = PartsListCalculator.calcRafter(length, width, connectionPool);
+
+        OrderItem rafters = null;
+        for(OrderItem o : raftersWMetal)
+        {
+            if(o.getMaterial() instanceof Wood)
+            {
+                rafters = o;
+            }
+        }
+        List<Metal> screws = Facade.getMetalByVariant("Skrue", connectionPool);
+        Metal actualScrew = null;
+        for(Metal m : screws)
+        {
+            if (m.getName().contains("100mm"))
+            {
+                actualScrew = m;
+            }
+        }
+
+        //4 skruer pr. rafter
+        int actualAmount = rafters.getAmount()*4;
+
+        assertEquals(actualAmount , expectedScrewItem.getAmount());
+        assertEquals(actualScrew , expectedScrew);
 
     }
 }
