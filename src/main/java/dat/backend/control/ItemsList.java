@@ -40,7 +40,9 @@ public class ItemsList extends HttpServlet
             List<OrderItem> woodList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
             List<OrderItem> metalList = Facade.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
 
-//            List<MetalOrderItem> metalList = Facade.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
+           /* List<OrderItem> itemList = new ArrayList<>();
+            itemList.addAll(woodList);
+            itemList.addAll(metalList);*/
 //            List<OrderItem> orderItemList = new ArrayList<>();
 //            orderItemList.addAll(itemList);
 //            orderItemList.addAll(metalList);
@@ -75,6 +77,7 @@ public class ItemsList extends HttpServlet
             request.setAttribute("netPrice", netPrice);
             request.setAttribute("woodList", woodList);
             request.setAttribute("metalList", metalList);
+            // request.setAttribute("itemList", itemList);
             request.setAttribute("orderState", r.getOrderState());
             request.getRequestDispatcher("WEB-INF/itemsList.jsp").forward(request, response);
         }
