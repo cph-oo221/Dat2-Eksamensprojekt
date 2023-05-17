@@ -5,6 +5,7 @@ import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +39,7 @@ public class ReceiptMapper
                     receipt = new Receipt(idReceipt, idUser, time, orderstate, width, length, price, comment);
                     receiptList.add(receipt);
                 }
+                Collections.reverse(receiptList);
                 return receiptList;
             }
         }
@@ -178,6 +180,7 @@ public class ReceiptMapper
         {
             throw new DatabaseException(e.getMessage());
         }
+        Collections.reverse(receiptList);
         return receiptList;
     }
 

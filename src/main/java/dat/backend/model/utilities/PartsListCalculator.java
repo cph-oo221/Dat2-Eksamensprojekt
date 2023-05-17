@@ -104,11 +104,11 @@ public class PartsListCalculator
         Wood pole = poleList.get(0);
 
         OrderItem poleOrder = new OrderItem(amount, pole, desc);
-        OrderItem poleMetal = MetalCalculator.getPoleMetal(amount, connectionPool);
+        List<OrderItem> poleMetal = MetalCalculator.getPoleMetal(amount, connectionPool);
 
         List<OrderItem> output = new ArrayList<>();
         output.add(poleOrder);
-        output.add(poleMetal);
+        output.addAll(poleMetal);
 
         return output;
     }

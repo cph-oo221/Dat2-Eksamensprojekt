@@ -52,6 +52,7 @@
                             <tr>
                                 <td>${item.material.name}</td>
                                 <td>${item.amount}</td>
+                                <td>${item.material.unit}</td>
                                 <td>${item.material.price}</td>
                                 <td>${item.desc}</td>
                             </tr>
@@ -81,6 +82,7 @@
                         <tr>
                             <td>${item.material.name}</td>
                             <td>${item.amount}</td>
+                            <td>${item.material.unit}</td>
                             <td>${item.material.price}</td>
                             <td>${item.desc}</td>
                         </tr>
