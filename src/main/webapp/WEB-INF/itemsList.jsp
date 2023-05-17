@@ -108,6 +108,7 @@
 
                         <input type="number" id="pris" name="pris" class="inputBoxSizeHeight"/>
                         <input type="number" hidden name="idReceipt" value="${requestScope.idReceipt}"/>
+                        <input type="number" hidden name="netPrice" value="${requestScope.netPrice}"/>
                         <input type="submit" class="btn btn-primary fw-bold mb-1" value="Sæt pris"/>
                     </form>
                 </div>

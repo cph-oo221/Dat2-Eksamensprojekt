@@ -35,14 +35,34 @@ public class updatePrice extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         request.setCharacterEncoding("UTF-8");
-        int newPrice = Integer.parseInt(request.getParameter("pris"));
+
+        String newPrice = request.getParameter("pris");
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
+        int netPrice = Integer.parseInt(request.getParameter("netPrice"));
 
         try
         {
-            int rowsAffected = Facade.updateReceiptPrice(newPrice, idReceipt, connectionPool);
+            Receipt r = Facade.getReceiptById(idReceipt, connectionPool);
+            int price;
 
-            if(rowsAffected > 0)
+            if (!newPrice.equals(""))
+            {
+                price = Integer.parseInt(newPrice);
+            }
+
+            else if (r.getPrice() != netPrice)
+            {
+                price = r.getPrice();
+            }
+
+            else
+            {
+                price = netPrice;
+            }
+
+            int rowsAffected = Facade.updateReceiptPrice(price, idReceipt, connectionPool);
+
+            if (rowsAffected > 0)
             {
                 List<Receipt> receiptsList = Facade.getAllReceipts(connectionPool);
                 request.setAttribute("receiptsList", receiptsList);
@@ -50,11 +70,10 @@ public class updatePrice extends HttpServlet
                 List<User> usersList = Facade.getAllUsers(connectionPool);
                 request.setAttribute("usersList", usersList);
 
-                request.getRequestDispatcher("WEB-INF/receiptsAdmin.jsp").forward(request,response);
+                request.getRequestDispatcher("WEB-INF/receiptsAdmin.jsp").forward(request, response);
 
             }
-        }
-        catch (DatabaseException e)
+        } catch (DatabaseException e)
         {
             e.printStackTrace();
         }
