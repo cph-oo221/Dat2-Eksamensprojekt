@@ -11,6 +11,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "ReceiptsAdmin", value = "/receiptsadmin")
@@ -36,6 +37,7 @@ public class ReceiptsAdmin extends HttpServlet
         try
         {
             List<Receipt> receiptsList = Facade.getAllReceipts(connectionPool);
+            Collections.reverse(receiptsList);
             request.setAttribute("receiptsList", receiptsList);
 
             List<User> usersList = Facade.getAllUsers(connectionPool);
