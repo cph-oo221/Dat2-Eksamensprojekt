@@ -3,6 +3,7 @@ package dat.backend.model.persistence;
 import dat.backend.model.entities.*;
 import dat.backend.model.exceptions.DatabaseException;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class Facade
         return UserMapper.login(username, password, connectionPool);
     }
 
-    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role, ConnectionPool connectionPool) throws SQLException, DatabaseException, IllegalArgumentException
+    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role, ConnectionPool connectionPool) throws DatabaseException, IllegalArgumentException
     {
         return UserMapper.createUser(email, password, address, city, phoneNumber, role, connectionPool);
     }
@@ -32,7 +33,7 @@ public class Facade
     // /USER ***********************************************************************************************************
 
     // RECEIPT *********************************************************************************************************
-    public static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool)
+    public static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool) throws DatabaseException
     {
         return ReceiptMapper.getReceiptsByIdUser(idUser, connectionPool);
     }
@@ -43,12 +44,12 @@ public class Facade
     }
 
 
-    public static void acceptReceipt(int idReceipt, ConnectionPool connectionPool)
+    public static void acceptReceipt(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         ReceiptMapper.acceptReceipt(idReceipt, connectionPool);
     }
 
-    public static void acceptReceiptAdmin(int idReceipt, ConnectionPool connectionPool)
+    public static void acceptReceiptAdmin(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         ReceiptMapper.acceptReceiptAdmin(idReceipt, connectionPool);
     }
@@ -68,7 +69,7 @@ public class Facade
         return ReceiptMapper.getReceiptById(idReceipt, connectionPool);
     }
 
-    public static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool)
+    public static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         return ReceiptMapper.updateReceiptPrice(newPrice, idReceipt, connectionPool);
     }

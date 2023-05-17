@@ -121,7 +121,15 @@ class ReceiptMapperTest
         int length2 = 240;
         String comment2 = "hej2";
 
-        ArrayList<Receipt> receiptList = Facade.getReceiptsByIdUser(1, connectionPool);
+        ArrayList<Receipt> receiptList = null;
+        try
+        {
+            receiptList = Facade.getReceiptsByIdUser(1, connectionPool);
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
 
         assertEquals(receiptList.get(0).getIdUser(), idUser1);
 

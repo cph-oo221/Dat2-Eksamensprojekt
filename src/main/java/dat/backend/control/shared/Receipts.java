@@ -3,6 +3,7 @@ package dat.backend.control.shared;
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Receipt;
 import dat.backend.model.entities.User;
+import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
 
@@ -34,12 +35,21 @@ public class Receipts extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
+        try
+        {
+            request.setCharacterEncoding("UTF-8");
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("user");
+            receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
 
-        request.setAttribute("receiptList", receiptList);
-        request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request,response);
+            request.setAttribute("receiptList", receiptList);
+            request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request, response);
+        }
+
+        catch (DatabaseException e)
+        {
+            request.setAttribute("errormessage", e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
     }
 }

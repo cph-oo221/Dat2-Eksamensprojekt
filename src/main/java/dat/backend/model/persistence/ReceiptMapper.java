@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class ReceiptMapper
 {
-    protected static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool)
+    protected static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO,"");
         Receipt receipt;
@@ -45,10 +45,8 @@ public class ReceiptMapper
         }
         catch (SQLException throwables)
         {
-            throwables.printStackTrace();
+            throw new DatabaseException(throwables.getMessage());
         }
-        //Todo fix here so error is handled.
-        return null;
     }
 
     public static int createReceipt(int idUser, double width, double length, String comment, ConnectionPool connectionPool) throws DatabaseException
@@ -88,7 +86,7 @@ public class ReceiptMapper
         return 0;
     }
 
-    protected static void acceptReceipt(int idReceipt, ConnectionPool connectionPool)
+    protected static void acceptReceipt(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -104,11 +102,11 @@ public class ReceiptMapper
         }
         catch (SQLException throwables)
         {
-            throwables.printStackTrace();
+            throw new DatabaseException(throwables.getMessage());
         }
     }
 
-    protected static void acceptReceiptAdmin(int idReceipt, ConnectionPool connectionPool)
+    protected static void acceptReceiptAdmin(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -124,7 +122,7 @@ public class ReceiptMapper
         }
         catch (SQLException throwables)
         {
-            throwables.printStackTrace();
+            throw new DatabaseException(throwables.getMessage());
         }
     }
 
@@ -184,7 +182,7 @@ public class ReceiptMapper
         return receiptList;
     }
 
-    public static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool)
+    public static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "Trying to update price on receipt");
 
@@ -202,9 +200,8 @@ public class ReceiptMapper
         }
         catch (SQLException throwables)
         {
-            throwables.printStackTrace();
+            throw new DatabaseException(throwables.getMessage());
         }
-        return 0;
     }
 
     protected static Receipt getReceiptById(int idReceipt, ConnectionPool connectionPool) throws DatabaseException

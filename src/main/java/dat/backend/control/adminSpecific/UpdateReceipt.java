@@ -41,10 +41,11 @@ public class UpdateReceipt extends HttpServlet
 
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
 
-        if(user.getRole().equalsIgnoreCase("Admin")) // accept receipt from admin panel
+        try
         {
-            try
+            if (user.getRole().equalsIgnoreCase("Admin")) // accept receipt from admin panel
             {
+
                 Facade.acceptReceiptAdmin(idReceipt, connectionPool);
                 List<Receipt> receiptsList = Facade.getAllReceipts(connectionPool);
                 request.setAttribute("receiptsList", receiptsList);
@@ -52,23 +53,21 @@ public class UpdateReceipt extends HttpServlet
                 List<User> usersList = Facade.getAllUsers(connectionPool);
                 request.setAttribute("usersList", usersList);
 
-
+                request.getRequestDispatcher("WEB-INF/receiptsAdmin.jsp").forward(request, response);
             }
-
-            catch (DatabaseException e)
+            else
             {
-                request.setAttribute("errormessage", e.getMessage());
-                request.getRequestDispatcher("error.jsp").forward(request, response);
+                Facade.acceptReceipt(idReceipt, connectionPool);
+                ArrayList<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
+                request.setAttribute("receiptList", receiptList);
+                request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request, response);
             }
-
-            request.getRequestDispatcher("WEB-INF/receiptsAdmin.jsp").forward(request,response);
         }
-        else
+
+        catch (DatabaseException e)
         {
-            Facade.acceptReceipt(idReceipt, connectionPool);
-            ArrayList<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
-            request.setAttribute("receiptList", receiptList);
-            request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request,response);
+            request.setAttribute("errormessage", e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 }
