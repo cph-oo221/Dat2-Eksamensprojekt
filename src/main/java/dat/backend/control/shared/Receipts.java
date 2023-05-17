@@ -38,7 +38,6 @@ public class Receipts extends HttpServlet
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
-        Collections.reverse(receiptList);
 
         request.setAttribute("receiptList", receiptList);
         request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request,response);

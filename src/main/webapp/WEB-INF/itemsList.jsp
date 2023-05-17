@@ -16,82 +16,100 @@
     </jsp:attribute>
 
     <jsp:body>
+
+        <c:if test="${sessionScope.user.role.equals('admin')}">
+            <div class="mt-2">
+                <form action="receiptsadmin" method="post">
+                    <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+                </form>
+            </div>
+        </c:if>
+        <c:if test="${sessionScope.user.role.equals('user')}">
+            <div class="mt-2">
+                <form action="receipts" method="post">
+                    <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+                </form>
+            </div>
+        </c:if>
+
         <div class="container mt-4">
-        <div class="row">
-            <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
 
-                <table class="table table-dark table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">Vare</th>
-                        <th scope="col">Antal</th>
-                        <th scope="col">Pris stk</th>
-                        <th scope="col">Beskrivelse</th>
-                    </tr>
-                    </thead>
+                    <table class="table table-dark table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Vare</th>
+                            <th scope="col">Antal</th>
+                            <th scope="col">Pris stk</th>
+                            <th scope="col">Beskrivelse</th>
+                        </tr>
+                        </thead>
 
-                    <thead>
-                    <tr style="color: white;" class="table">
-                        <th scope="col">&nbsp;</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
+                        <thead>
+                        <tr style="color: white;" class="table">
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
 
-                    <thead>
-                    <tr>
-                        <th scope="col">Træ & Tagplader</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <c:forEach var="item" items="${requestScope.woodList}">
+                        <thead>
+                        <tr>
+                            <th scope="col">Træ & Tagplader</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <c:forEach var="item" items="${requestScope.woodList}">
                             <tbody>
                             <tr>
                                 <td>${item.material.name}</td>
                                 <td>${item.amount}</td>
+                                <td>${item.material.unit}</td>
                                 <td>${item.material.price}</td>
                                 <td>${item.desc}</td>
                             </tr>
                             </tbody>
-                    </c:forEach>
+                        </c:forEach>
 
-                    <thead>
-                    <tr style="color: white;" class="table">
-                        <th scope="col">&nbsp;</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <thead>
-                    <tr>
-                        <th scope="col">Skruer & Beslag</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <c:forEach var="item" items="${requestScope.metalList}">
-                        <%--<c:if test="${item.material.isInstance(Metal)}">--%>
-                        <%--<% if (item.m instanceof Metal) { %>--%>
-                        <tbody>
-                        <tr>
-                            <td>${item.material.name}</td>
-                            <td>${item.amount}</td>
-                            <td>${item.material.price}</td>
-                            <td>${item.desc}</td>
+                        <thead>
+                        <tr style="color: white;" class="table">
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
-                        </tbody>
-                        <%--<% } %>--%>
-                        <%--</c:if>--%>
-                    </c:forEach>
+                        </thead>
+                        <thead>
+                        <tr>
+                            <th scope="col">Skruer & Beslag</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <c:forEach var="item" items="${requestScope.metalList}">
+                            <%--<c:if test="${item.material.isInstance(Metal)}">--%>
+                            <%--<% if (item.m instanceof Metal) { %>--%>
+                            <tbody>
+                            <tr>
+                                <td>${item.material.name}</td>
+                                <td>${item.amount}</td>
+                                <td>${item.material.unit}</td>
+                                <td>${item.material.price}</td>
+                                <td>${item.desc}</td>
+                            </tr>
+                            </tbody>
+                            <%--<% } %>--%>
+                            <%--</c:if>--%>
+                        </c:forEach>
 
-                </table>
+                    </table>
+                </div>
             </div>
-        </div>
 
         </div>
 

@@ -3,7 +3,6 @@ package dat.backend.model.utilities;
 import dat.backend.model.entities.Material;
 import dat.backend.model.entities.Metal;
 import dat.backend.model.entities.OrderItem;
-import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
@@ -104,11 +103,16 @@ public class MetalCalculator
         return new OrderItem(amount, screw, "skruer til montering af stern");
     }
 
-    public static OrderItem getPoleMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> getPoleMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
     {
         List<Metal> bolts = Facade.getMetalByVariant("Bræddebolt", connectionPool);
+        List<Metal> discs = Facade.getMetalByVariant("Firkantskiver", connectionPool);
 
-        return new OrderItem(amount * 2, bolts.get(0), "Remme sadles ned i stolper, og fastgøre med bræddebolte");
+        List<OrderItem> output = new ArrayList<>();
+        output.add(new OrderItem(amount * 2, bolts.get(0), "Remme sadles ned i stolper, og fastgøre med bræddebolte"));
+        output.add(new OrderItem(amount * 2, discs.get(0), "Skiver til fastgørelse af bolte"));
+
+        return output;
     }
 
     public static OrderItem getWire(double length, double width, ConnectionPool connectionPool) throws DatabaseException

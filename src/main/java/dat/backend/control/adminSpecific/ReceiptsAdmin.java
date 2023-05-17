@@ -38,7 +38,6 @@ public class ReceiptsAdmin extends HttpServlet
         try
         {
             List<Receipt> receiptsList = Facade.getAllReceipts(connectionPool);
-            Collections.reverse(receiptsList);
             request.setAttribute("receiptsList", receiptsList);
 
             List<User> usersList = Facade.getAllUsers(connectionPool);
