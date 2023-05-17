@@ -524,4 +524,35 @@ public class CarportCalcTest
         assertEquals(actualScrew , expectedScrew);
 
     }
+
+    @Test
+    void wireTest() throws DatabaseException
+    {
+        Metal expectedWire = new Metal(4, "Hulbånd", 20, "Rulle", "Hulbånd");
+        OrderItem expected = new OrderItem(1, expectedWire, "test");
+
+        double length = 250;
+        double width = 250;
+
+        List<Metal> wires = Facade.getMetalByVariant("Hulbånd", connectionPool);
+
+        double hypotenuseSquared = (length*length) + (width*width);
+        double hypotenuse = Math.sqrt(hypotenuseSquared);
+        double bothHypotenuse = hypotenuse*2;
+
+
+        int amount = 0;
+        Metal wire = wires.get(0);
+
+        while(bothHypotenuse > 0)
+        {
+            amount++;
+            bothHypotenuse -= 1000;
+        }
+
+        OrderItem actual = new OrderItem(amount, wire, "Hulbånd monteres diagonalt under taget");
+
+        assertEquals(expected.getAmount() , actual.getAmount());
+        assertEquals(expected.getMaterial() , actual.getMaterial());
+    }
 }

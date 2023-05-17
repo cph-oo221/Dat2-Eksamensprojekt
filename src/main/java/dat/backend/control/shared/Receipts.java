@@ -11,6 +11,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @WebServlet(name = "Receipts", value = "/receipts")
 public class Receipts extends HttpServlet
@@ -37,6 +38,8 @@ public class Receipts extends HttpServlet
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
+        Collections.reverse(receiptList);
+
         request.setAttribute("receiptList", receiptList);
         request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request,response);
     }
