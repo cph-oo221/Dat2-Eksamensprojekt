@@ -103,7 +103,6 @@
             <h3 class="colorGreen">Fog's pris ${requestScope.totalPrice} kr.</h3>
             <c:if test="${sessionScope.user.role.equals('admin') && requestScope.orderState == OrderState.OPEN}">
                 <div class="mt-2">
-                        <%-- TODO needs an action to update price!!! --%>
                     <form action="updateprice" method="post">
 
                         <input type="number" id="pris" name="pris" class="inputBoxSizeHeight"/>

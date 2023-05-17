@@ -144,7 +144,7 @@ public class PartsListCalculator
         output.add(rafters);
         OrderItem sternMetal = MetalCalculator.getSternMetal(rafters, connectionPool);
         output.add(sternMetal);
-        output.addAll(MetalCalculator.getRafterMetal(amount, rafter.getHeight(), connectionPool));
+        output.addAll(MetalCalculator.getRafterMetal((int) Math.floor(getRafterAmount(length, 1)), rafter.getHeight(), connectionPool));
 
        return output;
     }
@@ -270,7 +270,3 @@ public class PartsListCalculator
             return new OrderItem(selectionAmount * multiplier, selection, desc);
     }
 }
-
-
-
-
