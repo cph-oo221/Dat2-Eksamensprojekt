@@ -260,7 +260,7 @@ public class PartsListCalculator
         double rafterLengthAmountL = 1;
         double rafterWidthAmountW = 1;
 
-        List<OrderItem> woodOrderItemList = new ArrayList<>();
+        List<OrderItem> itemList = new ArrayList<>();
 
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
 
@@ -306,7 +306,7 @@ public class PartsListCalculator
         double rafterLengthWidth = rafterLength.getWidth();
         amountL = (int) (rafterLengthAmountL * Math.ceil(210 / rafterLengthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
         OrderItem rafterLengthWOI = new OrderItem((int) amountL, rafterLength, "Spærtræ til beklædning af skur i længden");
-        woodOrderItemList.add(rafterLengthWOI);
+        itemList.add(rafterLengthWOI);
 
         // TODO: TEST AND REMOVE
         /*Wood rafterWidth = selectWood(woods, shedWidth);
@@ -341,7 +341,7 @@ public class PartsListCalculator
         double rafterWidthWidth = rafterWidth.getWidth();
         amountW = (int) (rafterWidthAmountW * Math.ceil(210 / rafterWidthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
         OrderItem rafterWidthWOI = new OrderItem((int) amountW, rafterWidth, "Spærtræ til beklædning af skur i bredden");
-        woodOrderItemList.add(rafterWidthWOI);
+        itemList.add(rafterWidthWOI);
 
         int poles;
         if (shedWidth > 310)
@@ -355,8 +355,10 @@ public class PartsListCalculator
 
         List<Wood> poleWoodList = Facade.getWoodByVariant("Stolpe", connectionPool);
         OrderItem polesShed = new OrderItem(poles, poleWoodList.get(0), "Stolper til skur");
-        woodOrderItemList.add(polesShed);
-        return woodOrderItemList;
+        itemList.add(polesShed);
+        List<OrderItem> metalOrderItem = MetalCalculator.getShedMetal(rafterLengthWOI, rafterWidthWOI, polesShed, connectionPool);
+        itemList.addAll(metalOrderItem);
+        return itemList;
     }
 
     private static double getRafterAmount(double length, int modifier)

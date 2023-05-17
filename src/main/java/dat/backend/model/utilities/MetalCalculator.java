@@ -131,4 +131,27 @@ public class MetalCalculator
         OrderItem wireOI = new OrderItem(amount, wire, "Hulbånd monteres diagonalt under taget");
         return wireOI;
     }
+
+    public static List<OrderItem> getShedMetal(OrderItem rafterLengthWOI, OrderItem rafterWidthWOI, OrderItem polesShed, ConnectionPool connectionPool) throws DatabaseException
+    {
+        List<OrderItem> output = new ArrayList<>();
+
+        int screwAmount = (rafterLengthWOI.getAmount() + rafterWidthWOI.getAmount()) * 4; //4 skruer i hvert brædt
+
+        Metal longScrew = Facade.getMetalById(1, connectionPool);
+
+        OrderItem longScrews = new OrderItem(screwAmount, longScrew, "Skruer til beklædning ");
+
+        //Alle skure har én dør med to hængsler og et håndtag
+        Metal handle = Facade.getMetalById(7, connectionPool);
+        Metal hinge = Facade.getMetalById(8, connectionPool);
+        OrderItem handleOi = new OrderItem(1, handle, "Håndtag til skurets dør");
+        OrderItem hingeOi = new OrderItem(2, hinge, "Hængsler til skurets dør");
+
+        output.add(longScrews);
+        output.add(handleOi);
+        output.add(hingeOi);
+
+        return output;
+    }
 }

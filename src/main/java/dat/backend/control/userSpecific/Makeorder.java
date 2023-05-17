@@ -48,6 +48,14 @@ public class Makeorder extends HttpServlet
             int receiptId = Facade.createReceipt(user.getIdUser(), width, length, comment, connectionPool);
             int orderId = Facade.createOrder(receiptId, orderItemList, connectionPool);
 
+            int price = 0;
+            for(OrderItem oi : orderItemList)
+            {
+                price+= (oi.getMaterial().getPrice())*oi.getAmount();
+            }
+
+            Facade.updateReceiptPrice(price, receiptId, connectionPool);
+
             List<Receipt> receiptList = Facade.getReceiptsByIdUser(user.getIdUser(), connectionPool);
             request.setAttribute("receiptList", receiptList);
             request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request, response);
