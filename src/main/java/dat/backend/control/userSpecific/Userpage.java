@@ -17,6 +17,7 @@ public class Userpage extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        request.setCharacterEncoding("UTF-8");
         request.getRequestDispatcher("WEB-INF/userPage.jsp").forward(request,response);
     }
 }

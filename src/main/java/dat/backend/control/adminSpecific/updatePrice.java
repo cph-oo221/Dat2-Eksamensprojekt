@@ -34,6 +34,7 @@ public class updatePrice extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        request.setCharacterEncoding("UTF-8");
         int newPrice = Integer.parseInt(request.getParameter("pris"));
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
 
