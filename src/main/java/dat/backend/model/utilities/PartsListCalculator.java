@@ -52,73 +52,15 @@ public class PartsListCalculator
          int lenSternAmount = 2;
          int widthSternAmount = 2;
 
-         // TODO: TEST AND REMOVE
-       /* sterns.sort(new Comparator<Wood>()
-        {
-            @Override
-            public int compare(Wood s, Wood t1)
-            {
-                return t1.getLength() - s.getLength();
-            }
-        });
+        OrderItem lenSternItem = getOptimalItem(sterns, length, desc, 2, 2);
 
-        Wood lenStern = selectWood(sterns, length);
-
-        if (lenStern == null)
-        {
-            Wood buffer = null;
-            double amountBuffer = 1000000;
-            double wasteBuffer = 100000;
-
-            for (Wood w : sterns)
-            {
-                double amount = length / w.getLength();
-                double waste = length % (w.getLength());
-                waste = w.getLength() - waste;
-
-                if (waste < wasteBuffer || amount <= amountBuffer)
-                {
-                    amountBuffer = amount;
-                    wasteBuffer = waste;
-                    buffer = w;
-                }
-            }
-            lenStern = buffer;*/
-
-            OrderItem lenSternItem = getOptimalItem(sterns, length, desc, 2, 2);
-
-            // TODO: TEST AND REMOVE
-        /*Wood widthStern = selectWood(sterns, width);
-
-        if (widthStern == null)
-        {
-            Wood buffer = null;
-            double amountBuffer = 1000000;
-            double wasteBuffer = 100000;
-
-            for (Wood w : sterns)
-            {
-                double amount = width / w.getLength();
-                double waste = width % w.getLength();
-                waste = w.getLength() - waste;
-
-                if (waste < wasteBuffer || amount <= amountBuffer)
-                {
-                    amountBuffer = amount;
-                    wasteBuffer = waste;
-                    buffer = w;
-                }
-            }
-            widthStern = buffer;
-            widthSternAmount = (int) Math.ceil(amountBuffer) * 2;
-        }*/
 
         OrderItem widthSternItem = getOptimalItem(sterns, width, desc, 2, 2);
 
         List<OrderItem> orderItems = new ArrayList<>();
 
-        orderItems.add(lenSternItem/*new WoodOrderItem(lenSternAmount, lenStern, desc)*/);
-        orderItems.add(widthSternItem/*new WoodOrderItem(widthSternAmount, widthStern, desc)*/);
+        orderItems.add(lenSternItem);
+        orderItems.add(widthSternItem);
 
         return orderItems;
     }
@@ -214,41 +156,6 @@ public class PartsListCalculator
 
         List<Wood> woods = Facade.getWoodByVariant("Rem", connectionPool);
 
-        // TODO: TEST AND REMOVE
-        /*woods.sort(new Comparator<Wood>()
-        {
-            @Override
-            public int compare(Wood s, Wood t1)
-            {
-                return t1.getLength() - s.getLength();
-            }
-        });
-
-        Wood rem = selectWood(woods, length);
-
-        if (rem == null)
-        {
-            Wood buffer = null;
-            double amountBuffer = 1000000;
-            double wasteBuffer = 100000;
-
-            for (Wood w : woods)
-            {
-                double amount = length / w.getLength();
-                double waste = length % (w.getLength());
-                waste = w.getLength() - waste;
-
-                if (waste < wasteBuffer || amount <= amountBuffer)
-                {
-                    amountBuffer = amount;
-                    wasteBuffer = waste;
-                    buffer = w;
-                }
-            }
-            rem = buffer;
-            remAmount = (int) Math.ceil(amountBuffer) * 2;
-        }*/
-
         return getOptimalItem(woods, length, desc, 2, 2);
     }
 
@@ -264,41 +171,6 @@ public class PartsListCalculator
 
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
 
-        // TODO: TEST AND REMOVE
-       /* woods.sort(new Comparator<Wood>()
-        {
-            @Override
-            public int compare(Wood s, Wood t1)
-            {
-                return t1.getLength() - s.getLength();
-            }
-        });
-
-        Wood rafterLength = selectWood(woods, shedLength);
-
-        if (rafterLength == null)
-        {
-            Wood buffer = null;
-            double amountBuffer = 1000000;
-            double wasteBuffer = 100000;
-
-            for (Wood w : woods)
-            {
-                amountL = shedLength / w.getLength();
-                double waste = shedLength % (w.getLength());
-                waste = w.getLength() - waste;
-
-                if (waste < wasteBuffer || amountL <= amountBuffer)
-                {
-                    amountBuffer = amountL;
-                    wasteBuffer = waste;
-                    buffer = w;
-                }
-            }
-            rafterLength = buffer;
-            rafterLengthAmountL = (int) Math.ceil(amountBuffer); //1
-        }*/
-
         OrderItem lenBuffer = getOptimalItem(woods, shedLength, "", 1, 2);
         Wood rafterLength = (Wood) lenBuffer.getMaterial();
         rafterLengthAmountL = lenBuffer.getAmount();
@@ -307,32 +179,6 @@ public class PartsListCalculator
         amountL = (int) (rafterLengthAmountL * Math.ceil(210 / rafterLengthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
         OrderItem rafterLengthWOI = new OrderItem((int) amountL, rafterLength, "Spærtræ til beklædning af skur i længden");
         itemList.add(rafterLengthWOI);
-
-        // TODO: TEST AND REMOVE
-        /*Wood rafterWidth = selectWood(woods, shedWidth);
-
-        if (rafterWidth == null)
-        {
-            Wood buffer = null;
-            double amountBuffer = 1000000;
-            double wasteBuffer = 100000;
-
-            for (Wood w : woods)
-            {
-                amountW = shedWidth / w.getLength();
-                double waste = shedWidth % (w.getLength());
-                waste = w.getLength() - waste;
-
-                if (waste < wasteBuffer || amountW <= amountBuffer)
-                {
-                    amountBuffer = amountW;
-                    wasteBuffer = waste;
-                    buffer = w;
-                }
-            }
-            rafterWidth = buffer;
-            rafterWidthAmountW = (int) Math.ceil(amountBuffer);
-        }*/
 
         OrderItem widthBuffer = getOptimalItem(woods, shedWidth, "", 1, 2);
         Wood rafterWidth = (Wood) widthBuffer.getMaterial();
@@ -423,47 +269,6 @@ public class PartsListCalculator
         }
             return new OrderItem(selectionAmount * multiplier, selection, desc);
     }
-
-    //TODO Old version, delete before launch
-       /*public Object getRafters(int width)
-    {
-        List<Wood> woods = new ArrayList<>();
-        try
-        {
-            woods = Facade.getWoodByVariant("Spær", connectionPool);
-        }
-        catch (DatabaseException e)
-        {
-            e.printStackTrace();
-        }
-        woods.sort(new Comparator<Wood>()
-        {
-            @Override
-            public int compare(Wood s, Wood t1)
-            {
-                return t1.getLength() - s.getLength();
-            }
-        });
-
-        int modifier = 1;
-        Wood rafter = null;
-        while(rafter == null)
-        {
-            rafter = selectWood(woods, width, modifier);
-            modifier++;
-        }
-        ArrayList<Wood> rafters = new ArrayList<>();
-
-        int amount = width/55;
-        int finalamount = amount*modifier;
-
-        Map woodAmount = new HashMap<Integer, Integer>();
-        woodAmount.put(rafter.getIdWood(), modifier);
-        return woodAmount;
-    } //Alternativ måde at finde amount
-
-
-    */ //Alternativ måde at regne rafters
 }
 
 
