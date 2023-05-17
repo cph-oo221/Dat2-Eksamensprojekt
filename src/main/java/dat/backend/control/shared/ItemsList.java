@@ -32,6 +32,7 @@ public class ItemsList extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        request.setCharacterEncoding("UTF-8");
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
 
         try

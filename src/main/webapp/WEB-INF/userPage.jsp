@@ -5,22 +5,20 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-            userpage
+            Bruger Side
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        welcome to your userpage
+        Bruger Side
     </jsp:attribute>
 
     <jsp:body>
 
         <div class="mt-3">
             <h3>Design en carport</h3>
-            <p>
             <form action="orderpage" method="post">
-            <input type="submit" value="lav en ordre">
-        </form>
-            </p>
+                <input type="submit" value="lav en ordre">
+            </form>
         </div>
 
         <div class="mt-3">

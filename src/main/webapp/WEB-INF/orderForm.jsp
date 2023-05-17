@@ -14,7 +14,7 @@
 
     <jsp:body>
         <div class="container mt-4">
-            <div class="card mt-2 p-1" style="position: center; margin-left: 25%; margin-right: 25%;">
+            <div class="card mt-2 p-1 cardPos">
                 <form action="makeorder" method="post">
                     <label for="width">Carport bredde:
                         <br>

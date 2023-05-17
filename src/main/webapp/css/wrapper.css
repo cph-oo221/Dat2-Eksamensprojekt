@@ -1,0 +1,52 @@
+.cardPos
+{
+    position: center;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.imgDisplay
+{
+    height: 125px;
+    width: 125px;
+    display: block;
+    margin: auto;
+}
+
+.inputBoxSizeHeight
+{
+    height: 35px;
+}
+
+.inputBoxSize
+{
+    width: 100%;
+    height: 35px;
+}
+
+.submitBtnSize
+{
+    width: 100%;
+    color: white;
+}
+
+.greyBox
+{
+    background-color: lightgray;
+    height: 90px;
+    margin-left: 25%;
+    margin-right: 25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.greyBoxSpacing
+{
+    margin-left: 5px;
+}
+
+.noLineUnderBtn
+{
+    text-decoration: none;
+}
