@@ -14,12 +14,19 @@
     </jsp:attribute>
 
     <jsp:body>
-    <style>
-        h1
-        {
-            text-align: center;
-        }
-    </style>
+        <div class="mt-2">
+            <form action="userpage" method="post">
+                <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+            </form>
+        </div>
+
+
+        <style>
+            h1
+            {
+                text-align: center;
+            }
+        </style>
 
         <div class="mt-3">
             <strong>${sessionScope.msg}</strong>
@@ -32,7 +39,7 @@
                     <th>Handlinger</th>
                 </tr>
 
-               <c:forEach var="receipt" items="${requestScope.receiptList}">
+                <c:forEach var="receipt" items="${requestScope.receiptList}">
                     <c:if test="${receipt.orderState == OrderState.OPEN}">
                         <tr>
                             <td>${receipt.idReceipt}</td>
@@ -46,12 +53,8 @@
                         </tr>
                     </c:if>
                 </c:forEach>
-
             </table>
-        </div>
 
-        <div class="mt-3">
-            <strong>${sessionScope.msg}</strong>
             <h3>Tilbud</h3>
             <table class="table table-dark table-striped">
                 <tr>
@@ -68,25 +71,30 @@
                             <td>${receipt.timeOfOrder}</td>
                             <td>${receipt.price}</td>
                             <td>
-                                <form action="updatereceipt" method="post">
-                                    <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
-                                    <input type="submit" class="btn btn-secondary" value="Accepter">
-                                </form>
-                                <form action="deletereceipt" method="post" onsubmit="return confirm('Er du sikker på at du vil slette denne ordre?')">
-                                    <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
-                                    <input type="submit" class="btn btn-secondary" value="Afvis">
-                                </form>
+                                <div class="mt-2">
+                                    <form action="updatereceipt" method="post">
+                                        <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
+                                        <input type="submit" class="btn btn-success" value="Accepter">
+                                    </form>
+                                </div>
+
+                                <div class="mt-2">
+                                    <form action="deletereceipt" method="post"
+                                          onsubmit="return confirm('Er du sikker på at du vil slette denne ordre?')">
+                                        <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
+                                        <input type="submit" class="btn btn-danger" value="Afvis">
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     </c:if>
                 </c:forEach>
-
             </table>
-        </div>
 
-        <div class="mt-3">
+
+
             <h3>Kvitteringer</h3>
-            <table class="table table-dark table-striped">
+                <table class="table table-dark table-striped">
                 <tr>
                     <th>Ordrenummer</th>
                     <th>Tidspunkt</th>
@@ -103,14 +111,22 @@
                             <td>
                                 <form action="itemslist" method="post">
                                     <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
-                                    <input type="submit" class="btn btn-secondary" value="Se stykliste">
+                                    <input type="submit" class="btn btn-info" value="Se stykliste">
                                 </form>
                             </td>
                         </tr>
                     </c:if>
                 </c:forEach>
-
+                    
             </table>
+        </div>
+
+
+
+        <div class="mt-2">
+            <form action="userpage" method="post">
+                <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+            </form>
         </div>
 
     </jsp:body>
