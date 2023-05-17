@@ -13,12 +13,19 @@
     </jsp:attribute>
 
     <jsp:body>
+        <div class="mt-2">
+            <form action="userpage" method="post">
+                <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+            </form>
+        </div>
+
+
         <div class="container mt-4">
             <div class="card mt-2 p-1 cardPos">
                 <form action="makeorder" method="post">
-                    <label for="width">Carport bredde:
+                    <label for="width" class="fw-bold">Carport bredde:</label>
                         <br>
-                        <select name="width" id="width">
+                        <select name="width" id="width" class="inputBoxSize">
                             <option value="240">240 cm</option>
                             <option value="270">270 cm</option>
                             <option value="300">300 cm</option>
@@ -33,11 +40,11 @@
                             <option value="570">570 cm</option>
                             <option value="600">600 cm</option>
                         </select>
-                    </label>
+
                     <br><br>
-                    <label for="length">Carport længde:
+                    <label for="length" class="fw-bold">Carport længde:</label>
                         <br>
-                        <select name="length" id="length">
+                        <select name="length" id="length" class="inputBoxSize">
                             <option value="240">240 cm</option>
                             <option value="270">270 cm</option>
                             <option value="300">300 cm</option>
@@ -58,37 +65,45 @@
                             <option value="750">750 cm</option>
                             <option value="780">780 cm</option>
                         </select>
-                    </label>
+
                     <br><br>
-                    <label for="withRoof">Carport tag:
+                    <label for="withRoof" class="fw-bold">Carport tag:</label>
                         <br>
-                        <select name="withRoof" id="withRoof">
+                        <select name="withRoof" id="withRoof" class="inputBoxSize">
                             <option value="false">Uden tagplader</option>
                             <option value="true">Trapeztag</option>
                         </select>
-                    </label>
-                    <label for="shedLength">Skur:
+
+                    <br><br>
+                    <label for="shedLength" class="fw-bold">Skur:</label>
                         <br>
-                        <select name="shedLength" id="shedLength">
+                        <select name="shedLength" id="shedLength" class="inputBoxSize">
                             <option value="0">Intet skur</option>
                             <option value="100">100 cm</option>
                             <option value="200">200 cm</option>
                             <option value="300">300 cm</option>
                         </select>
-                    </label>
+
                     <br><br>
-                    <label for="comment">Bemærkninger eller særlige ønsker:
+                    <label for="comment" class="fw-bold">Bemærkninger eller særlige ønsker:</label>
                         <br>
-                        <input type="text" id="comment" name="comment">
-                    </label>
+                        <input type="text" id="comment" name="comment" class="inputBoxSize">
+
                     <br><br>
-                    <button class="btn btn-primary" type="submit">
+                    <button class="btn btn-primary fw-bold submitBtnSize" type="submit">
                         Bestil
                     </button>
                 </form>
 
 
             </div>
+        </div>
+
+
+        <div class="mt-2">
+            <form action="userpage" method="post">
+                <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+            </form>
         </div>
     </jsp:body>
 
