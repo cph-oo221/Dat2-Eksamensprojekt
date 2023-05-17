@@ -43,6 +43,7 @@ public class DeleteReceipt extends HttpServlet
         {
 
             try
+
             {
                 Facade.deleteOrderByReceiptId(idReceipt, connectionPool);
                 Facade.deleteReceipt(idReceipt, connectionPool);
