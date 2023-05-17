@@ -21,7 +21,7 @@ public enum OrderState
             break;
 
             //Todo fix here, so error is handled.
-            default: orderState = OrderState.OPEN;
+            default: throw new IllegalStateException("ENUM-state not allowed");
         }
         return orderState;
     }
