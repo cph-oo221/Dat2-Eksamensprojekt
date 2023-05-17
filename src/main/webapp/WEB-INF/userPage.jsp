@@ -13,19 +13,23 @@
     </jsp:attribute>
 
     <jsp:body>
+        <div class="mt-2">
+            <div class="row">
+                <div class="col mt-1">
+                    <h2>Design en carport</h2>
+                    <form action="orderpage" method="post">
+                        <input type="image" src="<c:url value="/images/UserPage/DesignEnCarport.png"/>" alt="Submit"/>
+                    </form>
+                </div>
 
-        <div class="mt-3">
-            <h3>Design en carport</h3>
-            <form action="orderpage" method="post">
-                <input type="submit" value="lav en ordre">
-            </form>
-        </div>
+                <div class="col mt-1">
+                    <h2>Se ordrer</h2>
 
-        <div class="mt-3">
-            <h3>Se dine ordrer</h3>
-            <form action="receipts" method="post">
-                <input type="submit" value="Se ordrer">
-            </form>
+                    <form action="receipts" method="post">
+                        <input type="image" src="<c:url value="/images/AdminPanel/Bestillinger.png"/>" alt="Submit"/>
+                    </form>
+                </div>
+            </div>
         </div>
     </jsp:body>
 </t:pagetemplate>
