@@ -126,15 +126,15 @@
         <div class="ms-3 mt-2">
 
             <c:if test="${sessionScope.user.role.equals('admin')}">
-                <h3 style="color: green">Materiale pris ${requestScope.netPrice} kr.</h3>
+                <h3 class="colorGreen">Materiale pris ${requestScope.netPrice} kr.</h3>
             </c:if>
-            <h3 style="color: green">Fog's pris ${requestScope.totalPrice} kr.</h3>
+            <h3 class="colorGreen">Fog's pris ${requestScope.totalPrice} kr.</h3>
             <c:if test="${sessionScope.user.role.equals('admin') && requestScope.orderState == OrderState.OPEN}">
                 <div class="mt-2">
                         <%-- TODO needs an action to update price!!! --%>
                     <form action="updateprice" method="post">
 
-                        <input type="number" id="pris" name="pris" style="height: 35px;"/>
+                        <input type="number" id="pris" name="pris" class="inputBoxSizeHeight"/>
                         <input type="number" hidden name="idReceipt" value="${requestScope.idReceipt}"/>
                         <input type="submit" class="btn btn-primary fw-bold mb-1" value="Sæt pris"/>
                     </form>
