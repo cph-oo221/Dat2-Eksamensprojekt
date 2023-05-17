@@ -4,8 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- TODO: Change <artifactId> and <name> below to your project name -->
-
     <groupId>dat</groupId>
     <artifactId>Dat2-Eksamensprojekt</artifactId>
     <version>1.0</version>
