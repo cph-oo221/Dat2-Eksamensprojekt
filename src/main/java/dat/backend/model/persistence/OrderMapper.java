@@ -123,4 +123,22 @@ public class OrderMapper
             throw new DatabaseException(e.getMessage());
         }
     }
+
+    public static void deleteMetalOrderByReceiptID(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String sql = "DELETE FROM ordermetal WHERE idreceipt = ?;";
+
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, idReceipt);
+
+                ps.executeUpdate();
+            }
+        } catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+    }
 }

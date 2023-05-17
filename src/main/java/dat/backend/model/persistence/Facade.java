@@ -121,6 +121,7 @@ public class Facade
     public static void deleteOrderByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         OrderMapper.deleteWoodOrderByReceiptId(idReceipt, connectionPool);
+        OrderMapper.deleteMetalOrderByReceiptID(idReceipt, connectionPool);
     }
     // /ORDER **********************************************************************************************************
 
