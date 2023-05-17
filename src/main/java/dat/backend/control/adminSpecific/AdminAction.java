@@ -45,26 +45,22 @@ public class AdminAction extends HttpServlet
     {
         int sortOption = Integer.parseInt(request.getParameter("sortOption"));
 
-        if (sortOption == 1) // SORT WOOD ID
+        try
         {
-            try
+            if (sortOption == 1) // SORT ID
             {
+
                 List<Wood> woodList = Facade.getAllWood(connectionPool);
-                Collections.sort(woodList, Comparator.comparing(Wood::getIdWood));
                 List<Metal> metalList = Facade.getAllMetal(connectionPool);
+                Collections.sort(woodList, Comparator.comparing(Wood::getIdWood));
+                Collections.sort(metalList, Comparator.comparing(Metal::getIdMetal));
                 request.setAttribute("metalList", metalList);
                 request.setAttribute("woodList", woodList);
             }
-            catch (DatabaseException e)
-            {
-                e.printStackTrace();
-            }
-        }
 
-        if (sortOption == 2) // SORT NAME
-        {
-            try
+            if (sortOption == 2) // SORT NAME
             {
+
                 List<Wood> woodList = Facade.getAllWood(connectionPool);
                 List<Metal> metalList = Facade.getAllMetal(connectionPool);
                 Collections.sort(woodList, Comparator.comparing(Wood::getName));
@@ -72,10 +68,21 @@ public class AdminAction extends HttpServlet
                 request.setAttribute("woodList", woodList);
                 request.setAttribute("metalList", metalList);
             }
-            catch (DatabaseException e)
+
+            if (sortOption == 3) // SORT VARIANT
             {
-                e.printStackTrace();
+
+                List<Wood> woodList = Facade.getAllWood(connectionPool);
+                List<Metal> metalList = Facade.getAllMetal(connectionPool);
+                Collections.sort(woodList, Comparator.comparing(Wood::getVariant));
+                Collections.sort(metalList, Comparator.comparing(Metal::getVariant));
+                request.setAttribute("woodList", woodList);
+                request.setAttribute("metalList", metalList);
             }
+        }
+        catch (DatabaseException e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -99,7 +106,7 @@ public class AdminAction extends HttpServlet
             }
 
             List<Metal> metalList = Facade.getAllMetal(connectionPool);
-            for(Metal metal : metalList)
+            for (Metal metal : metalList)
             {
                 String metalName = metal.getName().toLowerCase();
                 if (metalName.contains(search))
@@ -110,8 +117,7 @@ public class AdminAction extends HttpServlet
 
             request.setAttribute("metalList", searchListMetal);
             request.setAttribute("woodList", searchListWood);
-        }
-        catch (DatabaseException e)
+        } catch (DatabaseException e)
         {
             e.printStackTrace();
         }
@@ -131,7 +137,7 @@ public class AdminAction extends HttpServlet
         if (deleteOption == 1)
         {
             int idWood = -1;
-            if(!isRequestEmpty(request, response, request.getParameter("idWood")))
+            if (!isRequestEmpty(request, response, request.getParameter("idWood")))
             {
                 idWood = Integer.parseInt(request.getParameter("idWood"));
             }
@@ -140,8 +146,7 @@ public class AdminAction extends HttpServlet
             {
                 Facade.deleteWood(idWood, connectionPool);
                 getMetalAndWoodList(request);
-            }
-            catch (DatabaseException e)
+            } catch (DatabaseException e)
             {
                 e.printStackTrace();
             }
@@ -150,7 +155,7 @@ public class AdminAction extends HttpServlet
         if (deleteOption == 2)
         {
             int idMetal = -1;
-            if(!isRequestEmpty(request, response, request.getParameter("idMetal")))
+            if (!isRequestEmpty(request, response, request.getParameter("idMetal")))
             {
                 idMetal = Integer.parseInt(request.getParameter("idMetal"));
             }
@@ -159,8 +164,7 @@ public class AdminAction extends HttpServlet
             {
                 Facade.deleteMetal(idMetal, connectionPool);
                 getMetalAndWoodList(request);
-            }
-            catch (DatabaseException e)
+            } catch (DatabaseException e)
             {
                 e.printStackTrace();
             }
@@ -178,7 +182,7 @@ public class AdminAction extends HttpServlet
         String unit = request.getParameter("unit");
         String variant = request.getParameter("variant");
 
-        if(!isRequestEmpty(request, response,
+        if (!isRequestEmpty(request, response,
                 request.getParameter("length"), request.getParameter("width"),
                 request.getParameter("height"), request.getParameter("price")))
         {
@@ -188,7 +192,7 @@ public class AdminAction extends HttpServlet
             price = Integer.parseInt(request.getParameter("price"));
         }
 
-        if(length <= 0 || width <= 0 || height <= 0 || name.isEmpty() || unit.isEmpty() || price <= 0 || variant.isEmpty())
+        if (length <= 0 || width <= 0 || height <= 0 || name.isEmpty() || unit.isEmpty() || price <= 0 || variant.isEmpty())
         {
             String msgError = "En eller flere parametre er tomme eller nul i Tilføje nyt træ";
             request.setAttribute("msgError", msgError);
@@ -201,8 +205,7 @@ public class AdminAction extends HttpServlet
             Wood product = Facade.createWood(length, width, height, name, unit, price, variant, connectionPool);
             request.setAttribute("product", product);
             getMetalAndWoodList(request);
-        }
-        catch (DatabaseException e)
+        } catch (DatabaseException e)
         {
             e.printStackTrace();
         }
@@ -216,12 +219,12 @@ public class AdminAction extends HttpServlet
         String metalUnit = request.getParameter("metalUnit");
         String metalVariant = request.getParameter("metalVariant");
 
-        if(!isRequestEmpty(request, response, request.getParameter("metalPrice")))
+        if (!isRequestEmpty(request, response, request.getParameter("metalPrice")))
         {
             metalPrice = Integer.parseInt(request.getParameter("metalPrice"));
         }
 
-        if(metalPrice <= 0 || metalName.isEmpty() || metalUnit.isEmpty() || metalVariant.isEmpty())
+        if (metalPrice <= 0 || metalName.isEmpty() || metalUnit.isEmpty() || metalVariant.isEmpty())
         {
             String msgError = "En eller flere parametre er tomme eller nul i Tilføje nyt metal";
             request.setAttribute("msgError", msgError);
@@ -237,8 +240,7 @@ public class AdminAction extends HttpServlet
             request.setAttribute("metalList", metalList);
             List<Wood> woodList = Facade.getAllWood(connectionPool);
             request.setAttribute("woodList", woodList);
-        }
-        catch (DatabaseException e)
+        } catch (DatabaseException e)
         {
             e.printStackTrace();
         }
@@ -250,7 +252,7 @@ public class AdminAction extends HttpServlet
         int idWood = -1;
         int newPrice = -1;
 
-        if(!isRequestEmpty(request, response, request.getParameter("idWood"), request.getParameter("newPrice")))
+        if (!isRequestEmpty(request, response, request.getParameter("idWood"), request.getParameter("newPrice")))
         {
             idWood = Integer.parseInt(request.getParameter("idWood"));
             newPrice = Integer.parseInt(request.getParameter("newPrice"));
@@ -258,7 +260,7 @@ public class AdminAction extends HttpServlet
 
         woodDoNotExist(idWood, request, response);
 
-        if(idWood <= 0 || newPrice <= 0)
+        if (idWood <= 0 || newPrice <= 0)
         {
             String msgError = "En eller flere parametre er tomme eller nul i Ændre Pris!";
             getMetalAndWoodList(request);
@@ -270,8 +272,7 @@ public class AdminAction extends HttpServlet
         {
             Facade.updateWoodPrice(idWood, newPrice, connectionPool);
             getMetalAndWoodList(request);
-        }
-        catch (DatabaseException e)
+        } catch (DatabaseException e)
         {
             e.printStackTrace();
         }
@@ -283,7 +284,7 @@ public class AdminAction extends HttpServlet
         int idMetal = -1;
         int newPrice = -1;
 
-        if(!isRequestEmpty(request, response, request.getParameter("idMetal"), request.getParameter("newPriceMetal")))
+        if (!isRequestEmpty(request, response, request.getParameter("idMetal"), request.getParameter("newPriceMetal")))
         {
             idMetal = Integer.parseInt(request.getParameter("idMetal"));
             newPrice = Integer.parseInt(request.getParameter("newPriceMetal"));
@@ -291,7 +292,7 @@ public class AdminAction extends HttpServlet
 
         metalDoNotExist(idMetal, request, response);
 
-        if(idMetal <= 0 || newPrice <= 0)
+        if (idMetal <= 0 || newPrice <= 0)
         {
             String msgError = "En eller flere parametre er tomme eller nul i Ændre Pris!";
             getMetalAndWoodList(request);
@@ -303,8 +304,7 @@ public class AdminAction extends HttpServlet
         {
             Facade.updateMetalPrice(idMetal, newPrice, connectionPool);
             getMetalAndWoodList(request);
-        }
-        catch (DatabaseException e)
+        } catch (DatabaseException e)
         {
             e.printStackTrace();
         }
@@ -319,8 +319,7 @@ public class AdminAction extends HttpServlet
             List<Metal> metalList = Facade.getAllMetal(connectionPool);
             request.setAttribute("woodList", woodList);
             request.setAttribute("metalList", metalList);
-        }
-        catch (DatabaseException e)
+        } catch (DatabaseException e)
         {
             e.printStackTrace();
         }
@@ -331,15 +330,14 @@ public class AdminAction extends HttpServlet
     {
         try
         {
-            if(Facade.getWoodById(idWood, connectionPool) == null)
+            if (Facade.getWoodById(idWood, connectionPool) == null)
             {
                 getMetalAndWoodList(request);
-                String msgError =  "Wood ID: " + idWood + " findes ikke på varelaget!";
+                String msgError = "Wood ID: " + idWood + " findes ikke på varelaget!";
                 request.setAttribute("msgError", msgError);
                 request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
             }
-        }
-        catch (DatabaseException e)
+        } catch (DatabaseException e)
         {
             e.printStackTrace();
         }
@@ -350,15 +348,14 @@ public class AdminAction extends HttpServlet
     {
         try
         {
-            if(Facade.getMetalById(idMetal, connectionPool) == null)
+            if (Facade.getMetalById(idMetal, connectionPool) == null)
             {
                 getMetalAndWoodList(request);
-                String msgError =  "Metal ID: " + idMetal + " findes ikke på varelaget!";
+                String msgError = "Metal ID: " + idMetal + " findes ikke på varelaget!";
                 request.setAttribute("msgError", msgError);
                 request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
             }
-        }
-        catch (DatabaseException e)
+        } catch (DatabaseException e)
         {
             e.printStackTrace();
         }
@@ -369,7 +366,7 @@ public class AdminAction extends HttpServlet
     {
         for (String str : strs)
         {
-            if(str.isEmpty())
+            if (str.isEmpty())
             {
                 getMetalAndWoodList(request);
                 String msgError = "Et eller flere parametre er tomme!";

@@ -42,7 +42,7 @@
                                 <form action="adminaction" method="post">
                                     <input type="number" hidden name="action" value="1">
                                     <input type="number" hidden name="sortOption" value="1">
-                                    <input type="submit" class="dropdown-item" value="Træ ID">
+                                    <input type="submit" class="dropdown-item" value="ID">
                                 </form>
                             </li>
 
@@ -51,6 +51,14 @@
                                     <input type="number" hidden name="action" value="1">
                                     <input type="number" hidden name="sortOption" value="2">
                                     <input type="submit" class="dropdown-item" value="Navn">
+                                </form>
+                            </li>
+
+                            <li>
+                                <form action="adminaction" method="post">
+                                    <input type="number" hidden name="action" value="1">
+                                    <input type="number" hidden name="sortOption" value="3">
+                                    <input type="submit" class="dropdown-item" value="Variant">
                                 </form>
                             </li>
                         </ul>
@@ -161,7 +169,7 @@
                                 <td>${metal.idMetal}</td>
                                 <td>${metal.name}</td>
                                 <td>${metal.unit}</td>
-                                <td>${metal.price}</td>
+                                <td>${metal.price} kr.</td>
                                 <td>${metal.variant}</td>
                                 <td class="text-center">
                                     <form action="adminaction" method="post"
