@@ -13,6 +13,13 @@
     </jsp:attribute>
 
     <jsp:body>
+        <div class="mt-2">
+            <form action="userpage" method="post">
+                <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+            </form>
+        </div>
+
+
         <div class="container mt-4">
             <div class="card mt-2 p-1 cardPos">
                 <form action="makeorder" method="post">
@@ -89,6 +96,13 @@
 
 
             </div>
+        </div>
+
+
+        <div class="mt-2">
+            <form action="userpage" method="post">
+                <input type="submit" class="btn btn-primary fw-bold" value="Tilbage">
+            </form>
         </div>
     </jsp:body>
 
