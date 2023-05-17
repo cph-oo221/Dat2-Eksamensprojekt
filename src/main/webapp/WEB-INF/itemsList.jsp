@@ -32,7 +32,7 @@
 
                     <thead>
                     <tr style="color: white;" class="table">
-                        <th scope="col">x</th>
+                        <th scope="col">&nbsp;</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                         <th scope="col"></th>
@@ -57,22 +57,46 @@
                             </tr>
                             </tbody>
                     </c:forEach>
+
+                    <thead>
+                    <tr style="color: white;" class="table">
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <thead>
+                    <tr>
+                        <th scope="col">Skruer & Beslag</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <c:forEach var="item" items="${requestScope.metalList}">
+                        <%--<c:if test="${item.material.isInstance(Metal)}">--%>
+                        <%--<% if (item.m instanceof Metal) { %>--%>
+                        <tbody>
+                        <tr>
+                            <td>${item.material.name}</td>
+                            <td>${item.amount}</td>
+                            <td>${item.material.price}</td>
+                            <td>${item.desc}</td>
+                        </tr>
+                        </tbody>
+                        <%--<% } %>--%>
+                        <%--</c:if>--%>
+                    </c:forEach>
+
                 </table>
             </div>
         </div>
-        <br>
+        <%--<br>
         <div class="row">
         <div class="col-sm-12">
 
             <table class="table table-dark table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Vare</th>
-                    <th scope="col">Antal</th>
-                    <th scope="col">Pris stk</th>
-                    <th scope="col">Beskrivelse</th>
-                </tr>
-                </thead>
                 <thead>
                 <tr>
                     <th scope="col">Skruer & Beslag</th>
@@ -82,7 +106,8 @@
                 </tr>
                 </thead>
                 <c:forEach var="item" items="${requestScope.metalList}">
-                    <%--<c:if test="${item.material.class.name.equals('Metal.class')}">--%>
+                    &lt;%&ndash;<c:if test="${item.material.isInstance(Metal)}">&ndash;%&gt;
+                    &lt;%&ndash;<% if (item.m instanceof Metal) { %>&ndash;%&gt;
                         <tbody>
                         <tr>
                             <td>${item.material.name}</td>
@@ -91,9 +116,10 @@
                             <td>${item.desc}</td>
                         </tr>
                         </tbody>
-                   <%-- </c:if>--%>
+                    &lt;%&ndash;<% } %>&ndash;%&gt;
+                    &lt;%&ndash;</c:if>&ndash;%&gt;
                 </c:forEach>
-            </table>
+            </table>--%>
 
         </div>
 
