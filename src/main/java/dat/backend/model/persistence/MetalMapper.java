@@ -16,47 +16,6 @@ import java.util.logging.Logger;
 
 public class MetalMapper
 {
-    public static List<OrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
-    {
-        Logger.getLogger("web").log(Level.INFO,"Fetching items from receipt: " + idReceipt);
-
-        String sql = "SELECT * FROM ordermetal\n" +
-                "JOIN metal m on ordermetal.idmetal = m.idmetal\n" +
-                "WHERE idreceipt = ?;";
-
-        try (Connection connection = connectionPool.getConnection())
-        {
-            try (PreparedStatement ps = connection.prepareStatement(sql))
-            {
-                ps.setInt(1, idReceipt);
-
-                ResultSet rs = ps.executeQuery();
-                List<OrderItem> orderItems = new ArrayList<>();
-
-                while (rs.next())
-                {
-                    int idMetal = rs.getInt("idmetal");
-                    String name = rs.getString("name");
-                    int price = rs.getInt("price");
-                    String unit = rs.getString("unit");
-                    String variant = rs.getString("variant");
-
-                    Metal metal = new Metal(idMetal, name, price, unit, variant);
-
-                    int amount = rs.getInt("amount");
-                    String description = rs.getString("description");
-
-                    OrderItem metalOrderItem = new OrderItem(amount, metal, description);
-                    orderItems.add(metalOrderItem);
-                }
-                return orderItems;
-            }
-        }
-        catch (SQLException e)
-        {
-            throw new DatabaseException(e.getMessage());
-        }
-    }
 
     public static List<Metal> getAllMetal(ConnectionPool connectionPool) throws DatabaseException
     {

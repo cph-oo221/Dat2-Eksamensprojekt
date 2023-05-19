@@ -124,16 +124,14 @@ public class Facade
         OrderMapper.deleteWoodOrderByReceiptId(idReceipt, connectionPool);
         OrderMapper.deleteMetalOrderByReceiptID(idReceipt, connectionPool);
     }
+
+    public static List<OrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    {
+        return OrderMapper.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
+    }
     // /ORDER **********************************************************************************************************
 
     // METAL ***********************************************************************************************************
-
-   // FIXME: Wrong mapper
-    public static List<OrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
-    {
-        return MetalMapper.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
-    }
-
     public static List<Metal> getAllMetal(ConnectionPool connectionPool) throws DatabaseException
     {
         return MetalMapper.getAllMetal(connectionPool);

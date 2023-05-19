@@ -113,6 +113,7 @@
                                     <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
                                     <input type="submit" class="btn btn-info" value="Se stykliste">
                                 </form>
+                                <button type="submit" formaction="download" formmethod="post">Download something</button>
                             </td>
                         </tr>
                     </c:if>
