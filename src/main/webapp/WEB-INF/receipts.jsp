@@ -113,7 +113,10 @@
                                     <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
                                     <input type="submit" class="btn btn-info" value="Se stykliste">
                                 </form>
-                                <button type="submit" formaction="download" formmethod="post">Download something</button>
+                                <form action="download" method="post">
+                                    <input type="text" hidden name="filename" value="${pageContext.request.contextPath}\\sample.txt">
+                                    <input type="submit" class="btn btn-info" value="download something">
+                                </form>
                             </td>
                         </tr>
                     </c:if>
