@@ -1,5 +1,7 @@
 package dat.backend.control.shared;
 
+import dat.backend.model.config.Env;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -27,13 +29,16 @@ public class Download extends HttpServlet
     }
     protected void doDownload(HttpServletRequest request, HttpServletResponse response, String filename, String original_filename) throws IOException
     {
+        filename = "scadfil.scad";
         PrintWriter out = response.getWriter();
+        ServletContext context  = getServletConfig().getServletContext();
+        String mimetype = context.getMimeType( filename );
 
-        response.setContentType("text/plain");
+        response.setContentType((mimetype != null) ? mimetype : "application/octet-stream" );
 
         response.setHeader("Content-Disposition" , "attachment; filename=/"+filename+"\"");
 
-        FileInputStream inputStream = new FileInputStream("C:\\Users\\Sebastian Egeberg\\Desktop\\Programming + skole\\Dat2-Eksamensprojekt\\src\\main\\webapp\\WEB-INF\\sample.txt");
+        FileInputStream inputStream = new FileInputStream(Env.SCADPATH);
 
         int in;
 
