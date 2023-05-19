@@ -24,8 +24,6 @@ public class Download extends HttpServlet
 
         doDownload(request, response, filename, original_filename);
 
-
-
     }
     protected void doDownload(HttpServletRequest request, HttpServletResponse response, String filename, String original_filename) throws IOException
     {
@@ -34,7 +32,7 @@ public class Download extends HttpServlet
         ServletContext context  = getServletConfig().getServletContext();
         String mimetype = context.getMimeType( filename );
 
-        response.setContentType((mimetype != null) ? mimetype : "application/octet-stream" );
+        response.setContentType((mimetype != null) ? mimetype : "application/x-openscsad" );
 
         response.setHeader("Content-Disposition" , "attachment; filename=/"+filename+"\"");
 
@@ -48,38 +46,5 @@ public class Download extends HttpServlet
         }
         inputStream.close();
         out.close();
-
-
-
-//        File f = new File(filename);
-//        int length = 0;
-//        ServletOutputStream op = response.getOutputStream();
-//        ServletContext context  = getServletConfig().getServletContext();
-//        String mimetype = context.getMimeType( filename );
-//
-//        //
-//        //  Set the response and go!
-//        //
-//        //
-//        response.setContentType((mimetype != null) ? mimetype : "application/octet-stream" );
-//        response.setContentLength( (int) f.length() );
-//        response.setHeader( "Content-Disposition", "attachment; filename=\"" + original_filename + "\"" );
-//
-//        //
-//        //  Stream to the requester.
-//        //
-//       // byte[] bbuf = new byte[1048];
-//        InputStream i = new DataInputStream(f.toString());
-//        DataInputStream in = new DataInputStream(i);
-//
-//        while ((in != null) && ((length = in.read(bbuf)) != -1))
-//        {
-//            op.write(bbuf,0,length);
-//        }
-//
-//        in.close();
-//        op.flush();
-//        op.close();
-
     }
 }
