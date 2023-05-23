@@ -2,6 +2,7 @@ package dat.backend.control.shared;
 
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.config.Env;
+import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.utilities.Model3D;
 
@@ -34,7 +35,16 @@ public class Download extends HttpServlet
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
 
         Model3D model3D = new Model3D(idReceipt, connectionPool);
-        model3D.generate3D();
+        try
+        {
+            model3D.generate3D();
+        }
+        catch (DatabaseException e)
+        {
+            request.setAttribute("errormessage", e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
+
         doDownload(response, "View"+ idReceipt +".scad");
 
     }

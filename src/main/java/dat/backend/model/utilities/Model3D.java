@@ -10,6 +10,7 @@ import org.abstractica.javacsg.Geometry3D;
 import org.abstractica.javacsg.JavaCSG;
 import org.abstractica.javacsg.JavaCSGFactory;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,57 +31,47 @@ public class Model3D
         this.connectionPool = connectionPool;
     }
 
-    public void generate3D()
+    public void generate3D() throws DatabaseException
     {
-        try
+        receipt = Facade.getReceiptById(receiptID, connectionPool);
+        lengthmm = receipt.getLength() * 10;
+        widthmm = receipt.getWidth() * 10;
+
+        List<Wood> woodItems = getWoods(Facade.getWoodOrderItemsByRecieptId(receipt.getIdReceipt(), connectionPool));
+
+        boolean hasRoof = false;
+
+        for(Wood w : woodItems)
         {
-            receipt = Facade.getReceiptById(receiptID, connectionPool);
-            lengthmm = receipt.getLength() * 10;
-            widthmm = receipt.getWidth() * 10;
-
-            List<Wood> woodItems = getWoods(Facade.getWoodOrderItemsByRecieptId(receipt.getIdReceipt(), connectionPool));
-
-            boolean hasRoof = false;
-
-            for(Wood w : woodItems)
+            if(w.getVariant().equals("Tag"))
             {
-                if(w.getVariant().equals("Tag"))
-                {
-                    hasRoof = true;
-                }
+                hasRoof = true;
+                break;
             }
-
-            Geometry3D roof = null;
-            if(hasRoof)
-            {
-                roof = getRoofModel(woodItems, widthmm, lengthmm, csg);
-            }
-
-            Geometry3D stern = getSternModel(woodItems, widthmm, lengthmm, csg);
-
-            Geometry3D rafters = getRafterModel(woodItems, widthmm, lengthmm, csg);
-
-            Geometry3D rems = getRemModel(woodItems, widthmm, lengthmm, csg);
-
-            Geometry3D poles = getPoleModel(woodItems, widthmm, lengthmm, csg);
-
-            if(hasRoof)
-            {
-                csg.view(csg.union3D(roof, stern, rafters, rems, poles), receiptID);
-            }
-            else
-            {
-                csg.view(csg.union3D(stern, rafters, rems, poles), receiptID);
-            }
-
-
-
-        }
-        catch (DatabaseException e)
-        {
-            e.printStackTrace();
         }
 
+        Geometry3D roof = null;
+        if(hasRoof)
+        {
+            roof = getRoofModel(woodItems, widthmm, lengthmm, csg);
+        }
+
+        Geometry3D stern = getSternModel(woodItems, widthmm, lengthmm, csg);
+
+        Geometry3D rafters = getRafterModel(woodItems, widthmm, lengthmm, csg);
+
+        Geometry3D rems = getRemModel(woodItems, widthmm, lengthmm, csg);
+
+        Geometry3D poles = getPoleModel(woodItems, widthmm, lengthmm, csg);
+
+        if(hasRoof)
+        {
+            csg.view(csg.union3D(roof, stern, rafters, rems, poles), receiptID);
+        }
+        else
+        {
+            csg.view(csg.union3D(stern, rafters, rems, poles), receiptID);
+        }
     }
 
 
