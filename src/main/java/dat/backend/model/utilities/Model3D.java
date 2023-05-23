@@ -39,7 +39,21 @@ public class Model3D
 
             List<Wood> woodItems = getWoods(Facade.getWoodOrderItemsByRecieptId(receipt.getIdReceipt(), connectionPool));
 
-            Geometry3D roof = getRoofModel(woodItems, widthmm, lengthmm, csg);
+            List<Wood> testForRoof = new ArrayList<>();
+
+            for(Wood w : woodItems)
+            {
+                if(w.getVariant().equals("Tag"))
+                {
+                    testForRoof.add(w);
+                }
+            }
+
+            Geometry3D roof = null;
+            if(testForRoof != null)
+            {
+                roof = getRoofModel(woodItems, widthmm, lengthmm, csg);
+            }
 
             Geometry3D stern = getSternModel(woodItems, widthmm, lengthmm, csg);
 
