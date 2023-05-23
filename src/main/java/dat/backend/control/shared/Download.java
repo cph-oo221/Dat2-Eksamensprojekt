@@ -50,9 +50,11 @@ public class Download extends HttpServlet
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
 
-        doDownload(response, "View"+ idReceipt +".scad");
+        String filename = "View"+ idReceipt +".scad";
 
+        doDownload(response, filename);
     }
+
     protected void doDownload(HttpServletResponse response, String filename) throws IOException
     {
         PrintWriter out = response.getWriter();
