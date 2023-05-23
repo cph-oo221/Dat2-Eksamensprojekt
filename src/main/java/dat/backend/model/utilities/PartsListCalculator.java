@@ -91,13 +91,13 @@ public class PartsListCalculator
         int amount = 4;
 
         double lenPoles = ((length - CARPORT_HANG *2) / MAX_POLE_DIST) + 1;
-        double widthPoles = ((width - CARPORT_HANG *2) / MAX_POLE_DIST) + 1;
+        //double widthPoles = ((width - CARPORT_HANG *2) / MAX_POLE_DIST) + 1;
 
         double extraLen = Math.ceil(lenPoles - 2) * 2;
-        double extraWidth = Math.ceil(widthPoles - 2) * 2;
+        //double extraWidth = Math.ceil(widthPoles - 2) * 2;
 
         amount += extraLen;
-        amount += extraWidth;
+        //amount += extraWidth;
 
 
         List<Wood> poleList = Facade.getWoodByVariant("Stolpe", connectionPool);
