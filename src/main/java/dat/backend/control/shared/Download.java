@@ -1,6 +1,7 @@
 package dat.backend.control.shared;
 
 import dat.backend.model.config.Env;
+import dat.backend.model.utilities.Model3D;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -19,24 +20,25 @@ public class Download extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        String filename = request.getParameter("filename");
-        String original_filename = filename;
 
-        doDownload(request, response, filename, original_filename);
+        int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
+
+        Model3D model3D = new Model3D(idReceipt);
+        model3D.generate3D();
+        doDownload(response, "View"+ idReceipt +".scad");
 
     }
-    protected void doDownload(HttpServletRequest request, HttpServletResponse response, String filename, String original_filename) throws IOException
+    protected void doDownload(HttpServletResponse response, String filename) throws IOException
     {
-        filename = "scadfil.scad";
         PrintWriter out = response.getWriter();
         ServletContext context  = getServletConfig().getServletContext();
-        String mimetype = context.getMimeType( filename );
+        String mimetype = context.getMimeType(filename);
 
         response.setContentType((mimetype != null) ? mimetype : "application/x-openscsad" );
 
         response.setHeader("Content-Disposition" , "attachment; filename=/"+filename+"\"");
 
-        FileInputStream inputStream = new FileInputStream(Env.SCADPATH);
+        FileInputStream inputStream = new FileInputStream(Env.SCADPATH + filename);
 
         int in;
 

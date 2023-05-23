@@ -114,7 +114,7 @@
                                     <input type="submit" class="btn btn-info" value="Se stykliste">
                                 </form>
                                 <form action="download" method="post">
-                                    <input type="text" hidden name="filename" value="${pageContext.request.contextPath}\\sample.txt">
+                                    <input type="number" hidden name="idReceipt" value="${receipt.idReceipt}">
                                     <input type="submit" class="btn btn-info" value="download something">
                                 </form>
                             </td>
