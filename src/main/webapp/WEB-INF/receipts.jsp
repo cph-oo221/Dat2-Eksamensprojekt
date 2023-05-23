@@ -28,6 +28,7 @@
             }
         </style>
 
+        <%-- AWAITING MANAGEMENT --%>
         <div class="mt-3">
             <strong>${sessionScope.msg}</strong>
             <h3>Under behandling</h3>
@@ -55,6 +56,7 @@
                 </c:forEach>
             </table>
 
+            <%-- OFFER --%>
             <h3>Tilbud</h3>
             <table class="table table-dark table-striped">
                 <tr>
@@ -92,9 +94,9 @@
             </table>
 
 
-
+            <%-- DONE RECEIPTS --%>
             <h3>Kvitteringer</h3>
-                <table class="table table-dark table-striped">
+            <table class="table table-dark table-striped">
                 <tr>
                     <th>Ordrenummer</th>
                     <th>Tidspunkt</th>
@@ -111,20 +113,14 @@
                             <td>
                                 <form action="itemslist" method="post">
                                     <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
-                                    <input type="submit" class="btn btn-info" value="Se stykliste">
-                                </form>
-                                <form action="download" method="post">
-                                    <input type="number" hidden name="idReceipt" value="${receipt.idReceipt}">
-                                    <input type="submit" class="btn btn-info" value="download something">
+                                    <input type="submit" class="btn btn-primary fw-bold" value="Se stykliste">
                                 </form>
                             </td>
                         </tr>
                     </c:if>
                 </c:forEach>
-
             </table>
         </div>
-
 
 
         <div class="mt-2">
