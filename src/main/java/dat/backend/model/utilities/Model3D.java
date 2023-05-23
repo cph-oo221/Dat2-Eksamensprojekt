@@ -63,7 +63,16 @@ public class Model3D
 
             Geometry3D poles = getPoleModel(woodItems, widthmm, lengthmm, csg);
 
-            csg.view(csg.union3D(roof, stern, rafters, rems, poles), receiptID);
+            if(roof != null)
+            {
+                csg.view(csg.union3D(roof, stern, rafters, rems, poles), receiptID);
+            }
+            else
+            {
+                csg.view(csg.union3D(stern, rafters, rems, poles), receiptID);
+            }
+
+
 
         }
         catch (DatabaseException e)
