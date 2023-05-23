@@ -15,11 +15,17 @@ import java.io.*;
 public class Download extends HttpServlet
 {
     private ConnectionPool connectionPool;
+    private String SCADPATH = Env.SCADPATH;
 
     @Override
     public void init() throws ServletException
     {
         this.connectionPool = ApplicationStart.getConnectionPool();
+        String deployed = System.getenv("DEPLOYED");
+        if (deployed != null)
+        {
+            SCADPATH = System.getenv("SCADPATH");
+        }
     }
 
     @Override
@@ -31,7 +37,6 @@ public class Download extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
 
         Model3D model3D = new Model3D(idReceipt, connectionPool);
@@ -54,11 +59,11 @@ public class Download extends HttpServlet
         ServletContext context  = getServletConfig().getServletContext();
         String mimetype = context.getMimeType(filename);
 
-        response.setContentType((mimetype != null) ? mimetype : "application/x-openscsad" );
+        response.setContentType((mimetype != null) ? mimetype : "application/x-openscad" );
 
         response.setHeader("Content-Disposition" , "attachment; filename=/"+filename+"\"");
 
-        FileInputStream inputStream = new FileInputStream(Env.SCADPATH + filename);
+        FileInputStream inputStream = new FileInputStream(SCADPATH + filename);
 
         int in;
 

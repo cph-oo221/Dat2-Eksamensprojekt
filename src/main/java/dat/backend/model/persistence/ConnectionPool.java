@@ -25,6 +25,8 @@ public class ConnectionPool
             USER = System.getenv("JDBC_USER");
             PASSWORD = System.getenv("JDBC_PASSWORD");
             URL = System.getenv("JDBC_CONNECTION_STRING");
+            Logger.getLogger("web").log(Level.INFO, String.format("DEPLOYMENT DETECTED. Trying to connect to database with " +
+                    "(%s, %s, %s)", USER, PASSWORD, URL));
         }
 
         else
