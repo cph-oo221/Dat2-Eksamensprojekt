@@ -41,6 +41,7 @@
                         <tr>
                             <th scope="col">Vare</th>
                             <th scope="col">Antal</th>
+                            <th scope="col">Enhed</th>
                             <th scope="col">Pris stk</th>
                             <th scope="col">Beskrivelse</th>
                         </tr>
@@ -52,12 +53,14 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
 
                         <thead>
                         <tr>
                             <th scope="col">Træ & Tagplader</th>
+                            <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -81,6 +84,7 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <thead>
@@ -89,11 +93,10 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <c:forEach var="item" items="${requestScope.metalList}">
-                            <%--<c:if test="${item.material.isInstance(Metal)}">--%>
-                            <%--<% if (item.m instanceof Metal) { %>--%>
                             <tbody>
                             <tr>
                                 <td>${item.material.name}</td>
@@ -103,10 +106,7 @@
                                 <td>${item.desc}</td>
                             </tr>
                             </tbody>
-                            <%--<% } %>--%>
-                            <%--</c:if>--%>
                         </c:forEach>
-
                     </table>
                 </div>
             </div>
