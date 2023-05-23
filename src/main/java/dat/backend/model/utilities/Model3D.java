@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Model3D
 {
-    private static ConnectionPool connectionPool = new ConnectionPool();
+    private ConnectionPool connectionPool;
     private JavaCSG csg = JavaCSGFactory.createDefault();
     private Receipt receipt;
     private double widthmm = 0;
@@ -24,9 +24,10 @@ public class Model3D
     private int receiptID;
 
 
-    public Model3D(int receiptID)
+    public Model3D(int receiptID, ConnectionPool connectionPool)
     {
         this.receiptID = receiptID;
+        this.connectionPool = connectionPool;
     }
 
     public void generate3D()
@@ -39,18 +40,18 @@ public class Model3D
 
             List<Wood> woodItems = getWoods(Facade.getWoodOrderItemsByRecieptId(receipt.getIdReceipt(), connectionPool));
 
-            List<Wood> testForRoof = new ArrayList<>();
+            boolean hasRoof = false;
 
             for(Wood w : woodItems)
             {
                 if(w.getVariant().equals("Tag"))
                 {
-                    testForRoof.add(w);
+                    hasRoof = true;
                 }
             }
 
             Geometry3D roof = null;
-            if(testForRoof != null)
+            if(hasRoof)
             {
                 roof = getRoofModel(woodItems, widthmm, lengthmm, csg);
             }
@@ -63,7 +64,7 @@ public class Model3D
 
             Geometry3D poles = getPoleModel(woodItems, widthmm, lengthmm, csg);
 
-            if(roof != null)
+            if(hasRoof)
             {
                 csg.view(csg.union3D(roof, stern, rafters, rems, poles), receiptID);
             }
@@ -80,7 +81,6 @@ public class Model3D
             e.printStackTrace();
         }
 
-        connectionPool.close();
     }
 
 
