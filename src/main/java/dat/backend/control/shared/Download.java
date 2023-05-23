@@ -1,6 +1,8 @@
 package dat.backend.control.shared;
 
+import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.config.Env;
+import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.utilities.Model3D;
 
 import javax.servlet.*;
@@ -11,6 +13,14 @@ import java.io.*;
 @WebServlet(name = "Download", value = "/download")
 public class Download extends HttpServlet
 {
+    private ConnectionPool connectionPool;
+
+    @Override
+    public void init() throws ServletException
+    {
+        this.connectionPool = ApplicationStart.getConnectionPool();
+    }
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -23,7 +33,7 @@ public class Download extends HttpServlet
 
         int idReceipt = Integer.parseInt(request.getParameter("idReceipt"));
 
-        Model3D model3D = new Model3D(idReceipt);
+        Model3D model3D = new Model3D(idReceipt, connectionPool);
         model3D.generate3D();
         doDownload(response, "View"+ idReceipt +".scad");
 
