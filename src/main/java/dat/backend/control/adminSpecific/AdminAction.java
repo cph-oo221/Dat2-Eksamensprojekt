@@ -29,9 +29,9 @@ public class AdminAction extends HttpServlet
     {
         request.setCharacterEncoding("UTF-8"); // NB: Important if action is search or else danish letters will not be found.
         int action = Integer.parseInt(request.getParameter("action"));
-        if (action == 1) actionSort(request); // SORT
-        if (action == 2) actionSearch(request); // SEARCH
-        if (action == 3) actionReset(request); // RESET
+        if (action == 1) actionSort(request, response); // SORT
+        if (action == 2) actionSearch(request, response); // SEARCH
+        if (action == 3) actionReset(request, response); // RESET
         if (action == 4) actionDelete(request, response); // DELETE WOOD OR METAL
         if (action == 5) actionAddNewWood(request, response); // ADD NEW WOOD
         if (action == 6) actionChangePriceOfWood(request, response); // CHANGE PRICE FOR WOOD
@@ -41,7 +41,7 @@ public class AdminAction extends HttpServlet
     }
 
     // ACTION 1. SORT
-    private void actionSort(HttpServletRequest request)
+    private void actionSort(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         int sortOption = Integer.parseInt(request.getParameter("sortOption"));
 
@@ -82,12 +82,12 @@ public class AdminAction extends HttpServlet
         }
         catch (DatabaseException e)
         {
-            e.printStackTrace();
+            exceptionHandling(request, response, e);
         }
     }
 
     // ACTION 2. SEARCH
-    private void actionSearch(HttpServletRequest request)
+    private void actionSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         String search = request.getParameter("search").toLowerCase();
         List<Wood> searchListWood = new ArrayList<>();
@@ -119,14 +119,14 @@ public class AdminAction extends HttpServlet
             request.setAttribute("woodList", searchListWood);
         } catch (DatabaseException e)
         {
-            e.printStackTrace();
+            exceptionHandling(request, response, e);
         }
     }
 
     // ACTION 3. RESET
-    private void actionReset(HttpServletRequest request)
+    private void actionReset(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        getMetalAndWoodList(request);
+        getMetalAndWoodList(request, response);
     }
 
     //  ACTION 4. DELETE WOOD OR METAL
@@ -145,10 +145,10 @@ public class AdminAction extends HttpServlet
             try
             {
                 Facade.deleteWood(idWood, connectionPool);
-                getMetalAndWoodList(request);
+                getMetalAndWoodList(request, response);
             } catch (DatabaseException e)
             {
-                e.printStackTrace();
+                exceptionHandling(request, response, e);
             }
         }
 
@@ -163,10 +163,10 @@ public class AdminAction extends HttpServlet
             try
             {
                 Facade.deleteMetal(idMetal, connectionPool);
-                getMetalAndWoodList(request);
+                getMetalAndWoodList(request, response);
             } catch (DatabaseException e)
             {
-                e.printStackTrace();
+                exceptionHandling(request, response, e);
             }
         }
     }
@@ -196,7 +196,7 @@ public class AdminAction extends HttpServlet
         {
             String msgError = "En eller flere parametre er tomme eller nul i Tilføje nyt træ";
             request.setAttribute("msgError", msgError);
-            getMetalAndWoodList(request);
+            getMetalAndWoodList(request, response);
             request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
         }
 
@@ -204,10 +204,10 @@ public class AdminAction extends HttpServlet
         {
             Wood product = Facade.createWood(length, width, height, name, unit, price, variant, connectionPool);
             request.setAttribute("product", product);
-            getMetalAndWoodList(request);
+            getMetalAndWoodList(request, response);
         } catch (DatabaseException e)
         {
-            e.printStackTrace();
+            exceptionHandling(request, response, e);
         }
     }
 
@@ -228,7 +228,7 @@ public class AdminAction extends HttpServlet
         {
             String msgError = "En eller flere parametre er tomme eller nul i Tilføje nyt metal";
             request.setAttribute("msgError", msgError);
-            getMetalAndWoodList(request);
+            getMetalAndWoodList(request, response);
             request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
         }
 
@@ -242,7 +242,7 @@ public class AdminAction extends HttpServlet
             request.setAttribute("woodList", woodList);
         } catch (DatabaseException e)
         {
-            e.printStackTrace();
+            exceptionHandling(request, response, e);
         }
     }
 
@@ -263,7 +263,7 @@ public class AdminAction extends HttpServlet
         if (idWood <= 0 || newPrice <= 0)
         {
             String msgError = "En eller flere parametre er tomme eller nul i Ændre Pris!";
-            getMetalAndWoodList(request);
+            getMetalAndWoodList(request, response);
             request.setAttribute("msgError", msgError);
             request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
         }
@@ -271,10 +271,10 @@ public class AdminAction extends HttpServlet
         try
         {
             Facade.updateWoodPrice(idWood, newPrice, connectionPool);
-            getMetalAndWoodList(request);
+            getMetalAndWoodList(request, response);
         } catch (DatabaseException e)
         {
-            e.printStackTrace();
+            exceptionHandling(request, response, e);
         }
     }
 
@@ -295,7 +295,7 @@ public class AdminAction extends HttpServlet
         if (idMetal <= 0 || newPrice <= 0)
         {
             String msgError = "En eller flere parametre er tomme eller nul i Ændre Pris!";
-            getMetalAndWoodList(request);
+            getMetalAndWoodList(request, response);
             request.setAttribute("msgError", msgError);
             request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
         }
@@ -303,15 +303,15 @@ public class AdminAction extends HttpServlet
         try
         {
             Facade.updateMetalPrice(idMetal, newPrice, connectionPool);
-            getMetalAndWoodList(request);
+            getMetalAndWoodList(request, response);
         } catch (DatabaseException e)
         {
-            e.printStackTrace();
+            exceptionHandling(request, response, e);
         }
     }
 
     // Get all the wood and metal from the database, and insert them into a list of wood and metal
-    private void getMetalAndWoodList(HttpServletRequest request)
+    private void getMetalAndWoodList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         try
         {
@@ -321,7 +321,7 @@ public class AdminAction extends HttpServlet
             request.setAttribute("metalList", metalList);
         } catch (DatabaseException e)
         {
-            e.printStackTrace();
+            exceptionHandling(request, response, e);
         }
     }
 
@@ -332,14 +332,14 @@ public class AdminAction extends HttpServlet
         {
             if (Facade.getWoodById(idWood, connectionPool) == null)
             {
-                getMetalAndWoodList(request);
+                getMetalAndWoodList(request, response);
                 String msgError = "Wood ID: " + idWood + " findes ikke på varelaget!";
                 request.setAttribute("msgError", msgError);
                 request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
             }
         } catch (DatabaseException e)
         {
-            e.printStackTrace();
+            exceptionHandling(request, response, e);
         }
     }
 
@@ -350,14 +350,14 @@ public class AdminAction extends HttpServlet
         {
             if (Facade.getMetalById(idMetal, connectionPool) == null)
             {
-                getMetalAndWoodList(request);
+                getMetalAndWoodList(request, response);
                 String msgError = "Metal ID: " + idMetal + " findes ikke på varelaget!";
                 request.setAttribute("msgError", msgError);
                 request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
             }
         } catch (DatabaseException e)
         {
-            e.printStackTrace();
+            exceptionHandling(request, response, e);
         }
     }
 
@@ -368,7 +368,7 @@ public class AdminAction extends HttpServlet
         {
             if (str.isEmpty())
             {
-                getMetalAndWoodList(request);
+                getMetalAndWoodList(request, response);
                 String msgError = "Et eller flere parametre er tomme!";
                 request.setAttribute("msgError", msgError);
                 request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
@@ -376,5 +376,11 @@ public class AdminAction extends HttpServlet
             }
         }
         return false;
+    }
+
+    private void exceptionHandling(HttpServletRequest request, HttpServletResponse response, DatabaseException e) throws ServletException, IOException
+    {
+        request.setAttribute("errormessage", e.getMessage());
+        request.getRequestDispatcher("error.jsp").forward(request, response);
     }
 }
