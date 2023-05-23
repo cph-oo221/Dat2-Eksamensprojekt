@@ -20,6 +20,7 @@
             </form>
         </div>
 
+        <%-- AWAITING MANAGEMENT --%>
         <div class="container mt-2">
             <div class="row">
                 <div class="col-sm-12">
@@ -71,7 +72,7 @@
                                                 <input type="number" hidden name="width" value="${receipts.width}"/>
                                                 <input type="number" hidden name="length" value="${receipts.length}"/>
 
-                                                <input type="submit" class="btn btn-info fw-bold" value="Se stykliste"/>
+                                                <input type="submit" class="btn btn-primary fw-bold" value="Se stykliste"/>
                                             </form>
                                         </div>
 
@@ -102,7 +103,7 @@
             </div>
         </div>
 
-
+        <%-- OFFER --%>
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -147,7 +148,7 @@
                                         <div class="mt-2 text-center">
                                             <form action="itemslist" method="post">
                                                 <input type="number" hidden name="idReceipt" value=${receipts.idReceipt}>
-                                                <input type="submit" class="btn btn-info fw-bold" value="Se stykliste"/>
+                                                <input type="submit" class="btn btn-primary fw-bold" value="Se stykliste"/>
                                             </form>
                                         </div>
                                     </td>
@@ -160,6 +161,7 @@
             </div>
         </div>
 
+        <%-- DONE RECEIPTS--%>
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -206,7 +208,14 @@
                                         <div class="mt-2 text-center">
                                             <form action="itemslist" method="post">
                                                 <input type="number" hidden name="idReceipt" value=${receipts.idReceipt}>
-                                                <input type="submit" class="btn btn-info fw-bold" value="Se stykliste"/>
+                                                <input type="submit" class="btn btn-primary fw-bold" value="Se stykliste"/>
+                                            </form>
+                                        </div>
+
+                                        <div class="mt-2 text-center">
+                                            <form action="download" method="post">
+                                                <input type="number" hidden name="idReceipt" value="${receipts.idReceipt}">
+                                                <input type="submit" class="btn btn-primary fw-bold" value="Download 3D model">
                                             </form>
                                         </div>
                                     </td>
