@@ -27,7 +27,7 @@
                         <br>
                         <select name="width" id="width" class="inputBoxSize">
                             <c:if test="${requestScope.defaultSet != null}">
-                            <option value="${requestScope.defaultWidth}">Valgt skabelon: ${requestScope.defaultWidth}</option>
+                            <option value="${requestScope.defaultWidth}">Valgt skabelon: ${requestScope.defaultWidth} cm</option>
                             </c:if>
                             <option value="240">240 cm</option>
                             <option value="270">270 cm</option>
@@ -49,7 +49,7 @@
                         <br>
                         <select name="length" id="length" class="inputBoxSize">
                             <c:if test="${requestScope.defaultSet != null}">
-                                <option value="${requestScope.defaultLength}">Valgt skabelon: ${requestScope.defaultLength}</option>
+                                <option value="${requestScope.defaultLength}">Valgt skabelon: ${requestScope.defaultLength} cm</option>
                             </c:if>
                             <option value="240">240 cm</option>
                             <option value="270">270 cm</option>
