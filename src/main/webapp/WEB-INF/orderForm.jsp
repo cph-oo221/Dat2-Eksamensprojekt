@@ -122,7 +122,7 @@
             <h4>Vigtig info</h4>
             <p>
                 Bestilling af en carport er <b>ikke bindende,</b> kun et tilbud.  <br>
-                En salgsspecialist vil behandle din order efter bestilling, <br>
+                En salgsspecialist vil behandle din orde efter bestilling, <br>
                 og kan vende tilbage med spørgsmål, hvis behovet skulle opstå.
             </p>
         </div>
