@@ -13,9 +13,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /*
-    This class handles the birth and deatch of the connection pool.
+    This class handles the birth and death of the connection pool.
     contextInitialized() initializes the connection pool at application start
-    Then the connection pool can be optained by ApplicationStart.getConnectionPool()
+    Then the connection pool can be obtained by ApplicationStart.getConnectionPool()
  */
 
 @WebListener
