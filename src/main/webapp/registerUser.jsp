@@ -58,7 +58,7 @@
                         <br/>
                         <br/>
                             <%-- SIGNUP BTN (SUBMITS ) --%>
-                        <input type="submit" class="btn btn-primary fw-bold submitBtnSize" value="SignUp"/>
+                        <input type="submit" class="btn btn-primary fw-bold submitBtnSize" value="Opret Bruger"/>
                         <br>
                     </form>
                 </div>
