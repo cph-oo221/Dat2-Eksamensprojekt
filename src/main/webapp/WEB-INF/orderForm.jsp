@@ -23,7 +23,7 @@
         <div class="container mt-4">
             <div class="card mt-2 p-1 cardPos">
                 <form action="makeorder" method="post">
-                    <label for="width" class="fw-bold">Carport bredde:</label>
+                    <label for="width" class="fw-bold">Carports bredde:</label>
                         <br>
                         <select name="width" id="width" class="inputBoxSize">
                             <option value="240">240 cm</option>
@@ -42,7 +42,7 @@
                         </select>
 
                     <br><br>
-                    <label for="length" class="fw-bold">Carport længde:</label>
+                    <label for="length" class="fw-bold">Carports længde:</label>
                         <br>
                         <select name="length" id="length" class="inputBoxSize">
                             <option value="240">240 cm</option>
@@ -67,7 +67,7 @@
                         </select>
 
                     <br><br>
-                    <label for="withRoof" class="fw-bold">Carport tag:</label>
+                    <label for="withRoof" class="fw-bold">Tag:</label>
                         <br>
                         <select name="withRoof" id="withRoof" class="inputBoxSize">
                             <option value="false">Uden tagplader</option>

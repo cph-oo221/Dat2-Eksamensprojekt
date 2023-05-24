@@ -27,14 +27,14 @@
                     <form action="signup" method="post">
 
                             <%-- Email --%>
-                        <label for="email" class="fw-bold popupSignUpEmail"> Email </label><br/>
-                        <input type="text" id="email" name="email" class="inputBoxSize" placeholder="Angiv Email"/>
+                        <label for="email" class="fw-bold popupSignUpEmail"> E-mail </label><br/>
+                        <input type="text" id="email" name="email" class="inputBoxSize" placeholder="Angiv e-mail"/>
 
                         <br/>
                         <br/>
                             <%-- PASSWORD --%>
-                        <label for="password" class="fw-bold popupSignUpPassword"> Password </label><br/>
-                        <input type="password" id="password" name="password" class="inputBoxSize" placeholder="Angiv Password"/>
+                        <label for="password" class="fw-bold popupSignUpPassword"> Kodeord </label><br/>
+                        <input type="password" id="password" name="password" class="inputBoxSize" placeholder="Angiv kodeord"/>
 
                         <br/>
                         <br/>
@@ -52,7 +52,7 @@
                         <br/>
                         <br/>
                             <%-- PHONE NUMBER --%>
-                        <label for="phoneNumber" class="fw-bold popupSignUpPhoneNumber"> Telefon nummer</label><br/>
+                        <label for="phoneNumber" class="fw-bold popupSignUpPhoneNumber"> Telefonnummer</label><br/>
                         <input type="number" id="phoneNumber" name="phoneNumber" class="inputBoxSize" placeholder="Angiv telefon nummer"/>
 
                         <br/>

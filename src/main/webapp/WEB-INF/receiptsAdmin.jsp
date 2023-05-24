@@ -31,12 +31,12 @@
                         <tr>
                             <th scope="col">Ordre ID</th>
                             <th scope="col">Kunde ID</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">E-mail</th>
                             <th scope="col">Tidspunkt</th>
                             <th scope="col">Pris</th>
                             <th scope="col">Status</th>
                             <th scope="col">Bredde</th>
-                            <th scope="col">længde</th>
+                            <th scope="col">Længde</th>
                             <th scope="col">Kommentar</th>
                             <th scope="col">Handling</th>
 
@@ -86,7 +86,7 @@
                                         </div>
 
                                         <div class="mt-2 text-center">
-                                            <form action="deletereceipt" method="post" onsubmit="return confirm('Denne handling medføre, at ordren: ' + ${receipts.idReceipt} + '. bliver slette, er du sikker?')">
+                                            <form action="deletereceipt" method="post" onsubmit="return confirm('Denne handling medfører, at ordren: ' + ${receipts.idReceipt} + '. bliver slettet, er du sikker?')">
                                                 <input type="number" hidden name="idUser" value="${receipts.idUser}"/>
                                                 <input type="number" hidden name="idReceipt" value="${receipts.idReceipt}"/>
 
@@ -114,11 +114,11 @@
                         <tr>
                             <th scope="col">Ordre ID</th>
                             <th scope="col">Kunde ID</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">E-mail</th>
                             <th scope="col">Tidspunkt</th>
                             <th scope="col">Pris</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Brede</th>
+                            <th scope="col">Bredde</th>
                             <th scope="col">Længde</th>
                             <th scope="col">Kommentar</th>
                             <th scope="col">Handling</th>
@@ -172,11 +172,11 @@
                         <tr>
                             <th scope="col">Ordre ID</th>
                             <th scope="col">Kunde ID</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">E-mail</th>
                             <th scope="col">Tidspunkt</th>
                             <th scope="col">Pris</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Brede</th>
+                            <th scope="col">Breddde</th>
                             <th scope="col">Længde</th>
                             <th scope="col">Kommentar</th>
                             <th scope="col">Handling</th>
