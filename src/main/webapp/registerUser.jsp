@@ -16,7 +16,7 @@
 
         <div class="container mt-3">
             <div class="card mt-2 p-1 cardPos">
-                <h1>SignUp</h1>
+                <h1>Opret Bruger</h1>
 
                 <img src="images/loginAndSignup/login-Icon.png" alt="login icon" class="imgDisplay">
                 <hr>
