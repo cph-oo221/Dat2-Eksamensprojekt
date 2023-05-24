@@ -106,10 +106,30 @@
 
                 <form action="orderpage" method="post">
 
-                    <input type="number" hidden name = "defaultSet" value="1">
+                    <input type="text" hidden name = "defaultSet" value="true">
                     <input type="number" hidden name = "defaultWidth" value="600">
                     <input type="number" hidden name = "defaultLength" value="720">
-                    <input type="number" hidden name = "defaultSet" value="1">
+                    <input type="text" hidden name = "defaultRoof" value="false">
+                    <input type="submit" name="submit">
+
+                </form>
+
+                <form action="orderpage" method="post">
+
+                    <input type="text" hidden name = "defaultSet" value="true">
+                    <input type="number" hidden name = "defaultWidth" value="320">
+                    <input type="number" hidden name = "defaultLength" value="420">
+                    <input type="text" hidden name = "defaultRoof" value="true">
+                    <input type="submit" name="submit">
+
+                </form>
+
+                <form action="orderpage" method="post">
+
+                    <input type="text" hidden name = "defaultSet" value="true">
+                    <input type="number" hidden name = "defaultWidth" value="240">
+                    <input type="number" hidden name = "defaultLength" value="240">
+                    <input type="text" hidden name = "defaultRoof" value="true">
                     <input type="submit" name="submit">
 
                 </form>
