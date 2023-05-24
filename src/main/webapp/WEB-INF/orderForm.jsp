@@ -26,6 +26,9 @@
                     <label for="width" class="fw-bold">Carports bredde:</label>
                         <br>
                         <select name="width" id="width" class="inputBoxSize">
+                            <c:if test="${requestScope.defaultSet != null}">
+                            <option value="${requestScope.defaultWidth}">Valgt skabelon: ${requestScope.defaultWidth}</option>
+                            </c:if>
                             <option value="240">240 cm</option>
                             <option value="270">270 cm</option>
                             <option value="300">300 cm</option>
@@ -45,6 +48,9 @@
                     <label for="length" class="fw-bold">Carports længde:</label>
                         <br>
                         <select name="length" id="length" class="inputBoxSize">
+                            <c:if test="${requestScope.defaultSet != null}">
+                                <option value="${requestScope.defaultLength}">Valgt skabelon: ${requestScope.defaultLength}</option>
+                            </c:if>
                             <option value="240">240 cm</option>
                             <option value="270">270 cm</option>
                             <option value="300">300 cm</option>
@@ -70,6 +76,9 @@
                     <label for="withRoof" class="fw-bold">Tag:</label>
                         <br>
                         <select name="withRoof" id="withRoof" class="inputBoxSize">
+                            <c:if test="${requestScope.defaultSet != null}">
+                                <option value="${requestScope.defaultRoof}">Valgt skabelon: ${requestScope.defaultRoofString}</option>
+                            </c:if>
                             <option value="false">Uden tagplader</option>
                             <option value="true">Trapeztag</option>
                         </select>
@@ -93,6 +102,16 @@
                     <button class="btn btn-primary fw-bold submitBtnSize" type="submit">
                         Bestil
                     </button>
+                </form>
+
+                <form action="orderpage" method="post">
+
+                    <input type="number" hidden name = "defaultSet" value="1">
+                    <input type="number" hidden name = "defaultWidth" value="600">
+                    <input type="number" hidden name = "defaultLength" value="720">
+                    <input type="number" hidden name = "defaultSet" value="1">
+                    <input type="submit" name="submit">
+
                 </form>
 
 
