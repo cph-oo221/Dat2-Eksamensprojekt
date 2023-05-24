@@ -24,56 +24,65 @@
             <div class="card mt-2 p-1 cardPos">
                 <p>${requestScope.errorMSG}</p>
                 <form action="makeorder" method="post">
-                    <label for="width" class="fw-bold">Carport bredde:</label>
-                    <br>
-                    <select name="width" id="width" class="inputBoxSize">
-                        <option value="240">240 cm</option>
-                        <option value="270">270 cm</option>
-                        <option value="300">300 cm</option>
-                        <option value="330">330 cm</option>
-                        <option value="360">360 cm</option>
-                        <option value="390">390 cm</option>
-                        <option value="420">420 cm</option>
-                        <option value="450">450 cm</option>
-                        <option value="480">480 cm</option>
-                        <option value="510">510 cm</option>
-                        <option value="540">540 cm</option>
-                        <option value="570">570 cm</option>
-                        <option value="600">600 cm</option>
-                    </select>
+                    <label for="width" class="fw-bold">Carports bredde:</label>
+                        <br>
+                        <select name="width" id="width" class="inputBoxSize">
+                            <c:if test="${requestScope.defaultSet != null}">
+                            <option value="${requestScope.defaultWidth}">Valgt skabelon: ${requestScope.defaultWidth} cm</option>
+                            </c:if>
+                            <option value="240">240 cm</option>
+                            <option value="270">270 cm</option>
+                            <option value="300">300 cm</option>
+                            <option value="330">330 cm</option>
+                            <option value="360">360 cm</option>
+                            <option value="390">390 cm</option>
+                            <option value="420">420 cm</option>
+                            <option value="450">450 cm</option>
+                            <option value="480">480 cm</option>
+                            <option value="510">510 cm</option>
+                            <option value="540">540 cm</option>
+                            <option value="570">570 cm</option>
+                            <option value="600">600 cm</option>
+                        </select>
 
                     <br><br>
-                    <label for="length" class="fw-bold">Carport længde:</label>
-                    <br>
-                    <select name="length" id="length" class="inputBoxSize">
-                        <option value="240">240 cm</option>
-                        <option value="270">270 cm</option>
-                        <option value="300">300 cm</option>
-                        <option value="330">330 cm</option>
-                        <option value="360">360 cm</option>
-                        <option value="390">390 cm</option>
-                        <option value="420">420 cm</option>
-                        <option value="450">450 cm</option>
-                        <option value="480">480 cm</option>
-                        <option value="510">510 cm</option>
-                        <option value="540">540 cm</option>
-                        <option value="570">570 cm</option>
-                        <option value="600">600 cm</option>
-                        <option value="630">630 cm</option>
-                        <option value="660">660 cm</option>
-                        <option value="690">690 cm</option>
-                        <option value="720">720 cm</option>
-                        <option value="750">750 cm</option>
-                        <option value="780">780 cm</option>
-                    </select>
+                    <label for="length" class="fw-bold">Carports længde:</label>
+                        <br>
+                        <select name="length" id="length" class="inputBoxSize">
+                            <c:if test="${requestScope.defaultSet != null}">
+                                <option value="${requestScope.defaultLength}">Valgt skabelon: ${requestScope.defaultLength} cm</option>
+                            </c:if>
+                            <option value="240">240 cm</option>
+                            <option value="270">270 cm</option>
+                            <option value="300">300 cm</option>
+                            <option value="330">330 cm</option>
+                            <option value="360">360 cm</option>
+                            <option value="390">390 cm</option>
+                            <option value="420">420 cm</option>
+                            <option value="450">450 cm</option>
+                            <option value="480">480 cm</option>
+                            <option value="510">510 cm</option>
+                            <option value="540">540 cm</option>
+                            <option value="570">570 cm</option>
+                            <option value="600">600 cm</option>
+                            <option value="630">630 cm</option>
+                            <option value="660">660 cm</option>
+                            <option value="690">690 cm</option>
+                            <option value="720">720 cm</option>
+                            <option value="750">750 cm</option>
+                            <option value="780">780 cm</option>
+                        </select>
 
                     <br><br>
-                    <label for="withRoof" class="fw-bold">Carport tag:</label>
-                    <br>
-                    <select name="withRoof" id="withRoof" class="inputBoxSize">
-                        <option value="false">Uden tagplader</option>
-                        <option value="true">Trapeztag</option>
-                    </select>
+                    <label for="withRoof" class="fw-bold">Tag:</label>
+                        <br>
+                        <select name="withRoof" id="withRoof" class="inputBoxSize">
+                            <c:if test="${requestScope.defaultSet != null}">
+                                <option value="${requestScope.defaultRoof}">Valgt skabelon: ${requestScope.defaultRoofString}</option>
+                            </c:if>
+                            <option value="false">Uden tagplader</option>
+                            <option value="true">Trapeztag</option>
+                        </select>
 
                     <br><br>
                     <label for="shedLength" class="fw-bold">Skur:</label>
@@ -95,6 +104,18 @@
                         Bestil
                     </button>
                 </form>
+
+                <form action="orderpage" method="post">
+
+                    <input type="number" hidden name = "defaultSet" value="1">
+                    <input type="number" hidden name = "defaultWidth" value="600">
+                    <input type="number" hidden name = "defaultLength" value="720">
+                    <input type="number" hidden name = "defaultSet" value="1">
+                    <input type="submit" name="submit">
+
+                </form>
+
+
             </div>
         </div>
 
