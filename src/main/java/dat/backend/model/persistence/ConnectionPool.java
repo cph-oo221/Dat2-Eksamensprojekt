@@ -32,7 +32,6 @@ public class ConnectionPool
         else
         {
             // If run on development machine, get credentials from local Env class
-            // TODO: Test if this does what we want!
             if (Env.class != null)
             {
                 USER = Env.USER;
@@ -42,6 +41,7 @@ public class ConnectionPool
 
             else
             {
+                Logger.getLogger("web").log(Level.SEVERE, "Failed to fetch data from Env class!");
                 throw new RuntimeException("Env class needed, but not found!");
             }
         }

@@ -85,18 +85,18 @@
 
                     <br><br>
                     <label for="shedLength" class="fw-bold">Skur:</label>
-                        <br>
-                        <select name="shedLength" id="shedLength" class="inputBoxSize">
-                            <option value="0">Intet skur</option>
-                            <option value="100">100 cm</option>
-                            <option value="200">200 cm</option>
-                            <option value="300">300 cm</option>
-                        </select>
+                    <br>
+                    <select name="shedLength" id="shedLength" class="inputBoxSize">
+                        <option value="0">Intet skur</option>
+                        <option value="100">100 cm</option>
+                        <option value="200">200 cm</option>
+                        <option value="300">300 cm</option>
+                    </select>
 
                     <br><br>
                     <label for="comment" class="fw-bold">Bemærkninger eller særlige ønsker:</label>
-                        <br>
-                        <input type="text" id="comment" name="comment" class="inputBoxSize">
+                    <br>
+                    <input type="text" id="comment" name="comment" class="inputBoxSize">
 
                     <br><br>
                     <button class="btn btn-primary fw-bold submitBtnSize" type="submit">
@@ -118,6 +118,14 @@
             </div>
         </div>
 
+        <div>
+            <h4>Vigtig info</h4>
+            <p>
+                Bestilling af en carport er <b>ikke bindende,</b> kun et tilbud.  <br>
+                En salgsspecialist vil behandle din order efter bestilling, <br>
+                og kan vende tilbage med spørgsmål, hvis behovet skulle opstå.
+            </p>
+        </div>
 
         <div class="mt-2">
             <form action="userpage" method="post">
