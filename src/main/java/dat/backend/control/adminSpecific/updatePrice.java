@@ -11,8 +11,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "updatePrice", value = "/updateprice")
@@ -74,7 +72,8 @@ public class updatePrice extends HttpServlet
                 request.getRequestDispatcher("WEB-INF/receiptsAdmin.jsp").forward(request, response);
 
             }
-        } catch (DatabaseException e)
+        }
+        catch (DatabaseException e)
         {
             e.printStackTrace();
         }

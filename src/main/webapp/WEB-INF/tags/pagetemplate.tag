@@ -61,10 +61,10 @@
                     </c:if>
 
                     <c:if test="${sessionScope.user == null }">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/index.jsp">Login</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/index.jsp">Log ind</a>
                     </c:if>
                     <c:if test="${sessionScope.user != null }">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/logout">Log out</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/logout">Log ud</a>
                     </c:if>
                 </div>
             </div>

@@ -31,8 +31,8 @@
                             <option value="300">300 cm</option>
                             <option value="330">330 cm</option>
                             <option value="360">360 cm</option>
-                            <option value="390">360 cm</option>
-                            <option value="420">420 (blaze it) cm</option>
+                            <option value="390">390 cm</option>
+                            <option value="420">420 cm</option>
                             <option value="450">450 cm</option>
                             <option value="480">480 cm</option>
                             <option value="510">510 cm</option>
@@ -50,8 +50,8 @@
                             <option value="300">300 cm</option>
                             <option value="330">330 cm</option>
                             <option value="360">360 cm</option>
-                            <option value="390">360 cm</option>
-                            <option value="420">420 (blaze it) cm</option>
+                            <option value="390">390 cm</option>
+                            <option value="420">420 cm</option>
                             <option value="450">450 cm</option>
                             <option value="480">480 cm</option>
                             <option value="510">510 cm</option>

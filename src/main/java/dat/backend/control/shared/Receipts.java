@@ -12,7 +12,6 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 @WebServlet(name = "Receipts", value = "/receipts")
 public class Receipts extends HttpServlet

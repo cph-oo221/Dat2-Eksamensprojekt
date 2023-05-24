@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class WoodMapper
 {
-    protected static List<Wood> getWoodByVariant(String variant, ConnectionPool connectionPool) throws DatabaseException
+    static List<Wood> getWoodByVariant(String variant, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "SELECT * FROM wood WHERE variant = ?;";
 
@@ -54,7 +54,7 @@ public class WoodMapper
         }
     }
 
-    public static List<Wood> getAllWood(ConnectionPool connectionPool) throws DatabaseException
+    static List<Wood> getAllWood(ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
         String sql = "SELECT * FROM wood";
@@ -88,7 +88,7 @@ public class WoodMapper
         }
     }
 
-    public static void deleteWood(int idWood, ConnectionPool connectionPool) throws DatabaseException
+    static void deleteWood(int idWood, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -108,7 +108,7 @@ public class WoodMapper
         }
     }
 
-    public static void updateWoodPrice(int idWood, int price, ConnectionPool connectionPool) throws DatabaseException
+    static void updateWoodPrice(int idWood, int price, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -129,7 +129,7 @@ public class WoodMapper
         }
     }
 
-    public static Wood getWoodById(int idWood, ConnectionPool connectionPool) throws DatabaseException
+    static Wood getWoodById(int idWood, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -162,7 +162,7 @@ public class WoodMapper
         return null;
     }
 
-    public static Wood createWood(int length, int width, int height, String name, String unit, int price, String variant, ConnectionPool connectionPool) throws DatabaseException
+    static Wood createWood(int length, int width, int height, String name, String unit, int price, String variant, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "Trying to create new product wood: " + name);
 
