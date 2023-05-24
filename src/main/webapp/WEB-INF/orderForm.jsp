@@ -20,6 +20,45 @@
         </div>
 
 
+        <div class="mt-2">
+            <div class="row">
+                <div class="col mt-1">
+                    <h2>600x780 with roof</h2>
+                    <form action="orderpage" method="post">
+                        <input type="text" hidden name = "defaultSet" value="true">
+                        <input type="number" hidden name = "defaultWidth" value="600">
+                        <input type="number" hidden name = "defaultLength" value="780">
+                        <input type="text" hidden name = "defaultRoof" value="true">
+                        <input type="image" src="<c:url value="/images/UserPage/DesignEnCarport.png"/>" alt="Submit"/>
+                    </form>
+                </div>
+
+                <div class="col mt-1">
+                    <h2>300x450 no roof</h2>
+                    <form action="orderpage" method="post">
+                        <input type="text" hidden name = "defaultSet" value="true">
+                        <input type="number" hidden name = "defaultWidth" value="300">
+                        <input type="number" hidden name = "defaultLength" value="450">
+                        <input type="text" hidden name = "defaultRoof" value="false">
+                        <input type="image" src="<c:url value="/images/UserPage/DesignEnCarport.png"/>" alt="Submit"/>
+                    </form>
+                </div>
+
+                <div class="col mt-1">
+                    <h2>240x240 with roof</h2>
+                    <form action="orderpage" method="post">
+                        <input type="text" hidden name = "defaultSet" value="true">
+                        <input type="number" hidden name = "defaultWidth" value="240">
+                        <input type="number" hidden name = "defaultLength" value="240">
+                        <input type="text" hidden name = "defaultRoof" value="true">
+                        <input type="image" src="<c:url value="/images/UserPage/DesignEnCarport.png"/>" alt="Submit"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        
+
         <div class="container mt-4">
             <div class="card mt-2 p-1 cardPos">
                 <p>${requestScope.errorMSG}</p>
@@ -104,38 +143,6 @@
                         Bestil
                     </button>
                 </form>
-
-                <form action="orderpage" method="post">
-
-                    <input type="text" hidden name = "defaultSet" value="true">
-                    <input type="number" hidden name = "defaultWidth" value="600">
-                    <input type="number" hidden name = "defaultLength" value="720">
-                    <input type="text" hidden name = "defaultRoof" value="false">
-                    <input type="submit" name="submit">
-
-                </form>
-
-                <form action="orderpage" method="post">
-
-                    <input type="text" hidden name = "defaultSet" value="true">
-                    <input type="number" hidden name = "defaultWidth" value="320">
-                    <input type="number" hidden name = "defaultLength" value="420">
-                    <input type="text" hidden name = "defaultRoof" value="true">
-                    <input type="submit" name="submit">
-
-                </form>
-
-                <form action="orderpage" method="post">
-
-                    <input type="text" hidden name = "defaultSet" value="true">
-                    <input type="number" hidden name = "defaultWidth" value="240">
-                    <input type="number" hidden name = "defaultLength" value="240">
-                    <input type="text" hidden name = "defaultRoof" value="true">
-                    <input type="submit" name="submit">
-
-                </form>
-
-
             </div>
         </div>
 
