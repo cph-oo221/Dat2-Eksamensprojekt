@@ -24,78 +24,76 @@
             <div class="card mt-2 p-1 cardPos">
                 <form action="makeorder" method="post">
                     <label for="width" class="fw-bold">Carport bredde:</label>
-                        <br>
-                        <select name="width" id="width" class="inputBoxSize">
-                            <option value="240">240 cm</option>
-                            <option value="270">270 cm</option>
-                            <option value="300">300 cm</option>
-                            <option value="330">330 cm</option>
-                            <option value="360">360 cm</option>
-                            <option value="390">390 cm</option>
-                            <option value="420">420 cm</option>
-                            <option value="450">450 cm</option>
-                            <option value="480">480 cm</option>
-                            <option value="510">510 cm</option>
-                            <option value="540">540 cm</option>
-                            <option value="570">570 cm</option>
-                            <option value="600">600 cm</option>
-                        </select>
+                    <br>
+                    <select name="width" id="width" class="inputBoxSize">
+                        <option value="240">240 cm</option>
+                        <option value="270">270 cm</option>
+                        <option value="300">300 cm</option>
+                        <option value="330">330 cm</option>
+                        <option value="360">360 cm</option>
+                        <option value="390">390 cm</option>
+                        <option value="420">420 cm</option>
+                        <option value="450">450 cm</option>
+                        <option value="480">480 cm</option>
+                        <option value="510">510 cm</option>
+                        <option value="540">540 cm</option>
+                        <option value="570">570 cm</option>
+                        <option value="600">600 cm</option>
+                    </select>
 
                     <br><br>
                     <label for="length" class="fw-bold">Carport længde:</label>
-                        <br>
-                        <select name="length" id="length" class="inputBoxSize">
-                            <option value="240">240 cm</option>
-                            <option value="270">270 cm</option>
-                            <option value="300">300 cm</option>
-                            <option value="330">330 cm</option>
-                            <option value="360">360 cm</option>
-                            <option value="390">390 cm</option>
-                            <option value="420">420 cm</option>
-                            <option value="450">450 cm</option>
-                            <option value="480">480 cm</option>
-                            <option value="510">510 cm</option>
-                            <option value="540">540 cm</option>
-                            <option value="570">570 cm</option>
-                            <option value="600">600 cm</option>
-                            <option value="630">630 cm</option>
-                            <option value="660">660 cm</option>
-                            <option value="690">690 cm</option>
-                            <option value="720">720 cm</option>
-                            <option value="750">750 cm</option>
-                            <option value="780">780 cm</option>
-                        </select>
+                    <br>
+                    <select name="length" id="length" class="inputBoxSize">
+                        <option value="240">240 cm</option>
+                        <option value="270">270 cm</option>
+                        <option value="300">300 cm</option>
+                        <option value="330">330 cm</option>
+                        <option value="360">360 cm</option>
+                        <option value="390">390 cm</option>
+                        <option value="420">420 cm</option>
+                        <option value="450">450 cm</option>
+                        <option value="480">480 cm</option>
+                        <option value="510">510 cm</option>
+                        <option value="540">540 cm</option>
+                        <option value="570">570 cm</option>
+                        <option value="600">600 cm</option>
+                        <option value="630">630 cm</option>
+                        <option value="660">660 cm</option>
+                        <option value="690">690 cm</option>
+                        <option value="720">720 cm</option>
+                        <option value="750">750 cm</option>
+                        <option value="780">780 cm</option>
+                    </select>
 
                     <br><br>
                     <label for="withRoof" class="fw-bold">Carport tag:</label>
-                        <br>
-                        <select name="withRoof" id="withRoof" class="inputBoxSize">
-                            <option value="false">Uden tagplader</option>
-                            <option value="true">Trapeztag</option>
-                        </select>
+                    <br>
+                    <select name="withRoof" id="withRoof" class="inputBoxSize">
+                        <option value="false">Uden tagplader</option>
+                        <option value="true">Trapeztag</option>
+                    </select>
 
                     <br><br>
                     <label for="shedLength" class="fw-bold">Skur:</label>
-                        <br>
-                        <select name="shedLength" id="shedLength" class="inputBoxSize">
-                            <option value="0">Intet skur</option>
-                            <option value="100">100 cm</option>
-                            <option value="200">200 cm</option>
-                            <option value="300">300 cm</option>
-                        </select>
+                    <br>
+                    <select name="shedLength" id="shedLength" class="inputBoxSize">
+                        <option value="0">Intet skur</option>
+                        <option value="100">100 cm</option>
+                        <option value="200">200 cm</option>
+                        <option value="300">300 cm</option>
+                    </select>
 
                     <br><br>
                     <label for="comment" class="fw-bold">Bemærkninger eller særlige ønsker:</label>
-                        <br>
-                        <input type="text" id="comment" name="comment" class="inputBoxSize">
+                    <br>
+                    <input type="text" id="comment" name="comment" class="inputBoxSize">
 
                     <br><br>
                     <button class="btn btn-primary fw-bold submitBtnSize" type="submit">
                         Bestil
                     </button>
                 </form>
-
-
             </div>
         </div>
 

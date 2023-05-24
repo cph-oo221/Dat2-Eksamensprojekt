@@ -5,11 +5,11 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-            Bruger Side
+            Brugerside
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Bruger Side
+        Brugerside
     </jsp:attribute>
 
     <jsp:body>
