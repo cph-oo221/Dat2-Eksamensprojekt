@@ -12,7 +12,6 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "updateReceipt", value = "/updatereceipt")
@@ -63,7 +62,6 @@ public class UpdateReceipt extends HttpServlet
                 request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request, response);
             }
         }
-
         catch (DatabaseException e)
         {
             request.setAttribute("errormessage", e.getMessage());

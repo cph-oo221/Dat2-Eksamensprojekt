@@ -10,7 +10,6 @@ import org.abstractica.javacsg.Geometry3D;
 import org.abstractica.javacsg.JavaCSG;
 import org.abstractica.javacsg.JavaCSGFactory;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
