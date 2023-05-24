@@ -49,13 +49,11 @@ public class PartsListCalculator
     {
         String desc = "Sternbrædt placeres uden på tagkonstruktionen";
         List<Wood> sterns = Facade.getWoodByVariant("Stern", connectionPool);
-         int lenSternAmount = 2;
-         int widthSternAmount = 2;
 
-        OrderItem lenSternItem = getOptimalItem(sterns, length, desc, 2, 2);
+        OrderItem lenSternItem = getOptimalItem(sterns, length, desc, 1, 2);
 
 
-        OrderItem widthSternItem = getOptimalItem(sterns, width, desc, 2, 2);
+        OrderItem widthSternItem = getOptimalItem(sterns, width, desc, 1, 2);
 
         List<OrderItem> orderItems = new ArrayList<>();
 
@@ -152,11 +150,10 @@ public class PartsListCalculator
     private static OrderItem remCalc(double length, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Remme boltes fast på stolper langs længden af kontruktionen";
-        int remAmount = 2;
 
         List<Wood> woods = Facade.getWoodByVariant("Rem", connectionPool);
 
-        return getOptimalItem(woods, length, desc, 2, 2);
+        return getOptimalItem(woods, length, desc, 1, 2);
     }
 
     public static List<OrderItem> getShed(double width, double shedLength, ConnectionPool connectionPool) throws DatabaseException
