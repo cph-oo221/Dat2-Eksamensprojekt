@@ -45,7 +45,7 @@ class UserMapper
         return null;
     }
 
-    public static User createUser(String email, String password, String address, String city, int phoneNumber, String role, ConnectionPool connectionPool) throws DatabaseException, IllegalArgumentException
+    static User createUser(String email, String password, String address, String city, int phoneNumber, String role, ConnectionPool connectionPool) throws DatabaseException, IllegalArgumentException
     {
         Logger.getLogger("web").log(Level.INFO, "trying to create new user...");
 
@@ -112,7 +112,7 @@ class UserMapper
         return user;
     }
 
-    public static User getUserByEmail(String email, ConnectionPool connectionPool) throws DatabaseException {
+    static User getUserByEmail(String email, ConnectionPool connectionPool) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "checking if the user exists in the database");
         String sql = "SELECT * FROM user where `e-mail` = ?";
 
@@ -141,7 +141,7 @@ class UserMapper
         return null;
     }
 
-    public static List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException
+    static List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
         String sql = "SELECT * FROM user";
