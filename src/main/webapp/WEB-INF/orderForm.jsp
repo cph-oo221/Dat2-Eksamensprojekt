@@ -22,6 +22,7 @@
 
         <div class="container mt-4">
             <div class="card mt-2 p-1 cardPos">
+                <p>${requestScope.errorMSG}</p>
                 <form action="makeorder" method="post">
                     <label for="width" class="fw-bold">Carport bredde:</label>
                     <br>
@@ -79,9 +80,9 @@
                     <br>
                     <select name="shedLength" id="shedLength" class="inputBoxSize">
                         <option value="0">Intet skur</option>
-                        <option value="100">100 cm</option>
-                        <option value="200">200 cm</option>
-                        <option value="300">300 cm</option>
+                        <option value="100">100 cm længde. Halv carport bredde</option>
+                        <option value="200">200 cm længde. Halv carport bredde</option>
+                        <option value="300">300 cm længde. Halv carport bredde</option>
                     </select>
 
                     <br><br>
@@ -100,8 +101,8 @@
         <div>
             <h4>Vigtig info</h4>
             <p>
-                Bestilling af en carport er <b>ikke bindende,</b> kun et tilbud.  <br>
-                En salgsspecialist vil behandle din order efter bestilling, <br>
+                Bestilling af en carport er <b>ikke bindende,</b> kun et tilbud. <br>
+                En salgsspecialist vil behandle din ordre efter bestilling, <br>
                 og kan vende tilbage med spørgsmål, hvis behovet skulle opstå.
             </p>
         </div>
