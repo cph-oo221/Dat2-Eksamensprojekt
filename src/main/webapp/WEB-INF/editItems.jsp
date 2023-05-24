@@ -34,7 +34,7 @@
                 <div class="col text-center">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button"
-                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> Sortere
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> Sorter
                         </button>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -100,12 +100,12 @@
                         <thead>
                         <tr>
                             <th scope="col">Træ ID</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Navn</th>
                             <th scope="col">Længde</th>
                             <th scope="col">Bredde</th>
                             <th scope="col">Højde</th>
                             <th scope="col">Enhed</th>
-                            <th scope="col">Price</th>
+                            <th scope="col">Pris</th>
                             <th scope="col">Variant</th>
                             <th scope="col">Handling</th>
                         </tr>
@@ -123,8 +123,8 @@
                                 <td>${wood.variant}</td>
                                 <td class="text-center">
                                     <form action="adminaction" method="post"
-                                          onsubmit="return confirm('Denne handling medføre, at træet: '
-                                                  + 'ID:' + ${wood.idWood} + ', Name: ' + ${wood.name} + '. bliver slette, er du sikker?')">
+                                          onsubmit="return confirm('Denne handling medfører, at træet: '
+                                                  + 'ID:' + ${wood.idWood} + ', Name: ' + ${wood.name} + '. bliver slettet, er du sikker?')">
 
                                         <input type="number" hidden name="action" value="4">
                                         <input type="number" hidden name="deleteOption" value="1">
@@ -156,9 +156,9 @@
                         <thead>
                         <tr>
                             <th scope="col">Metal ID</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Navn</th>
                             <th scope="col">Enhed</th>
-                            <th scope="col">Price</th>
+                            <th scope="col">Pris</th>
                             <th scope="col">Variant</th>
                             <th scope="col">Handling</th>
                         </tr>
@@ -173,8 +173,8 @@
                                 <td>${metal.variant}</td>
                                 <td class="text-center">
                                     <form action="adminaction" method="post"
-                                          onsubmit="return confirm('Denne handling medføre, at træet: '
-                                                  + 'ID:' + ${metal.idMetal} + ', Name: ' + ${metal.name} + '. bliver slette, er du sikker?')">
+                                          onsubmit="return confirm('Denne handling medføre, at metallet: '
+                                                  + 'ID:' + ${metal.idMetal} + ', Name: ' + ${metal.name} + '. bliver slettet, er du sikker?')">
 
                                         <input type="number" hidden name="action" value="4">
                                         <input type="number" hidden name="deleteOption" value="2">
@@ -195,7 +195,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card mt-2 p-1">
-                        <h1 class="text-center">Tilføje nyt træ</h1>
+                        <h1 class="text-center">Tilføj nyt træ</h1>
                         <hr>
                         <div class="mt-1">
                             <form action="adminaction" method="post">
@@ -213,7 +213,7 @@
 
                                 <br/>
                                 <br/>
-                                <label for="width" class="fw-bold"> bredde </label><br/>
+                                <label for="width" class="fw-bold"> Bredde </label><br/>
                                 <input type="number" id="width" name="width" class="inputBoxSize"
                                        placeholder="Angiv Bredde"/>
 
@@ -248,7 +248,7 @@
                                 <br/>
                                 <input type="number" hidden name="action" value="5">
                                 <input type="submit" class="btn btn-primary fw-bold submitBtnSize"
-                                       value="Tilføje"/>
+                                       value="Tilføj"/>
                                 <br>
                             </form>
                         </div>
@@ -257,7 +257,7 @@
 
                 <div class="col">
                     <div class="card mt-2 p-1">
-                        <h1 class="text-center">Ændre pris på træ</h1>
+                        <h1 class="text-center">Ændr pris på træ</h1>
                         <hr>
                         <div class="mt-1">
                             <form action="adminaction" method="post">
@@ -276,7 +276,7 @@
                                 <br/>
                                 <input type="number" hidden name="action" value="6">
                                 <input type="submit" class="btn btn-primary fw-bold submitBtnSize"
-                                       value="Ændre pris"/>
+                                       value="Ændr pris"/>
                                 <br>
                             </form>
                         </div>
@@ -288,7 +288,7 @@
                     <br/>
 
                     <div class="card mt-2 p-1">
-                        <h1 class="text-center">Ændre pris på metal</h1>
+                        <h1 class="text-center">Ændr pris på metal</h1>
                         <hr>
                         <div class="mt-1">
                             <form action="adminaction" method="post">
@@ -308,7 +308,7 @@
                                 <br/>
                                 <input type="number" hidden name="action" value="7">
                                 <input type="submit" class="btn btn-primary fw-bold submitBtnSize"
-                                       value="Ændre pris"/>
+                                       value="Ændr pris"/>
                                 <br>
                             </form>
                         </div>
@@ -318,7 +318,7 @@
 
                 <div class="col">
                     <div class="card mt-2 p-1">
-                        <h1 class="text-center">Tilføje nyt metal</h1>
+                        <h1 class="text-center">Tilføj nyt metal</h1>
                         <hr>
                         <div class="mt-1">
                             <form action="adminaction" method="post">
@@ -329,10 +329,10 @@
 
                                 <br/>
                                 <br/>
-                                <label for="metalPrice" class="fw-bold"> Price </label><br/>
+                                <label for="metalPrice" class="fw-bold"> Pris </label><br/>
                                 <input type="number" id="metalPrice" name="metalPrice"
                                        class="inputBoxSize"
-                                       placeholder="Angiv Price"/>
+                                       placeholder="Angiv Pris"/>
 
                                 <br/>
                                 <br/>
@@ -352,7 +352,7 @@
                                 <br/>
                                 <input type="number" hidden name="action" value="8">
                                 <input type="submit" class="btn btn-primary fw-bold submitBtnSize"
-                                       value="Tilføje"/>
+                                       value="Tilføj"/>
                                 <br>
                             </form>
                         </div>
