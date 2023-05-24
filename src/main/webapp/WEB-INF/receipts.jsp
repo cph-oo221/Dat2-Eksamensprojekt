@@ -22,8 +22,7 @@
 
 
         <style>
-            h1
-            {
+            h1 {
                 text-align: center;
             }
         </style>
@@ -56,13 +55,16 @@
                 </c:forEach>
             </table>
 
-            <%-- OFFER --%>
+                <%-- OFFER --%>
             <h3>Tilbud</h3>
             <table class="table table-dark table-striped">
                 <tr>
                     <th>Ordrenummer</th>
                     <th>Tidspunkt</th>
                     <th>Pris</th>
+                    <th>Længde</th>
+                    <th>Bredde</th>
+                    <th>Kommentar</th>
                     <th>Handlinger</th>
                 </tr>
 
@@ -72,6 +74,9 @@
                             <td>${receipt.idReceipt}</td>
                             <td>${receipt.timeOfOrder}</td>
                             <td>${receipt.price}</td>
+                            <td>${receipt.length}</td>
+                            <td>${receipt.width}</td>
+                            <td>${receipt.comment}</td>
                             <td>
                                 <div class="mt-2">
                                     <form action="updatereceipt" method="post">
@@ -94,13 +99,16 @@
             </table>
 
 
-            <%-- DONE RECEIPTS --%>
+                <%-- DONE RECEIPTS --%>
             <h3>Kvitteringer</h3>
             <table class="table table-dark table-striped">
                 <tr>
                     <th>Ordrenummer</th>
                     <th>Tidspunkt</th>
                     <th>Pris</th>
+                    <th>Længde</th>
+                    <th>Bredde</th>
+                    <th>Kommentar</th>
                     <th>Handlinger</th>
                 </tr>
 
@@ -110,11 +118,22 @@
                             <td>${receipt.idReceipt}</td>
                             <td>${receipt.timeOfOrder}</td>
                             <td>${receipt.price}</td>
+                            <td>${receipt.length}</td>
+                            <td>${receipt.width}</td>
+                            <td>${receipt.comment}</td>
                             <td>
-                                <form action="itemslist" method="post">
-                                    <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
-                                    <input type="submit" class="btn btn-primary fw-bold" value="Se stykliste">
-                                </form>
+                                <div class="mt-2 text-center">
+                                    <form action="itemslist" method="post">
+                                        <input type="text" hidden name="idReceipt" value="${receipt.idReceipt}">
+                                        <input type="submit" class="btn btn-primary fw-bold" value="Se stykliste">
+                                    </form>
+                                </div>
+                                <div class="mt-2 text-center">
+                                    <form action="download" method="post">
+                                        <input type="number" hidden name="idReceipt" value="${receipt.idReceipt}">
+                                        <input type="submit" class="btn btn-primary fw-bold" value="Download 3D model">
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     </c:if>
