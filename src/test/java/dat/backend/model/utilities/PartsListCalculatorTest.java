@@ -120,7 +120,7 @@ class PartsListCalculatorTest
 
         try
         {
-            List<OrderItem> items = PartsListCalculator.poleCalc(length, width, connectionPool);
+            List<OrderItem> items = PartsListCalculator.poleCalc(length, connectionPool);
 
             // Wood
             assertEquals(8, items.get(0).getAmount());
