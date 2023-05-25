@@ -10,10 +10,10 @@ import dat.backend.model.persistence.Facade;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MetalCalculator
+class MetalCalculator
 {
 
-    public static List<OrderItem> getRafterMetal(int amount, int height, ConnectionPool connectionPool) throws DatabaseException
+    static List<OrderItem> getRafterMetal(int amount, int height, ConnectionPool connectionPool) throws DatabaseException
     {
         // 4 beslag pr spær, og 9 skruer pr beslag
 
@@ -61,7 +61,7 @@ public class MetalCalculator
         return output;
     }
 
-    public static List<OrderItem> getRoofingMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
+    static List<OrderItem> getRoofingMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
     {
         // 12 skruer pr m^2
         List<OrderItem> output = new ArrayList<>();
@@ -86,7 +86,7 @@ public class MetalCalculator
         return output;
     }
 
-    public static OrderItem getSternMetal(OrderItem rafters , ConnectionPool connectionPool) throws DatabaseException
+    static OrderItem getSternMetal(OrderItem rafters , ConnectionPool connectionPool) throws DatabaseException
     {
         List<Metal> screws = Facade.getMetalByVariant("Skrue",connectionPool);
         Metal screw = null;
@@ -103,7 +103,7 @@ public class MetalCalculator
         return new OrderItem(amount, screw, "skruer til montering af stern");
     }
 
-    public static List<OrderItem> getPoleMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
+    static List<OrderItem> getPoleMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
     {
         List<Metal> bolts = Facade.getMetalByVariant("Bræddebolt", connectionPool);
         List<Metal> discs = Facade.getMetalByVariant("Firkantskiver", connectionPool);
@@ -115,7 +115,7 @@ public class MetalCalculator
         return output;
     }
 
-    public static OrderItem getWire(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    static OrderItem getWire(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         List<Metal> wires = Facade.getMetalByVariant("hulbånd", connectionPool);
 
@@ -136,7 +136,7 @@ public class MetalCalculator
         return wireOI;
     }
 
-    public static List<OrderItem> getShedMetal(OrderItem rafterLengthWOI, OrderItem rafterWidthWOI, OrderItem polesShed, ConnectionPool connectionPool) throws DatabaseException
+    static List<OrderItem> getShedMetal(OrderItem rafterLengthWOI, OrderItem rafterWidthWOI, OrderItem polesShed, ConnectionPool connectionPool) throws DatabaseException
     {
         List<OrderItem> output = new ArrayList<>();
 

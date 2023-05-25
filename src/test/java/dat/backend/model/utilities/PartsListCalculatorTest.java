@@ -10,7 +10,6 @@ import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -165,11 +164,11 @@ class PartsListCalculatorTest
         int width = 600;
         Material wexpected = new Wood(4, 410, 40, 20, "Spærtræ", "stk", 200, "Spær");
         Material wexpected1 = new Wood(5, 205, 40, 20, "Spærtræ", "stk", 100, "Spær");
+        Material mexpected = new Metal(1, "100mm skruer", 2, "Stk", "Skrue");
 
         try
         {
             List<OrderItem> itemList = PartsListCalculator.calcRafter(length, width, connectionPool);
-
 
             assertEquals(5, itemList.size());
             // wood
@@ -177,6 +176,7 @@ class PartsListCalculatorTest
             assertEquals(20, itemList.get(0).getAmount());
             // metal
             assertEquals(80, itemList.get(1).getAmount());
+            assertEquals(mexpected, itemList.get(1).getMaterial());
         }
         catch (DatabaseException e)
         {
@@ -247,35 +247,13 @@ class PartsListCalculatorTest
         {
             List<OrderItem> itemList = PartsListCalculator.roofingCalc(length, width, connectionPool);
 
+            // wood
             assertEquals(2, itemList.size());
             assertEquals(6, itemList.get(0).getAmount());
             assertEquals(wexpected, itemList.get(0).getMaterial());
-
+            // metal
             assertEquals(72, itemList.get(1).getAmount());
             assertEquals(mexpected, itemList.get(1).getMaterial());
-        }
-
-        catch (DatabaseException e)
-        {
-            fail(e.getMessage());
-        }
-    }
-
-    // TODO: RELOCATE TO METAL TEST CLASS
-    @Test
-    void rafterMetalTest()
-    {
-        try
-        {
-            List<OrderItem> list = MetalCalculator.getRafterMetal(10, 60, connectionPool);
-            Material expected = new Metal(1, "100mm skruer", 2, "Stk", "Skrue");
-
-            assertEquals(3, list.size());
-            assertEquals(20, list.get(0).getAmount());
-            assertEquals(20, list.get(1).getAmount());
-            assertEquals(360, list.get(2).getAmount());
-
-            assertEquals(expected, list.get(2).getMaterial());
         }
 
         catch (DatabaseException e)
