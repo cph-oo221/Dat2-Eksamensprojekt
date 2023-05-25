@@ -1,7 +1,6 @@
 package dat.backend.persistence;
 
 
-import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.config.Env;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
@@ -62,10 +61,9 @@ class UserMapperTest
 
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.user LIKE `Dat2-Eksamensopgave`.user;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.receipt LIKE `Dat2-Eksamensopgave`.receipt;");
-                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.order LIKE `Dat2-Eksamensopgave`.order;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.ordermetal LIKE `Dat2-Eksamensopgave`.ordermetal;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.orderwood LIKE `Dat2-Eksamensopgave`.orderwood;");
-                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metalstuff LIKE `Dat2-Eksamensopgave`.metalstuff;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metal LIKE `Dat2-Eksamensopgave`.metal;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.wood LIKE `Dat2-Eksamensopgave`.wood;");
 
 
@@ -86,11 +84,10 @@ class UserMapperTest
             {
                 stmt.execute("use fog_test;");
                 stmt.execute("delete from fog_test.receipt");
-                stmt.execute("delete from fog_test.order");
                 stmt.execute("delete from fog_test.ordermetal");
                 stmt.execute("delete from fog_test.orderwood");
                 stmt.execute("delete from fog_test.wood");
-                stmt.execute("delete from fog_test.metalstuff");
+                stmt.execute("delete from fog_test.metal");
                 stmt.execute("delete from fog_test.user");
 
                 stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
@@ -197,15 +194,15 @@ class UserMapperTest
     }
 
     @Test
-    void invalidEmailLogin()
+    void invalidEmailLogin() throws DatabaseException
     {
-        assertThrows(DatabaseException.class, () -> Facade.login("usr@user.com", "user", connectionPool));
+        assertNull(Facade.login("usr@user.com", "user", connectionPool));
     }
 
     @Test
-    void invalidPassLogin()
+    void invalidPassLogin() throws DatabaseException
     {
-        assertThrows(DatabaseException.class, () -> Facade.login("user@user.com", "usr", connectionPool));
+        assertNull(Facade.login("user@user.com", "usr", connectionPool));
     }
 
 
