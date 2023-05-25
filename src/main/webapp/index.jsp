@@ -48,7 +48,7 @@
             <div class="greyBox">
                 <div class="greyBoxSpacing">
                     <form action="registerUser.jsp" method="post">
-                        <input type="submit" class="btn btn-link noLineUnderBtn" value="opret ny bruger?">
+                        <input type="submit" class="btn btn-link noLineUnderBtn fw-bold" value="opret ny bruger?">
                     </form>
                 </div>
             </div>

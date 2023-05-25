@@ -58,7 +58,6 @@ class MetalMapperTest
 
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.user LIKE `Dat2-Eksamensopgave`.user;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.receipt LIKE `Dat2-Eksamensopgave`.receipt;");
-                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.order LIKE `Dat2-Eksamensopgave`.order;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.ordermetal LIKE `Dat2-Eksamensopgave`.ordermetal;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.orderwood LIKE `Dat2-Eksamensopgave`.orderwood;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metal LIKE `Dat2-Eksamensopgave`.metal;");
@@ -141,7 +140,7 @@ class MetalMapperTest
         Metal actual = Facade.createMetal("2,4x60 mm. skruer 400 stk.", 100, "Pakke", "Skruer", connectionPool);
 
         assertEquals(expectedMetal, actual);
-        assertEquals(3, Facade.getAllMetal(connectionPool).size());
+        assertEquals(expectedSize, Facade.getAllMetal(connectionPool).size());
     }
 
     @Test

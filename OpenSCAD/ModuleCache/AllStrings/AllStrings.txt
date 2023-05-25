@@ -1,0 +1,8 @@
+1$org.abstractica.javaopenscad.impl.operationsimpl.Polygon2DImpl
+2$-0.5000000000
+3$0.5000000000
+4$0
+5$1
+6$2
+7$3
+8$c1d2d2d3d2d3d3d2d3i4i5i6i7
