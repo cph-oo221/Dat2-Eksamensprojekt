@@ -51,8 +51,6 @@ public class ReceiptMapper
 
     static int createReceipt(int idUser, double width, double length, String comment, ConnectionPool connectionPool) throws DatabaseException
     {
-        // TODO: Create receipt entry in database, and return newly created receipt id
-
         String sql = "INSERT INTO receipt (idUser, width, length, comment) VALUES (?, ?, ?, ?);";
 
         try (Connection connection = connectionPool.getConnection())

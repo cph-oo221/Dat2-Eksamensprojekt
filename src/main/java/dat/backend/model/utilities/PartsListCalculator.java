@@ -17,7 +17,6 @@ public class PartsListCalculator
     public static List<OrderItem> materialCalc(double length, double width, int shedLength, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
     {
         List<OrderItem> orderItemList = new ArrayList<>();
-        // TODO: TEST MY METALCALC
         List<OrderItem> rafters = calcRafter(width, length, connectionPool);
 
         List<OrderItem> poles = poleCalc(length, width, connectionPool);

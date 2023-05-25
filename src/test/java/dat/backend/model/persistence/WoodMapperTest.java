@@ -1,10 +1,8 @@
-package dat.backend.persistence;
+package dat.backend.model.persistence;
 
 import dat.backend.model.config.Env;
 import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
-import dat.backend.model.persistence.ConnectionPool;
-import dat.backend.model.persistence.Facade;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WoodMapperTest
+class WoodMapperTest
 {
     private static String USER;
     private static String PASSWORD;

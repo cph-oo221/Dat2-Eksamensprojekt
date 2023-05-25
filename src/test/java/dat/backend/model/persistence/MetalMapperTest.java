@@ -1,11 +1,8 @@
-package dat.backend.persistence;
+package dat.backend.model.persistence;
 
 import dat.backend.model.config.Env;
 import dat.backend.model.entities.Metal;
 import dat.backend.model.exceptions.DatabaseException;
-import dat.backend.model.persistence.ConnectionPool;
-import dat.backend.model.persistence.Facade;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MetalMapperTest
 {
-
     private static String USER;
     private static String PASSWORD;
     private static String TESTURL;
