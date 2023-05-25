@@ -62,7 +62,7 @@ public class PartsListCalculator
         return orderItems;
     }
 
-    private static List<OrderItem> roofingCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> roofingCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Tagplader skrues fast i spær";
         double area = length*width;
