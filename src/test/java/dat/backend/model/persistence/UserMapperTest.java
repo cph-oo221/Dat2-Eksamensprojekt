@@ -148,6 +148,14 @@ class UserMapperTest
     }
 
     @Test
+    void getUserByEmailFail() throws SQLException, DatabaseException
+    {
+        assertNull(Facade.getUserByEmail("testemailfail.com", connectionPool));
+        assertFalse(Facade.getUserByEmail("testfail@gmail.com", connectionPool) != null);
+        assertEquals(null, Facade.getUserByEmail("oleolsen@gmail.com,", connectionPool));
+    }
+
+    @Test
     void createUser() throws SQLException, DatabaseException
     {
         int iduser = 3;
@@ -160,6 +168,17 @@ class UserMapperTest
 
         assertEquals(new User(iduser, email, password, role, address, city, phone), Facade.createUser("test@test34.com", "test124",
                 "testvej 124", "testing city", 13233334, "user", connectionPool));
+    }
+
+    @Test
+    void invalidCreateUser()
+    {
+        // empty password has to be 5 characters or more
+        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test@125.com", "123", "testvej 126", "test city", 23456234, "user", connectionPool));
+        // space in email
+        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test @125.com", "123456", "testvej 126", "test city", 23456234, "user", connectionPool));
+        // email already exists
+        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("user@user.com","user", "uservej 1", "Vice city", 12345678, "user", connectionPool));
     }
 
     @Test
@@ -181,13 +200,6 @@ class UserMapperTest
         {
             fail(e.getMessage());
         }
-    }
-
-    @Test
-    void invalidCreateUser()
-    {
-        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test@125.com", "123", "testvej 126", "test city", 23456234, "user", connectionPool));
-        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test @125.com", "123456", "testvej 126", "test city", 23456234, "user", connectionPool));
     }
 
     @Test
