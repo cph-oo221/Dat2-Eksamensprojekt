@@ -135,7 +135,16 @@ class Model3DTest
     @Test
     void generate3D() throws DatabaseException
     {
-        Model3D model3D = new Model3D(1, connectionPool);
+        int idReceipt = 1;
+        Model3D model3D = new Model3D(idReceipt, connectionPool);
         model3D.generate3D();
+    }
+
+    @Test
+    void generate3DFail()
+    {
+        // No receipt with id 4
+        Model3D model3D = new Model3D(4, connectionPool);
+        assertThrows(NullPointerException.class, () -> model3D.generate3D());
     }
 }
