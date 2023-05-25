@@ -172,7 +172,7 @@ public class PartsListCalculator
         rafterLengthAmountL = lenBuffer.getAmount();
 
         double rafterLengthWidth = rafterLength.getWidth();
-        amountL = (int) (rafterLengthAmountL * Math.ceil(210 / rafterLengthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
+        amountL = (int) (rafterLengthAmountL * Math.ceil(210 / rafterLengthWidth)); // 210 = Pole height - the buried 90. //1 * (210/40) = 5.25 = 6
         OrderItem rafterLengthWOI = new OrderItem((int) amountL, rafterLength, "Spærtræ til beklædning af skur i længden");
         itemList.add(rafterLengthWOI);
 
@@ -181,19 +181,11 @@ public class PartsListCalculator
         rafterWidthAmountW = widthBuffer.getAmount();
 
         double rafterWidthWidth = rafterWidth.getWidth();
-        amountW = (int) (rafterWidthAmountW * Math.ceil(210 / rafterWidthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
+        amountW = (int) (rafterWidthAmountW * Math.ceil(210 / rafterWidthWidth)); // 210 = Pole height - the buried 90. //1 * (210/40) = 5.25 = 6
         OrderItem rafterWidthWOI = new OrderItem((int) amountW, rafterWidth, "Spærtræ til beklædning af skur i bredden");
         itemList.add(rafterWidthWOI);
 
-        int poles;
-        if (shedWidth > 310)
-        {
-            poles = 3;
-        }
-        else
-        {
-            poles = 4;
-        }
+        int poles = 4; // Always 4 poles, three corners and one for the door.
 
         List<Wood> poleWoodList = Facade.getWoodByVariant("Stolpe", connectionPool);
         OrderItem polesShed = new OrderItem(poles, poleWoodList.get(0), "Stolper til skur");
