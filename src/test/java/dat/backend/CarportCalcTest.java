@@ -401,7 +401,7 @@ public class CarportCalcTest
     {
         try
         {
-            List<OrderItem> items = PartsListCalculator.poleCalc(420, 600, connectionPool);
+            List<OrderItem> items = PartsListCalculator.poleCalc(420, connectionPool);
 
             assertEquals(6, items.get(0).getAmount());
 
