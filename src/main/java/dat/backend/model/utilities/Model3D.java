@@ -18,8 +18,8 @@ public class Model3D
     private ConnectionPool connectionPool;
     private JavaCSG csg = JavaCSGFactory.createDefault();
     private Receipt receipt;
-    private double widthmm = 0;
-    private double lengthmm = 0;
+    private double widthmm;
+    private double lengthmm;
     private double offsetZ = 0;
     private int receiptID;
 
