@@ -141,7 +141,7 @@ class MetalMapperTest
         Metal actual = Facade.createMetal("2,4x60 mm. skruer 400 stk.", 100, "Pakke", "Skruer", connectionPool);
 
         assertEquals(expectedMetal, actual);
-        assertEquals(3, Facade.getAllMetal(connectionPool).size());
+        assertEquals(expectedSize, Facade.getAllMetal(connectionPool).size());
     }
 
     @Test
