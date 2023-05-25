@@ -162,8 +162,6 @@ class PartsListCalculatorTest
     {
         int length = 240;
         int width = 240;
-
-
     }
 
     @Test
