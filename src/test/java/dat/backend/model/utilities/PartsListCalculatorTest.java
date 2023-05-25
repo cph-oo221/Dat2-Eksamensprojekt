@@ -139,13 +139,22 @@ class PartsListCalculatorTest
     @Test
     void poleCalcTest()
     {
+        int length = 780;
+        int width = 240;
+        Material wexpected = new Wood(3, 300, 97, 97, "Stolpe", "stk", 100, "Stolpe");
+        Material mexpected = new Metal(5, "Bræddebolt", 500 , "Stk", "Bræddebolt");
+
         try
         {
-            List<OrderItem> items = PartsListCalculator.poleCalc(420, 600, connectionPool);
+            List<OrderItem> items = PartsListCalculator.poleCalc(length, width, connectionPool);
 
-            assertEquals(6, items.get(0).getAmount());
+            // Wood
+            assertEquals(8, items.get(0).getAmount());
+            assertEquals(wexpected, items.get(0).getMaterial());
 
-            //assertEquals(40, items.get(1).getAmount());
+            // Metal
+            assertEquals(16, items.get(1).getAmount());
+            assertEquals(mexpected, items.get(1).getMaterial());
         }
         catch (DatabaseException e)
         {
@@ -175,14 +184,33 @@ class PartsListCalculatorTest
         }
     }
 
-    /*@Test
+
+
+    @Test
     void roofingCalcTest()
     {
         int length = 240;
         int width = 240;
+        Material wexpected = new Wood(6, 100, 100, 1, "Trapezplade", "stk", 30, "Tag");
+        Material mexpected = new Metal(3, "50mm skruer", 1, "Stk", "Skrue");
 
-        PartsListCalculator.roofing
-    }*/
+        try
+        {
+            List<OrderItem> itemList = PartsListCalculator.roofingCalc(length, width, connectionPool);
+
+            assertEquals(2, itemList.size());
+            assertEquals(6, itemList.get(0).getAmount());
+            assertEquals(wexpected, itemList.get(0).getMaterial());
+
+            assertEquals(72, itemList.get(1).getAmount());
+            assertEquals(mexpected, itemList.get(1).getMaterial());
+        }
+
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+    }
 
     // TODO: RELOCATE TO METAL TEST CLASS
     @Test

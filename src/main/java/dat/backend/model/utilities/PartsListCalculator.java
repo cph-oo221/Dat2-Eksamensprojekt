@@ -76,8 +76,8 @@ public class PartsListCalculator
         List<OrderItem> orderItemMetal = MetalCalculator.getRoofingMetal(amount , connectionPool);
         List<OrderItem> output = new ArrayList<>();
 
-        output.addAll(orderItemMetal);
         output.add(roofOI);
+        output.addAll(orderItemMetal);
 
         return output;
     }
