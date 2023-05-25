@@ -97,26 +97,27 @@ class Model3DTest
                         "(1, 600, 240, 'hej')," +
                         "(2, 420, 240, 'hej1')");
 
-                stmt.execute("INSERT INTO fog_test.orderwood VALUES " +
+                stmt.execute("INSERT INTO fog_test.wood VALUES " +
                         "(1, 410, 55, 20, 'Spærtræ', 'stk', 200, 'Rem')," +
                         "(2, 205, 55, 20, 'Spærtræ', 'stk', 100, 'Rem')," +
                         "(3, 300, 97, 97, 'Stolpe', 'stk', 100, 'Stolpe')," +
                         "(4, 410, 55, 20, 'Spærtræ', 'stk', 200, 'Spær')," +
                         "(5, 205, 55, 20, 'Spærtræ', 'stk', 100, 'Spær'), " +
                         "(6, 100, 100, 10, 'Trapezplade', 'stk', 30, 'Tag')," +
-                        "(7, 205, 40, 10, 'Brædt', 'stk', 150, 'Stern')," +
-                        "(8, 410, 40, 10, 'Brædt', 'stk', 200, 'Stern')");
+                        "(8, 205, 40, 10, 'Brædt', 'stk', 150, 'Stern')," +
+                        "(9, 410, 40, 10, 'Brædt', 'stk', 200, 'Stern')");
 
                 stmt.execute("INSERT INTO fog_test.orderwood VALUES" +
-                        "(1, 1, 15, 'Tagplader skrues fast i spær')," +
-                        "(2, 1, 8, 'Spærtræ til beklædning af skur i længden')," +
-                        "(3, 1, 8, 'Spærtræ til beklædning af skur i bredden')," +
-                        "(4, 1, 4, 'Stolper til skur')," +
-                        "(5, 1, 8, 'Spær placers på tværs af bygningen på tværs af remme med ca 55 cm mellemrum')," +
-                        "(6, 1, 6, 'Stolper graves 90 cm ned i jord')," +
-                        "(7, 1, 4, 'Remme boltes fast på stolper langs længden af kontruktionen')," +
-                        "(8, 1, 4, 'Sternbrædt placeres uden på tagkonstruktionen')," +
-                        "(9, 1, 6, 'Sternbrædt placeres uden på tagkonstruktionen')");
+                        "(1, 1, 6, 15, 'Tagplader skrues fast i spær')," +
+                        "(2, 1, 4, 8, 'Spærtræ til beklædning af skur i længden')," +
+                        "(3, 1, 4, 8, 'Spærtræ til beklædning af skur i bredden')," +
+                        "(4, 1, 3, 4, 'Stolper til skur')," +
+                        "(5, 1, 4, 8, 'Spær placers på tværs af bygningen på tværs af remme med ca 55 cm mellemrum')," +
+                        "(6, 1, 3, 6, 'Stolper graves 90 cm ned i jord')," +
+                        "(7, 1, 1, 4, 'Remme boltes fast på stolper langs længden af kontruktionen')," +
+                        "(8, 1, 9, 4, 'Sternbrædt placeres uden på tagkonstruktionen')," +
+                        "(9, 1, 8, 6, 'Sternbrædt placeres uden på tagkonstruktionen')");
+
 
                 stmt.execute("ALTER TABLE fog_test.receipt ENABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.wood ENABLE KEYS");
@@ -134,6 +135,8 @@ class Model3DTest
     @Test
     void generate3D() throws DatabaseException
     {
+        Model3D model3D = new Model3D(1, connectionPool);
+        model3D.generate3D();
 
     }
 }
