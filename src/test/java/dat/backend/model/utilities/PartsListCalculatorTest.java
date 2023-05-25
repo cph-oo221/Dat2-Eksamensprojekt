@@ -113,6 +113,7 @@ class PartsListCalculatorTest
     @Test
     void shedMethodTest()
     {
+        // FIXME: VÆRSGO SEB
         int shedLength = 300;
         double width = 600;
 
@@ -122,7 +123,7 @@ class PartsListCalculatorTest
 
             List<OrderItem> itemList = PartsListCalculator.getShed(width, shedLength, connectionPool);
 
-            assertEquals(3, itemList.size());
+            assertEquals(6, itemList.size());
 
             assertEquals(12, itemList.get(0).getAmount());
             assertEquals(12, itemList.get(1).getAmount());
@@ -187,7 +188,6 @@ class PartsListCalculatorTest
     @Test
     void rafterMetalTest()
     {
-        // FIXME
         try
         {
             List<OrderItem> list = MetalCalculator.getRafterMetal(10, 60, connectionPool);
