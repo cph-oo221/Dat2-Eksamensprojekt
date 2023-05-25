@@ -100,9 +100,9 @@ class Model3DTest
                 stmt.execute("INSERT INTO fog_test.wood VALUES " +
                         "(1, 410, 55, 20, 'Spærtræ', 'stk', 200, 'Rem')," +
                         "(2, 205, 55, 20, 'Spærtræ', 'stk', 100, 'Rem')," +
-                        "(3, 300, 97, 97, 'Stolpe', 'stk', 100, 'Stolpe')," +
-                        "(4, 410, 55, 20, 'Spærtræ', 'stk', 200, 'Spær')," +
-                        "(5, 205, 55, 20, 'Spærtræ', 'stk', 100, 'Spær'), " +
+                        "(3, 300, 20, 20, 'Stolpe', 'stk', 100, 'Stolpe')," +
+                        "(4, 410, 40, 20, 'Spærtræ', 'stk', 200, 'Spær')," +
+                        "(5, 205, 40, 20, 'Spærtræ', 'stk', 100, 'Spær'), " +
                         "(6, 100, 100, 10, 'Trapezplade', 'stk', 30, 'Tag')," +
                         "(8, 205, 40, 10, 'Brædt', 'stk', 150, 'Stern')," +
                         "(9, 410, 40, 10, 'Brædt', 'stk', 200, 'Stern')");
@@ -137,6 +137,5 @@ class Model3DTest
     {
         Model3D model3D = new Model3D(1, connectionPool);
         model3D.generate3D();
-
     }
 }
