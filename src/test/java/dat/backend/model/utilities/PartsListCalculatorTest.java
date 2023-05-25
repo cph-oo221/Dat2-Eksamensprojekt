@@ -10,6 +10,7 @@ import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -160,8 +161,27 @@ class PartsListCalculatorTest
     @Test
     void calcRafterTest()
     {
-        int length = 240;
-        int width = 240;
+        int length = 600;
+        int width = 600;
+        Material wexpected = new Wood(4, 410, 40, 20, "Spærtræ", "stk", 200, "Spær");
+        Material wexpected1 = new Wood(5, 205, 40, 20, "Spærtræ", "stk", 100, "Spær");
+
+        try
+        {
+            List<OrderItem> itemList = PartsListCalculator.calcRafter(length, width, connectionPool);
+
+
+            assertEquals(5, itemList.size());
+            // wood
+            assertEquals(wexpected, itemList.get(0).getMaterial());
+            assertEquals(20, itemList.get(0).getAmount());
+            // metal
+            assertEquals(80, itemList.get(1).getAmount());
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
     @Test

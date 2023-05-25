@@ -110,7 +110,7 @@ public class PartsListCalculator
         return output;
     }
 
-    public static List<OrderItem> calcRafter(double width, double length, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> calcRafter(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Spær placers på tværs af bygningen på tværs af remme med ca 55 cm mellemrum";
         List<Wood> woods = Facade.getWoodByVariant("Spær", connectionPool);
@@ -197,7 +197,8 @@ public class PartsListCalculator
 
     private static double getRafterAmount(double length, int modifier)
     {
-        return (length / 55) * modifier;
+        double amount = Math.floor(length / 55);
+        return amount * modifier;
     }
 
     private static Wood selectWood(List<Wood> woods, double length)
