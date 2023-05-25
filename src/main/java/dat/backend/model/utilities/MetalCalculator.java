@@ -10,7 +10,7 @@ import dat.backend.model.persistence.Facade;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MetalCalculator
+class MetalCalculator
 {
 
     /**
@@ -113,7 +113,7 @@ public class MetalCalculator
      * @return an orderItem of the metal needed for the stern
      * @see Facade#getMetalByVariant(String, ConnectionPool) for the mapper method
      */
-    public static OrderItem getSternMetal(OrderItem rafters , ConnectionPool connectionPool) throws DatabaseException
+    static OrderItem getSternMetal(OrderItem rafters , ConnectionPool connectionPool) throws DatabaseException
     {
         List<Metal> screws = Facade.getMetalByVariant("Skrue",connectionPool);
         Metal screw = null;
@@ -138,7 +138,7 @@ public class MetalCalculator
      * @return a list of OrderItems containing metal and amount for the poles
      * @see Facade#getMetalByVariant(String, ConnectionPool) for the mapper method
      */
-    public static List<OrderItem> getPoleMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
+    static List<OrderItem> getPoleMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
     {
         //TODO færre kald til databasen via joins
         List<Metal> bolts = Facade.getMetalByVariant("Bræddebolt", connectionPool);

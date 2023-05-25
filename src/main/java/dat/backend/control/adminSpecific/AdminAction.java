@@ -117,7 +117,8 @@ public class AdminAction extends HttpServlet
 
             request.setAttribute("metalList", searchListMetal);
             request.setAttribute("woodList", searchListWood);
-        } catch (DatabaseException e)
+        }
+        catch (DatabaseException e)
         {
             exceptionHandling(request, response, e);
         }
@@ -146,7 +147,8 @@ public class AdminAction extends HttpServlet
             {
                 Facade.deleteWood(idWood, connectionPool);
                 getMetalAndWoodList(request, response);
-            } catch (DatabaseException e)
+            }
+            catch (DatabaseException e)
             {
                 exceptionHandling(request, response, e);
             }
@@ -164,7 +166,8 @@ public class AdminAction extends HttpServlet
             {
                 Facade.deleteMetal(idMetal, connectionPool);
                 getMetalAndWoodList(request, response);
-            } catch (DatabaseException e)
+            }
+            catch (DatabaseException e)
             {
                 exceptionHandling(request, response, e);
             }
@@ -205,7 +208,8 @@ public class AdminAction extends HttpServlet
             Wood product = Facade.createWood(length, width, height, name, unit, price, variant, connectionPool);
             request.setAttribute("product", product);
             getMetalAndWoodList(request, response);
-        } catch (DatabaseException e)
+        }
+        catch (DatabaseException e)
         {
             exceptionHandling(request, response, e);
         }
@@ -240,7 +244,8 @@ public class AdminAction extends HttpServlet
             request.setAttribute("metalList", metalList);
             List<Wood> woodList = Facade.getAllWood(connectionPool);
             request.setAttribute("woodList", woodList);
-        } catch (DatabaseException e)
+        }
+        catch (DatabaseException e)
         {
             exceptionHandling(request, response, e);
         }
@@ -272,7 +277,8 @@ public class AdminAction extends HttpServlet
         {
             Facade.updateWoodPrice(idWood, newPrice, connectionPool);
             getMetalAndWoodList(request, response);
-        } catch (DatabaseException e)
+        }
+        catch (DatabaseException e)
         {
             exceptionHandling(request, response, e);
         }
@@ -304,7 +310,8 @@ public class AdminAction extends HttpServlet
         {
             Facade.updateMetalPrice(idMetal, newPrice, connectionPool);
             getMetalAndWoodList(request, response);
-        } catch (DatabaseException e)
+        }
+        catch (DatabaseException e)
         {
             exceptionHandling(request, response, e);
         }
@@ -319,7 +326,8 @@ public class AdminAction extends HttpServlet
             List<Metal> metalList = Facade.getAllMetal(connectionPool);
             request.setAttribute("woodList", woodList);
             request.setAttribute("metalList", metalList);
-        } catch (DatabaseException e)
+        }
+        catch (DatabaseException e)
         {
             exceptionHandling(request, response, e);
         }
@@ -337,7 +345,8 @@ public class AdminAction extends HttpServlet
                 request.setAttribute("msgError", msgError);
                 request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
             }
-        } catch (DatabaseException e)
+        }
+        catch (DatabaseException e)
         {
             exceptionHandling(request, response, e);
         }
@@ -355,7 +364,8 @@ public class AdminAction extends HttpServlet
                 request.setAttribute("msgError", msgError);
                 request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
             }
-        } catch (DatabaseException e)
+        }
+        catch (DatabaseException e)
         {
             exceptionHandling(request, response, e);
         }

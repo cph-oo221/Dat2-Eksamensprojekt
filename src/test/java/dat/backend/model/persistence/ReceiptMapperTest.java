@@ -1,8 +1,9 @@
 package dat.backend.model.persistence;
 
-import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.config.Env;
+import dat.backend.model.entities.OrderState;
 import dat.backend.model.entities.Receipt;
+import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,10 +60,9 @@ class ReceiptMapperTest
 
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.user LIKE `Dat2-Eksamensopgave`.user;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.receipt LIKE `Dat2-Eksamensopgave`.receipt;");
-                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.order LIKE `Dat2-Eksamensopgave`.order;");
-                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.ordermetal LIKE `Dat2-Eksamensopgave`.ordermetal;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metal LIKE `Dat2-Eksamensopgave`.metal;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.orderwood LIKE `Dat2-Eksamensopgave`.orderwood;");
-                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metalstuff LIKE `Dat2-Eksamensopgave`.metalstuff;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metal LIKE `Dat2-Eksamensopgave`.metal;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.wood LIKE `Dat2-Eksamensopgave`.wood;");
 
 
@@ -83,15 +83,11 @@ class ReceiptMapperTest
             {
                 stmt.execute("use fog_test;");
                 stmt.execute("delete from fog_test.receipt");
-                stmt.execute("delete from fog_test.order");
-                stmt.execute("delete from fog_test.ordermetal");
-                stmt.execute("delete from fog_test.orderwood");
-                stmt.execute("delete from fog_test.wood");
-                stmt.execute("delete from fog_test.metalstuff");
                 stmt.execute("delete from fog_test.user");
-
                 stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.user AUTO_INCREMENT = 1");
+                stmt.execute("ALTER TABLE fog_test.receipt DISABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.receipt AUTO_INCREMENT = 1");
                 stmt.execute("insert into fog_test.user VALUES " +
                         "(1, 'user@user.com','user','user', 'uservej 1', 'Vice city', 12345678)," +
                         "(2, 'admin@admin.com','admin','admin', 'adminvej 2', 'San Andreas', 87654321)");
@@ -99,6 +95,7 @@ class ReceiptMapperTest
                     "(1, 240, 420, 'hej')," +
                     "(2, 420, 240, 'hej1')");
                 stmt.execute("ALTER TABLE fog_test.user ENABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.receipt ENABLE KEYS");
             }
         } catch (SQLException throwables)
         {
@@ -132,24 +129,44 @@ class ReceiptMapperTest
         }
 
         assertEquals(receiptList.get(0).getIdUser(), idUser1);
-
-
-
     }
 
     @Test
-    void createReceipt()
+    void createReceipt() throws DatabaseException
     {
+        User user = Facade.createUser("joe", "2343242343", "lyngby vej 23", "Lyngby", 23432434, "user", connectionPool);
+
+        assertEquals(3, Facade.createReceipt(user.getIdUser(), 300, 600, "Hurtigts mugligt", connectionPool));
     }
 
     @Test
-    void acceptReceipt()
+    void acceptReceiptUser() throws DatabaseException
     {
+        Facade.acceptReceipt(1, connectionPool);
+
+        Receipt receipt = Facade.getReceiptById(1, connectionPool);
+
+        assertEquals(OrderState.COMPLETE, receipt.getOrderState());
     }
 
     @Test
-    void deleteReceipt()
+    void acceptReceiptAdmin() throws DatabaseException
     {
+        Facade.acceptReceipt(1, connectionPool);
+
+        Receipt receipt = Facade.getReceiptById(1, connectionPool);
+
+        assertEquals(OrderState.COMPLETE, receipt.getOrderState());
+    }
+
+    @Test
+    void deleteReceipt() throws DatabaseException
+    {
+        assertEquals(2, Facade.getAllReceipts(connectionPool).size());
+
+        Facade.deleteReceipt(1, connectionPool);
+
+        assertEquals(1, Facade.getAllReceipts(connectionPool).size());
     }
 
 
@@ -159,7 +176,7 @@ class ReceiptMapperTest
         List<Receipt> receiptList = Facade.getAllReceipts(connectionPool);
 
         receiptList.forEach(System.out::println);
-
-        assertEquals(2, receiptList.size());
+        int expectedSize = 2;
+        assertEquals(expectedSize, receiptList.size());
     }
 }

@@ -116,7 +116,7 @@
         <div class="ms-3 mt-2">
 
             <c:if test="${sessionScope.user.role.equals('admin')}">
-                <h3 class="colorGreen">Materiale pris ${requestScope.netPrice} kr.</h3>
+                <h3 class="colorGreen">Materiales pris ${requestScope.netPrice} kr.</h3>
             </c:if>
             <h3 class="colorGreen">Fog's pris ${requestScope.totalPrice} kr.</h3>
             <c:if test="${sessionScope.user.role.equals('admin') && requestScope.orderState == OrderState.OPEN}">

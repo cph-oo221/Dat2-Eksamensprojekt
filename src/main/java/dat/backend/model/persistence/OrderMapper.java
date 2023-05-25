@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public class OrderMapper
 {
-    protected static int createOrder(int receiptId, List<OrderItem> orderItemList, ConnectionPool connectionPool) throws DatabaseException
+    static int createOrder(int receiptId, List<OrderItem> orderItemList, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "Saving orderlist for receipt: " + receiptId);
 
@@ -62,7 +62,7 @@ public class OrderMapper
         return 0; //Fejlhåndtering
     }
 
-    protected static List<OrderItem> getWoodOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    static List<OrderItem> getWoodOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "Fetching items from receipt: " + idReceipt);
 
@@ -107,7 +107,7 @@ public class OrderMapper
         }
     }
 
-    protected static void deleteWoodOrderByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    static void deleteWoodOrderByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "DELETE FROM orderwood WHERE idreceipt = ?;";
 
@@ -125,7 +125,7 @@ public class OrderMapper
         }
     }
 
-    public static void deleteMetalOrderByReceiptID(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    static void deleteMetalOrderByReceiptID(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "DELETE FROM ordermetal WHERE idreceipt = ?;";
 
@@ -143,7 +143,7 @@ public class OrderMapper
         }
     }
 
-    public static List<OrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    static List<OrderItem> getMetalOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO,"Fetching items from receipt: " + idReceipt);
 

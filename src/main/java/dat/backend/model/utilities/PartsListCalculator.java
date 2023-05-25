@@ -5,9 +5,6 @@ import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
-
-import javax.servlet.ServletException;
-import java.io.IOException;
 import java.util.*;
 
 public class PartsListCalculator
@@ -34,9 +31,7 @@ public class PartsListCalculator
      */
     public static List<OrderItem> materialCalc(double length, double width, int shedLength, boolean withRoof, ConnectionPool connectionPool) throws DatabaseException
     {
-
         List<OrderItem> orderItemList = new ArrayList<>();
-        // TODO: TEST MY METALCALC
         List<OrderItem> rafters = calcRafter(width, length, connectionPool);
 
         List<OrderItem> poles = poleCalc(length, connectionPool);
@@ -78,13 +73,11 @@ public class PartsListCalculator
     {
         String desc = "Sternbrædt placeres uden på tagkonstruktionen";
         List<Wood> sterns = Facade.getWoodByVariant("Stern", connectionPool);
-         int lenSternAmount = 2;
-         int widthSternAmount = 2;
 
-        OrderItem lenSternItem = getOptimalItem(sterns, length, desc, 2, 2);
+        OrderItem lenSternItem = getOptimalItem(sterns, length, desc, 1, 2);
 
 
-        OrderItem widthSternItem = getOptimalItem(sterns, width, desc, 2, 2);
+        OrderItem widthSternItem = getOptimalItem(sterns, width, desc, 1, 2);
 
         List<OrderItem> orderItems = new ArrayList<>();
 
@@ -105,7 +98,7 @@ public class PartsListCalculator
      * @see MetalCalculator#getRoofingMetal(int, ConnectionPool) for the metal calculation
      * @see #getOptimalItem(List, double, String, int, int)
      */
-    private static List<OrderItem> roofingCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    public static List<OrderItem> roofingCalc(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Tagplader skrues fast i spær";
         double area = length*width;
@@ -119,8 +112,8 @@ public class PartsListCalculator
         List<OrderItem> orderItemMetal = MetalCalculator.getRoofingMetal(amount , connectionPool);
         List<OrderItem> output = new ArrayList<>();
 
-        output.addAll(orderItemMetal);
         output.add(roofOI);
+        output.addAll(orderItemMetal);
 
         return output;
     }
@@ -222,14 +215,13 @@ public class PartsListCalculator
      * @see Facade#getWoodByVariant(String, ConnectionPool) for the mapper method
      * @see #getOptimalItem(List, double, String, int, int)
      */
-    private static OrderItem remCalc(double length, ConnectionPool connectionPool) throws DatabaseException
+    public static OrderItem remCalc(double length, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Remme boltes fast på stolper langs længden af kontruktionen";
-        int remAmount = 2;
 
         List<Wood> woods = Facade.getWoodByVariant("Rem", connectionPool);
 
-        return getOptimalItem(woods, length, desc, 2, 2);
+        return getOptimalItem(woods, length, desc, 1, 2);
     }
 
     /**
@@ -260,7 +252,7 @@ public class PartsListCalculator
         rafterLengthAmountL = lenBuffer.getAmount();
 
         double rafterLengthWidth = rafterLength.getWidth();
-        amountL = (int) (rafterLengthAmountL * Math.ceil(210 / rafterLengthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
+        amountL = (int) (rafterLengthAmountL * Math.ceil(210 / rafterLengthWidth)); // 210 = Pole height - the buried 90. //1 * (210/40) = 5.25 = 6
         OrderItem rafterLengthWOI = new OrderItem((int) amountL, rafterLength, "Spærtræ til beklædning af skur i længden");
         itemList.add(rafterLengthWOI);
 
@@ -269,19 +261,11 @@ public class PartsListCalculator
         rafterWidthAmountW = widthBuffer.getAmount();
 
         double rafterWidthWidth = rafterWidth.getWidth();
-        amountW = (int) (rafterWidthAmountW * Math.ceil(210 / rafterWidthWidth)); // 210 = Pole height - the buried 90. //1 * (210/55) = 3.82 = 4
+        amountW = (int) (rafterWidthAmountW * Math.ceil(210 / rafterWidthWidth)); // 210 = Pole height - the buried 90. //1 * (210/40) = 5.25 = 6
         OrderItem rafterWidthWOI = new OrderItem((int) amountW, rafterWidth, "Spærtræ til beklædning af skur i bredden");
         itemList.add(rafterWidthWOI);
 
-        int poles;
-        if (shedWidth > 310)
-        {
-            poles = 3;
-        }
-        else
-        {
-            poles = 4;
-        }
+        int poles = 4; // Always 4 poles, three corners and one for the door.
 
         List<Wood> poleWoodList = Facade.getWoodByVariant("Stolpe", connectionPool);
         OrderItem polesShed = new OrderItem(poles, poleWoodList.get(0), "Stolper til skur");
@@ -299,7 +283,8 @@ public class PartsListCalculator
      */
     private static double getRafterAmount(double length, int modifier)
     {
-        return (length / 55) * modifier;
+        double amount = Math.floor(length / 55);
+        return amount * modifier;
     }
 
     /**
@@ -359,9 +344,9 @@ public class PartsListCalculator
 
             for (Wood w : woods)
             {
-                double amount = dist / w.getLength();
-                double waste = dist % w.getLength();
-                waste = w.getLength() - waste;
+                double amount = Math.ceil(dist / w.getLength());
+               // double waste = dist % w.getLength();
+                double waste = w.getLength() * amount - dist;
 
                 if (waste < wasteBuffer || amount <= amountBuffer)
                 {

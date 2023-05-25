@@ -50,7 +50,7 @@
 
                     <c:if test="${sessionScope.user.role.equals('user')}">
                         <form action="redirectadminpanel" method="post">
-                            <input type="submit" class="nav-item nav-link btn btn-link" value="Bruger Side"/>
+                            <input type="submit" class="nav-item nav-link btn btn-link" value="Brugerside"/>
                         </form>
                     </c:if>
 
@@ -61,10 +61,10 @@
                     </c:if>
 
                     <c:if test="${sessionScope.user == null }">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/index.jsp">Login</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/index.jsp">Log ind</a>
                     </c:if>
                     <c:if test="${sessionScope.user != null }">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/logout">Log out</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/logout">Log ud</a>
                     </c:if>
                 </div>
             </div>

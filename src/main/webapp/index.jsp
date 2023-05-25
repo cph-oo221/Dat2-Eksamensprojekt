@@ -5,18 +5,18 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-        Fog - Login
+        Fog - Log ind
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Fog - Login
+        Fog - Log ind
     </jsp:attribute>
 
     <jsp:body>
 
         <div class="container mt-3">
             <div class="card mt-2 p-1 cardPos">
-                <h1>Login</h1>
+                <h1>Log ind</h1>
 
                 <img src="images/loginAndSignup/login-Icon.png" alt="login icon" class="imgDisplay">
                 <hr>
@@ -28,17 +28,17 @@
                     <form action="login" method="post">
                         <p class="errorMSG">${requestScope.errormessage}</p>
 
-                        <label for="email" class="fw-bold popupLoginEmail"> Email </label><br/>
-                        <input type="text" id="email" name="email" class="inputBoxSize" placeholder="Angiv Email"/>
+                        <label for="email" class="fw-bold popupLoginEmail"> E-mail </label><br/>
+                        <input type="text" id="email" name="email" class="inputBoxSize" placeholder="Angiv e-mail"/>
 
                         <br/>
                         <br/>
-                        <label for="password" class="fw-bold popupLoginPassword"> Password </label><br/>
-                        <input type="password" id="password" name="password" class="inputBoxSize" placeholder="Angiv Password"/>
+                        <label for="password" class="fw-bold popupLoginPassword"> Kodeord </label><br/>
+                        <input type="password" id="password" name="password" class="inputBoxSize" placeholder="Angiv kodeord"/>
 
                         <br/>
                         <br/>
-                        <input type="submit" class="btn btn-primary fw-bold submitBtnSize" value="Login"/>
+                        <input type="submit" class="btn btn-primary fw-bold submitBtnSize" value="Log ind"/>
                         <br>
                     </form>
                 </div>
@@ -48,7 +48,7 @@
             <div class="greyBox">
                 <div class="greyBoxSpacing">
                     <form action="registerUser.jsp" method="post">
-                        <input type="submit" class="btn btn-link noLineUnderBtn" value="opret ny bruger?">
+                        <input type="submit" class="btn btn-link noLineUnderBtn fw-bold" value="opret ny bruger?">
                     </form>
                 </div>
             </div>

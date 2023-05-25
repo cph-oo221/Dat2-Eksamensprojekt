@@ -11,7 +11,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "ReceiptsAdmin", value = "/receiptsadmin")

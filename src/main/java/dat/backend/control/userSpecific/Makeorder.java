@@ -38,7 +38,13 @@ public class Makeorder extends HttpServlet
         double length = Double.parseDouble(request.getParameter("length"));
         int shedLength = Integer.parseInt(request.getParameter("shedLength"));
         boolean withRoof = Boolean.parseBoolean(request.getParameter("withRoof"));
-        boolean withShed = Boolean.parseBoolean(request.getParameter("withShed"));
+
+        if (shedLength > length)
+        {
+            request.setAttribute("errorMSG", "Skurets længde kan ikke være længere end carportens længde!");
+            request.getRequestDispatcher("WEB-INF/orderForm.jsp").forward(request, response);
+        }
+
         try
         {
             List<OrderItem> orderItemList = PartsListCalculator.materialCalc(length, width, shedLength, withRoof, connectionPool);

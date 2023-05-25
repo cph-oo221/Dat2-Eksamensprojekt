@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class ReceiptMapper
 {
-    protected static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool) throws DatabaseException
+    static ArrayList<Receipt> getReceiptsByIdUser(int idUser, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO,"");
         Receipt receipt;
@@ -49,10 +49,8 @@ public class ReceiptMapper
         }
     }
 
-    public static int createReceipt(int idUser, double width, double length, String comment, ConnectionPool connectionPool) throws DatabaseException
+    static int createReceipt(int idUser, double width, double length, String comment, ConnectionPool connectionPool) throws DatabaseException
     {
-        // TODO: Create receipt entry in database, and return newly created receipt id
-
         String sql = "INSERT INTO receipt (idUser, width, length, comment) VALUES (?, ?, ?, ?);";
 
         try (Connection connection = connectionPool.getConnection())
@@ -86,7 +84,7 @@ public class ReceiptMapper
         return 0;
     }
 
-    protected static void acceptReceipt(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    static void acceptReceipt(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -106,7 +104,7 @@ public class ReceiptMapper
         }
     }
 
-    protected static void acceptReceiptAdmin(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    static void acceptReceiptAdmin(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -126,7 +124,7 @@ public class ReceiptMapper
         }
     }
 
-    public static void deleteReceipt(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    static void deleteReceipt(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -182,7 +180,7 @@ public class ReceiptMapper
         return receiptList;
     }
 
-    public static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    static int updateReceiptPrice(int newPrice, int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "Trying to update price on receipt");
 
@@ -204,7 +202,7 @@ public class ReceiptMapper
         }
     }
 
-    protected static Receipt getReceiptById(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
+    static Receipt getReceiptById(int idReceipt, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "SELECT * FROM receipt WHERE idreceipt = ?;";
 

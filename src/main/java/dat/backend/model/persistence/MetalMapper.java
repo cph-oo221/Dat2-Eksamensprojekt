@@ -1,8 +1,6 @@
 package dat.backend.model.persistence;
 
 import dat.backend.model.entities.Metal;
-import dat.backend.model.entities.OrderItem;
-import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.Connection;
@@ -17,7 +15,7 @@ import java.util.logging.Logger;
 public class MetalMapper
 {
 
-    public static List<Metal> getAllMetal(ConnectionPool connectionPool) throws DatabaseException
+    static List<Metal> getAllMetal(ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
         String sql = "SELECT * FROM metal";
@@ -48,7 +46,7 @@ public class MetalMapper
         }
     }
 
-    public static void updateMetalPrice(int idMetal, int price, ConnectionPool connectionPool) throws DatabaseException
+    static void updateMetalPrice(int idMetal, int price, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -69,7 +67,7 @@ public class MetalMapper
         }
     }
 
-    public static void deleteMetal(int idMetal, ConnectionPool connectionPool) throws DatabaseException
+    static void deleteMetal(int idMetal, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -89,7 +87,7 @@ public class MetalMapper
         }
     }
 
-    public static Metal createMetal(String name, int price, String unit, String variant, ConnectionPool connectionPool) throws DatabaseException
+    static Metal createMetal(String name, int price, String unit, String variant, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "Trying to create new metal: " + name + " and insert it to the database...");
 
@@ -143,7 +141,7 @@ public class MetalMapper
         return metal;
     }
 
-    public static Metal getMetalById(int idMetal, ConnectionPool connectionPool) throws DatabaseException
+    static Metal getMetalById(int idMetal, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "Trying to get metal by id: " + idMetal);
 
@@ -176,7 +174,7 @@ public class MetalMapper
 
 
 
-    protected static List<Metal> getMetalByVariant(String variant, ConnectionPool connectionPool) throws DatabaseException
+    static List<Metal> getMetalByVariant(String variant, ConnectionPool connectionPool) throws DatabaseException
     {
         String sql = "SELECT * FROM metal WHERE variant = ?";
 

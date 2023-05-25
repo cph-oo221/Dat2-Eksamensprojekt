@@ -9,6 +9,7 @@ import dat.backend.model.persistence.Facade;
 import org.abstractica.javacsg.Geometry3D;
 import org.abstractica.javacsg.JavaCSG;
 import org.abstractica.javacsg.JavaCSGFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class Model3D
     private ConnectionPool connectionPool;
     private JavaCSG csg = JavaCSGFactory.createDefault();
     private Receipt receipt;
-    private double widthmm = 0;
-    private double lengthmm = 0;
+    private double widthmm;
+    private double lengthmm;
     private double offsetZ = 0;
     private int receiptID;
 
@@ -90,16 +91,14 @@ public class Model3D
 
         Wood stern = (Wood) sternItem.getMaterial();
 
-        Geometry3D modelW = csg.box3D(widthmm + stern.getHeight(), stern.getHeight(), stern.getWidth(), false);
-        Geometry3D modelL = csg.box3D(stern.getHeight(), lengthmm + stern.getHeight(), stern.getWidth() , false);
+        Geometry3D modelW = csg.box3D(widthmm + (stern.getHeight() * 10) * 2, stern.getHeight() * 10, stern.getWidth() * 10, false);
+        Geometry3D modelL = csg.box3D(stern.getHeight() * 10, lengthmm + stern.getHeight() * 10, stern.getWidth() * 10, false);
 
-        Geometry3D wpos0 = csg.translate3DY(-lengthmm / 2).transform(modelW);
-        Geometry3D wpos1 = csg.translate3DY(lengthmm / 2).transform(modelW);
+        Geometry3D wpos0 = csg.translate3DY(-lengthmm / 2 - (stern.getHeight() * 10) / 2).transform(modelW);
+        Geometry3D wpos1 = csg.translate3DY(lengthmm / 2 + (stern.getHeight() * 10) / 2).transform(modelW);
 
-        Geometry3D lpos0 = csg.translate3DX(-widthmm / 2).transform(modelL);
-        Geometry3D lpos1 = csg.translate3DX(widthmm / 2).transform(modelL);
-
-
+        Geometry3D lpos0 = csg.translate3DX(-widthmm / 2 - (stern.getHeight() * 10) / 2).transform(modelL);
+        Geometry3D lpos1 = csg.translate3DX(widthmm / 2 + (stern.getHeight() * 10) / 2).transform(modelL);
 
         return csg.union3D(wpos0, wpos1, lpos0, lpos1);
     }

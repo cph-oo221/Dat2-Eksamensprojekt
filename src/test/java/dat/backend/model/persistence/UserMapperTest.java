@@ -1,12 +1,8 @@
-package dat.backend.persistence;
+package dat.backend.model.persistence;
 
-
-import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.config.Env;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
-import dat.backend.model.persistence.ConnectionPool;
-import dat.backend.model.persistence.Facade;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,10 +58,9 @@ class UserMapperTest
 
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.user LIKE `Dat2-Eksamensopgave`.user;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.receipt LIKE `Dat2-Eksamensopgave`.receipt;");
-                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.order LIKE `Dat2-Eksamensopgave`.order;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.ordermetal LIKE `Dat2-Eksamensopgave`.ordermetal;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.orderwood LIKE `Dat2-Eksamensopgave`.orderwood;");
-                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metalstuff LIKE `Dat2-Eksamensopgave`.metalstuff;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metal LIKE `Dat2-Eksamensopgave`.metal;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.wood LIKE `Dat2-Eksamensopgave`.wood;");
 
 
@@ -86,11 +81,10 @@ class UserMapperTest
             {
                 stmt.execute("use fog_test;");
                 stmt.execute("delete from fog_test.receipt");
-                stmt.execute("delete from fog_test.order");
                 stmt.execute("delete from fog_test.ordermetal");
                 stmt.execute("delete from fog_test.orderwood");
                 stmt.execute("delete from fog_test.wood");
-                stmt.execute("delete from fog_test.metalstuff");
+                stmt.execute("delete from fog_test.metal");
                 stmt.execute("delete from fog_test.user");
 
                 stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
@@ -154,6 +148,14 @@ class UserMapperTest
     }
 
     @Test
+    void getUserByEmailFail() throws SQLException, DatabaseException
+    {
+        assertNull(Facade.getUserByEmail("testemailfail.com", connectionPool));
+        assertFalse(Facade.getUserByEmail("testfail@gmail.com", connectionPool) != null);
+        assertEquals(null, Facade.getUserByEmail("oleolsen@gmail.com,", connectionPool));
+    }
+
+    @Test
     void createUser() throws SQLException, DatabaseException
     {
         int iduser = 3;
@@ -169,6 +171,17 @@ class UserMapperTest
     }
 
     @Test
+    void invalidCreateUser()
+    {
+        // empty password has to be 5 characters or more
+        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test@125.com", "123", "testvej 126", "test city", 23456234, "user", connectionPool));
+        // space in email
+        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test @125.com", "123456", "testvej 126", "test city", 23456234, "user", connectionPool));
+        // email already exists
+        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("user@user.com","user", "uservej 1", "Vice city", 12345678, "user", connectionPool));
+    }
+
+    @Test
     void succesfulLogin()
     {
         try
@@ -176,7 +189,7 @@ class UserMapperTest
             User expected = new User(3, "test@124.com", "test124", "user", "testvej 124",
                     "testing city", 13233334);
 
-           /* User expected = new User(1, "user@user.com", "user", "user", "uservej 1" ,"Vice city", 12345678);*/
+            /* User expected = new User(1, "user@user.com", "user", "user", "uservej 1" ,"Vice city", 12345678);*/
 
             User actual = Facade.login("test@124.com", "test124", connectionPool);
 
@@ -190,23 +203,14 @@ class UserMapperTest
     }
 
     @Test
-    void invalidCreateUser()
+    void invalidEmailLogin() throws DatabaseException
     {
-        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test@125.com", "123", "testvej 126", "test city", 23456234, "user", connectionPool));
-        assertThrows(IllegalArgumentException.class, () -> Facade.createUser("test @125.com", "123456", "testvej 126", "test city", 23456234, "user", connectionPool));
+        assertNull(Facade.login("usr@user.com", "user", connectionPool));
     }
 
     @Test
-    void invalidEmailLogin()
+    void invalidPassLogin() throws DatabaseException
     {
-        assertThrows(DatabaseException.class, () -> Facade.login("usr@user.com", "user", connectionPool));
+        assertNull(Facade.login("user@user.com", "usr", connectionPool));
     }
-
-    @Test
-    void invalidPassLogin()
-    {
-        assertThrows(DatabaseException.class, () -> Facade.login("user@user.com", "usr", connectionPool));
-    }
-
-
 }
