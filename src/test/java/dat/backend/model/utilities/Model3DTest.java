@@ -117,7 +117,7 @@ class Model3DTest
                         "(7, 1, 1, 4, 'Remme boltes fast på stolper langs længden af kontruktionen')," +
                         "(8, 1, 9, 4, 'Sternbrædt placeres uden på tagkonstruktionen')," +
                         "(9, 1, 8, 6, 'Sternbrædt placeres uden på tagkonstruktionen')");
-                
+
                 stmt.execute("ALTER TABLE fog_test.receipt ENABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.wood ENABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.orderwood ENABLE KEYS");
