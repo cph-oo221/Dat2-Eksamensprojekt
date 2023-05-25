@@ -1,11 +1,8 @@
-package dat.backend.persistence;
-
+package dat.backend.model.persistence;
 
 import dat.backend.model.config.Env;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
-import dat.backend.model.persistence.ConnectionPool;
-import dat.backend.model.persistence.Facade;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -173,7 +170,7 @@ class UserMapperTest
             User expected = new User(3, "test@124.com", "test124", "user", "testvej 124",
                     "testing city", 13233334);
 
-           /* User expected = new User(1, "user@user.com", "user", "user", "uservej 1" ,"Vice city", 12345678);*/
+            /* User expected = new User(1, "user@user.com", "user", "user", "uservej 1" ,"Vice city", 12345678);*/
 
             User actual = Facade.login("test@124.com", "test124", connectionPool);
 
@@ -204,6 +201,4 @@ class UserMapperTest
     {
         assertNull(Facade.login("user@user.com", "usr", connectionPool));
     }
-
-
 }
