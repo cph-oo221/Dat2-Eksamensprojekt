@@ -146,7 +146,7 @@ public class PartsListCalculator
        return output;
     }
 
-    private static OrderItem remCalc(double length, ConnectionPool connectionPool) throws DatabaseException
+    public static OrderItem remCalc(double length, ConnectionPool connectionPool) throws DatabaseException
     {
         String desc = "Remme boltes fast på stolper langs længden af kontruktionen";
 
@@ -241,9 +241,9 @@ public class PartsListCalculator
 
             for (Wood w : woods)
             {
-                double amount = dist / w.getLength();
-                double waste = dist % w.getLength();
-                waste = w.getLength() - waste;
+                double amount = Math.ceil(dist / w.getLength());
+               // double waste = dist % w.getLength();
+                double waste = w.getLength() * amount - dist;
 
                 if (waste < wasteBuffer || amount <= amountBuffer)
                 {

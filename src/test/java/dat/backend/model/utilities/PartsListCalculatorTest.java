@@ -111,6 +111,62 @@ class PartsListCalculatorTest
     }
 
     @Test
+    void poleCalcTest()
+    {
+        int length = 780;
+        int width = 240;
+        Material wexpected = new Wood(3, 300, 97, 97, "Stolpe", "stk", 100, "Stolpe");
+        Material mexpected = new Metal(5, "Bræddebolt", 500 , "Stk", "Bræddebolt");
+
+        try
+        {
+            List<OrderItem> items = PartsListCalculator.poleCalc(length, width, connectionPool);
+
+            // Wood
+            assertEquals(8, items.get(0).getAmount());
+            assertEquals(wexpected, items.get(0).getMaterial());
+
+            // Metal
+            assertEquals(16, items.get(1).getAmount());
+            assertEquals(mexpected, items.get(1).getMaterial());
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    void calcRemTest()
+    {
+        double length = 819;
+        Material wexpected = new Wood(1, 410, 55, 20, "Spærtræ", "stk", 200, "Rem");
+        Material wexpected1 = new Wood(2, 205, 55, 20, "Spærtræ", "stk", 100, "Rem");
+
+        try
+        {
+            OrderItem item = PartsListCalculator.remCalc(length, connectionPool);
+
+            assertEquals(wexpected, item.getMaterial());
+            assertEquals(4, item.getAmount());
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+    }
+
+
+    @Test
+    void calcRafterTest()
+    {
+        int length = 240;
+        int width = 240;
+
+
+    }
+
+    @Test
     void shedMethodTest()
     {
         // FIXME: VÆRSGO SEB
@@ -136,31 +192,6 @@ class PartsListCalculatorTest
         }
     }
 
-    @Test
-    void poleCalcTest()
-    {
-        int length = 780;
-        int width = 240;
-        Material wexpected = new Wood(3, 300, 97, 97, "Stolpe", "stk", 100, "Stolpe");
-        Material mexpected = new Metal(5, "Bræddebolt", 500 , "Stk", "Bræddebolt");
-
-        try
-        {
-            List<OrderItem> items = PartsListCalculator.poleCalc(length, width, connectionPool);
-
-            // Wood
-            assertEquals(8, items.get(0).getAmount());
-            assertEquals(wexpected, items.get(0).getMaterial());
-
-            // Metal
-            assertEquals(16, items.get(1).getAmount());
-            assertEquals(mexpected, items.get(1).getMaterial());
-        }
-        catch (DatabaseException e)
-        {
-            fail(e.getMessage());
-        }
-    }
 
     @Test
     void sternCalcTest()
