@@ -82,18 +82,18 @@ class ReceiptMapperTest
             try (Statement stmt = testConnection.createStatement())
             {
                 stmt.execute("use fog_test;");
-                stmt.execute("delete from fog_test.receipt");
-                stmt.execute("delete from fog_test.user");
-                stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
-                stmt.execute("ALTER TABLE fog_test.user AUTO_INCREMENT = 1");
+                stmt.execute("delete from fog_test.receipt;");
+                stmt.execute("delete from fog_test.user;");
+                stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS;");
+                stmt.execute("ALTER TABLE fog_test.user AUTO_INCREMENT = 1;");
                 stmt.execute("ALTER TABLE fog_test.receipt DISABLE KEYS");
-                stmt.execute("ALTER TABLE fog_test.receipt AUTO_INCREMENT = 1");
+                stmt.execute("ALTER TABLE fog_test.receipt AUTO_INCREMENT = 1;");
                 stmt.execute("insert into fog_test.user VALUES " +
                         "(1, 'user@user.com','user','user', 'uservej 1', 'Vice city', 12345678)," +
                         "(2, 'admin@admin.com','admin','admin', 'adminvej 2', 'San Andreas', 87654321)");
                 stmt.execute("INSERT INTO receipt (idUser, width, length, comment) VALUES" +
                     "(1, 240, 420, 'hej')," +
-                    "(2, 420, 240, 'hej1')");
+                    "(2, 420, 240, 'hej1');");
                 stmt.execute("ALTER TABLE fog_test.user ENABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.receipt ENABLE KEYS");
             }

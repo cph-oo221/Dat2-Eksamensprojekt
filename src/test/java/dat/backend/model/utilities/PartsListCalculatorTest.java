@@ -74,15 +74,15 @@ class PartsListCalculatorTest
                 stmt.execute("ALTER TABLE fog_test.user AUTO_INCREMENT = 1");
                 stmt.execute("INSERT INTO fog_test.metal (idmetal, name, price, unit, variant) VALUES " +
                         "(1, '100mm skruer', 2, 'Stk', 'Skrue')," +
-                        "(3, '50mm skruer', 1, 'Stk', 'Skrue')," +
-                        "(4,'Hulbånd' , 20 , 'Rulle', 'Hulbånd')," +
-                        "(5, 'Bræddebolt', 500 , 'Stk', 'Bræddebolt')," +
-                        "(6, 'Firkantskiver' , 20 , 'Stk', 'Firkantskiver')," +
-                        "(7, 'Stalddørsgreb' , 80, 'Sæt', 'Lås')," +
-                        "(8, 'T hængsel' , 50, 'Stk', 'Hængsel')," +
-                        "(9, 'Vinkelbeslag' , 23, 'Stk', 'Vinkelbeslag')," +
-                        "(10, 'Universalbeslag højre' ,15 , 'Stk' , 'Beslag Højre')," +
-                        "(11, 'Universalbeslag venstre' , 15 , 'Stk', 'Beslag Venstre');");
+                        "(2, '50mm skruer', 1, 'Stk', 'Skrue')," +
+                        "(3,'Hulbånd' , 20 , 'Rulle', 'Hulbånd')," +
+                        "(4, 'Bræddebolt', 500 , 'Stk', 'Bræddebolt')," +
+                        "(5, 'Firkantskiver' , 20 , 'Stk', 'Firkantskiver')," +
+                        "(6, 'Stalddørsgreb' , 80, 'Sæt', 'Lås')," +
+                        "(7, 'T hængsel' , 50, 'Stk', 'Hængsel')," +
+                        "(8, 'Vinkelbeslag' , 23, 'Stk', 'Vinkelbeslag')," +
+                        "(9, 'Universalbeslag højre' ,15 , 'Stk' , 'Beslag Højre')," +
+                        "(10, 'Universalbeslag venstre' , 15 , 'Stk', 'Beslag Venstre');");
                 stmt.execute("ALTER TABLE fog_test.metal ENABLE KEYS");
 
 
