@@ -92,7 +92,7 @@ public class Model3D
  * @param lengthmm- the length of the carport in mm
  * @param  csg- the model so far
  * @throws DatabaseException
- * @return an updated model
+ * @return the sterns as a Geometry3D object
  * @see Facade#getWoodOrderItemsByRecieptId(int, ConnectionPool)  for the mapper method
  * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
  * @see JavaCSG#translate3DY(double) for the method translating the box along the Y axis
@@ -134,7 +134,7 @@ public class Model3D
      * @param lengthmm- the length of the carport in mm
      * @param  csg- the model so far
      * @throws DatabaseException
-     * @return an updated model
+     * @return the poles as a Geometry3D object
      * @see Facade#getWoodOrderItemsByRecieptId(int, ConnectionPool)  for the mapper method
      * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
      * @see JavaCSG#translate3D(double, double, double) for the translation method
@@ -203,7 +203,7 @@ public class Model3D
      * @param  widthmm- the width of the carport in mm
      * @param lengthmm- the length of the carport in mm
      * @param  csg- the model so far
-     * @return an updated model
+     * @return the rems as a Geometry3D object
      * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
      * @see JavaCSG#translate3D(double, double, double) for the translation method
      * @see JavaCSG#union3D(Geometry3D...) for the method joining the models together
@@ -238,7 +238,7 @@ public class Model3D
      * @param  widthmm- the width of the carport in mm
      * @param lengthmm- the length of the carport in mm
      * @param  csg- the model so far
-     * @return an updated model
+     * @return the rafters as a Geometry3D object
      * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
      * @see JavaCSG#translate3D(double, double, double) for the translation method
      * @see JavaCSG#union3D(Geometry3D...) for the method joining the models together
@@ -296,7 +296,7 @@ public class Model3D
      * @param  widthmm- the width of the carport in mm
      * @param lengthmm- the length of the carport in mm
      * @param  csg- the model so far
-     * @return an updated model
+     * @return the roof as a Geometry3D object
      * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
      */
     private Geometry3D getRoofModel(List<Wood> woods, double widthmm, double lengthmm, JavaCSG csg)
