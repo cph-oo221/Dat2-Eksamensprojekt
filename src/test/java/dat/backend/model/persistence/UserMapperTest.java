@@ -80,11 +80,11 @@ class UserMapperTest
             try (Statement stmt = testConnection.createStatement())
             {
                 stmt.execute("use fog_test;");
-                stmt.execute("delete from fog_test.receipt");
+                stmt.execute("delete from fog_test.metal");
+                stmt.execute("delete from fog_test.wood");
                 stmt.execute("delete from fog_test.ordermetal");
                 stmt.execute("delete from fog_test.orderwood");
-                stmt.execute("delete from fog_test.wood");
-                stmt.execute("delete from fog_test.metal");
+                stmt.execute("delete from fog_test.receipt");
                 stmt.execute("delete from fog_test.user");
 
                 stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
@@ -212,5 +212,12 @@ class UserMapperTest
     void invalidPassLogin() throws DatabaseException
     {
         assertNull(Facade.login("user@user.com", "usr", connectionPool));
+    }
+
+    @Test
+    void getAllUser() throws DatabaseException
+    {
+        int expected = 3;
+        assertEquals(expected, Facade.getAllUsers(connectionPool).size());
     }
 }
