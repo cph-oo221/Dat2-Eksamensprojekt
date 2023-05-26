@@ -295,7 +295,7 @@
 
                                 <label for="idMetal" class="fw-bold"> Metal ID </label><br/>
                                 <input type="number" id="idMetal" name="idMetal" class="inputBoxSize"
-                                       placeholder="Angiv Træ ID"/>
+                                       placeholder="Angiv Metal ID"/>
 
                                 <br/>
                                 <br/>
