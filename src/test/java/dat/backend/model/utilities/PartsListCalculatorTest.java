@@ -28,7 +28,7 @@ class PartsListCalculatorTest
     private static ConnectionPool connectionPool;
 
     @BeforeAll
-    public static void setUpClass() throws SQLException
+    public static void setUpClass()
     {
         String deployed = System.getenv("DEPLOYED");
         if (deployed != null)
@@ -62,9 +62,9 @@ class PartsListCalculatorTest
             try (Statement stmt = testConnection.createStatement())
             {
                 stmt.execute("use fog_test;");
-                stmt.execute("delete from fog_test.receipt");
                 stmt.execute("delete from fog_test.ordermetal");
                 stmt.execute("delete from fog_test.orderwood");
+                stmt.execute("delete from fog_test.receipt");
                 stmt.execute("delete from fog_test.wood");
                 stmt.execute("delete from fog_test.metal");
                 stmt.execute("delete from fog_test.user");
@@ -116,7 +116,7 @@ class PartsListCalculatorTest
         int length = 780;
         int width = 240;
         Material wexpected = new Wood(3, 300, 97, 97, "Stolpe", "stk", 100, "Stolpe");
-        Material mexpected = new Metal(5, "Bræddebolt", 500 , "Stk", "Bræddebolt");
+        Material mexpected = new Metal(4, "Bræddebolt", 500 , "Stk", "Bræddebolt");
 
         try
         {
@@ -241,7 +241,7 @@ class PartsListCalculatorTest
         int length = 240;
         int width = 240;
         Material wexpected = new Wood(6, 100, 100, 1, "Trapezplade", "stk", 30, "Tag");
-        Material mexpected = new Metal(3, "50mm skruer", 1, "Stk", "Skrue");
+        Material mexpected = new Metal(2, "50mm skruer", 1, "Stk", "Skrue");
 
         try
         {

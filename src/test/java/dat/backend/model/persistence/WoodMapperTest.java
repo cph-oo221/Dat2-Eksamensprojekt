@@ -57,7 +57,6 @@ class WoodMapperTest
 
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.user LIKE `Dat2-Eksamensopgave`.user;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.receipt LIKE `Dat2-Eksamensopgave`.receipt;");
-                stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.order LIKE `Dat2-Eksamensopgave`.order;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.ordermetal LIKE `Dat2-Eksamensopgave`.ordermetal;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.orderwood LIKE `Dat2-Eksamensopgave`.orderwood;");
                 stmt.execute("CREATE TABLE IF NOT EXISTS fog_test.metalstuff LIKE `Dat2-Eksamensopgave`.metal;");
@@ -80,16 +79,20 @@ class WoodMapperTest
             try (Statement stmt = testConnection.createStatement())
             {
                 stmt.execute("use fog_test;");
+                stmt.execute("delete from fog_test.orderwood");
                 stmt.execute("delete from fog_test.wood");
 
                 stmt.execute("ALTER TABLE fog_test.wood DISABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.wood AUTO_INCREMENT = 1");
-                stmt.execute("insert into fog_test.wood VALUES " +
+                stmt.execute("INSERT INTO fog_test.wood VALUES " +
                         "(1, 410, 55, 20, 'Spærtræ', 'stk', 200, 'Rem')," +
                         "(2, 205, 55, 20, 'Spærtræ', 'stk', 100, 'Rem')," +
-                        "(3, 300, 97, 97, 'Stolpe', 'stk', 100, 'Stolpe')," +
-                        "(4, 410, 55, 20, 'Spærtræ', 'stk', 200, 'Spær')," +
-                        "(5, 205, 55, 20, 'Spærtræ', 'stk', 100, 'Spær')");
+                        "(3, 300, 20, 20, 'Stolpe', 'stk', 100, 'Stolpe')," +
+                        "(4, 410, 40, 20, 'Spærtræ', 'stk', 200, 'Spær')," +
+                        "(5, 205, 40, 20, 'Spærtræ', 'stk', 100, 'Spær'), " +
+                        "(6, 100, 100, 10, 'Trapezplade', 'stk', 30, 'Tag')," +
+                        "(7, 205, 40, 10, 'Brædt', 'stk', 150, 'Stern')," +
+                        "(8, 410, 40, 10, 'Brædt', 'stk', 200, 'Stern')");
                 stmt.execute("ALTER TABLE fog_test.wood ENABLE KEYS");
             }
         } catch (SQLException throwables)
@@ -128,7 +131,7 @@ class WoodMapperTest
     void deleteWood() throws DatabaseException
     {
         int idWood = 5;
-        int expected = 4;
+        int expected = 7;
 
         Facade.deleteWood(idWood, connectionPool);
         assertEquals(expected, Facade.getAllWood(connectionPool).size());
@@ -137,7 +140,7 @@ class WoodMapperTest
     @Test
     void createWood() throws DatabaseException
     {
-        Wood expected = new Wood(6, 160, 54, 23, "Spærtræ", "stk", 120, "Rem");
+        Wood expected = new Wood(9, 160, 54, 23, "Spærtræ", "stk", 120, "Rem");
 
         Wood actual = Facade.createWood(160, 54, 23, "Spærtræ", "stk", 120, "Rem", connectionPool);
 
