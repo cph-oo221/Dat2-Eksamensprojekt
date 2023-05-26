@@ -80,20 +80,37 @@ class UserMapperTest
             try (Statement stmt = testConnection.createStatement())
             {
                 stmt.execute("use fog_test;");
-                stmt.execute("delete from fog_test.metal");
-                stmt.execute("delete from fog_test.wood");
-                stmt.execute("delete from fog_test.ordermetal");
-                stmt.execute("delete from fog_test.orderwood");
+                stmt.execute("delete from fog_test.metal;");
+                stmt.execute("delete from fog_test.wood;");
+                stmt.execute("delete from fog_test.ordermetal;");
+                stmt.execute("delete from fog_test.orderwood;");
                 stmt.execute("delete from fog_test.receipt");
                 stmt.execute("delete from fog_test.user");
 
                 stmt.execute("ALTER TABLE fog_test.user DISABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.user AUTO_INCREMENT = 1");
+                stmt.execute("ALTER TABLE fog_test.receipt DISABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.receipt AUTO_INCREMENT = 1");
+                stmt.execute("ALTER TABLE fog_test.metal DISABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.metal AUTO_INCREMENT = 1");
+                stmt.execute("ALTER TABLE fog_test.wood DISABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.wood AUTO_INCREMENT = 1");
+                stmt.execute("ALTER TABLE fog_test.orderwood DISABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.orderwood AUTO_INCREMENT = 1");
+                stmt.execute("ALTER TABLE fog_test.ordermetal DISABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.ordermetal AUTO_INCREMENT = 1");
+
                 stmt.execute("insert into fog_test.user VALUES " +
                         "(1, 'user@user.com','user','user', 'uservej 1', 'Vice city', 12345678)," +
                         "(2, 'admin@admin.com','admin','admin', 'adminvej 2', 'San Andreas', 87654321)," +
                         "(3, 'test@124.com', 'test124', 'user', 'testvej 124', 'testing city', 13233334)");
                 stmt.execute("ALTER TABLE fog_test.user ENABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.receipt ENABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.metal ENABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.wood ENABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.orderwood ENABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.ordermetal ENABLE KEYS");
+
             }
         } catch (SQLException throwables)
         {
@@ -103,7 +120,7 @@ class UserMapperTest
     }
 
     @Test
-    void testConnection() throws SQLException
+    void testConnection()
     {
         try (Connection testConnection = connectionPool.getConnection())
         {
@@ -129,7 +146,7 @@ class UserMapperTest
 
 
     @Test
-    void getUserByEmail() throws SQLException, DatabaseException
+    void getUserByEmail() throws DatabaseException
     {
         int iduser = 1;
         String email = "user@user.com";
@@ -148,7 +165,7 @@ class UserMapperTest
     }
 
     @Test
-    void getUserByEmailFail() throws SQLException, DatabaseException
+    void getUserByEmailFail() throws DatabaseException
     {
         assertNull(Facade.getUserByEmail("testemailfail.com", connectionPool));
         assertFalse(Facade.getUserByEmail("testfail@gmail.com", connectionPool) != null);
@@ -156,7 +173,7 @@ class UserMapperTest
     }
 
     @Test
-    void createUser() throws SQLException, DatabaseException
+    void createUser() throws DatabaseException
     {
         int iduser = 3;
         String email = "test@test34.com";
