@@ -293,6 +293,7 @@ public class PartsListCalculator
      * @param  length- The full length of the carport
      * @return the most optimal wood object for the given situation
      */
+
     private static Wood selectWood(List<Wood> woods, double length)
     {
         Wood buffer = null;
