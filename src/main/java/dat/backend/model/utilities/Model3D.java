@@ -6,6 +6,7 @@ import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.Facade;
+import org.abstractica.javacsg.Geometry2D;
 import org.abstractica.javacsg.Geometry3D;
 import org.abstractica.javacsg.JavaCSG;
 import org.abstractica.javacsg.JavaCSGFactory;
@@ -30,6 +31,18 @@ public class Model3D
         this.connectionPool = connectionPool;
     }
 
+/**
+ * The final method of the class. Implements all the other methods
+ * @throws DatabaseException
+ * @see Facade#getWoodOrderItemsByRecieptId(int, ConnectionPool) for the mapper method
+ * @see #getRoofModel(List, double, double, JavaCSG)  for the method generating roofs
+ * @see #getSternModel(double, double, JavaCSG)  for the method generating sterns
+ * @see #getRafterModel(List, double, double, JavaCSG)  for the method generating rafters
+ * @see #getRemModel(List, double, double, JavaCSG) for the method generating rems
+ * @see #getPoleModel(double, double, JavaCSG) for the method generating poles
+ * @see JavaCSG#view(Geometry3D) for the JavaCSG method creating views
+ * @see JavaCSG#union3D(Geometry3D...) for the JavaCSG method putting models together
+ */
     public void generate3D() throws DatabaseException
     {
         receipt = Facade.getReceiptById(receiptID, connectionPool);
@@ -55,13 +68,13 @@ public class Model3D
             roof = getRoofModel(woodItems, widthmm, lengthmm, csg);
         }
 
-        Geometry3D stern = getSternModel(woodItems, widthmm, lengthmm, csg);
+        Geometry3D stern = getSternModel(widthmm, lengthmm, csg);
 
         Geometry3D rafters = getRafterModel(woodItems, widthmm, lengthmm, csg);
 
         Geometry3D rems = getRemModel(woodItems, widthmm, lengthmm, csg);
 
-        Geometry3D poles = getPoleModel(woodItems, widthmm, lengthmm, csg);
+        Geometry3D poles = getPoleModel(widthmm, lengthmm, csg);
 
         if(hasRoof)
         {
@@ -73,9 +86,21 @@ public class Model3D
         }
     }
 
+/**
+ * Creates a Geometry3D model for sterns
+ * @param  widthmm- the width of the carport in mm
+ * @param lengthmm- the length of the carport in mm
+ * @param  csg- the model so far
+ * @throws DatabaseException
+ * @return an updated model
+ * @see Facade#getWoodOrderItemsByRecieptId(int, ConnectionPool)  for the mapper method
+ * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
+ * @see JavaCSG#translate3DY(double) for the method translating the box along the Y axis
+ * @see JavaCSG#translate3DX(double) for the method translating the box along the X axis
+ *@see JavaCSG#union3D(Geometry3D...) for the method joining the models together
+ */
 
-
-    private Geometry3D getSternModel(List<Wood> woodItems, double widthmm, double lengthmm, JavaCSG csg) throws DatabaseException
+    private Geometry3D getSternModel(double widthmm, double lengthmm, JavaCSG csg) throws DatabaseException
     {
         List<OrderItem> orderItemList = Facade.getWoodOrderItemsByRecieptId(receipt.getIdReceipt(), connectionPool);
         OrderItem sternItem = null;
@@ -103,7 +128,19 @@ public class Model3D
         return csg.union3D(wpos0, wpos1, lpos0, lpos1);
     }
 
-    private Geometry3D getPoleModel(List<Wood> woodItems, double widthmm, double lengthmm, JavaCSG csg) throws DatabaseException
+    /**
+     * Creates a Geometry3D model for poles
+     * @param  widthmm- the width of the carport in mm
+     * @param lengthmm- the length of the carport in mm
+     * @param  csg- the model so far
+     * @throws DatabaseException
+     * @return an updated model
+     * @see Facade#getWoodOrderItemsByRecieptId(int, ConnectionPool)  for the mapper method
+     * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
+     * @see JavaCSG#translate3D(double, double, double) for the translation method
+     * @see JavaCSG#union3D(Geometry3D...) for the method joining the models together
+     */
+    private Geometry3D getPoleModel(double widthmm, double lengthmm, JavaCSG csg) throws DatabaseException
     {
 
         List<OrderItem> orderItemList = Facade.getWoodOrderItemsByRecieptId(receipt.getIdReceipt(), connectionPool);
@@ -159,6 +196,18 @@ public class Model3D
         return csg.union3D(geometry3DS);
     }
 
+
+    /**
+     * Creates a Geometry3D model for rems
+     * @param  woodItems- the full list of wood in the given receipt
+     * @param  widthmm- the width of the carport in mm
+     * @param lengthmm- the length of the carport in mm
+     * @param  csg- the model so far
+     * @return an updated model
+     * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
+     * @see JavaCSG#translate3D(double, double, double) for the translation method
+     * @see JavaCSG#union3D(Geometry3D...) for the method joining the models together
+     */
     private Geometry3D getRemModel(List<Wood> woodItems, double widthmm, double lengthmm, JavaCSG csg)
     {
         int remSpacingRoff = 350;
@@ -183,6 +232,17 @@ public class Model3D
         return csg.union3D(rem0, rem1);
     }
 
+    /**
+     * Creates a Geometry3D model for rafters
+     * @param  woodItems- the full list of wood in the given receipt
+     * @param  widthmm- the width of the carport in mm
+     * @param lengthmm- the length of the carport in mm
+     * @param  csg- the model so far
+     * @return an updated model
+     * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
+     * @see JavaCSG#translate3D(double, double, double) for the translation method
+     * @see JavaCSG#union3D(Geometry3D...) for the method joining the models together
+     */
     private Geometry3D getRafterModel(List<Wood> woodItems, double widthmm, double lengthmm, JavaCSG csg)
     {
         Wood rafterItem = null;
@@ -213,6 +273,11 @@ public class Model3D
         return csg.union3D(rafters);
     }
 
+    /**
+     * helping method fetching the List of Wood
+     * @param items- a List of orderItems containing both metal and wood
+     * @return a List of only Wood
+     */
     private List<Wood> getWoods(List<OrderItem> items)
     {
         List<Wood> woods = new ArrayList<>();
@@ -225,6 +290,15 @@ public class Model3D
         return woods;
     }
 
+    /**
+     * Creates a Geometry3D model for roofing
+     * @param  woods- the full list of wood in the given receipt
+     * @param  widthmm- the width of the carport in mm
+     * @param lengthmm- the length of the carport in mm
+     * @param  csg- the model so far
+     * @return an updated model
+     * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
+     */
     private Geometry3D getRoofModel(List<Wood> woods, double widthmm, double lengthmm, JavaCSG csg)
     {
         Wood roofItem = null;
