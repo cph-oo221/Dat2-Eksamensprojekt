@@ -201,8 +201,8 @@ class MetalCalculator
         OrderItem longScrews = new OrderItem(screwAmount, longScrew, "Skruer til beklædning ");
 
         //Alle skure har én dør med to hængsler og et håndtag
-        Metal handle = Facade.getMetalById(7, connectionPool);
-        Metal hinge = Facade.getMetalById(8, connectionPool);
+        Metal handle = Facade.getMetalById(6, connectionPool);
+        Metal hinge = Facade.getMetalById(7, connectionPool);
         OrderItem handleOi = new OrderItem(1, handle, "Håndtag til skurets dør");
         OrderItem hingeOi = new OrderItem(2, hinge, "Hængsler til skurets dør");
 
