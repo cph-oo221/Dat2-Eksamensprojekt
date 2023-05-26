@@ -1,7 +1,9 @@
 package dat.backend.model.persistence;
 
 import dat.backend.model.config.Env;
+import dat.backend.model.entities.Metal;
 import dat.backend.model.entities.OrderItem;
+import dat.backend.model.entities.Wood;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.utilities.PartsListCalculator;
 import org.junit.jupiter.api.BeforeAll;
@@ -170,12 +172,43 @@ class OrderMapperTest
         int width = 240;
         int shedLength = 0;
         boolean withRoof = true;
-        String comment = "test1";
+        String comment = "test2";
 
         try
         {
             List<OrderItem> orderItemList = PartsListCalculator.materialCalc(length, width, shedLength, withRoof, connectionPool);
             assertThrows(DatabaseException.class, () -> Facade.createOrder(10, orderItemList, connectionPool));
+        }
+
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    void orderContainsBothMaterials()
+    {
+        int length = 240;
+        int width = 240;
+        int shedLength = 100;
+        boolean withRoof = true;
+        String comment = "test3";
+        try
+        {
+            List<OrderItem> orderItemList = PartsListCalculator.materialCalc(length, width, shedLength, withRoof, connectionPool);
+
+            int receiptId = Facade.createReceipt(1, width, length, comment, connectionPool);
+            int rowsUpdated = Facade.createOrder(receiptId, orderItemList, connectionPool);
+
+            List<OrderItem> retrievedWoodOrder = Facade.getWoodOrderItemsByRecieptId(receiptId, connectionPool);
+            List<OrderItem> retrievedMetalOrder = Facade.getMetalOrderItemsByReceiptId(receiptId, connectionPool);
+
+            assertTrue(retrievedWoodOrder.size() > 0);
+            assertTrue(retrievedMetalOrder.size() > 0);
+
+            assertInstanceOf(Wood.class, retrievedWoodOrder.get(0).getMaterial());
+            assertInstanceOf(Metal.class, retrievedMetalOrder.get(0).getMaterial());
         }
 
         catch (DatabaseException e)
