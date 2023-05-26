@@ -143,6 +143,6 @@ class Model3DTest
     {
         // No receipt with id 4
         Model3D model3D = new Model3D(4, connectionPool);
-        assertThrows(NullPointerException.class, () -> model3D.generate3D());
+        assertThrows(NullPointerException.class, model3D::generate3D);
     }
 }

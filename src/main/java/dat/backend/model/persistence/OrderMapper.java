@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class OrderMapper
+class OrderMapper
 {
     static int createOrder(int receiptId, List<OrderItem> orderItemList, ConnectionPool connectionPool) throws DatabaseException
     {
@@ -22,6 +22,7 @@ public class OrderMapper
 
         String sqlw = "INSERT INTO orderwood (idreceipt, idwood, amount, description) VALUES (?, ?, ?, ?);";
         String sqlm = "INSERT INTO ordermetal (idreceipt, idmetal, amount, description) VALUES (?, ?, ?, ?);";
+        int rowsAffected = 0;
 
         try (Connection connection = connectionPool.getConnection())
         {
@@ -43,23 +44,19 @@ public class OrderMapper
                 ps.setInt(3, i.getAmount());
                 ps.setString(4, i.getDesc());
 
-                ps.executeUpdate();
+                rowsAffected += ps.executeUpdate();
             }
-
-            try (PreparedStatement ps = connection.prepareStatement("SELECT LAST_INSERT_ID();"))
+            if (rowsAffected < 1)
             {
-                ResultSet rs = ps.executeQuery();
-
-                if (rs.next())
-                {
-                    return rs.getInt(1);
-                }
+                Logger.getLogger("web").log(Level.SEVERE, "No DB rows were updated for " + receiptId);
+                throw new DatabaseException("Nothing was written to ordermetal/orderwood with receiptId " + receiptId);
             }
-        } catch (SQLException throwables)
+        }
+        catch (SQLException throwables)
         {
             throw new DatabaseException(throwables.getMessage());
         }
-        return 0; //Fejlhåndtering
+        return rowsAffected; //Fejlhåndtering
     }
 
     static List<OrderItem> getWoodOrderItemsByReceiptId(int idReceipt, ConnectionPool connectionPool) throws DatabaseException

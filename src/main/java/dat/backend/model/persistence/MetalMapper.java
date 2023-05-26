@@ -199,7 +199,7 @@ public class MetalMapper
 
                 if (metalList.size() < 1)
                 {
-                    throw new DatabaseException("Nothing found for specified wood variant!");
+                    throw new DatabaseException("Nothing found for specified metal variant!");
                 }
                 return metalList;
             }
