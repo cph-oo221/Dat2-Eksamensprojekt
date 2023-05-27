@@ -244,7 +244,134 @@ package "Model" #bdbe8f
 
         class Facade
         {
+            + acceptReceipt(int, ConnectionPool):void
+            + acceptReceiptAdmin(int, ConnectionPool):void
+            + createMetal(String, int, String, String, ConnectionPool):Metal
+            + createOrder(int, List<OrderItem>, ConnectionPool):int
+            + createReceipt(int, double, double, String, ConnectionPool):int
+            + createUser(String, String, String, String, int, String, ConnectionPool:User
+            + createWood(int, int, int, String, int, String, ConnectionPool):Wood
+            + deleteMetal(int, ConnectionPool):void
+            + deleteOrderByReceiptId(int, ConnectionPool):void
+            + deleteReceipt(int, ConnectionPool):void
+            + deleteWood(int, ConnectionPool):void
+            + getAllMetal(ConnectionPool):List<Metal>
+            + getAllReceipts(ConnectionPool):List<Receipt>
+            + getAllUsers(ConnectionPool):List<User>
+            + getAllWood(ConnectionPool):List<Wood>
+            + getMetalById(int, ConnectionPool):Metal
+            + getMetalByVariant(String, ConnectionPool):List<Metal>
+            + getMetalOrderItemsByReceiptId(int, ConnectionPool):List<OrderItem>
+            + getReceiptById(int, ConnectionPool):Receipt
+            + getReceiptsByIdUser(int, ConnectionPool):List<Receipt>
+            + getUserByEmail(String, ConnectionPool):User
+            + getWoodByVariant(String, ConnectionPool):List<Wood>
+            + getWoodOrderItemsByRecieptId(int, ConnectionPool):List<OrderItem>
+            + login(String, String, ConnectionPool):User
+            + updateMetalPrice(int, int, ConnectionPool):void
+            + updateWoodPrice(int, int, ConnectionPool):void+
+            + updateReceiptPrice(int, int, ConnectionPool):int
+            + getWoodById(int, ConnectionPool):Wood
+        }
 
+        class MetalMapper
+        {
+            ~ createMetal(String, int, String, String, ConnectionPool):Metal
+            ~ deleteMetal(int, ConnectionPool):void
+            ~ getAllMetal(ConnectionPool:List<Metal>
+            ~ getMetalById(int, ConnectionPool):Metal
+            ~ getMetalByVariant(String, ConnectionPool):List<Metal>
+            ~ updateMetalPrice(int, int, ConnectionPool):void
+        }
+
+        class OrderMapper
+        {
+            ~ createOrder(int, List<OrderItem>, ConnectionPool):int
+            ~ deleteMetalOrderByReceiptID(int, ConnectionPool):void
+            ~ deleteWoodOrderByReceiptId(int, ConnectionPool):void
+            ~ getMetalOrderItemsByReceiptId(int, ConnectionPool):List<OrderItem>
+            ~ getWoodOrderItemsByReceiptId(int, ConnectionPool):List<OrderItem>
+        }
+
+        class ReceiptMapper
+        {
+            ~ acceptReceipt(int, ConnectionPool):void
+            ~ acceptReceiptAdmin(int, ConnectionPool):void
+            ~ createReceipt(int, double, double, String, ConnectionPool):int
+            ~ deleteReceipt(int, ConnectionPool):void
+            ~ getAllReceipts(ConnectionPool):List<Receipt>
+            ~ getReceiptById(int, ConnectionPool):Receipt
+            ~ getReceiptsByIdUser(int, ConnectionPool):List<Receipt>
+            ~ updateReceiptPrice(int, int, ConnectionPool):int
+        }
+
+        class UserMapper
+        {
+            ~ createUser(String, String, String, String, int, String, ConnectionPool:User
+            ~ getAllUsers(ConnectionPool):List<User>
+            ~ getUserByEmail(String, ConnectionPool):User
+            ~ login(String, String, ConnectionPool):User
+        }
+
+        class WoodMapper
+        {
+            ~ createWood(int, int, int, String, String, int, String, ConnectionPool):Wood
+            ~ deleteWood(int, ConnectionPool):void
+            ~ getAllWood(ConnectionPool):List<Wood>
+            ~ getWoodById(int, ConnectionPool):Wood
+            ~ getWoodByVariant(String, ConnectionPool):List<Wood>
+            ~ updateWoodPrice(int, int, ConnectionPool):void
+        }
+     }
+
+     package utilities #aa93b2
+     {
+        class MetalCalculator
+        {
+            ~ getPoleMetal(int, ConnectionPool):List<OrderItem>
+            ~ getRafterMetal(int, int, ConnectionPool):List<OrderItem>
+            ~ getRoofingMetal(int, ConnectionPool):List<OrderItem>
+            ~ getShedMetal(OrderItem, OrderItem, ConnectionPool):List<OrderItem>
+            ~ getSternMetal(OrderItem, ConnectionPool):OrderItem
+            ~ getWire(double, double, ConnectionPool):OrderItem
+        }
+
+        class Model3D
+        {
+            - ConnectionPool connectionPool
+            - JavaCSG csg
+            - double lengthmm
+            - double offsetZ
+            - Receipt receipt
+            - int receiptID
+            - double widthmm
+
+            + generate3D():void
+
+            - getPoleModel(double, double, JavaCSG):Geometry3D
+            - getRafterModel(List<Wood>, double, double, JavaCSG):Geometry3D
+            - getRemModel(List<Wood>, double, double, JavaCSG):Geometry3D
+            - getRoofModel(List<Wood>, double, double, JavaCSG):Geometry3D
+            - getSternModel(double, double, JavaCSG):Geometry3D
+            - getWoods(List<OrderItem>):List<Wood>
+        }
+
+        class PartsListCalculator
+        {
+            - int CARPORT_HANG
+            - int MAX_POLE_DIST
+
+            + materialCalc(double, double, int, boolean, ConnectionPool):List<OrderItem>
+
+            - calcRafter(double, double, ConnectionPool):List<OrderItem>
+            - getOptimalItem(List<Wood>, double, String, int, int):OrderItem
+            - getRafterAmount(double, int):double
+            - getShed(double, double, ConnectionPool):List<OrderItem>
+            - poleCalc(double, ConnectionPool:OrderItem
+            - remCalc(double, ConnectionPool):OrderItem
+            - roofingCalc(double, double, ConnectionPool):List<OrderItem>
+            - selectWood(List<Wood>, double):Wood
+            - sternCalc(double, double, ConnectionPool):List<OrderItem>
         }
      }
 }
@@ -259,4 +386,80 @@ package Database <<Database>>
    entity Tomcat9
  }
 
+ApplicationStart *-- ConnectionPool
+
+AdminAction -- ApplicationStart
+EditItems -- ApplicationStart
+ReceiptsAdmin -- ApplicationStart
+RedirectAdminPanel -- ApplicationStart
+UpdatePrice -- ApplicationStart
+UpdateReceipt -- ApplicationStart
+Download -- ApplicationStart
+ItemsList -- ApplicationStart
+Login -- ApplicationStart
+Logout -- ApplicationStart
+Receipts -- ApplicationStart
+MakeOrder -- ApplicationStart
+Orderpage -- ApplicationStart
+SignUp -- ApplicationStart
+Userpage -- ApplicationStart
+
+Facade o-- MetalMapper
+Facade o-- OrderMapper
+Facade o-- ReceiptMapper
+Facade o-- UserMapper
+Facade o-- WoodMapper
+
+Facade -up- AdminAction
+Facade -up- EditItems
+Facade -up- ReceiptsAdmin
+Facade -up- RedirectAdminPanel
+Facade -up- UpdatePrice
+Facade -up- UpdateReceipt
+Facade -up- DeleteReceipt
+Facade -up- Download
+Facade -up- ItemsList
+Facade -up- Login
+Facade -up- Logout
+Facade -up- Receipts
+Facade -up- MakeOrder
+Facade -up- Orderpage
+Facade -up- SignUp
+Facade -up- Userpage
+
+MetalMapper *-- DatabaseException
+OrderMapper *-- DatabaseException
+ReceiptMapper *-- DatabaseException
+UserMapper *-- DatabaseException
+WoodMapper *-- DatabaseException
+
+MetalMapper *-- Metal
+OrderMapper *-- OrderItem
+ReceiptMapper *-- Receipt
+UserMapper *-- User
+WoodMapper *-- Wood
+
+PartsListCalculator --* MakeOrder
+PartsListCalculator *-- MetalCalculator
+
+Download *-- Model3D
+
+ConnectionPool <--> MySql
+
+Tomcat9 <--> AdminAction
+Tomcat9 <--> EditItems
+Tomcat9 <--> ReceiptsAdmin
+Tomcat9 <--> RedirectAdminPanel
+Tomcat9 <--> UpdatePrice
+Tomcat9 <--> UpdateReceipt
+Tomcat9 <--> DeleteReceipt
+Tomcat9 <--> Download
+Tomcat9 <--> ItemsList
+Tomcat9 <--> Login
+Tomcat9 <--> Logout
+Tomcat9 <--> Receipts
+Tomcat9 <--> MakeOrder
+Tomcat9 <--> Orderpage
+Tomcat9 <--> SignUp
+Tomcat9 <--> Userpage
 @enduml

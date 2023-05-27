@@ -22,7 +22,7 @@ class MetalCalculator
      * @return a list of orderItems containing metal and amount
      * @see Facade#getMetalByVariant(String, ConnectionPool) for the mapper method
      */
-    public static List<OrderItem> getRafterMetal(int amount, int height, ConnectionPool connectionPool) throws DatabaseException
+    static List<OrderItem> getRafterMetal(int amount, int height, ConnectionPool connectionPool) throws DatabaseException
     {
         // 4 beslag pr spær, og 9 skruer pr beslag
 
@@ -80,7 +80,7 @@ class MetalCalculator
      * @return a list of OrderItems containing metal and amount for roofing
      * @see Facade#getMetalByVariant(String, ConnectionPool) for the mapper method
      */
-    public static List<OrderItem> getRoofingMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
+    static List<OrderItem> getRoofingMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
     {
         // 12 skruer pr m^2
         List<OrderItem> output = new ArrayList<>();
@@ -160,7 +160,7 @@ class MetalCalculator
      * @return an orderItem containing two wires
      * @see Facade#getMetalByVariant(String, ConnectionPool) for the mapper method
      */
-    public static OrderItem getWire(double length, double width, ConnectionPool connectionPool) throws DatabaseException
+    static OrderItem getWire(double length, double width, ConnectionPool connectionPool) throws DatabaseException
     {
         List<Metal> wires = Facade.getMetalByVariant("hulbånd", connectionPool);
 
@@ -190,7 +190,7 @@ class MetalCalculator
      * @return a list of OrderItems containing metal and amount for the shed
      * @see Facade#getMetalById(int, ConnectionPool) for the mapper method
      */
-    public static List<OrderItem> getShedMetal(OrderItem rafterLengthWOI, OrderItem rafterWidthWOI, ConnectionPool connectionPool) throws DatabaseException
+    static List<OrderItem> getShedMetal(OrderItem rafterLengthWOI, OrderItem rafterWidthWOI, ConnectionPool connectionPool) throws DatabaseException
     {
         List<OrderItem> output = new ArrayList<>();
 
