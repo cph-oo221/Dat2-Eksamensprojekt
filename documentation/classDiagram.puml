@@ -1,0 +1,262 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "Control" #69bac6
+{
+    package "AdminSpecific" #f0c674
+    {
+       class AdminAction
+       {
+            - ConnectionPool connectionPool
+            + doGet(HttpServletRequest, HttpServletResponse):void
+            + doPost(HttpServletRequest, HttpServletResponse):void
+            - actionSearch(HttpServletRequest, HttpServletResponse):void
+            - actionReset(HttpServletRequest, HttpServletResponse):void
+            - actionDelete(HttpServletRequest, HttpServletResponse):void
+            - actionAddNewWood(HttpServletRequest, HttpServletResponse):void
+            - actionAddnewMetal(HttpServletRequest, HttpServletResponse):void
+            - actionChangePriceOfWood(HttpServletRequest, HttpServletResponse):void
+            - actionChangePriceOfMetal(HttpServletRequest, HttpServletResponse):void
+            - getMetalAndWoodList(HttpServletRequest, HttpServletResponse):void
+            - woodDoNotExits(int, HttpServletRequest, HttpServletResponse):void
+            - metalDoNotExist(int, HttpServletRequest, HttpServletResponse):void
+            - isRequestEmpty(HttpServletRequest, HttpServletResponse, String... ):void
+            - exceptionHandling(HttpServletRequest, HttpServletResponse, DatabaseException):void
+       }
+
+       class EditItems
+       {
+            - ConnectionPool connectionPool
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+       }
+
+       class ReceiptsAdmin
+       {
+            - ConnectionPool connectionPool
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+       }
+
+       class RedirectAdminPanel
+       {
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+       }
+
+       class UpdatePrice
+       {
+            - ConnectionPool connectionPool
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+       }
+
+       class UpdateReceipt
+       {
+            - ConnectionPool connectionPool
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+       }
+    }
+
+    package "Shared" #dee5a0
+    {
+        class DeleteReceipt
+        {
+            - ConnectionPool connectionPool
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+        }
+
+        class Download
+        {
+            - ConnectionPool connectionPool
+            - String SCADPATH
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+            - doDownload(HttpServletResponse, String):void
+        }
+
+        class ItemsList
+        {
+            - ConnectionPool connectionPool
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+        }
+
+        class Login
+        {
+            - ConnectionPool connectionPool
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+        }
+
+        class Logout
+        {
+             + doGet(HttpServletRequest, HttpServletResponse):void
+        }
+
+        class Receipts
+        {
+            - ConnectionPool connectionPool
+            - ArrayList<Receipt> receiptList
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+        }
+    }
+
+    package "UserSpecific" #b294bb
+    {
+        class MakeOrder
+        {
+            - ConnectionPool connectionPool
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+        }
+
+        class Orderpage
+        {
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+        }
+
+        class SignUp
+        {
+            - ConnectionPool connectionPool
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+        }
+
+        class Userpage
+        {
+             + doGet(HttpServletRequest, HttpServletResponse):void
+             + doPost(HttpServletRequest, HttpServletResponse):void
+        }
+    }
+}
+
+package "Model" #bdbe8f
+{
+     package "Entities" #96de93
+     {
+        abstract class Material
+        {
+            # int id
+            # String name
+            # int price
+            # String unit
+            # String variant
+
+            isInstance(Obejct):boolean
+        }
+
+        class Metal extends Material
+        {
+            + toString():String
+        }
+
+        class Wood extends Material
+        {
+            - int length
+            - int width
+            - int height
+            + toString():String
+        }
+
+        class OrderItem
+        {
+            - int amount
+            - String desc
+            - Material item
+        }
+
+        enum OrderState
+        {
+            + intToOrder(int):OrderState
+            OrderState OPEN
+            OrderState OFFER
+            OrderState COMPLETE
+        }
+
+        class Receipt
+        {
+            - int idReceipt
+            - int idUser
+            - String comment
+            - int length
+            - OrderState orderState
+            - int price
+            - Timestamp timeofOrder
+            - int width
+        }
+
+        class User
+        {
+            - int idUser
+            - String email
+            - String password
+            - String role
+            - String address
+            - String city
+            - int phone
+        }
+
+     }
+
+     package "Config" #dadc8d
+     {
+         class ApplicationStart
+            {
+                + contextDestroyed(ServletContextEvent):void
+                + contextInitialized(ServletConextEvent):void
+                + getConnectionPool():ConnectionPool
+                + unregisterJDBCdrivers():void
+                - ConnectionPool connectionPool
+            }
+
+          class Env
+          {
+            + String PASSWORD
+            + String SCADPATH
+            + String TESTURL
+            + String URL
+            + String USER
+          }
+     }
+
+     package "Exceptions" #cf3e3e
+     {
+        exception DatabaseException
+     }
+
+     package "Persistence" #dea9fc
+     {
+        class ConnectionPool
+        {
+            - HikariDataSource ds
+            - String USER
+            - String PASSWORD
+            - String URL
+
+            + close():void
+            + getConnection():Connection
+        }
+
+        class Facade
+        {
+
+        }
+     }
+}
+
+package Database <<Database>>
+ {
+    entity MySql
+ }
+
+ package Webserver <<Cloud>>
+ {
+   entity Tomcat9
+ }
+
+@enduml
