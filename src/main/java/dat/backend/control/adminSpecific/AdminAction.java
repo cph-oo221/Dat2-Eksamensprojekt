@@ -98,8 +98,7 @@ public class AdminAction extends HttpServlet
             List<Wood> woodList = Facade.getAllWood(connectionPool);
             for (Wood wood : woodList)
             {
-                String woodName = wood.getName().toLowerCase();
-                if (woodName.contains(search))
+                if (wood.toString().toLowerCase().contains(search))
                 {
                     searchListWood.add(wood);
                 }
@@ -108,8 +107,7 @@ public class AdminAction extends HttpServlet
             List<Metal> metalList = Facade.getAllMetal(connectionPool);
             for (Metal metal : metalList)
             {
-                String metalName = metal.getName().toLowerCase();
-                if (metalName.contains(search))
+                if (metal.toString().toLowerCase().contains(search))
                 {
                     searchListMetal.add(metal);
                 }
