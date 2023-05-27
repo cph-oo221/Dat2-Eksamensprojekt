@@ -12,7 +12,8 @@
 * Her er vores **[Rapport.pdf]()**
 
 ### Klassediagram
-* 
+![Klassediagram]( documentation/Fog_diagram.png "Class Diagram")
+
 
 ### Videogennemgang
 * 
