@@ -23,7 +23,7 @@
         <div class="mt-2">
             <div class="row">
                 <div class="col mt-1">
-                    <h2>600x780 with roof</h2>
+                    <h2>600x780cm. med tag</h2>
                     <form action="orderpage" method="post">
                         <input type="text" hidden name = "defaultSet" value="true">
                         <input type="number" hidden name = "defaultWidth" value="600">
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="col mt-1">
-                    <h2>300x450 no roof</h2>
+                    <h2>300x450cm. uden tag</h2>
                     <form action="orderpage" method="post">
                         <input type="text" hidden name = "defaultSet" value="true">
                         <input type="number" hidden name = "defaultWidth" value="300">
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="col mt-1">
-                    <h2>240x240 with roof</h2>
+                    <h2>240x240cm. med tag</h2>
                     <form action="orderpage" method="post">
                         <input type="text" hidden name = "defaultSet" value="true">
                         <input type="number" hidden name = "defaultWidth" value="240">
