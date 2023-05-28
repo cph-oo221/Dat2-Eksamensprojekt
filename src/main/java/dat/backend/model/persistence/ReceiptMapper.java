@@ -51,6 +51,11 @@ public class ReceiptMapper
 
     static int createReceipt(int idUser, double width, double length, String comment, ConnectionPool connectionPool) throws DatabaseException
     {
+        if (width < 1 || length < 1 || idUser < 1)
+        {
+            throw new DatabaseException(String.format("Illegal values for new receipt! (%s, %s, %s)", idUser, width, length));
+        }
+
         String sql = "INSERT INTO receipt (idUser, width, length, comment) VALUES (?, ?, ?, ?);";
 
         try (Connection connection = connectionPool.getConnection())

@@ -179,4 +179,17 @@ class ReceiptMapperTest
         int expectedSize = 2;
         assertEquals(expectedSize, receiptList.size());
     }
+
+    @Test
+    void invalidValues()
+    {
+        // User id 0
+        assertThrows(DatabaseException.class, () -> Facade.createReceipt(0, 240 ,240, "", connectionPool));
+
+        // Negative width
+        assertThrows(DatabaseException.class, () -> Facade.createReceipt(1, -240 ,240, "", connectionPool));
+
+        // Negative length
+        assertThrows(DatabaseException.class, () -> Facade.createReceipt(1, 240 ,-240, "", connectionPool));
+    }
 }
