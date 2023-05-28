@@ -159,4 +159,21 @@ class MetalMapperTest
         assertEquals(expected, Facade.getMetalById(1, connectionPool));
         assertTrue(Facade.getMetalById(5, connectionPool) == null);
     }
+
+    @Test
+    void createMetalInvaildInputs()
+    {
+
+        // Price is less than zero
+        assertThrows(DatabaseException.class, () -> Facade.createMetal("Test", -54, "stk",
+                "Spærtræ", connectionPool));
+
+        // Name is empty
+        assertThrows(DatabaseException.class, () -> Facade.createMetal("", 54, "stk",
+                "Spærtræ", connectionPool));
+
+         // Variant is empty
+        assertThrows(DatabaseException.class, () -> Facade.createMetal("Test1", 54, "stk",
+                "", connectionPool));
+    }
 }
