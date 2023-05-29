@@ -47,11 +47,11 @@ public class AdminAction extends HttpServlet
 
         try
         {
+            List<Wood> woodList = Facade.getAllWood(connectionPool);
+            List<Metal> metalList = Facade.getAllMetal(connectionPool);
+
             if (sortOption == 1) // SORT ID
             {
-
-                List<Wood> woodList = Facade.getAllWood(connectionPool);
-                List<Metal> metalList = Facade.getAllMetal(connectionPool);
                 Collections.sort(woodList, Comparator.comparing(Wood::getIdWood));
                 Collections.sort(metalList, Comparator.comparing(Metal::getIdMetal));
                 request.setAttribute("metalList", metalList);
@@ -60,9 +60,6 @@ public class AdminAction extends HttpServlet
 
             if (sortOption == 2) // SORT NAME
             {
-
-                List<Wood> woodList = Facade.getAllWood(connectionPool);
-                List<Metal> metalList = Facade.getAllMetal(connectionPool);
                 Collections.sort(woodList, Comparator.comparing(Wood::getName));
                 Collections.sort(metalList, Comparator.comparing(Metal::getName));
                 request.setAttribute("woodList", woodList);
@@ -71,9 +68,6 @@ public class AdminAction extends HttpServlet
 
             if (sortOption == 3) // SORT VARIANT
             {
-
-                List<Wood> woodList = Facade.getAllWood(connectionPool);
-                List<Metal> metalList = Facade.getAllMetal(connectionPool);
                 Collections.sort(woodList, Comparator.comparing(Wood::getVariant));
                 Collections.sort(metalList, Comparator.comparing(Metal::getVariant));
                 request.setAttribute("woodList", woodList);

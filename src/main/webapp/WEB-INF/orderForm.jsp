@@ -29,7 +29,6 @@
                         <input type="number" hidden name = "defaultWidth" value="600">
                         <input type="number" hidden name = "defaultLength" value="780">
                         <input type="text" hidden name = "defaultRoof" value="true">
-                        <%--TODO change image--%>
                         <input type="image" src="<c:url value="/images/OrderFrom/Carport600x780.png"/>" width="400" height="400" alt="Submit"/>
                     </form>
                 </div>
@@ -41,7 +40,6 @@
                         <input type="number" hidden name = "defaultWidth" value="300">
                         <input type="number" hidden name = "defaultLength" value="450">
                         <input type="text" hidden name = "defaultRoof" value="false">
-                            <%--TODO change image--%>
                         <input type="image" src="<c:url value="/images/OrderFrom/Carport300x450.png"/>" width="400" height="400" alt="Submit"/>
                     </form>
                 </div>
@@ -53,7 +51,6 @@
                         <input type="number" hidden name = "defaultWidth" value="240">
                         <input type="number" hidden name = "defaultLength" value="240">
                         <input type="text" hidden name = "defaultRoof" value="true">
-                            <%--TODO change image--%>
                         <input type="image" src="<c:url value="/images/OrderFrom/Carport240x240.png"/>" width="400" height="400" alt="Submit"/>
                     </form>
                 </div>
