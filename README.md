@@ -9,16 +9,17 @@
 ## Hovedindhold af aflevering:
 
 ### Rapport
-* Her er vores **[Rapport.pdf]()**
-
-### Klassediagram
-![Klassediagram]( documentation/Fog_diagram.png "Class Diagram")
-
+* Her er vores **[Rapport.pdf](rapport/rapport.md)**
 
 ### Videogennemgang
 * 
 
+### 3D
+* 3D model som .stl **[]()**
+
 ### Database:
-* EER diagram: **[EER]()**
+* EER diagram: **[EER](documentation/Diagrammer/EER.png)**
 * SQL script af **[databasen]()**
-* Nødvendige fill script til databasen: **[Fill Script]()**
+
+### Klassediagram
+![Klassediagram]( documentation/Diagrammer/Fog_diagram.png "Class Diagram")
