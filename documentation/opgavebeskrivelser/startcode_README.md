@@ -64,4 +64,4 @@ T.B.D.
 
 ## MVC arkitektur
 
-![](../Diagrammer/mvc.jpg)
+![](../diagrammer/mvc.jpg)

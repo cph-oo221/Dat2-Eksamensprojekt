@@ -15,11 +15,13 @@
 * 
 
 ### 3D
-* 3D model som .stl **[]()**
+* 3D model som stl: **[3D Model](OpenSCAD)**
+###### 3D Model 600x780cm - Uniform scaling sat til 2%:
+![](documentation/diagrammer/Model3D_600x780.png)
 
 ### Database:
-* EER diagram: **[EER](documentation/Diagrammer/EER.png)**
+* EER diagram: **[EER](documentation/diagrammer/EER.png)**
 * SQL script af **[databasen]()**
 
 ### Klassediagram
-![Klassediagram]( documentation/Diagrammer/Fog_diagram.png "Class Diagram")
+![Klassediagram]( documentation/diagrammer/Fog_diagram.png "Class Diagram")
