@@ -12,7 +12,7 @@
 * Her er vores **[Rapport.pdf](rapport/rapport.md)**
 
 ### Videogennemgang
-* 
+* **[Demo video](https://www.youtube.com/watch?v=1ujnQZeDJ3k&ab_channel=SebastianEgeberg)**
 
 ### 3D
 * 3D model som stl: **[3D Model](OpenSCAD)**
