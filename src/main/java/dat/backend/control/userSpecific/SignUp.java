@@ -43,6 +43,7 @@ public class SignUp extends HttpServlet
         String password = request.getParameter("password");
         String address = request.getParameter("address");
         String city = request.getParameter("city");
+        String role = "user";
         boolean validNumber = true;
         int phoneNumber;
         try
@@ -57,20 +58,19 @@ public class SignUp extends HttpServlet
 
         catch (NumberFormatException e)
         {
-            String errorMSG = "Indtast venligst et telefonnummer på 8 cifre!";
-            request.setAttribute("errorMSG", errorMSG);
-            request.getRequestDispatcher("registerUser.jsp").forward(request, response);
+            wrongParameterFailure("Indtast venligst et telefonnummer på 8 cifre!", request, response);
         }
 
-        String role = "user";
 
+        if (!email.contains("@") )
+        {
+            wrongParameterFailure("Indtast venligst en brugbar email-adresse", request, response);
+        }
 
-        if(email.isEmpty() || password.isEmpty() || address.isEmpty()
+        else if(password.isEmpty() || address.isEmpty()
                 || city.isEmpty() || !validNumber)
         {
-            String errorMSG = "Et eller flere parametre er tomme";
-            request.setAttribute("errorMSG", errorMSG);
-            request.getRequestDispatcher("registerUser.jsp").forward(request, response);
+            wrongParameterFailure("Et eller flere parametre er tomme", request, response);
         }
 
         else
@@ -90,9 +90,14 @@ public class SignUp extends HttpServlet
             }
             catch (IllegalArgumentException e)
             {
-                request.setAttribute("errorMSG", e.getMessage());
-                request.getRequestDispatcher("registerUser.jsp").forward(request, response);
+                wrongParameterFailure(e.getMessage(), request, response);
             }
         }
+    }
+
+    private void wrongParameterFailure(String msg, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        request.setAttribute("errorMSG", msg);
+        request.getRequestDispatcher("registerUser.jsp").forward(request, response);
     }
 }
