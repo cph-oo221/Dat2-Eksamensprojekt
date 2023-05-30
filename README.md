@@ -25,4 +25,7 @@
 [comment]: <> (* SQL script af **[databasen]&#40;&#41;**)
 
 ### Klassediagram
+* **[Klassediagram.puml](documentation/diagrammer/classDiagram.puml)**
+* **[Klassediagram.png](documentation/diagrammer/Fog_diagram.png)**
+
 ![Klassediagram]( documentation/diagrammer/Fog_diagram.png "Class Diagram")
