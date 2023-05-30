@@ -189,7 +189,7 @@ public class AdminAction extends HttpServlet
 
         if (length <= 0 || width <= 0 || height <= 0 || name.isEmpty() || unit.isEmpty() || price <= 0 || variant.isEmpty())
         {
-            String msgError = "En eller flere parametre er tomme eller nul i Tilføje nyt træ";
+            String msgError = "Et eller flere parametre er tomme eller nul i Tilføje nyt træ";
             request.setAttribute("msgError", msgError);
             getMetalAndWoodList(request, response);
             request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);
@@ -292,7 +292,7 @@ public class AdminAction extends HttpServlet
 
         if (idMetal <= 0 || newPrice <= 0)
         {
-            String msgError = "En eller flere parametre er tomme eller nul i Ændre Pris!";
+            String msgError = "Et eller flere parametre er tomme eller nul i Ændre Pris!";
             getMetalAndWoodList(request, response);
             request.setAttribute("msgError", msgError);
             request.getRequestDispatcher("WEB-INF/editItems.jsp").forward(request, response);

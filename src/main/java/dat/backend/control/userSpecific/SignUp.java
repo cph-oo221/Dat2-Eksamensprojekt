@@ -43,11 +43,20 @@ public class SignUp extends HttpServlet
         String password = request.getParameter("password");
         String address = request.getParameter("address");
         String city = request.getParameter("city");
-        int phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
+        int phoneNumber = -1;
         String role = "user";
+
+        if(phoneNumber == -1|| email.isEmpty() || password.isEmpty() || address.isEmpty()
+                || city.isEmpty() || request.getParameter("phoneNumber").isEmpty())
+        {
+            String errorMSG = "Et eller flere parametre er tomme";
+            request.setAttribute("errorMSG", errorMSG);
+            request.getRequestDispatcher("registerUser.jsp").forward(request, response);
+        }
 
         try
         {
+            phoneNumber = Integer.parseInt(request.getParameter("phoneNumber"));
             User user = Facade.createUser(email, password, address, city, phoneNumber, role, connectionPool);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
