@@ -64,11 +64,6 @@ public class Receipt
         return idUser;
     }
 
-    public void setIdUser(int idUser)
-    {
-        this.idUser = idUser;
-    }
-
     public int getPrice()
     {
         return price;
@@ -84,19 +79,9 @@ public class Receipt
         return timeOfOrder;
     }
 
-    public void setTimeOfOrder(Timestamp timeOfOrder)
-    {
-        this.timeOfOrder = timeOfOrder;
-    }
-
     public OrderState getOrderState()
     {
         return orderState;
-    }
-
-    public void setOrderState(OrderState orderstate)
-    {
-        this.orderState = orderstate;
     }
 
     public String getComment()
