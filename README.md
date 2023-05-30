@@ -6,7 +6,7 @@
 * Lasse Baggesgård Hansen - Github: **[kotteletfisk](https://github.com/kotteletfisk)**
 * Oskar Daniel Olsen - Github: **[cph-oo221](https://github.com/cph-oo221)**
 
-## Hovedindhold af aflevering:
+## Indhold:
 
 ### Rapport
 * Her er vores **[Rapport.pdf](rapport/rapport.md)**
@@ -21,7 +21,8 @@
 
 ### Database:
 * EER diagram: **[EER](documentation/diagrammer/EER.png)**
-* SQL script af **[databasen]()**
+
+[comment]: <> (* SQL script af **[databasen]&#40;&#41;**)
 
 ### Klassediagram
 ![Klassediagram]( documentation/diagrammer/Fog_diagram.png "Class Diagram")
