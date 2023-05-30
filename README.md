@@ -9,7 +9,7 @@
 ## Indhold:
 
 ### Rapport
-* Her er vores **[Rapport.pdf](rapport/rapport.md)**
+* Her er vores **[Rapport.pdf](rapport/Eksamensprojekt%20-%20Fog%20Carport.pdf)**
 
 ### Videogennemgang
 * **[Demo video](https://www.youtube.com/watch?v=1ujnQZeDJ3k&ab_channel=SebastianEgeberg)**
