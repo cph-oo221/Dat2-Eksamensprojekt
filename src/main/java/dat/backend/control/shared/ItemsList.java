@@ -40,13 +40,6 @@ public class ItemsList extends HttpServlet
             List<OrderItem> woodList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
             List<OrderItem> metalList = Facade.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
 
-            // TODO is this needed?
-           /* List<OrderItem> itemList = new ArrayList<>();
-            itemList.addAll(woodList);
-            itemList.addAll(metalList);*/
-//            List<OrderItem> orderItemList = new ArrayList<>();
-//            orderItemList.addAll(itemList);
-//            orderItemList.addAll(metalList);
 
             int totalPrice = 0;
             int netPrice = 0;
@@ -66,7 +59,6 @@ public class ItemsList extends HttpServlet
             {
                 totalPrice = r.getPrice();
             }
-
             else
             {
                 totalPrice = netPrice;
@@ -78,17 +70,14 @@ public class ItemsList extends HttpServlet
             request.setAttribute("netPrice", netPrice);
             request.setAttribute("woodList", woodList);
             request.setAttribute("metalList", metalList);
-            // request.setAttribute("itemList", itemList); // TODO is this needed?
             request.setAttribute("orderState", r.getOrderState());
             request.getRequestDispatcher("WEB-INF/itemsList.jsp").forward(request, response);
         }
-
         catch (DatabaseException e)
         {
             request.setAttribute("errormessage", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
-
 
         request.getRequestDispatcher("WEB-INF/itemsList.jsp").forward(request, response);
     }

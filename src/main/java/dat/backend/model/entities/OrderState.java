@@ -20,7 +20,6 @@ public enum OrderState
             case 2: orderState = OrderState.COMPLETE;
             break;
 
-            //Todo fix here, so error is handled.
             default: throw new IllegalStateException("ENUM-state not allowed");
         }
         return orderState;

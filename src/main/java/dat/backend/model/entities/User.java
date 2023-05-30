@@ -12,7 +12,7 @@ public class User
     private String city;
     private int phone;
 
-    public User(int idUser, String email, String password, String role,String address,String city,int phone)
+    public User(int idUser, String email, String password, String role, String address, String city, int phone)
     {
         this.idUser = idUser;
         this.email = email;
@@ -23,7 +23,10 @@ public class User
         this.phone = phone;
     }
 
-    public int getIdUser() { return  idUser; }
+    public int getIdUser()
+    {
+        return  idUser;
+    }
 
     public String getEmail()
     {

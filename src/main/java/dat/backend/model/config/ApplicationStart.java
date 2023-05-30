@@ -25,7 +25,6 @@ public class ApplicationStart implements ServletContextListener
 
     public ApplicationStart()
     {
-
     }
 
     @Override

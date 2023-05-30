@@ -28,7 +28,6 @@ public class ConnectionPool
             Logger.getLogger("web").log(Level.INFO, String.format("DEPLOYMENT DETECTED. Trying to connect to database with " +
                     "(%s, %s, %s)", USER, PASSWORD, URL));
         }
-
         else
         {
             // If run on development machine, get credentials from local Env class
@@ -38,7 +37,6 @@ public class ConnectionPool
                 PASSWORD = Env.PASSWORD;
                 URL = Env.URL;
             }
-
             else
             {
                 Logger.getLogger("web").log(Level.SEVERE, "Failed to fetch data from Env class!");
@@ -87,5 +85,4 @@ public class ConnectionPool
         Logger.getLogger("web").log(Level.INFO, "Shutting down connection pool");
         ds.close();
     }
-
 }

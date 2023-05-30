@@ -44,7 +44,6 @@ public class Receipts extends HttpServlet
             request.setAttribute("receiptList", receiptList);
             request.getRequestDispatcher("WEB-INF/receipts.jsp").forward(request, response);
         }
-
         catch (DatabaseException e)
         {
             request.setAttribute("errormessage", e.getMessage());

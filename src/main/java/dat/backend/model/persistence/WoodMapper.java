@@ -47,7 +47,6 @@ public class WoodMapper
                 return woods;
             }
         }
-
         catch (SQLException e)
         {
             throw new DatabaseException(e.getMessage());
