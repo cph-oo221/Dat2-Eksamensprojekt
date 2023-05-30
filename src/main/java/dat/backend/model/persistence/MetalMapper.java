@@ -204,7 +204,6 @@ public class MetalMapper
                 return metalList;
             }
         }
-
         catch (SQLException e)
         {
             throw new DatabaseException(e.getMessage());

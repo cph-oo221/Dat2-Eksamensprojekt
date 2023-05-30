@@ -98,7 +98,8 @@ class OrderMapper
                 }
                 return orderItems;
             }
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             throw new DatabaseException(e.getMessage());
         }
@@ -116,7 +117,8 @@ class OrderMapper
 
                 ps.executeUpdate();
             }
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             throw new DatabaseException(e.getMessage());
         }
@@ -134,7 +136,8 @@ class OrderMapper
 
                 ps.executeUpdate();
             }
-        } catch (SQLException e)
+        }
+        catch (SQLException e)
         {
             throw new DatabaseException(e.getMessage());
         }

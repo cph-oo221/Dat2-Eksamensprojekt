@@ -80,7 +80,6 @@ public class ReceiptMapper
                 }
             }
         }
-
         catch (SQLException e)
         {
             throw new DatabaseException(e.getMessage());
@@ -233,7 +232,6 @@ public class ReceiptMapper
                 }
             }
         }
-
         catch (SQLException e)
         {
             throw new DatabaseException(e.getMessage());

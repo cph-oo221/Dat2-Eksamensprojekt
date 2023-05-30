@@ -28,7 +28,6 @@ public class DeleteReceipt extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
     }
 
     @Override
@@ -41,9 +40,7 @@ public class DeleteReceipt extends HttpServlet
 
         if(user.getRole().equalsIgnoreCase("Admin")) // delete receipt from admin panel
         {
-
             try
-
             {
                 Facade.deleteOrderByReceiptId(idReceipt, connectionPool);
                 Facade.deleteReceipt(idReceipt, connectionPool);
@@ -52,7 +49,6 @@ public class DeleteReceipt extends HttpServlet
 
                 List<User> usersList = Facade.getAllUsers(connectionPool);
                 request.setAttribute("usersList", usersList);
-
 
             }
             catch (DatabaseException e)

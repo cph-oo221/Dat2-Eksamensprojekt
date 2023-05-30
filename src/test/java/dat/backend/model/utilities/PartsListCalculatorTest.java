@@ -45,7 +45,8 @@ class PartsListCalculatorTest
                 USER = Env.USER;
                 PASSWORD = Env.PASSWORD;
                 TESTURL = Env.TESTURL;
-            } else
+            }
+            else
             {
                 throw new RuntimeException("Env class needed, but not found!");
             }
@@ -187,7 +188,6 @@ class PartsListCalculatorTest
     @Test
     void shedMethodTest()
     {
-        // FIXME: VÆRSGO SEB
         int shedLength = 300;
         double width = 600;
 
@@ -203,7 +203,6 @@ class PartsListCalculatorTest
             assertEquals(12, itemList.get(1).getAmount());
             assertEquals(4, itemList.get(2).getAmount());
         }
-
         catch (DatabaseException e)
         {
             fail(e.getMessage());
@@ -255,7 +254,6 @@ class PartsListCalculatorTest
             assertEquals(72, itemList.get(1).getAmount());
             assertEquals(mexpected, itemList.get(1).getMaterial());
         }
-
         catch (DatabaseException e)
         {
             fail(e.getMessage());

@@ -27,7 +27,6 @@ public class updatePrice extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
     }
 
     @Override
@@ -77,6 +76,5 @@ public class updatePrice extends HttpServlet
         {
             e.printStackTrace();
         }
-
     }
 }

@@ -28,7 +28,6 @@ class MetalCalculator
 
         List<OrderItem> output = new ArrayList<>();
 
-        //TODO færre kald til databasen via joins
         List<Metal> screws = Facade.getMetalByVariant("Skrue", connectionPool);
         List<Metal> rfitting = Facade.getMetalByVariant("Beslag Højre", connectionPool);
         List<Metal> lfitting = Facade.getMetalByVariant("Beslag Venstre", connectionPool);
@@ -113,7 +112,7 @@ class MetalCalculator
      * @return an orderItem of the metal needed for the stern
      * @see Facade#getMetalByVariant(String, ConnectionPool) for the mapper method
      */
-    static OrderItem getSternMetal(OrderItem rafters , ConnectionPool connectionPool) throws DatabaseException
+    static OrderItem getSternMetal(OrderItem rafters, ConnectionPool connectionPool) throws DatabaseException
     {
         List<Metal> screws = Facade.getMetalByVariant("Skrue",connectionPool);
         Metal screw = null;
@@ -140,7 +139,6 @@ class MetalCalculator
      */
     static List<OrderItem> getPoleMetal(int amount, ConnectionPool connectionPool) throws DatabaseException
     {
-        //TODO færre kald til databasen via joins
         List<Metal> bolts = Facade.getMetalByVariant("Bræddebolt", connectionPool);
         List<Metal> discs = Facade.getMetalByVariant("Firkantskiver", connectionPool);
 

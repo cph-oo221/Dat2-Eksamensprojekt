@@ -22,7 +22,6 @@ public class Receipt
         this.comment = comment;
     }
 
-    //dummy
     public Receipt(int idReceipt, int idUser, OrderState orderstate)
     {
         this.idReceipt = idReceipt;
@@ -120,5 +119,4 @@ public class Receipt
                 ", orderState=" + orderState +
                 '}';
     }
-
 }
