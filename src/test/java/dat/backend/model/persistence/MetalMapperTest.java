@@ -88,8 +88,16 @@ class MetalMapperTest
                 stmt.execute("ALTER TABLE fog_test.metal DISABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.metal AUTO_INCREMENT = 1");
                 stmt.execute("INSERT INTO fog_test.metal (idmetal, name, price, unit, variant) VALUES " +
-                        "(1, '4,5x60 mm. skruer 200 stk.', 10, 'Pakke', 'Skruer')," +
-                        "(2, '5,6x80 mm. skruer 400 stk.', 60, 'Pakke', 'Skruer')");
+                        "(1, '100mm skruer', 2, 'Stk', 'Skrue')," +
+                        "(2, '50mm skruer', 1, 'Stk', 'Skrue')," +
+                        "(3,'Hulbånd' , 20 , 'Rulle', 'Hulbånd')," +
+                        "(4, 'Bræddebolt', 500 , 'Stk', 'Bræddebolt')," +
+                        "(5, 'Firkantskiver' , 20 , 'Stk', 'Firkantskiver')," +
+                        "(6, 'Stalddørsgreb' , 80, 'Sæt', 'Lås')," +
+                        "(7, 'T hængsel' , 50, 'Stk', 'Hængsel')," +
+                        "(8, 'Vinkelbeslag' , 23, 'Stk', 'Vinkelbeslag')," +
+                        "(9, 'Universalbeslag højre' ,15 , 'Stk' , 'Beslag Højre')," +
+                        "(10, 'Universalbeslag venstre' , 15 , 'Stk', 'Beslag Venstre');");
                 stmt.execute("ALTER TABLE fog_test.metal ENABLE KEYS");
             }
         }
@@ -102,42 +110,63 @@ class MetalMapperTest
 
 
     @Test
-    void getAllMetal() throws DatabaseException
+    void getAllMetal()
     {
-        assertEquals(2, Facade.getAllMetal(connectionPool).size());
+        try
+        {
+            assertEquals(10, Facade.getAllMetal(connectionPool).size());
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
     @Test
-    void updateMetalPrice() throws DatabaseException
+    void updateMetalPrice()
     {
         int expected = 80;
         int idMetal = 1;
-        Facade.updateMetalPrice(idMetal, 80, connectionPool);
-        assertEquals(expected, Facade.getAllMetal(connectionPool).get(0).getPrice());
+        try
+        {
+            Facade.updateMetalPrice(idMetal, 80, connectionPool);
+            assertEquals(expected, Facade.getAllMetal(connectionPool).get(0).getPrice());
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
     @Test
-    void deleteMetal() throws DatabaseException
+    void deleteMetal()
     {
-        int expected = 1;
-        Facade.deleteMetal(2, connectionPool);
-        assertEquals(expected, Facade.getAllMetal(connectionPool).size());
+        int expected = 9;
+        try
+        {
+            Facade.deleteMetal(2, connectionPool);
+            assertEquals(expected, Facade.getAllMetal(connectionPool).size());
+        }
+        catch (DatabaseException e)
+        {
+           fail(e.getMessage());
+        }
     }
 
     @Test
     void createMetal() throws DatabaseException
     {
-        int idMetal = 3;
-        String name = "2,4x60 mm. skruer 400 stk.";
-        int price = 100;
-        String unit = "Pakke";
-        String variant = "Skruer";
+        int idMetal = 11;
+        String name = "Bolt";
+        int price = 10;
+        String unit = "Stk";
+        String variant = "Bolt";
 
         Metal expectedMetal = new Metal(idMetal, name, price, unit, variant);
 
-        int expectedSize = 3;
+        int expectedSize = 11;
 
-        Metal actual = Facade.createMetal("2,4x60 mm. skruer 400 stk.", 100, "Pakke", "Skruer", connectionPool);
+        Metal actual = Facade.createMetal(name, price, unit, variant, connectionPool);
 
         assertEquals(expectedMetal, actual);
         assertEquals(expectedSize, Facade.getAllMetal(connectionPool).size());
@@ -147,17 +176,17 @@ class MetalMapperTest
     void getMetalById() throws DatabaseException
     {
         int idMetal = 1;
-        String name = "4,5x60 mm. skruer 200 stk.";
-        int price = 10;
-        String unit = "Pakke";
-        String variant = "Skruer";
+        String name = "100mm skruer";
+        int price = 2;
+        String unit = "Stk";
+        String variant = "Skrue";
 
         Metal expected = new Metal(idMetal, name, price, unit, variant);
 
         Facade.getMetalById(1, connectionPool);
 
         assertEquals(expected, Facade.getMetalById(1, connectionPool));
-        assertTrue(Facade.getMetalById(5, connectionPool) == null);
+        assertTrue(Facade.getMetalById(12, connectionPool) == null);
     }
 
     @Test
@@ -166,11 +195,11 @@ class MetalMapperTest
 
         // Price is less than zero
         assertThrows(DatabaseException.class, () -> Facade.createMetal("Test", -54, "stk",
-                "Spærtræ", connectionPool));
+                "Bolt", connectionPool));
 
         // Name is empty
         assertThrows(DatabaseException.class, () -> Facade.createMetal("", 54, "stk",
-                "Spærtræ", connectionPool));
+                "Bolt", connectionPool));
 
          // Variant is empty
         assertThrows(DatabaseException.class, () -> Facade.createMetal("Test1", 54, "stk",
