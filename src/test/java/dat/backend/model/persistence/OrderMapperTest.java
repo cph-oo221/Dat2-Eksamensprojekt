@@ -201,7 +201,7 @@ class OrderMapperTest
             int receiptId = Facade.createReceipt(1, width, length, comment, connectionPool);
             int rowsUpdated = Facade.createOrder(receiptId, orderItemList, connectionPool);
 
-            List<OrderItem> retrievedWoodOrder = Facade.getWoodOrderItemsByRecieptId(receiptId, connectionPool);
+            List<OrderItem> retrievedWoodOrder = Facade.getWoodOrderItemsByReceiptId(receiptId, connectionPool);
             List<OrderItem> retrievedMetalOrder = Facade.getMetalOrderItemsByReceiptId(receiptId, connectionPool);
 
             assertTrue(retrievedWoodOrder.size() > 0);

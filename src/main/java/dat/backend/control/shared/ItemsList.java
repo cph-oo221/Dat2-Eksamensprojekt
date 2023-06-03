@@ -37,7 +37,7 @@ public class ItemsList extends HttpServlet
         try
         {
             Receipt r = Facade.getReceiptById(idReceipt, connectionPool);
-            List<OrderItem> woodList = Facade.getWoodOrderItemsByRecieptId(idReceipt, connectionPool);
+            List<OrderItem> woodList = Facade.getWoodOrderItemsByReceiptId(idReceipt, connectionPool);
             List<OrderItem> metalList = Facade.getMetalOrderItemsByReceiptId(idReceipt, connectionPool);
 
 

@@ -33,7 +33,7 @@ public class Model3D
 /**
  * The final method of the class. Implements all the other methods
  * @throws DatabaseException
- * @see Facade#getWoodOrderItemsByRecieptId(int, ConnectionPool) for the mapper method
+ * @see Facade#getWoodOrderItemsByReceiptId(int, ConnectionPool) for the mapper method
  * @see #getRoofModel(List, double, double, JavaCSG)  for the method generating roofs
  * @see #getSternModel(List, double, double, JavaCSG)  for the method generating sterns
  * @see #getRafterModel(List, double, double, JavaCSG)  for the method generating rafters
@@ -48,7 +48,7 @@ public class Model3D
         lengthmm = receipt.getLength() * 10;
         widthmm = receipt.getWidth() * 10;
 
-        List<Wood> woodItems = getWoods(Facade.getWoodOrderItemsByRecieptId(receipt.getIdReceipt(), connectionPool));
+        List<Wood> woodItems = getWoods(Facade.getWoodOrderItemsByReceiptId(receipt.getIdReceipt(), connectionPool));
 
         boolean hasRoof = false;
 
@@ -92,7 +92,7 @@ public class Model3D
  * @param  csg- the model so far
  * @throws DatabaseException
  * @return the sterns as a Geometry3D object
- * @see Facade#getWoodOrderItemsByRecieptId(int, ConnectionPool)  for the mapper method
+ * @see Facade#getWoodOrderItemsByReceiptId(int, ConnectionPool)  for the mapper method
  * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
  * @see JavaCSG#translate3DY(double) for the method translating the box along the Y axis
  * @see JavaCSG#translate3DX(double) for the method translating the box along the X axis
@@ -131,7 +131,7 @@ public class Model3D
      * @param  csg- the model so far
      * @throws DatabaseException
      * @return the poles as a Geometry3D object
-     * @see Facade#getWoodOrderItemsByRecieptId(int, ConnectionPool)  for the mapper method
+     * @see Facade#getWoodOrderItemsByReceiptId(int, ConnectionPool)  for the mapper method
      * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
      * @see JavaCSG#translate3D(double, double, double) for the translation method
      * @see JavaCSG#union3D(Geometry3D...) for the method joining the models together
