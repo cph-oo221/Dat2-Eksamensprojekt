@@ -2,9 +2,9 @@ package dat.backend.model.entities;
 
 public class OrderItem
 {
-    protected int amount;
-    protected String desc;
-    protected Material item;
+    private int amount;
+    private String desc;
+    private Material item;
 
     public OrderItem(int amount, Material item, String desc)
     {
