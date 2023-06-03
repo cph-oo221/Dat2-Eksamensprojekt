@@ -35,10 +35,10 @@ public class Model3D
  * @throws DatabaseException
  * @see Facade#getWoodOrderItemsByRecieptId(int, ConnectionPool) for the mapper method
  * @see #getRoofModel(List, double, double, JavaCSG)  for the method generating roofs
- * @see #getSternModel(double, double, JavaCSG)  for the method generating sterns
+ * @see #getSternModel(List, double, double, JavaCSG)  for the method generating sterns
  * @see #getRafterModel(List, double, double, JavaCSG)  for the method generating rafters
  * @see #getRemModel(List, double, double, JavaCSG) for the method generating rems
- * @see #getPoleModel(double, double, JavaCSG) for the method generating poles
+ * @see #getPoleModel(List, double, double, JavaCSG) for the method generating poles
  * @see JavaCSG#view(Geometry3D) for the JavaCSG method creating views
  * @see JavaCSG#union3D(Geometry3D...) for the JavaCSG method putting models together
  */
@@ -67,13 +67,13 @@ public class Model3D
             roof = getRoofModel(woodItems, widthmm, lengthmm, csg);
         }
 
-        Geometry3D stern = getSternModel(widthmm, lengthmm, csg);
+        Geometry3D stern = getSternModel(woodItems, widthmm, lengthmm, csg);
 
         Geometry3D rafters = getRafterModel(woodItems, widthmm, lengthmm, csg);
 
         Geometry3D rems = getRemModel(woodItems, widthmm, lengthmm, csg);
 
-        Geometry3D poles = getPoleModel(widthmm, lengthmm, csg);
+        Geometry3D poles = getPoleModel(woodItems, widthmm, lengthmm, csg);
 
         if(hasRoof)
         {
@@ -99,21 +99,18 @@ public class Model3D
  *@see JavaCSG#union3D(Geometry3D...) for the method joining the models together
  */
 
-    private Geometry3D getSternModel(double widthmm, double lengthmm, JavaCSG csg) throws DatabaseException
+    private Geometry3D getSternModel(List<Wood> woodItems, double widthmm, double lengthmm, JavaCSG csg) throws DatabaseException
     {
-        List<OrderItem> orderItemList = Facade.getWoodOrderItemsByRecieptId(receipt.getIdReceipt(), connectionPool);
-        OrderItem sternItem = null;
+        Wood stern = null;
 
-        for (OrderItem oi: orderItemList)
+        for (Wood w: woodItems)
         {
-            if (oi.getMaterial().getVariant().equals("Stern"))
+            if (w.getVariant().equals("Stern"))
             {
-                sternItem = oi;
+                stern = w;
                 break;
             }
         }
-
-        Wood stern = (Wood) sternItem.getMaterial();
 
         Geometry3D modelW = csg.box3D(widthmm + (stern.getHeight() * 10) * 2, stern.getHeight() * 10, stern.getWidth() * 10, false);
         Geometry3D modelL = csg.box3D(stern.getHeight() * 10, lengthmm + stern.getHeight() * 10, stern.getWidth() * 10, false);
@@ -139,22 +136,18 @@ public class Model3D
      * @see JavaCSG#translate3D(double, double, double) for the translation method
      * @see JavaCSG#union3D(Geometry3D...) for the method joining the models together
      */
-    private Geometry3D getPoleModel(double widthmm, double lengthmm, JavaCSG csg) throws DatabaseException
+    private Geometry3D getPoleModel(List<Wood> woodItems, double widthmm, double lengthmm, JavaCSG csg) throws DatabaseException
     {
+        Wood wood = null;
 
-        List<OrderItem> orderItemList = Facade.getWoodOrderItemsByRecieptId(receipt.getIdReceipt(), connectionPool);
-        OrderItem poleItem = null;
-
-        for (OrderItem oi: orderItemList)
+        for (Wood w: woodItems)
         {
-            if (oi.getMaterial().getVariant().equals("Stolpe"))
+            if (w.getVariant().equals("Stolpe"))
             {
-                poleItem = oi;
+                wood = w;
                 break;
             }
         }
-
-        Wood wood = (Wood) poleItem.getMaterial();
 
         Geometry3D model = csg.box3D(wood.getWidth()*10, wood.getHeight()*10, wood.getLength() * 10 - 900, false);
 

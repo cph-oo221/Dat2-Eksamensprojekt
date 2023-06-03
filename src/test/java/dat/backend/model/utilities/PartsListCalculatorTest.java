@@ -114,9 +114,8 @@ class PartsListCalculatorTest
     @Test
     void materialCalcTest()
     {
-
-        int length = 10000;
-        int width = 1000;
+        int length = 10000; // 100m
+        int width = 1000; //10m
 
         try
         {
@@ -124,7 +123,7 @@ class PartsListCalculatorTest
 
             for (OrderItem item: orderItemList)
             {
-                // length for poles = length - CARPORT HANG
+                // poles amount ceiling = length - CARPORT HANG / 310
                 if (item.getMaterial().getVariant().equals("Stolpe"))
                 {
                     assertEquals(66, item.getAmount());

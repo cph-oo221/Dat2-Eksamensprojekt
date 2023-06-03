@@ -1,8 +1,10 @@
 package dat.backend.model.utilities;
 
 import dat.backend.model.config.Env;
+import dat.backend.model.entities.OrderItem;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
+import dat.backend.model.persistence.Facade;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -81,21 +84,19 @@ class Model3DTest
             try (Statement stmt = testConnection.createStatement())
             {
                 stmt.execute("use fog_test;");
+
                 stmt.execute("DELETE FROM ordermetal");
                 stmt.execute("DELETE FROM orderwood");
-                stmt.execute("DELETE FROM receipt");
                 stmt.execute("DELETE FROM wood");
-
+                stmt.execute("DELETE FROM receipt");
                 stmt.execute("ALTER TABLE fog_test.receipt DISABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.receipt AUTO_INCREMENT = 1");
                 stmt.execute("ALTER TABLE fog_test.wood DISABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.wood AUTO_INCREMENT = 1");
                 stmt.execute("ALTER TABLE fog_test.orderwood DISABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.orderwood AUTO_INCREMENT = 1");
-
-                stmt.execute("INSERT INTO receipt (idUser, width, length, comment) VALUES" +
-                        "(1, 600, 240, 'hej')," +
-                        "(2, 420, 240, 'hej1')");
+                stmt.execute("ALTER TABLE fog_test.ordermetal DISABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.ordermetal AUTO_INCREMENT = 1");
 
                 stmt.execute("INSERT INTO fog_test.wood VALUES " +
                         "(1, 410, 55, 20, 'Spærtræ', 'stk', 200, 'Rem')," +
@@ -107,20 +108,20 @@ class Model3DTest
                         "(8, 205, 40, 10, 'Brædt', 'stk', 150, 'Stern')," +
                         "(9, 410, 40, 10, 'Brædt', 'stk', 200, 'Stern')");
 
-                stmt.execute("INSERT INTO fog_test.orderwood VALUES" +
-                        "(1, 1, 6, 15, 'Tagplader skrues fast i spær')," +
-                        "(2, 1, 4, 8, 'Spærtræ til beklædning af skur i længden')," +
-                        "(3, 1, 4, 8, 'Spærtræ til beklædning af skur i bredden')," +
-                        "(4, 1, 3, 4, 'Stolper til skur')," +
-                        "(5, 1, 4, 8, 'Spær placers på tværs af bygningen på tværs af remme med ca 55 cm mellemrum')," +
-                        "(6, 1, 3, 6, 'Stolper graves 90 cm ned i jord')," +
-                        "(7, 1, 1, 4, 'Remme boltes fast på stolper langs længden af kontruktionen')," +
-                        "(8, 1, 9, 4, 'Sternbrædt placeres uden på tagkonstruktionen')," +
-                        "(9, 1, 8, 6, 'Sternbrædt placeres uden på tagkonstruktionen')");
-
                 stmt.execute("ALTER TABLE fog_test.receipt ENABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.wood ENABLE KEYS");
                 stmt.execute("ALTER TABLE fog_test.orderwood ENABLE KEYS");
+                stmt.execute("ALTER TABLE fog_test.ordermetal ENABLE KEYS");
+
+                int receiptId = Facade.createReceipt(1, 240, 600, "Testuser 1", connectionPool);
+
+                List<OrderItem> orderItemList = PartsListCalculator.materialCalc(240, 600, 0, true, connectionPool);
+
+                Facade.createOrder(receiptId, orderItemList, connectionPool);
+            }
+            catch (DatabaseException e)
+            {
+               fail(e.getMessage());
             }
         }
         catch (SQLException throwables)
@@ -131,11 +132,18 @@ class Model3DTest
     }
 
     @Test
-    void generate3D() throws DatabaseException
+    void generate3D()
     {
         int idReceipt = 1;
         Model3D model3D = new Model3D(idReceipt, connectionPool);
-        model3D.generate3D();
+        try
+        {
+            model3D.generate3D();
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
     }
 
     @Test
