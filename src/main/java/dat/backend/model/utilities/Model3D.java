@@ -33,14 +33,12 @@ public class Model3D
 /**
  * The final method of the class. Implements all the other methods
  * @throws DatabaseException
- * @see Facade#getWoodOrderItemsByReceiptId(int, ConnectionPool) for the mapper method
+ * @see Facade#getWoodOrderItemsByReceiptId(int, ConnectionPool)  for the Mapper method
  * @see #getRoofModel(List, double, double, JavaCSG)  for the method generating roofs
  * @see #getSternModel(List, double, double, JavaCSG)  for the method generating sterns
  * @see #getRafterModel(List, double, double, JavaCSG)  for the method generating rafters
  * @see #getRemModel(List, double, double, JavaCSG) for the method generating rems
  * @see #getPoleModel(List, double, double, JavaCSG) for the method generating poles
- * @see JavaCSG#view(Geometry3D) for the JavaCSG method creating views
- * @see JavaCSG#union3D(Geometry3D...) for the JavaCSG method putting models together
  */
     public void generate3D() throws DatabaseException
     {
@@ -92,11 +90,6 @@ public class Model3D
  * @param  csg- the model so far
  * @throws DatabaseException
  * @return the sterns as a Geometry3D object
- * @see Facade#getWoodOrderItemsByReceiptId(int, ConnectionPool)  for the mapper method
- * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
- * @see JavaCSG#translate3DY(double) for the method translating the box along the Y axis
- * @see JavaCSG#translate3DX(double) for the method translating the box along the X axis
- *@see JavaCSG#union3D(Geometry3D...) for the method joining the models together
  */
 
     private Geometry3D getSternModel(List<Wood> woodItems, double widthmm, double lengthmm, JavaCSG csg) throws DatabaseException
@@ -131,10 +124,6 @@ public class Model3D
      * @param  csg- the model so far
      * @throws DatabaseException
      * @return the poles as a Geometry3D object
-     * @see Facade#getWoodOrderItemsByReceiptId(int, ConnectionPool)  for the mapper method
-     * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
-     * @see JavaCSG#translate3D(double, double, double) for the translation method
-     * @see JavaCSG#union3D(Geometry3D...) for the method joining the models together
      */
     private Geometry3D getPoleModel(List<Wood> woodItems, double widthmm, double lengthmm, JavaCSG csg) throws DatabaseException
     {
@@ -196,9 +185,6 @@ public class Model3D
      * @param lengthmm- the length of the carport in mm
      * @param  csg- the model so far
      * @return the rems as a Geometry3D object
-     * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
-     * @see JavaCSG#translate3D(double, double, double) for the translation method
-     * @see JavaCSG#union3D(Geometry3D...) for the method joining the models together
      */
     private Geometry3D getRemModel(List<Wood> woodItems, double widthmm, double lengthmm, JavaCSG csg)
     {
@@ -231,9 +217,6 @@ public class Model3D
      * @param lengthmm- the length of the carport in mm
      * @param  csg- the model so far
      * @return the rafters as a Geometry3D object
-     * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
-     * @see JavaCSG#translate3D(double, double, double) for the translation method
-     * @see JavaCSG#union3D(Geometry3D...) for the method joining the models together
      */
     private Geometry3D getRafterModel(List<Wood> woodItems, double widthmm, double lengthmm, JavaCSG csg)
     {
@@ -289,7 +272,6 @@ public class Model3D
      * @param lengthmm- the length of the carport in mm
      * @param  csg- the model so far
      * @return the roof as a Geometry3D object
-     * @see JavaCSG#box3D(double, double, double, boolean) for the method generating a box
      */
     private Geometry3D getRoofModel(List<Wood> woods, double widthmm, double lengthmm, JavaCSG csg)
     {
