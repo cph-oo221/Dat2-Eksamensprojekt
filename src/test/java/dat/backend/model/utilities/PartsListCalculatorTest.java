@@ -112,6 +112,61 @@ class PartsListCalculatorTest
     }
 
     @Test
+    void materialCalcTest()
+    {
+
+        int length = 10000;
+        int width = 1000;
+
+        try
+        {
+            List<OrderItem> orderItemList = PartsListCalculator.materialCalc(length, width, 0, true, connectionPool);
+
+            for (OrderItem item: orderItemList)
+            {
+                // length for poles = length - CARPORT HANG
+                if (item.getMaterial().getVariant().equals("Stolpe"))
+                {
+                    assertEquals(66, item.getAmount());
+                }
+            }
+
+            for (OrderItem item: orderItemList)
+            {
+                // totalt area of carport = length * width / 10000
+                if (item.getMaterial().getVariant().equals("Tag"))
+                {
+                    assertEquals(1000, item.getAmount());
+                }
+            }
+
+            for (OrderItem item: orderItemList)
+            {
+                // amount floored = length / 55. If nothing fits in width: width = width / 2
+                if (item.getMaterial().getVariant().equals("Spær"))
+                {
+                    assertEquals(724, item.getAmount());
+                }
+            }
+
+            for (OrderItem item: orderItemList)
+            {
+                // amount = length / rem length, but depends on waste!
+                if (item.getMaterial().getVariant().equals("Rem"))
+                {
+                    assertEquals(98, item.getAmount());
+                }
+            }
+        }
+        catch (DatabaseException e)
+        {
+            fail(e.getMessage());
+        }
+
+
+    }
+
+    @Test
     void poleCalcTest()
     {
         int length = 780;
